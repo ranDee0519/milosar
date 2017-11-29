@@ -13,12 +13,120 @@
 
 void parse_options(int argc, char *argv[]);
 void help(void);
+void* record(void *arg); 
 
 Channel *A, *B;
 Synthesizer tx_synth, lo_synth;
 Configuration config;
 
 static void *cfg, *gen, *gpio;
+
+int main(int argc, char **argv)
+{
+	//initialise default values
+	tx_synth.number = 1;
+	lo_synth.number = 2;
+	tx_synth.param_file = false;
+	lo_synth.param_file = false;
+	config.storageDir = "/media/storage";
+	config.is_debug_mode = false;
+	
+	//parse command line options
+	parse_options(argc, argv);
+	
+	//load synth parameters from .ini files
+	load_parameters(&tx_synth);
+	load_parameters(&lo_synth);
+
+	
+	setpriority(PRIO_PROCESS, 0, -20);
+	
+	ASSERT(init_mem(), "Failed to open /dev/mem.");
+	ASSERT(init_prop(), "Failed to create properties file");
+	
+	ASSERT(create_map(SREG, MAP_SHARED, &cfg, CFG_BASE_ADDR), "Failed to allocate map for CFG register.");
+	ASSERT(create_map(SREG, MAP_SHARED, &gen, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
+	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
+	
+	uint32_t decimation = 0x00080000;
+	set_reg(cfg, decimation);
+	
+	//set dds phase increment
+	double freq_out = 1e6;
+	double phase_wth  = 30;
+	int phase_inc = (int)round(freq_out*pow(2.0, phase_wth)/DAC_RATE);	
+	set_reg(gen, phase_inc);
+	
+	//clear gpio pins
+	set_reg(gpio, 0);
+	
+	//set gpio pins
+	set_pin(gpio, DIO7_N, HIGH);	
+
+	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
+	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
+
+	pthread_create(&A->thread, NULL, record, (void *) A);
+	pthread_create(&B->thread, NULL, record, (void *) B);
+
+	write_prop_h("CFG REG", get_reg(cfg));
+	write_prop_h("GEN REG", get_reg(gen));
+
+	pthread_join(A->thread, NULL);
+	pthread_join(B->thread, NULL);
+ 
+    return 0;	
+}
+
+
+void parse_options(int argc, char *argv[])
+{
+	int opt;
+	int is_tx_synth = 0;
+	int is_lo_synth = 0;
+
+    while ((opt = getopt(argc, argv, "dib:t:l:rh")) != -1 )
+    {
+        switch (opt)
+        {
+            case 'd':
+                config.is_debug_mode = true;
+                break;
+            case 'r':
+                config.storageDir = "/tmp";
+                break;       
+            case 'i':
+                config.is_imu = true;
+                break;
+			case 'b':
+				tx_synth.param_file = optarg;
+				lo_synth.param_file = optarg;
+				is_tx_synth = 2;
+				break;
+			case 'l':
+				lo_synth.param_file = optarg;
+				is_lo_synth = 1;
+				break;
+			case 't':
+				tx_synth.param_file = optarg;
+				is_tx_synth = 1;
+				break;
+			case 'h':
+				help();
+				break;
+            case '?':
+				ASSERT(FAIL, "unknown command line option");
+        }        
+    }
+    
+    if (is_lo_synth + is_tx_synth != 2)
+    {
+		cprint("[!!] ", BRIGHT, RED);
+		printf("A .ini parameter file must be provided for each synthesizer.\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 
 void* record(void *arg) 
 {
@@ -75,98 +183,6 @@ void* record(void *arg)
     #endif
 
     return 0;
-}
- 
-int main(int argc, char **argv)
-{
-	//initialise default values
-	tx_synth.number = 1;
-	lo_synth.number = 2;
-	config.storageDir = "/media/storage";
-	config.is_debug_mode = false;
-	
-	//parse command line options
-	parse_options(argc, argv);
-	
-	//load synth parameters from .ini files
-	//load_parameters(&tx_synth);
-	//load_parameters(&lo_synth);
-
-	
-	setpriority(PRIO_PROCESS, 0, -20);
-	
-	ASSERT(init_mem(), "Failed to open /dev/mem.");
-	ASSERT(init_prop(), "Failed to create properties file");
-	
-	ASSERT(create_map(SREG, MAP_SHARED, &cfg, CFG_BASE_ADDR), "Failed to allocate map for CFG register.");
-	ASSERT(create_map(SREG, MAP_SHARED, &gen, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
-	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
-	
-	uint32_t decimation = 0x00080000;
-	set_reg(cfg, decimation);
-	
-	//set dds phase increment
-	double freq_out = 1e6;
-	double phase_wth  = 30;
-	int phase_inc = (int)round(freq_out*pow(2.0, phase_wth)/DAC_RATE);	
-	set_reg(gen, phase_inc);
-	
-	//clear gpio pins
-	set_reg(gpio, 0);
-	
-	//set gpio pins
-	set_pin(gpio, DIO7_N, HIGH);	
-
-	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
-	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
-
-	pthread_create(&A->thread, NULL, record, (void *) A);
-	pthread_create(&B->thread, NULL, record, (void *) B);
-
-	write_prop_h("CFG REG", get_reg(cfg));
-	write_prop_h("GEN REG", get_reg(gen));
-
-	pthread_join(A->thread, NULL);
-	pthread_join(B->thread, NULL);
- 
-    return 0;	
-}
-
-
-void parse_options(int argc, char *argv[])
-{
-	int opt;
-
-    while ((opt = getopt(argc, argv, "dib:t:l:rh")) != -1 )
-    {
-        switch (opt)
-        {
-            case 'd':
-                config.is_debug_mode = true;
-                break;
-            case 'r':
-                config.storageDir = "/tmp";
-                break;       
-            case 'i':
-                config.is_imu = true;
-                break;
-			case 'b':
-				tx_synth.param_file = optarg;
-				lo_synth.param_file = optarg;
-				break;
-			case 'l':
-				lo_synth.param_file = optarg;
-				break;
-			case 't':
-				tx_synth.param_file = optarg;
-				break;
-			case 'h':
-				help();
-				break;
-            case '?':
-				ASSERT(FAIL, "unknown command line option");
-        }
-    }
 }
 
 

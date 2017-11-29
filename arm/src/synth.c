@@ -10,7 +10,7 @@ void load_parameters(Synthesizer *synth)
 	for(int i = 0; i < MAX_RAMPS; i++)
 	{
 		synth->ramps[i].number = i;  
-		synth->ramps[i].bandwidth = 0; 
+		synth->ramps[i].bandwidth = 0;  
 		synth->ramps[i].next = 0;    
 		synth->ramps[i].trigger = 0;
 		synth->ramps[i].reset = 0;
