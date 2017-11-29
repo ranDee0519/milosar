@@ -1,7 +1,7 @@
 #include "synth.h"
 
 
-void load_parameters(Synthesizer *synth)
+void load_ramp_file(Synthesizer *synth)
 {
 	//ensure that the register array is cleared
 	memset(synth->registers, 0, sizeof(synth->registers));
@@ -125,16 +125,13 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 		}		
 	}	
 	if (config->is_debug_mode) printf("\n");
-}
-
-
-void generateBinValues(Synthesizer *synth)
-{
+	
+	//calculate the equivalent binary values
 	synth->binFractionalNumerator = (int*)malloc(24*sizeof(int));
 	memset(synth->binFractionalNumerator, 0, 24*sizeof(int));
 	decimalToBinary(synth->fractionalNumerator, synth->binFractionalNumerator);	
 	
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < MAX_RAMPS; i++)
 	{	
 		synth->ramps[i].binIncrement     = (int*)malloc(32*sizeof(int));
 		synth->ramps[i].binLength        = (int*)malloc(16*sizeof(int));	
@@ -173,7 +170,7 @@ void decimalToBinary(uint64_t decimalValue, int* binaryValue)
 }
 
 
-void readTemplateFile(const char* filename, Synthesizer *synth)
+void load_registers(const char* filename, Synthesizer *synth)
 {
 	FILE *templateFile;
 	char line[86][15];
@@ -204,27 +201,9 @@ void readTemplateFile(const char* filename, Synthesizer *synth)
 			decimalToBinary(decimalValue, synth->registers[85 - l]);					
 		}
 	}
-	//close file
+
 	fclose(templateFile);
-}
 
-
-void printRegisterValues(Synthesizer *synth)
-{	
-	for (int i = 141; i >= 0; i--)
-	{		
-		printf("R%03i : ", i);
-		printBinary(synth->registers[i], 8);	
-		printf("\n");
-	}	
-	printf("\n");
-}
-
-
-void insertRampParameters(Synthesizer *synth)
-{
-	
-	//======================================================================================
 	//for every ramp
 	for (int i = 7; i >= 0; i--)
 	{
@@ -233,79 +212,46 @@ void insertRampParameters(Synthesizer *synth)
 		{
 			synth->registers[92 + 7*i][j] = synth->ramps[i].binNextTrigReset[j];
 		}
-	}
-	//======================================================================================
-	
-	
-	
-	//======================================================================================
-	//for every ramp
-	for (int i = 7; i >= 0; i--)
-	{
+
 		//for every bit
 		for (int j = 15; j >= 8; j--)
 		{
 			synth->registers[91 + 7*i][j - 8] = synth->ramps[i].binLength[j];
 		}
-	}	
-	
-	//for every ramp
-	for (int i = 7; i >= 0; i--)
-	{
+
 		//for every bit
 		for (int j = 7; j >= 0; j--)
 		{
 			synth->registers[90 + 7*i][j] = synth->ramps[i].binLength[j];
 		}
-	}	
-	//======================================================================================
-	
-	
-	
-	//======================================================================================
-	//for every ramp
-	for (int i = 7; i >= 0; i--)
-	{
+		
 		//for every bit
 		for (int j = 31; j >= 24; j--)
 		{
 			synth->registers[89 + 7*i][j - 24] = synth->ramps[i].binIncrement[j];
 		}
-	}
-	
-	//for every ramp
-	for (int i = 7; i >= 0; i--)
-	{
+		
 		//for every bit
 		for (int j = 23; j >= 16; j--)
 		{
 			synth->registers[88 + 7*i][j - 16] = synth->ramps[i].binIncrement[j];
-		}
-	}
-	
-	//for every ramp
-	for (int i = 7; i >= 0; i--)
-	{
+		}		
+		
 		//for every bit
 		for (int j = 15; j >= 8; j--)
 		{
 			synth->registers[87 + 7*i][j - 8] = synth->ramps[i].binIncrement[j];
 		}
-	}
-	
-	//for every ramp
-	for (int i = 7; i >= 0; i--)
-	{
+		
 		//for every bit
 		for (int j = 7; j >= 0; j--)
 		{
 			synth->registers[86 + 7*i][j] = synth->ramps[i].binIncrement[j];
 		}
+		
+		
 	}
-	//======================================================================================	
 	
-	
-	//======================================================================================		
 	//for every bit
 	for (int j = 23; j >= 16; j--)
 	{
@@ -323,8 +269,8 @@ void insertRampParameters(Synthesizer *synth)
 	{
 		synth->registers[19][j] = synth->binFractionalNumerator[j];
 	}
-	//======================================================================================	
 }
+
 
 
 void init_pins(Synthesizer *synth)
@@ -348,7 +294,7 @@ void init_pins(Synthesizer *synth)
 }
 
 
-void setRegister(Synthesizer *synth, int registerAddress, int registerValue)
+void set_register(Synthesizer *synth, int registerAddress, int registerValue)
 {
 	/*int binAddress[16];
 	int binRegister[8];

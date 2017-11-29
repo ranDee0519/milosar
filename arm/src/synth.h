@@ -61,14 +61,9 @@ typedef struct
 
 int handler(void* user, const char* section, const char* name, const char* value);
 
-void load_parameters(Synthesizer *synth);
+void load_ramp_file(Synthesizer *synth);
 void calc_parameters(Synthesizer *synth, Configuration *config);
-
-void generateBinValues(Synthesizer *synth);
-
-void readTemplateFile(const char* filename, Synthesizer *synth);
-void printRegisterValues(Synthesizer *synth);
-void insertRampParameters(Synthesizer *synth);
+void load_registers(const char* filename, Synthesizer *synth);
 
 void init_pins(Synthesizer *synth);
 void updateRegisters(Synthesizer *synth);
@@ -76,7 +71,7 @@ void triggerSynthesizers(Synthesizer *synthOne, Synthesizer *synthTwo);
 void parallelTrigger(Synthesizer *synthOne, Synthesizer *synthTwo);
 void configureVerbose(Configuration *config, Synthesizer *synthOne, Synthesizer *synthTwo);
 void generateClock(void);
-void setRegister(Synthesizer *synth, int registerAddress, int registerValue);
+void set_register(Synthesizer *synth, int registerAddress, int registerValue);
 
 void decimalToBinary(uint64_t decimalValue, int* binaryValue);
 void printBinary(int* binaryValue, int paddedSize);

@@ -34,12 +34,17 @@ int main(int argc, char **argv)
 	//parse command line options
 	parse_options(argc, argv);
 	
-	//load synth parameters from .ini files
-	load_parameters(&tx_synth);
-	load_parameters(&lo_synth);
+	//load synth ramp parameters from .ini files
+	load_ramp_file(&tx_synth);
+	load_ramp_file(&lo_synth);
 	
+	//calculate additional ramp parameters
 	calc_parameters(&tx_synth, &config);
-	calc_parameters(&lo_synth, &config);
+	calc_parameters(&lo_synth, &config);	
+	
+	//import register values from template file
+	load_registers("template/register_template.txt", &tx_synth);
+	load_registers("template/register_template.txt", &lo_synth);	
 	
 	setpriority(PRIO_PROCESS, 0, -20);
 	
