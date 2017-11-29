@@ -73,34 +73,34 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 		printf("| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\n");
 	}
 	
-	float phase_detector_frequency = 100.0; // after doubler and divider [Hz]
-	
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < MAX_RAMPS; i++)
 	{
-		if (synth->ramps[i].length > pow(2, 16) - 1)
+		//limit the maximum ramp length to prevent overflow
+		if (synth->ramps[i].length > MAX_RAMP_LENGTH)
 		{
 			cprint("[!!] ", BRIGHT, RED);
 			printf("Synth %i, ramp %i length set to maximum.\n", synth->number, i);
-			synth->ramps[i].length = (uint16_t)(pow(2, 16) - 1);			
+			synth->ramps[i].length = (uint16_t)MAX_RAMP_LENGTH;			
 		}
 		
-		//calculate RAMPx_INC = (bandwidth [Hz] * (2^24 - 1))/(phase detector frequency [MHz] * ramp_length)
+		//calculate increment = (bandwidth [Hz] * (2^24 - 1))/(phase detector frequency [MHz] * ramp_length)
 		if ((synth->ramps[i].length != 0) && (synth->ramps[i].increment == 0))
 		{
-			synth->ramps[i].increment = (synth->ramps[i].bandwidth*4*(pow(2, 24) - 1))/(phase_detector_frequency*synth->ramps[i].length*pow(10,6));			
+			synth->ramps[i].increment = (synth->ramps[i].bandwidth*4*FRAC_DENOMINATOR)/(PHASE_DETECTOR_FREQ*synth->ramps[i].length);			
 		}
 		
-		if (synth->ramps[i].increment > pow(2, 30) - 1)
+		//limit the maximum ramp increment to prevent overflow
+		if (synth->ramps[i].increment > MAX_INCREMENT)
 		{
 			cprint("[!!] ", BRIGHT, RED);
 			printf("Synth %i, ramp %i increment set to maximum.\n", synth->number, i);
-			synth->ramps[i].length = (uint16_t)(pow(2, 30) - 1);			
+			synth->ramps[i].length = (uint16_t)MAX_INCREMENT;			
 		}		
 		
-		//perform two's complement for negative values: 2^30 - value
+		//perform two's complement for negative values: 2^30 - value  
 		if (synth->ramps[i].increment < 0.0)
 		{
-			synth->ramps[i].increment = pow(2, 30) + synth->ramps[i].increment;
+			synth->ramps[i].increment = pow(2, 30) + synth->ramps[i].increment; //%TODO check this!
 		}		
 		
 		//set bit 31 if doubler key is true
@@ -109,13 +109,13 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 			synth->ramps[i].increment = (uint64_t)synth->ramps[i].increment | (uint64_t)pow(2, 31);	
 		}
 		
-		//scheme to generate for R92, R96, R103 etc.. 
-		synth->ramps[i].nextTriggerReset = 0;
+		//scheme to generate next-trigger-reset for R92, R96, R103 etc.. 
+		synth->ramps[i].ntr = 0;
 		
-		synth->ramps[i].nextTriggerReset += (synth->ramps[i].next << 5) & 0xFF;
-		synth->ramps[i].nextTriggerReset += (synth->ramps[i].trigger << 3) & 0xFF;
-		synth->ramps[i].nextTriggerReset += (synth->ramps[i].reset << 2) & 0xFF;
-		synth->ramps[i].nextTriggerReset += (synth->ramps[i].flag << 0) & 0xFF;
+		synth->ramps[i].ntr += (synth->ramps[i].next << 5) & 0xFF;
+		synth->ramps[i].ntr += (synth->ramps[i].trigger << 3) & 0xFF;
+		synth->ramps[i].ntr += (synth->ramps[i].reset << 2) & 0xFF;
+		synth->ramps[i].ntr += (synth->ramps[i].flag << 0) & 0xFF;
 		
 		if ((config->is_debug_mode) && (synth->ramps[i].next + synth->ramps[i].length + synth->ramps[i].increment + synth->ramps[i].reset != 0))
 		{
@@ -125,25 +125,6 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 		}		
 	}	
 	if (config->is_debug_mode) printf("\n");
-}
-
-
-void generateHexValues(Synthesizer *synth)
-{	
-	for (int i = 0; i < 8; i++)
-	{	
-		synth->ramps[i].hexIncrement     = (char*)malloc(8*sizeof(char));
-		synth->ramps[i].hexLength        = (char*)malloc(4*sizeof(char));	
-		synth->ramps[i].hexNextTrigReset = (char*)malloc(2*sizeof(char));
-		
-		memset(synth->ramps[i].hexIncrement, 0, 8*sizeof(char));
-		memset(synth->ramps[i].hexLength, 0, 4*sizeof(char));
-		memset(synth->ramps[i].hexNextTrigReset, 0, 2*sizeof(char));		
-		
-		sprintf(synth->ramps[i].hexIncrement, "%08X", (int)synth->ramps[i].increment);	
-		sprintf(synth->ramps[i].hexLength, "%04X", (int)synth->ramps[i].length);		
-		sprintf(synth->ramps[i].hexNextTrigReset, "%02X", (int)synth->ramps[i].nextTriggerReset);	
-	}	
 }
 
 
@@ -165,7 +146,7 @@ void generateBinValues(Synthesizer *synth)
 		
 		decimalToBinary(synth->ramps[i].increment, synth->ramps[i].binIncrement);
 		decimalToBinary(synth->ramps[i].length, synth->ramps[i].binLength);
-		decimalToBinary(synth->ramps[i].nextTriggerReset, synth->ramps[i].binNextTrigReset);	
+		decimalToBinary(synth->ramps[i].ntr, synth->ramps[i].binNextTrigReset);	
 	}
 }
 

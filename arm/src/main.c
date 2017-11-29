@@ -37,7 +37,9 @@ int main(int argc, char **argv)
 	//load synth parameters from .ini files
 	load_parameters(&tx_synth);
 	load_parameters(&lo_synth);
-
+	
+	calc_parameters(&tx_synth, &config);
+	calc_parameters(&lo_synth, &config);
 	
 	setpriority(PRIO_PROCESS, 0, -20);
 	

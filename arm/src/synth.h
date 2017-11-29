@@ -15,8 +15,12 @@
 #include "utils.h"
 #include "colour.h"
 
-#define MAX_RAMPS 8
-#define NUM_REGISTERS 142
+#define MAX_RAMPS 				8
+#define NUM_REGISTERS 			142
+#define PHASE_DETECTOR_FREQ 	100e6
+#define FRAC_DENOMINATOR 		(pow(2, 24) - 1)
+#define MAX_RAMP_LENGTH			(pow(2, 16) - 1)
+#define MAX_INCREMENT			(pow(2, 30) - 1)
 
 typedef struct 
 {
@@ -27,7 +31,8 @@ typedef struct
 	uint8_t flag;
 	uint8_t doubler;
 	
-	int nextTriggerReset;
+	// next-trigger-reset
+	int ntr;
 	
 	double bandwidth;	
 	double increment;
@@ -59,7 +64,6 @@ int handler(void* user, const char* section, const char* name, const char* value
 void load_parameters(Synthesizer *synth);
 void calc_parameters(Synthesizer *synth, Configuration *config);
 
-void generateHexValues(Synthesizer *synth);
 void generateBinValues(Synthesizer *synth);
 
 void readTemplateFile(const char* filename, Synthesizer *synth);
