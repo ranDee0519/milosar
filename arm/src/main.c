@@ -24,8 +24,8 @@ static void *cfg, *gen, *gpio;
 int main(int argc, char **argv)
 {
 	//initialise default values
-	tx_synth.number = 1;
-	lo_synth.number = 2;
+	tx_synth.number = 0;
+	lo_synth.number = 1;
 	tx_synth.param_file = false;
 	lo_synth.param_file = false;
 	config.storageDir = "/media/storage";
@@ -59,17 +59,22 @@ int main(int argc, char **argv)
 	set_reg(cfg, decimation);
 	
 	//set dds phase increment
-	double freq_out = 1e6;
+	double freq_out = 50e6;
 	double phase_wth  = 30;
 	int phase_inc = (int)round(freq_out*pow(2.0, phase_wth)/DAC_RATE);	
 	set_reg(gen, phase_inc);
 	
-	//clear gpio pins
-	set_reg(gpio, 0);
+	//set all gpio pins low
+	set_reg(gpio, LOW);
 	
-	//set gpio pins
-	set_pin(gpio, DIO7_N, HIGH);	
-
+	//init synth pins
+	init_pins(&tx_synth);
+	init_pins(&lo_synth);
+	
+	//software reset the synths
+	reset_synth(&tx_synth);
+	reset_synth(&lo_synth);
+	
 	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
 	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
 

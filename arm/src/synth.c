@@ -148,6 +148,11 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 }
 
 
+void reset_synth(Synthesizer *synth)
+{
+	set_register(synth, 2, 0b00000100);
+}
+
 void printBinary(int* binaryValue, int paddedSize)
 {
 	for (int i = paddedSize - 1; i >= 0; i--)
@@ -272,25 +277,12 @@ void load_registers(const char* filename, Synthesizer *synth)
 }
 
 
-
 void init_pins(Synthesizer *synth)
 {
-	/*int offset = 4*(synth->number - 1);
-
-	//Initialize pins
-	synth->latchPin = offset + 0 + RP_DIO0_N;
-	synth->dataPin  = offset + 1 + RP_DIO0_N;
-	synth->clockPin = offset + 2 + RP_DIO0_N;
-	synth->trigPin  = offset + 3 + RP_DIO0_N;
-
-	//Set directions of pins
-	rp_DpinSetDirection(synth->latchPin, RP_OUT);
-	rp_DpinSetDirection(synth->dataPin, RP_OUT);
-	rp_DpinSetDirection(synth->clockPin, RP_OUT);
-	rp_DpinSetDirection(synth->trigPin, RP_OUT);
-	
-	//Pull trigger pin low
-	rp_DpinSetState(synth->trigPin, RP_LOW);*/
+	synth->latch = (uint64_t)(1 << (0 + 4*synth->number));
+	synth->data  = (uint64_t)(1 << (1 + 4*synth->number));
+	synth->clock = (uint64_t)(1 << (2 + 4*synth->number));
+	synth->trig  = (uint64_t)(1 << (3 + 4*synth->number));
 }
 
 
@@ -386,9 +378,9 @@ void set_register(Synthesizer *synth, int registerAddress, int registerValue)
 }
 
 
-void updateRegisters(Synthesizer *synth)
+void config_synth(Synthesizer *synth)
 {
-	/*int startAddress = 141;
+/*	int startAddress = 141;
 	int binAddress[16];
 	memset(binAddress, 0, 16*sizeof(int));
 	decimalToBinary(startAddress, binAddress);

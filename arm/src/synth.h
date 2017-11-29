@@ -56,7 +56,7 @@ typedef struct
 	int   registers[NUM_REGISTERS][MAX_RAMPS];
 	char* param_file;
 	Ramp  ramps[MAX_RAMPS];
-	uint64_t latchPin, dataPin, clockPin, trigPin;
+	uint64_t latch, data, clock, trig;
 } Synthesizer;
 
 int handler(void* user, const char* section, const char* name, const char* value);
@@ -64,14 +64,16 @@ int handler(void* user, const char* section, const char* name, const char* value
 void load_ramp_file(Synthesizer *synth);
 void calc_parameters(Synthesizer *synth, Configuration *config);
 void load_registers(const char* filename, Synthesizer *synth);
-
+void reset_synth(Synthesizer *synth);
+void config_synth(Synthesizer *synth);
 void init_pins(Synthesizer *synth);
-void updateRegisters(Synthesizer *synth);
+void set_register(Synthesizer *synth, int registerAddress, int registerValue);
+
+
 void triggerSynthesizers(Synthesizer *synthOne, Synthesizer *synthTwo);
 void parallelTrigger(Synthesizer *synthOne, Synthesizer *synthTwo);
 void configureVerbose(Configuration *config, Synthesizer *synthOne, Synthesizer *synthTwo);
 void generateClock(void);
-void set_register(Synthesizer *synth, int registerAddress, int registerValue);
 
 void decimalToBinary(uint64_t decimalValue, int* binaryValue);
 void printBinary(int* binaryValue, int paddedSize);
