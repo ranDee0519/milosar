@@ -296,6 +296,8 @@ void set_register(Synthesizer *synth, int registerAddress, int registerValue)
 	
 	decimalToBinary(registerAddress, binAddress);	
 	decimalToBinary(registerValue, binRegister);
+ 
+	int addressFlag = 0;
 	
 	//Latch enable high
 	rp_DpinSetState(synth->latchPin, RP_HIGH);
@@ -346,7 +348,7 @@ void set_register(Synthesizer *synth, int registerAddress, int registerValue)
 	}			
 	
 	//Only do this the first loop iteration, set addressFlag
-	synth->addressFlag = 1;	
+	addressFlag = 1;	
 
 	//Write register data
 	for(int j = 7; j >= 0; j--)
@@ -378,101 +380,66 @@ void set_register(Synthesizer *synth, int registerAddress, int registerValue)
 }
 
 
-void config_synth(Synthesizer *synth)
+void flash_synth(void* gpio, Synthesizer *synth)
 {
-/*	int startAddress = 141;
-	int binAddress[16];
-	memset(binAddress, 0, 16*sizeof(int));
-	decimalToBinary(startAddress, binAddress);
+	int start_address[16];
+	memset(start_address, 0, 16*sizeof(int));
+	decimalToBinary((NUM_REGISTERS - 1), start_address);
 	
-	synth->addressFlag = 0;
+	int address_flag = false;
 	
-	for (int i = 141; i >= 0; i--)
+	for (int i = (NUM_REGISTERS - 1); i >= 0; i--)
 	{
-		if (synth->addressFlag == 0)
+		if (address_flag == false)
 		{
-			//Latch enable high
-			rp_DpinSetState(synth->latchPin, RP_HIGH);
+			set_pin(gpio, synth->latch, HIGH); 			//set latch high
 			usleep(1);
-
-			//Clock high
-			rp_DpinSetState(synth->clockPin, RP_HIGH);
+			set_pin(gpio, synth->clock, HIGH);			//set clock high
 			usleep(1);
-
-			//latch enable low
-			rp_DpinSetState(synth->latchPin, RP_LOW);
+			set_pin(gpio, synth->latch, LOW); 			//set latch low
 			usleep(1);
-
-			//data low
-			rp_DpinSetState(synth->dataPin, RP_LOW);
+			set_pin(gpio, synth->data, LOW); 			//set data low
 			usleep(1);
-
-			//clock setup time
-			usleep(1000); 
-
-			//clock high
-			rp_DpinSetState(synth->clockPin, RP_HIGH);
-			usleep(1);
-
-			//clock low
-			rp_DpinSetState(synth->clockPin,RP_LOW);
+			set_pin(gpio, synth->clock, LOW);			//set clock low
 			usleep(1);
 
 			for (int j = 15; j >= 0 ; j--)
 			{
-				//Assert address bits on data line
-				if (binAddress[j] == 1)
-				{
-					rp_DpinSetState(synth->dataPin, RP_HIGH);
-				}
+				if (start_address[j] == 1)
+					set_pin(gpio, synth->data, HIGH); 	//set data high
 				else
-				{
-					rp_DpinSetState(synth->dataPin, RP_LOW);
-				}
-				
-				//clock high
-				rp_DpinSetState(synth->clockPin, RP_HIGH);
+					set_pin(gpio, synth->data, LOW); 	//set data low
+					
+				usleep(1);	
+				set_pin(gpio, synth->clock, HIGH);		//set clock high
 				usleep(1);
-				
-				//clock low
-				rp_DpinSetState(synth->clockPin, RP_LOW);				
+				set_pin(gpio, synth->clock, LOW);		//set clock low		
 				usleep(1);
 			}			
 			
-			//Only do this the first loop iteration, set addressFlag
-			synth->addressFlag = 1;
+			//Only do this the first loop iteration, set address_flag
+			address_flag = true;
 		}
 
 		//Write register data
 		for(int j = 7; j >= 0; j--)
 		{
 			if (synth->registers[i][j] == 1)
-			{
-				rp_DpinSetState(synth->dataPin, RP_HIGH);
-				//rp_DpinSetState(RP_LED2, RP_HIGH);
-			}
+				set_pin(gpio, synth->data, HIGH); 		//set data high
 			else
-			{
-				rp_DpinSetState(synth->dataPin, RP_LOW);
-				//rp_DpinSetState(RP_LED2, RP_LOW);
-			}
+				set_pin(gpio, synth->data, LOW); 		//set data low
 			
-			//clock high
-			rp_DpinSetState(synth->clockPin, RP_HIGH);
+			usleep(1);	
+			set_pin(gpio, synth->clock, HIGH);			//set clock high
 			usleep(1);
-			
-			//clock low
-			rp_DpinSetState(synth->clockPin, RP_LOW);
+			set_pin(gpio, synth->clock, LOW);			//set clock low		
 			usleep(1);
 		}
 	}
 	
-	//Latch enable high
-	rp_DpinSetState(synth->latchPin, RP_HIGH);
+	set_pin(gpio, synth->latch, HIGH); 					//set latch high
 	usleep(1);
-
-	//data low
-	rp_DpinSetState(synth->dataPin, RP_LOW);*/
+	set_pin(gpio, synth->data, LOW); 					//set data low
 }
  
  
@@ -504,16 +471,6 @@ void parallelTrigger(Synthesizer *synthOne, Synthesizer *synthTwo)
 
 void configureVerbose(Configuration *config, Synthesizer *synthOne, Synthesizer *synthTwo)
 {
-	char userin;	
-
-	do
-	{  
-		cprint("[??] ", BRIGHT, BLUE);
-		printf("Ramps: ");	    
-	} while (((scanf("%d%c", &config->n_ramps, &userin)!=2 || userin!='\n') && clean_stdin()));
-	
-	config->outputSize = (16*config->n_ramps*(config->ns_ext_buffer + config->ns_ref_buffer))/(8*1e6);		
-
 	//read-write mode
 	system("rw\n");
 

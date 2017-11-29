@@ -14,6 +14,7 @@
 #include "ini.h"
 #include "utils.h"
 #include "colour.h"
+#include "reg.h"
 
 #define MAX_RAMPS 				8
 #define NUM_REGISTERS 			142
@@ -52,7 +53,6 @@ typedef struct
 	int   number;
 	uint32_t fractionalNumerator;
 	int*  binFractionalNumerator;
-	int   addressFlag;
 	int   registers[NUM_REGISTERS][MAX_RAMPS];
 	char* param_file;
 	Ramp  ramps[MAX_RAMPS];
@@ -65,7 +65,7 @@ void load_ramp_file(Synthesizer *synth);
 void calc_parameters(Synthesizer *synth, Configuration *config);
 void load_registers(const char* filename, Synthesizer *synth);
 void reset_synth(Synthesizer *synth);
-void config_synth(Synthesizer *synth);
+void flash_synth(void* gpio, Synthesizer *synth);
 void init_pins(Synthesizer *synth);
 void set_register(Synthesizer *synth, int registerAddress, int registerValue);
 

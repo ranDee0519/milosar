@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 	//set dds phase increment
 	double freq_out = 50e6;
 	double phase_wth  = 30;
-	int phase_inc = (int)round(freq_out*pow(2.0, phase_wth)/DAC_RATE);	
+	int phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
 	set_reg(gen, phase_inc);
 	
 	//set all gpio pins low
@@ -74,6 +74,13 @@ int main(int argc, char **argv)
 	//software reset the synths
 	reset_synth(&tx_synth);
 	reset_synth(&lo_synth);
+	
+	//write to the synth registers
+	flash_synth(gpio, &tx_synth);
+	flash_synth(gpio, &lo_synth);
+	
+	//get user input for final experiment settings
+	configureVerbose(&config, &tx_synth, &lo_synth);
 	
 	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
 	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
