@@ -82,6 +82,9 @@ int main(int argc, char **argv)
 	//get user input for final experiment settings
 	configureVerbose(&config, &tx_synth, &lo_synth);
 	
+	enable_ramping(&tx_synth);
+	enable_ramping(&lo_synth);
+	
 	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
 	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
 

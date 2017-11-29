@@ -153,6 +153,13 @@ void reset_synth(Synthesizer *synth)
 	set_register(synth, 2, 0b00000100);
 }
 
+
+void enable_ramping(Synthesizer *synth)
+{
+	set_register(synth, 58, 0b00100001); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
+}
+
+
 void printBinary(int* binaryValue, int paddedSize)
 {
 	for (int i = paddedSize - 1; i >= 0; i--)
