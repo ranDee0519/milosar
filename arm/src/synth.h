@@ -8,6 +8,12 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <time.h>
+#include <stdint.h>
+
+#include "constants.h"
+#include "ini.h"
+#include "utils.h"
+#include "colour.h"
 
 #define MAX_RAMPS 8
 #define NUM_REGISTERS 142
@@ -42,17 +48,17 @@ typedef struct
 	uint32_t fractionalNumerator;
 	int*  binFractionalNumerator;
 	int   addressFlag;
-	int   binaryRegisterArray[NUM_REGISTERS][MAX_RAMPS];
-	char* parameterFile;
+	int   registers[NUM_REGISTERS][MAX_RAMPS];
+	char* param_file;
 	Ramp  ramps[MAX_RAMPS];
 	uint64_t latchPin, dataPin, clockPin, trigPin;
 } Synthesizer;
 
+int handler(void* user, const char* section, const char* name, const char* value);
 
-void getParameters(Synthesizer *synth);
-int  handler(void* user, const char* section, const char* name, const char* value);
+void load_parameters(Synthesizer *synth);
+void calc_parameters(Synthesizer *synth, Configuration *config);
 
-void calculateRampParameters(Synthesizer *synth, Configuration *config);
 void generateHexValues(Synthesizer *synth);
 void generateBinValues(Synthesizer *synth);
 
@@ -60,10 +66,7 @@ void readTemplateFile(const char* filename, Synthesizer *synth);
 void printRegisterValues(Synthesizer *synth);
 void insertRampParameters(Synthesizer *synth);
 
-void initRP(void);
-void releaseRP(void);
-
-void initPins(Synthesizer *synth);
+void init_pins(Synthesizer *synth);
 void updateRegisters(Synthesizer *synth);
 void triggerSynthesizers(Synthesizer *synthOne, Synthesizer *synthTwo);
 void parallelTrigger(Synthesizer *synthOne, Synthesizer *synthTwo);

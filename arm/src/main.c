@@ -88,6 +88,11 @@ int main(int argc, char **argv)
 	//parse command line options
 	parse_options(argc, argv);
 	
+	//load synth parameters from .ini files
+	//load_parameters(&tx_synth);
+	//load_parameters(&lo_synth);
+
+	
 	setpriority(PRIO_PROCESS, 0, -20);
 	
 	ASSERT(init_mem(), "Failed to open /dev/mem.");
@@ -146,14 +151,14 @@ void parse_options(int argc, char *argv[])
                 config.is_imu = true;
                 break;
 			case 'b':
-				tx_synth.parameterFile = optarg;
-				lo_synth.parameterFile = optarg;
+				tx_synth.param_file = optarg;
+				lo_synth.param_file = optarg;
 				break;
 			case 'l':
-				lo_synth.parameterFile = optarg;
+				lo_synth.param_file = optarg;
 				break;
 			case 't':
-				tx_synth.parameterFile = optarg;
+				tx_synth.param_file = optarg;
 				break;
 			case 'h':
 				help();

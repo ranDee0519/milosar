@@ -1,16 +1,16 @@
 #include "synth.h"
 
-//load ramp parameters from ini files
-void getParameters(Synthesizer *synth)
+
+void load_parameters(Synthesizer *synth)
 {
 	//ensure that the register array is cleared
-	memset(synth->binaryRegisterArray, 0, sizeof(synth->binaryRegisterArray));
+	memset(synth->registers, 0, sizeof(synth->registers));
 	
 	//reset all ramp parameters
 	for(int i = 0; i < MAX_RAMPS; i++)
 	{
 		synth->ramps[i].number = i;  
-		synth->ramps[i].bandwidth = 0;  
+		synth->ramps[i].bandwidth = 0; 
 		synth->ramps[i].next = 0;    
 		synth->ramps[i].trigger = 0;
 		synth->ramps[i].reset = 0;
@@ -20,14 +20,14 @@ void getParameters(Synthesizer *synth)
 		synth->ramps[i].increment = 0;
 	}	
 	
-	char* filename = (char*)malloc(50*sizeof(char));
-	strcpy(filename, "ramps/");
-	strcat(filename, synth->parameterFile);	
+	char* dir = "ramps/";
+	char* path = (char*)malloc(strlen(dir) + strlen(synth->param_file));
+	strcpy(path, dir);
+	strcat(path, synth->param_file);	
 	
-	if (ini_parse(filename, handler, synth) < 0) 
+	if (ini_parse(path, handler, synth) < 0) 
 	{
-		cprint("[!!] ", BRIGHT, RED);
-		printf("Could not open %s. Check that the file name is correct.\n", filename);
+		ASSERT(FAIL, "Could not open .ini file.\n");
 		exit(EXIT_FAILURE);
     }   
 }
@@ -48,26 +48,26 @@ int handler(void* pointer, const char* section, const char* attribute, const cha
 	{
 		sprintf(rampSection, "ramp%i", i);
 
-		if (MATCH(rampSection, "length")) 			synth->ramps[i].length = atof(value); 
+		if (MATCH(rampSection, "length")) 			synth->ramps[i].length    = atof(value); 
 		else if (MATCH(rampSection, "bandwidth")) 	synth->ramps[i].bandwidth = atof(value);  
 		else if (MATCH(rampSection, "increment")) 	synth->ramps[i].increment = atof(value);
-		else if (MATCH(rampSection, "next")) 		synth->ramps[i].next = atoi(value);    
-		else if (MATCH(rampSection, "trigger")) 	synth->ramps[i].trigger = atoi(value);
-		else if (MATCH(rampSection, "reset")) 		synth->ramps[i].reset = atoi(value);
-		else if (MATCH(rampSection, "flag")) 		synth->ramps[i].flag = atoi(value);	
-		else if (MATCH(rampSection, "doubler")) 	synth->ramps[i].doubler = atoi(value);	
+		else if (MATCH(rampSection, "next")) 		synth->ramps[i].next      = atoi(value);    
+		else if (MATCH(rampSection, "trigger")) 	synth->ramps[i].trigger   = atoi(value);
+		else if (MATCH(rampSection, "reset")) 		synth->ramps[i].reset     = atoi(value);
+		else if (MATCH(rampSection, "flag")) 		synth->ramps[i].flag      = atoi(value);	
+		else if (MATCH(rampSection, "doubler")) 	synth->ramps[i].doubler   = atoi(value);	
 	}	
 	
 	return 1;	
 }
 
 
-void calculateRampParameters(Synthesizer *synth, Experiment *experiment)
+void calc_parameters(Synthesizer *synth, Configuration *config)
 {	
-	if (experiment->is_debug_mode) 
+	if (config->is_debug_mode) 
 	{
 		cprint("\n[**] ", BRIGHT, CYAN);	
-		printf("Synthesizer %i loaded with %s:\n", synth->number, synth->parameterFile);
+		printf("Synthesizer %i loaded with %s:\n", synth->number, synth->param_file);
 		printf("Frequency Offset: %f [MHz]\n", vcoOut(synth->fractionalNumerator));
 		printf("Fractional Numerator: %d\n", synth->fractionalNumerator);		
 		printf("| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\n");
@@ -117,14 +117,14 @@ void calculateRampParameters(Synthesizer *synth, Experiment *experiment)
 		synth->ramps[i].nextTriggerReset += (synth->ramps[i].reset << 2) & 0xFF;
 		synth->ramps[i].nextTriggerReset += (synth->ramps[i].flag << 0) & 0xFF;
 		
-		if ((experiment->is_debug_mode) && (synth->ramps[i].next + synth->ramps[i].length + synth->ramps[i].increment + synth->ramps[i].reset != 0))
+		if ((config->is_debug_mode) && (synth->ramps[i].next + synth->ramps[i].length + synth->ramps[i].increment + synth->ramps[i].reset != 0))
 		{
 			printf("|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\n", 
 			synth->ramps[i].number, synth->ramps[i].next, synth->ramps[i].reset, synth->ramps[i].doubler, synth->ramps[i].length, 
 			synth->ramps[i].increment, bnwOut(synth->ramps[i].increment, synth->ramps[i].length));
 		}		
 	}	
-	if (experiment->is_debug_mode) printf("\n");
+	if (config->is_debug_mode) printf("\n");
 }
 
 
@@ -220,7 +220,7 @@ void readTemplateFile(const char* filename, Synthesizer *synth)
 			int decimalValue = strtoul(hexValue, NULL, 16);			
 			
 			//convert decimal to binary and store in register array
-			decimalToBinary(decimalValue, synth->binaryRegisterArray[85 - l]);					
+			decimalToBinary(decimalValue, synth->registers[85 - l]);					
 		}
 	}
 	//close file
@@ -233,7 +233,7 @@ void printRegisterValues(Synthesizer *synth)
 	for (int i = 141; i >= 0; i--)
 	{		
 		printf("R%03i : ", i);
-		printBinary(synth->binaryRegisterArray[i], 8);	
+		printBinary(synth->registers[i], 8);	
 		printf("\n");
 	}	
 	printf("\n");
@@ -250,7 +250,7 @@ void insertRampParameters(Synthesizer *synth)
 		//for every bit
 		for (int j = 7; j >= 0; j--)
 		{
-			synth->binaryRegisterArray[92 + 7*i][j] = synth->ramps[i].binNextTrigReset[j];
+			synth->registers[92 + 7*i][j] = synth->ramps[i].binNextTrigReset[j];
 		}
 	}
 	//======================================================================================
@@ -264,7 +264,7 @@ void insertRampParameters(Synthesizer *synth)
 		//for every bit
 		for (int j = 15; j >= 8; j--)
 		{
-			synth->binaryRegisterArray[91 + 7*i][j - 8] = synth->ramps[i].binLength[j];
+			synth->registers[91 + 7*i][j - 8] = synth->ramps[i].binLength[j];
 		}
 	}	
 	
@@ -274,7 +274,7 @@ void insertRampParameters(Synthesizer *synth)
 		//for every bit
 		for (int j = 7; j >= 0; j--)
 		{
-			synth->binaryRegisterArray[90 + 7*i][j] = synth->ramps[i].binLength[j];
+			synth->registers[90 + 7*i][j] = synth->ramps[i].binLength[j];
 		}
 	}	
 	//======================================================================================
@@ -288,7 +288,7 @@ void insertRampParameters(Synthesizer *synth)
 		//for every bit
 		for (int j = 31; j >= 24; j--)
 		{
-			synth->binaryRegisterArray[89 + 7*i][j - 24] = synth->ramps[i].binIncrement[j];
+			synth->registers[89 + 7*i][j - 24] = synth->ramps[i].binIncrement[j];
 		}
 	}
 	
@@ -298,7 +298,7 @@ void insertRampParameters(Synthesizer *synth)
 		//for every bit
 		for (int j = 23; j >= 16; j--)
 		{
-			synth->binaryRegisterArray[88 + 7*i][j - 16] = synth->ramps[i].binIncrement[j];
+			synth->registers[88 + 7*i][j - 16] = synth->ramps[i].binIncrement[j];
 		}
 	}
 	
@@ -308,7 +308,7 @@ void insertRampParameters(Synthesizer *synth)
 		//for every bit
 		for (int j = 15; j >= 8; j--)
 		{
-			synth->binaryRegisterArray[87 + 7*i][j - 8] = synth->ramps[i].binIncrement[j];
+			synth->registers[87 + 7*i][j - 8] = synth->ramps[i].binIncrement[j];
 		}
 	}
 	
@@ -318,7 +318,7 @@ void insertRampParameters(Synthesizer *synth)
 		//for every bit
 		for (int j = 7; j >= 0; j--)
 		{
-			synth->binaryRegisterArray[86 + 7*i][j] = synth->ramps[i].binIncrement[j];
+			synth->registers[86 + 7*i][j] = synth->ramps[i].binIncrement[j];
 		}
 	}
 	//======================================================================================	
@@ -328,34 +328,34 @@ void insertRampParameters(Synthesizer *synth)
 	//for every bit
 	for (int j = 23; j >= 16; j--)
 	{
-		synth->binaryRegisterArray[21][j - 16] = synth->binFractionalNumerator[j];
+		synth->registers[21][j - 16] = synth->binFractionalNumerator[j];
 	}
 	
 	//for every bit
 	for (int j = 15; j >= 8; j--)
 	{
-		synth->binaryRegisterArray[20][j - 8] = synth->binFractionalNumerator[j];
+		synth->registers[20][j - 8] = synth->binFractionalNumerator[j];
 	}
 	
 	//for every bit
 	for (int j = 7; j >= 0; j--)
 	{
-		synth->binaryRegisterArray[19][j] = synth->binFractionalNumerator[j];
+		synth->registers[19][j] = synth->binFractionalNumerator[j];
 	}
 	//======================================================================================	
 }
 
 
-void initPins(Synthesizer *synth)
+void init_pins(Synthesizer *synth)
 {
-	int offset = 4*(synth->number - 1);
-	
-	//Initialize pins	
+	/*int offset = 4*(synth->number - 1);
+
+	//Initialize pins
 	synth->latchPin = offset + 0 + RP_DIO0_N;
 	synth->dataPin  = offset + 1 + RP_DIO0_N;
 	synth->clockPin = offset + 2 + RP_DIO0_N;
 	synth->trigPin  = offset + 3 + RP_DIO0_N;
-	
+
 	//Set directions of pins
 	rp_DpinSetDirection(synth->latchPin, RP_OUT);
 	rp_DpinSetDirection(synth->dataPin, RP_OUT);
@@ -363,13 +363,13 @@ void initPins(Synthesizer *synth)
 	rp_DpinSetDirection(synth->trigPin, RP_OUT);
 	
 	//Pull trigger pin low
-	rp_DpinSetState(synth->trigPin, RP_LOW);
+	rp_DpinSetState(synth->trigPin, RP_LOW);*/
 }
 
 
 void setRegister(Synthesizer *synth, int registerAddress, int registerValue)
 {
-	int binAddress[16];
+	/*int binAddress[16];
 	int binRegister[8];
 	
 	memset(binAddress, 0, 16*sizeof(int));
@@ -455,13 +455,13 @@ void setRegister(Synthesizer *synth, int registerAddress, int registerValue)
 	usleep(1);
 
 	//data low
-	rp_DpinSetState(synth->dataPin, RP_LOW);	
+	rp_DpinSetState(synth->dataPin, RP_LOW);*/	
 }
 
 
 void updateRegisters(Synthesizer *synth)
 {
-	int startAddress = 141;
+	/*int startAddress = 141;
 	int binAddress[16];
 	memset(binAddress, 0, 16*sizeof(int));
 	decimalToBinary(startAddress, binAddress);
@@ -527,7 +527,7 @@ void updateRegisters(Synthesizer *synth)
 		//Write register data
 		for(int j = 7; j >= 0; j--)
 		{
-			if (synth->binaryRegisterArray[i][j] == 1)
+			if (synth->registers[i][j] == 1)
 			{
 				rp_DpinSetState(synth->dataPin, RP_HIGH);
 				//rp_DpinSetState(RP_LED2, RP_HIGH);
@@ -553,43 +553,23 @@ void updateRegisters(Synthesizer *synth)
 	usleep(1);
 
 	//data low
-	rp_DpinSetState(synth->dataPin, RP_LOW);
+	rp_DpinSetState(synth->dataPin, RP_LOW);*/
 }
  
  
-void initRP(void)
-{
-	// Initialization of API
-	if (rp_Init() != RP_OK) 
-	{
-		cprint("[!!] ", BRIGHT, RED);
-		printf("Red Pitaya API initialization failed!\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-
-void releaseRP(void)
-{
-	rp_GenOutDisable(RP_CH_1);
-	rp_Release();
-}
-
-
 void triggerSynthesizers(Synthesizer *synthOne, Synthesizer *synthTwo)
 {
-	//Trigger
-	rp_DpinSetState(synthOne->trigPin, RP_LOW);
+	/*rp_DpinSetState(synthOne->trigPin, RP_LOW);
 	rp_DpinSetState(synthTwo->trigPin, RP_LOW);	
 	usleep(1);	
 	rp_DpinSetState(synthTwo->trigPin, RP_HIGH);
-	rp_DpinSetState(synthOne->trigPin, RP_HIGH);
+	rp_DpinSetState(synthOne->trigPin, RP_HIGH);*/
 }
 
 
 void parallelTrigger(Synthesizer *synthOne, Synthesizer *synthTwo)
 {		
-	cprint("[??] ", BRIGHT, BLUE);
+	/*cprint("[??] ", BRIGHT, BLUE);
 	printf("Press enter to trigger...");
 	
 	//Dirty, but it works...
@@ -599,11 +579,11 @@ void parallelTrigger(Synthesizer *synthOne, Synthesizer *synthTwo)
 	//Rising edge required
 	setpins(synthOne->trigPin - RP_DIO0_N, 0, synthTwo->trigPin - RP_DIO0_N, 0, 0x4000001C);
 	usleep(1);
-	setpins(synthOne->trigPin - RP_DIO0_N, 1, synthTwo->trigPin - RP_DIO0_N, 1, 0x4000001C);
+	setpins(synthOne->trigPin - RP_DIO0_N, 1, synthTwo->trigPin - RP_DIO0_N, 1, 0x4000001C);*/
 }
 
 
-void configureVerbose(Experiment *experiment, Synthesizer *synthOne, Synthesizer *synthTwo)
+void configureVerbose(Configuration *config, Synthesizer *synthOne, Synthesizer *synthTwo)
 {
 	char userin;	
 
@@ -611,9 +591,9 @@ void configureVerbose(Experiment *experiment, Synthesizer *synthOne, Synthesizer
 	{  
 		cprint("[??] ", BRIGHT, BLUE);
 		printf("Ramps: ");	    
-	} while (((scanf("%d%c", &experiment->n_ramps, &userin)!=2 || userin!='\n') && clean_stdin()));
+	} while (((scanf("%d%c", &config->n_ramps, &userin)!=2 || userin!='\n') && clean_stdin()));
 	
-	experiment->outputSize = (16*experiment->n_ramps*(experiment->ns_ext_buffer + experiment->ns_ref_buffer))/(8*1e6);		
+	config->outputSize = (16*config->n_ramps*(config->ns_ext_buffer + config->ns_ref_buffer))/(8*1e6);		
 
 	//read-write mode
 	system("rw\n");
@@ -621,14 +601,14 @@ void configureVerbose(Experiment *experiment, Synthesizer *synthOne, Synthesizer
 	//create time-stamped folder
 	char syscmd[100];
 	char foldername[100];
-	experiment->timeStamp = (char*)malloc(20*sizeof(char));
+	config->timeStamp = (char*)malloc(20*sizeof(char));
 	
 	time_t rawtime = time(NULL);
 	struct tm tm = *localtime(&rawtime);
 	
-	sprintf(experiment->timeStamp, "%02d_%02d_%02d_%02d_%02d_%02d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900 - 2000, tm.tm_hour, tm.tm_min, tm.tm_sec);
-	sprintf(foldername, "%s/%s/", experiment->storageDir, experiment->timeStamp);
-	sprintf(syscmd, "mkdir %s/%s", experiment->storageDir, experiment->timeStamp);		
+	sprintf(config->timeStamp, "%02d_%02d_%02d_%02d_%02d_%02d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900 - 2000, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	sprintf(foldername, "%s/%s/", config->storageDir, config->timeStamp);
+	sprintf(syscmd, "mkdir %s/%s", config->storageDir, config->timeStamp);		
 	system(syscmd);
 	
 	char* ch1_out = (char*)malloc(100*sizeof(char));
@@ -647,13 +627,13 @@ void configureVerbose(Experiment *experiment, Synthesizer *synthOne, Synthesizer
 	strcpy(summary, foldername);
 	strcat(summary, "summary.ini");	
 	
-	experiment->ch1_filename = ch1_out;
-	experiment->ch2_filename = ch2_out;
-	experiment->imu_filename = imu_out;
-	experiment->summary_filename = summary;
+	config->ch1_filename = ch1_out;
+	config->ch2_filename = ch2_out;
+	config->imu_filename = imu_out;
+	config->summary_filename = summary;
 	
 	FILE* summaryFile;
-	summaryFile = fopen(experiment->summary_filename, "w");
+	summaryFile = fopen(config->summary_filename, "w");
 	
 	//Check if file correctly opened
 	if (summaryFile == 0)
@@ -664,19 +644,18 @@ void configureVerbose(Experiment *experiment, Synthesizer *synthOne, Synthesizer
 	else
     {
 		//copy ini parameter files
-		sprintf(syscmd, "cp ramps/%s %s", synthOne->parameterFile, foldername);
+		sprintf(syscmd, "cp ramps/%s %s", synthOne->param_file, foldername);
 		system(syscmd);
 		
-		if (synthOne->parameterFile != synthTwo->parameterFile)
+		if (synthOne->param_file != synthTwo->param_file)
 		{
-			sprintf(syscmd, "cp ramps/%s %s", synthTwo->parameterFile, foldername); 
+			sprintf(syscmd, "cp ramps/%s %s", synthTwo->param_file, foldername); 
 			system(syscmd);
 		}
 		
 		//print summary file 
 		fprintf(summaryFile, "[overview]\r\n");
-		fprintf(summaryFile, "timestamp = %s\r\n", experiment->timeStamp);
-		fprintf(summaryFile, "rpc_version = %s\r\n", VERSION);
+		fprintf(summaryFile, "timestamp = %s\r\n", config->timeStamp);
 		
 		cprint("[??] ", BRIGHT, BLUE);
 		printf("Comment [140]: ");
@@ -686,10 +665,10 @@ void configureVerbose(Experiment *experiment, Synthesizer *synthOne, Synthesizer
 		fprintf(summaryFile, "comment = %s\r\n", userin);
 		
 		fprintf(summaryFile, "\n[dataset]\r\n");
-		fprintf(summaryFile, "storage_directory = %s\r\n", experiment->ch1_filename);
-		fprintf(summaryFile, "decimation_factor = %d\r\n", experiment->decFactor);
-		fprintf(summaryFile, "sampling_rate =  %.2f\r\n", 125e6/experiment->decFactor);
-		fprintf(summaryFile, "n_ramps = %i\r\n", experiment->n_ramps);			
+		fprintf(summaryFile, "storage_directory = %s\r\n", config->ch1_filename);
+		fprintf(summaryFile, "decimation_factor = %d\r\n", config->decFactor);
+		fprintf(summaryFile, "sampling_rate =  %.2f\r\n", 125e6/config->decFactor);
+		fprintf(summaryFile, "n_ramps = %i\r\n", config->n_ramps);			
 		
 		fprintf(summaryFile, "\n[synth_one]\r\n");
 		fprintf(summaryFile, "frequency_offset = %.3f\r\n", vcoOut(synthOne->fractionalNumerator));
@@ -728,14 +707,12 @@ void configureVerbose(Experiment *experiment, Synthesizer *synthOne, Synthesizer
 
 void generateClock(void)
 {
-	//system("generate 1 1 50000000 sine");
-	
-	rp_GenReset();
+	/*rp_GenReset();
 	rp_GenOutEnable(RP_CH_1);
 	rp_GenAmp(RP_CH_1, 1.0f);  	// 2*0.5  = 1 Vpp
 	rp_GenFreq(RP_CH_1, 50000000);
 	rp_GenWaveform(RP_CH_1, RP_WAVEFORM_SINE);
-	rp_GenMode(RP_CH_1, RP_GEN_MODE_CONTINUOUS);
+	rp_GenMode(RP_CH_1, RP_GEN_MODE_CONTINUOUS);*/
 }
 
 
