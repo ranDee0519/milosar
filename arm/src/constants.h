@@ -33,7 +33,8 @@ typedef int bool;
 #define true 1
 #define false 0
 
-typedef struct Channel_S {
+typedef struct Channel_S 
+{
 	void *dma;
 	void *sts;
 	uint32_t dma_base;
@@ -41,5 +42,27 @@ typedef struct Channel_S {
 	char letter[1];
 	pthread_t thread;
 } Channel;
+
+typedef struct
+{
+	int is_imu;							//is the IMU connected?
+	int is_debug_mode;					//is debug mode enabled
+	//int adc_channel;					//adc channel to record on
+	int decFactor; 						//adc decimation factor
+	int u_max_loop;		 				//maximum loop period in microseconds
+	int n_flags;						//number of flags detected
+	int n_corrupt;						//number of ramps which contain partly new and partly old data
+	int n_missed;						//number of flags missed 
+	int n_ramps;						//number of ramps to be recorded
+	char* storageDir; 					//path to storage directory
+	char* timeStamp;					//experiment timestamp
+	char* ch1_filename; 				//filename of output data including path
+	char* ch2_filename; 				//filename of output data including path
+	char* imu_filename; 				//filename of output data including path
+	char* summary_filename; 			//filename of summary file including path
+	double outputSize; 				//recoring size [MB]
+	uint32_t ns_ext_buffer;				//number of samples to capture from adc on external channel
+	uint32_t ns_ref_buffer;				//number of samples to capture from adc on reference channel
+} Configuration;
 
 #endif

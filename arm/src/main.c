@@ -9,8 +9,15 @@
 #include "reg.h"
 #include "utils.h"
 #include "constants.h"
+#include "synth.h"
+
+void parse_options(int argc, char *argv[]);
+void help(void);
 
 Channel *A, *B;
+Synthesizer tx_synth, lo_synth;
+Configuration config;
+
 static void *cfg, *gen, *gpio;
 
 void* record(void *arg) 
@@ -72,6 +79,15 @@ void* record(void *arg)
  
 int main(int argc, char **argv)
 {
+	//initialise default values
+	tx_synth.number = 1;
+	lo_synth.number = 2;
+	config.storageDir = "/media/storage";
+	config.is_debug_mode = false;
+	
+	//parse command line options
+	parse_options(argc, argv);
+	
 	setpriority(PRIO_PROCESS, 0, -20);
 	
 	ASSERT(init_mem(), "Failed to open /dev/mem.");
@@ -109,4 +125,53 @@ int main(int argc, char **argv)
 	pthread_join(B->thread, NULL);
  
     return 0;	
+}
+
+
+void parse_options(int argc, char *argv[])
+{
+	int opt;
+
+    while ((opt = getopt(argc, argv, "dib:t:l:rh")) != -1 )
+    {
+        switch (opt)
+        {
+            case 'd':
+                config.is_debug_mode = true;
+                break;
+            case 'r':
+                config.storageDir = "/tmp";
+                break;       
+            case 'i':
+                config.is_imu = true;
+                break;
+			case 'b':
+				tx_synth.parameterFile = optarg;
+				lo_synth.parameterFile = optarg;
+				break;
+			case 'l':
+				lo_synth.parameterFile = optarg;
+				break;
+			case 't':
+				tx_synth.parameterFile = optarg;
+				break;
+			case 'h':
+				help();
+				break;
+            case '?':
+				ASSERT(FAIL, "unknown command line option");
+        }
+    }
+}
+
+
+void help(void)
+{
+	printf(" -h: display this help screen\n");
+	printf(" -d: enable debug mode\n");
+	printf(" -i: enable imu mode\n");
+	printf(" -l: name of local oscillator (lo) synth parameter file\n");
+	printf(" -t: name of radio frequency (rf) synth parameter file\n");
+	printf(" -r: write output files to /tmp\n");
+	exit(EXIT_SUCCESS);	
 }
