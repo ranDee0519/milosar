@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date         : Tue Nov 28 16:06:18 2017
+| Date         : Wed Nov 29 11:53:58 2017
 | Host         : ubuntu running 64-bit Ubuntu 17.04
 | Command      : report_utilization -file system_wrapper_utilization_synth.rpt -pb system_wrapper_utilization_synth.pb
 | Design       : system_wrapper
@@ -161,9 +161,9 @@ Table of Contents
 | BIBUF      |  130 |                   IO |
 | CARRY4     |   76 |           CarryLogic |
 | FDSE       |   57 |         Flop & Latch |
+| OBUF       |   49 |                   IO |
 | SRLC32E    |   47 |   Distributed Memory |
-| OBUF       |   41 |                   IO |
-| IBUF       |   36 |                   IO |
+| IBUF       |   28 |                   IO |
 | ODDR       |   18 |                   IO |
 | OBUFDS     |    4 |                   IO |
 | BUFG       |    4 |                Clock |

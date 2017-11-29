@@ -199,6 +199,16 @@
           </spirit:wire>
         </spirit:port>
         <spirit:port>
+          <spirit:name>led_o</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+            <spirit:vector>
+              <spirit:left>7</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
           <spirit:name>adc_dat_a_i</spirit:name>
           <spirit:wire>
             <spirit:direction>in</spirit:direction>
@@ -222,60 +232,6 @@
           <spirit:name>adc_csn_o</spirit:name>
           <spirit:wire>
             <spirit:direction>out</spirit:direction>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
-          <spirit:name>dac_dat_o</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-            <spirit:vector>
-              <spirit:left>13</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
-          <spirit:name>dac_wrt_o</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
-          <spirit:name>dac_sel_o</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
-          <spirit:name>dac_rst_o</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
-          <spirit:name>dac_clk_o</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
-          <spirit:name>led_o</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-            <spirit:vector>
-              <spirit:left>7</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
-          <spirit:name>exp_n_tri_io</spirit:name>
-          <spirit:wire>
-            <spirit:direction>inout</spirit:direction>
-            <spirit:vector>
-              <spirit:left>7</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
           </spirit:wire>
         </spirit:port>
         <spirit:port>
@@ -328,6 +284,50 @@
           <spirit:name>adc_clk_n_i</spirit:name>
           <spirit:wire>
             <spirit:direction>in</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>dac_clk_o</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>dac_rst_o</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>dac_sel_o</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>dac_wrt_o</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>dac_dat_o</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+            <spirit:vector>
+              <spirit:left>13</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>exp_n_tri_io</spirit:name>
+          <spirit:wire>
+            <spirit:direction>inout</spirit:direction>
+            <spirit:vector>
+              <spirit:left>7</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
           </spirit:wire>
         </spirit:port>
       </spirit:ports>
@@ -397,7 +397,7 @@
         <spirit:activeInterface spirit:busRef="S_AXI" spirit:componentRef="signal_generator"/>
       </spirit:interconnection>
       <spirit:interconnection>
-        <spirit:name>processing_system_M04_AXI</spirit:name>
+        <spirit:name>S_AXI_2</spirit:name>
         <spirit:activeInterface spirit:busRef="S_AXI" spirit:componentRef="gpio_interface"/>
         <spirit:activeInterface spirit:busRef="M04_AXI" spirit:componentRef="processing_system"/>
       </spirit:interconnection>
@@ -495,7 +495,12 @@
       <spirit:adHocConnection>
         <spirit:name>Net</spirit:name>
         <spirit:externalPortReference spirit:portRef="exp_n_tri_io"/>
-        <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="exp_data"/>
+        <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="exp_data_n"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Net1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="exp_p_tri_io"/>
+        <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="exp_data_p"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -583,7 +588,17 @@
           </spirit:wire>
         </spirit:port>
         <spirit:port>
-          <spirit:name>exp_data</spirit:name>
+          <spirit:name>exp_data_n</spirit:name>
+          <spirit:wire>
+            <spirit:direction>inout</spirit:direction>
+            <spirit:vector>
+              <spirit:left>7</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>exp_data_p</spirit:name>
           <spirit:wire>
             <spirit:direction>inout</spirit:direction>
             <spirit:vector>
@@ -629,6 +644,26 @@
           <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>exp_interface_1</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="exp_interface" spirit:vendor="user.org" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_exp_interface_0_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">exp_interface</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>xlslice_1</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlslice_0_2</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DOUT_WIDTH">8</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_TO">8</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">15</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
     </spirit:componentInstances>
     <spirit:interconnections/>
     <spirit:adHocConnections>
@@ -636,6 +671,7 @@
         <spirit:name>axi_cfg_register_0_cfg_data</spirit:name>
         <spirit:internalPortReference spirit:componentRef="gpio_register" spirit:portRef="cfg_data"/>
         <spirit:internalPortReference spirit:componentRef="xlslice_0" spirit:portRef="Din"/>
+        <spirit:internalPortReference spirit:componentRef="xlslice_1" spirit:portRef="Din"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>xlslice_0_Dout</spirit:name>
@@ -654,8 +690,18 @@
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>Net</spirit:name>
-        <spirit:externalPortReference spirit:portRef="exp_data"/>
+        <spirit:externalPortReference spirit:portRef="exp_data_n"/>
         <spirit:internalPortReference spirit:componentRef="exp_interface_0" spirit:portRef="exp_data"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>xlslice_1_Dout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="xlslice_1" spirit:portRef="Dout"/>
+        <spirit:internalPortReference spirit:componentRef="exp_interface_1" spirit:portRef="data"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>Net1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="exp_data_p"/>
+        <spirit:internalPortReference spirit:componentRef="exp_interface_1" spirit:portRef="exp_data"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -1158,10 +1204,10 @@
       <spirit:adHocConnection>
         <spirit:name>xlconstant_0_dout</spirit:name>
         <spirit:externalPortReference spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="adc_streamer" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="adc_streamer" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>axis_red_pitaya_adc_0_adc_csn</spirit:name>
@@ -1987,14 +2033,14 @@
         <spirit:name>clk_sync_clk_out1</spirit:name>
         <spirit:externalPortReference spirit:portRef="slowest_sync_clk"/>
         <spirit:internalPortReference spirit:componentRef="sys_reset_controller" spirit:portRef="slowest_sync_clk"/>
+        <spirit:internalPortReference spirit:componentRef="ps_0" spirit:portRef="S_AXI_HP0_ACLK"/>
+        <spirit:internalPortReference spirit:componentRef="ps_0" spirit:portRef="S_AXI_HP1_ACLK"/>
+        <spirit:internalPortReference spirit:componentRef="ps_0" spirit:portRef="M_AXI_GP0_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps_axi_periph" spirit:portRef="ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps_axi_periph" spirit:portRef="S00_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps_axi_periph" spirit:portRef="M00_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps_axi_periph" spirit:portRef="M01_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps_axi_periph" spirit:portRef="M02_ACLK"/>
-        <spirit:internalPortReference spirit:componentRef="ps_0" spirit:portRef="S_AXI_HP0_ACLK"/>
-        <spirit:internalPortReference spirit:componentRef="ps_0" spirit:portRef="S_AXI_HP1_ACLK"/>
-        <spirit:internalPortReference spirit:componentRef="ps_0" spirit:portRef="M_AXI_GP0_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps_axi_periph" spirit:portRef="M03_ACLK"/>
         <spirit:internalPortReference spirit:componentRef="ps_axi_periph" spirit:portRef="M04_ACLK"/>
       </spirit:adHocConnection>
@@ -4192,7 +4238,7 @@
             <spirit:range>4K</spirit:range>
           </spirit:segment>
           <spirit:segment>
-            <spirit:name>SEG_axi_cfg_register_0_reg0</spirit:name>
+            <spirit:name>SEG_gpio_register_reg0</spirit:name>
             <spirit:displayName>/gpio_interface/gpio_register/s_axi/reg0</spirit:displayName>
             <spirit:addressOffset>0x40004000</spirit:addressOffset>
             <spirit:range>4K</spirit:range>

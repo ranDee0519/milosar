@@ -26,6 +26,9 @@
 #define OK 0
 #define FAIL -1
 
+#define HIGH 1
+#define LOW  0
+
 typedef int bool;
 #define true 1
 #define false 0

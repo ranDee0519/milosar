@@ -90,8 +90,11 @@ int main(int argc, char **argv)
 	int phase_inc = (int)round(freq_out*pow(2.0, phase_wth)/DAC_RATE);	
 	set_reg(gen, phase_inc);
 	
+	//clear gpio pins
+	set_reg(gpio, 0);
+	
 	//set gpio pins
-	set_reg(gpio, 0xAA);	
+	set_pin(gpio, DIO7_N, HIGH);	
 
 	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
 	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);

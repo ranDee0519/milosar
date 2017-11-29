@@ -3,10 +3,10 @@
 <!--The data in this file is primarily intended for consumption by Xilinx tools.
 The structure and the elements are likely to change over the next few releases.
 This means code written to parse this file will need to be revisited each subsequent release.-->
-<application name="pa" timeStamp="Wed Nov 29 10:16:05 2017">
+<application name="pa" timeStamp="Wed Nov 29 11:52:59 2017">
 <section name="Project Information" visible="false">
 <property name="ProjectID" value="a526011adf15448aad6dbf6ed2583d75" type="ProjectID"/>
-<property name="ProjectIteration" value="72" type="ProjectIteration"/>
+<property name="ProjectIteration" value="77" type="ProjectIteration"/>
 </section>
 <section name="PlanAhead Usage" visible="true">
 <item name="Project Data">
@@ -20,12 +20,12 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="AddSources" value="1" type="JavaHandler"/>
 <property name="ArchiveProject" value="5" type="JavaHandler"/>
 <property name="CloseProject" value="5" type="JavaHandler"/>
-<property name="CustomizeRSBBlock" value="234" type="JavaHandler"/>
+<property name="CustomizeRSBBlock" value="240" type="JavaHandler"/>
 <property name="DisconnectRSBPin" value="21" type="JavaHandler"/>
-<property name="EditCopy" value="4" type="JavaHandler"/>
-<property name="EditDelete" value="136" type="JavaHandler"/>
+<property name="EditCopy" value="6" type="JavaHandler"/>
+<property name="EditDelete" value="141" type="JavaHandler"/>
 <property name="EditInIPPackagerHandler" value="2" type="JavaHandler"/>
-<property name="EditPaste" value="3" type="JavaHandler"/>
+<property name="EditPaste" value="4" type="JavaHandler"/>
 <property name="EditProperties" value="1" type="JavaHandler"/>
 <property name="EditUndo" value="8" type="JavaHandler"/>
 <property name="ExpandCollapseRSBBlock" value="2" type="JavaHandler"/>
@@ -35,8 +35,8 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="OpenProject" value="12" type="JavaHandler"/>
 <property name="ProjectSettingsCmdHandler" value="3" type="JavaHandler"/>
 <property name="RecustomizeCore" value="3" type="JavaHandler"/>
-<property name="RegenerateRSBLayout" value="51" type="JavaHandler"/>
-<property name="RunBitgen" value="77" type="JavaHandler"/>
+<property name="RegenerateRSBLayout" value="56" type="JavaHandler"/>
+<property name="RunBitgen" value="82" type="JavaHandler"/>
 <property name="SaveProjectAs" value="6" type="JavaHandler"/>
 <property name="SaveRSBDesign" value="2" type="JavaHandler"/>
 <property name="ShowProductWebPage" value="1" type="JavaHandler"/>

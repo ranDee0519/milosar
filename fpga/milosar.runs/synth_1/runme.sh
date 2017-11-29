@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/darryn/Git/milosar-fpga/adc_writer_ram/adc_writer_ram.runs/synth_1'
+HD_PWD='/home/darryn/Git/milosar/fpga/milosar.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

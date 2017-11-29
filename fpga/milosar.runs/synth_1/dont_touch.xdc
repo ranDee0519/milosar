@@ -98,6 +98,12 @@ set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_
 # IP: bd/system/ip/system_axi_cfg_register_0_1/system_axi_cfg_register_0_1.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_axi_cfg_register_0_1 || ORIG_REF_NAME==system_axi_cfg_register_0_1}]
 
+# IP: bd/system/ip/system_exp_interface_0_1/system_exp_interface_0_1.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_exp_interface_0_1 || ORIG_REF_NAME==system_exp_interface_0_1}]
+
+# IP: bd/system/ip/system_xlslice_0_2/system_xlslice_0_2.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_0_2 || ORIG_REF_NAME==system_xlslice_0_2}]
+
 # IP: bd/system/ip/system_auto_pc_0/system_auto_pc_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_auto_pc_0 || ORIG_REF_NAME==system_auto_pc_0}]
 

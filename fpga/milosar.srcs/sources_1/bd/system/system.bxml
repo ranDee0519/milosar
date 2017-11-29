@@ -2,9 +2,9 @@
 <Root MajorVersion="0" MinorVersion="33">
   <CompositeFile CompositeFileTopName="system" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1511877917"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1511877917"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1511877917"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1511949178"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1511949178"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1511949178"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/system_ps_0_0/system_ps_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system/ps_0"/>
@@ -247,6 +247,22 @@
       </File>
       <File Name="ip/system_axi_cfg_register_0_1/system_axi_cfg_register_0_1.xci" Type="IP">
         <Instance HierarchyPath="gpio_interface/gpio_register"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_exp_interface_0_1/system_exp_interface_0_1.xci" Type="IP">
+        <Instance HierarchyPath="gpio_interface/exp_interface_1"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_xlslice_0_2/system_xlslice_0_2.xci" Type="IP">
+        <Instance HierarchyPath="gpio_interface/xlslice_1"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

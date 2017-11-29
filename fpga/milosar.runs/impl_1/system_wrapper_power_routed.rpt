@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date             : Tue Nov 28 16:07:00 2017
+| Date             : Wed Nov 29 11:54:40 2017
 | Host             : ubuntu running 64-bit Ubuntu 17.04
 | Command          : report_power -file system_wrapper_power_routed.rpt -pb system_wrapper_power_summary_routed.pb -rpx system_wrapper_power_routed.rpx
 | Design           : system_wrapper
@@ -30,9 +30,9 @@ Table of Contents
 ----------
 
 +--------------------------+-------+
-| Total On-Chip Power (W)  | 2.185 |
-| Dynamic (W)              | 2.040 |
-| Device Static (W)        | 0.145 |
+| Total On-Chip Power (W)  | 2.192 |
+| Dynamic (W)              | 2.047 |
+| Device Static (W)        | 0.146 |
 | Total Off-Chip Power (W) | 0.013 |
 | Effective TJA (C/W)      | 11.5  |
 | Max Ambient (C)          | 59.9  |
@@ -57,13 +57,13 @@ Table of Contents
 |   CARRY4                |    <0.001 |       60 |      4400 |            1.36 |
 |   LUT as Shift Register |    <0.001 |       49 |      6000 |            0.82 |
 |   Others                |     0.000 |      278 |       --- |             --- |
-| Signals                 |     0.006 |     2254 |       --- |             --- |
+| Signals                 |     0.006 |     2255 |       --- |             --- |
 | Block RAM               |     0.012 |        3 |        60 |            5.00 |
 | MMCM                    |     0.213 |        2 |         2 |          100.00 |
-| I/O                     |     0.500 |       79 |       100 |           79.00 |
+| I/O                     |     0.507 |       87 |       100 |           87.00 |
 | PS7                     |     1.282 |        1 |       --- |             --- |
-| Static Power            |     0.145 |          |           |                 |
-| Total                   |     2.172 |          |           |                 |
+| Static Power            |     0.146 |          |           |                 |
+| Total                   |     2.179 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -74,8 +74,8 @@ Table of Contents
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
 | Vccint    |       1.000 |     0.045 |       0.036 |      0.009 |
-| Vccaux    |       1.800 |     0.142 |       0.129 |      0.012 |
-| Vcco33    |       3.300 |     0.139 |       0.138 |      0.001 |
+| Vccaux    |       1.800 |     0.142 |       0.130 |      0.012 |
+| Vcco33    |       3.300 |     0.141 |       0.140 |      0.001 |
 | Vcco25    |       2.500 |     0.001 |       0.000 |      0.001 |
 | Vcco18    |       1.800 |     0.020 |       0.019 |      0.001 |
 | Vcco15    |       1.500 |     0.001 |       0.000 |      0.001 |
@@ -156,7 +156,7 @@ Table of Contents
 +---------------------------------------------------------------------+-----------+
 | Name                                                                | Power (W) |
 +---------------------------------------------------------------------+-----------+
-| system_wrapper                                                      |     2.027 |
+| system_wrapper                                                      |     2.034 |
 |   system_i                                                          |     1.560 |
 |     clocking_system                                                 |     0.107 |
 |       clk_wiz_0                                                     |     0.107 |
@@ -172,9 +172,11 @@ Table of Contents
 |           USE_OBUFDS.GEN_OBUFDS[1].OBUFDS_I                         |     0.025 |
 |     gpio_interface                                                  |    <0.001 |
 |       exp_interface_0                                               |     0.000 |
+|       exp_interface_1                                               |     0.000 |
 |       gpio_register                                                 |    <0.001 |
 |         inst                                                        |    <0.001 |
 |       xlslice_0                                                     |     0.000 |
+|       xlslice_1                                                     |     0.000 |
 |     processing_system                                               |     1.291 |
 |       ps_0                                                          |     1.283 |
 |         inst                                                        |     1.283 |
@@ -201,7 +203,7 @@ Table of Contents
 |                   cmd_translator_0                                  |    <0.001 |
 |                     incr_cmd_0                                      |    <0.001 |
 |                     wrap_cmd_0                                      |    <0.001 |
-|                 WR.b_channel_0                                      |     0.001 |
+|                 WR.b_channel_0                                      |    <0.001 |
 |                   bid_fifo_0                                        |    <0.001 |
 |                   bresp_fifo_0                                      |    <0.001 |
 |         xbar                                                        |    <0.001 |
@@ -257,7 +259,7 @@ Table of Contents
 |         U0                                                          |     0.009 |
 |           i_synth                                                   |     0.009 |
 |             i_dds                                                   |     0.009 |
-|               I_PHASEGEN.i_conventional_accum.i_accum               |     0.001 |
+|               I_PHASEGEN.i_conventional_accum.i_accum               |    <0.001 |
 |                 i_fabric.i_common.i_phase_acc                       |    <0.001 |
 |                 i_fabric.i_one_channel.i_accum                      |    <0.001 |
 |               I_SINCOS.i_std_rom.i_rom                              |     0.008 |

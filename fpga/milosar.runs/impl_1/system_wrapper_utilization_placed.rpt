@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date         : Tue Nov 28 16:06:46 2017
+| Date         : Wed Nov 29 11:54:26 2017
 | Host         : ubuntu running 64-bit Ubuntu 17.04
 | Command      : report_utilization -file system_wrapper_utilization_placed.rpt -pb system_wrapper_utilization_placed.pb
 | Design       : system_wrapper
@@ -69,9 +69,9 @@ Table of Contents
 +------------------------------------------+------+-------+-----------+-------+
 |                 Site Type                | Used | Fixed | Available | Util% |
 +------------------------------------------+------+-------+-----------+-------+
-| Slice                                    |  454 |     0 |      4400 | 10.32 |
-|   SLICEL                                 |  293 |     0 |           |       |
-|   SLICEM                                 |  161 |     0 |           |       |
+| Slice                                    |  451 |     0 |      4400 | 10.25 |
+|   SLICEL                                 |  279 |     0 |           |       |
+|   SLICEM                                 |  172 |     0 |           |       |
 | LUT as Logic                             |  932 |     0 |     17600 |  5.30 |
 |   using O5 output only                   |    0 |       |           |       |
 |   using O6 output only                   |  903 |       |           |       |
@@ -82,10 +82,10 @@ Table of Contents
 |     using O5 output only                 |    0 |       |           |       |
 |     using O6 output only                 |   49 |       |           |       |
 |     using O5 and O6                      |    0 |       |           |       |
-| LUT Flip Flop Pairs                      |  543 |     0 |     17600 |  3.09 |
+| LUT Flip Flop Pairs                      |  552 |     0 |     17600 |  3.14 |
 |   fully used LUT-FF pairs                |    0 |       |           |       |
-|   LUT-FF pairs with one unused LUT       |  535 |       |           |       |
-|   LUT-FF pairs with one unused Flip Flop |  459 |       |           |       |
+|   LUT-FF pairs with one unused LUT       |  544 |       |           |       |
+|   LUT-FF pairs with one unused Flip Flop |  473 |       |           |       |
 | Unique Control Sets                      |   62 |       |           |       |
 +------------------------------------------+------+-------+-----------+-------+
 * Note: Review the Control Sets Report for more information regarding control sets.
@@ -122,8 +122,8 @@ Table of Contents
 +-----------------------------+------+-------+-----------+--------+
 |          Site Type          | Used | Fixed | Available |  Util% |
 +-----------------------------+------+-------+-----------+--------+
-| Bonded IOB                  |   79 |    79 |       100 |  79.00 |
-|   IOB Master Pads           |   33 |       |           |        |
+| Bonded IOB                  |   87 |    87 |       100 |  87.00 |
+|   IOB Master Pads           |   41 |       |           |        |
 |   IOB Slave Pads            |   42 |       |           |        |
 |   IOB Flip Flops            |   28 |    28 |           |        |
 | Bonded IPADs                |    0 |     0 |         2 |   0.00 |
@@ -193,8 +193,8 @@ Table of Contents
 | LUT1       |  102 |                  LUT |
 | CARRY4     |   60 |           CarryLogic |
 | FDSE       |   57 |         Flop & Latch |
+| OBUF       |   49 |                   IO |
 | SRLC32E    |   47 |   Distributed Memory |
-| OBUF       |   41 |                   IO |
 | IBUF       |   28 |                   IO |
 | ODDR       |   18 |                   IO |
 | OBUFDS     |    4 |                   IO |

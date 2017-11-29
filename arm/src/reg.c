@@ -40,6 +40,16 @@ void set_decimation(void *cfg, uint8_t value){
     set_reg(cfg, current | (dec_value << (63 - 8 - 8 + 1)) );
 }
 
+void set_pin(void *gpio, uint64_t pin, int state)
+{
+	uint64_t current = get_reg(gpio);
+	
+	if (state == HIGH)
+		set_reg(gpio, current | pin);
+	else
+		set_reg(gpio, current & pin);
+}
+
 void set_frequency(void *gen, double freq_A, double freq_B){
     uint64_t current = get_reg(gen);
 
