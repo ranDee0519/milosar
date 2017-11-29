@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+<!--The data in this file is primarily intended for consumption by Xilinx tools.
+The structure and the elements are likely to change over the next few releases.
+This means code written to parse this file will need to be revisited each subsequent release.-->
+<application name="pa" timeStamp="Wed Nov 16 12:38:56 2016">
+<section name="Project Information" visible="false">
+<property name="ProjectID" value="df255046bb7c4d6a92d714930c16fb82" type="ProjectID"/>
+<property name="ProjectIteration" value="1" type="ProjectIteration"/>
+</section>
+<section name="PlanAhead Usage" visible="true">
+<item name="Project Data">
+<property name="SrcSetCount" value="1" type="SrcSetCount"/>
+<property name="ConstraintSetCount" value="1" type="ConstraintSetCount"/>
+<property name="DesignMode" value="RTL" type="DesignMode"/>
+<property name="SynthesisStrategy" value="Vivado Synthesis Defaults" type="SynthesisStrategy"/>
+<property name="ImplStrategy" value="Vivado Implementation Defaults" type="ImplStrategy"/>
+</item>
+<item name="Java Command Handlers">
+<property name="CloseProject" value="1" type="JavaHandler"/>
+<property name="CustomizeRSBBlock" value="1" type="JavaHandler"/>
+</item>
+<item name="Gui Resources Info">
+<property name="Arbiter Algorithm (ARB_ALGORITHM" value="3" type="GuiResourceData"/>
+<property name="Number of slave interfaces (NUM_SI" value="1" type="GuiResourceData"/>
+<property name="PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, AXI4-Stream Switch, 0, AXI4-Stream Switch, 0, false" value="1" type="GuiResourceData"/>
+<property name="PAResourceItoN.IdentificationContentPanel_VERSION, 1.0.5" value="1" type="GuiResourceData"/>
+<property name="PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, Identification, 0" value="1" type="GuiResourceData"/>
+<property name="PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, Review and Package, 7" value="1" type="GuiResourceData"/>
+<property name="PAResourceQtoS.ReviewContentPanel_PACKAGE_IP, Package IP" value="1" type="GuiResourceData"/>
+<property name="RDIResource.BaseDialog_CANCEL, Cancel" value="2" type="GuiResourceData"/>
+<property name="RDIResource.BaseDialog_OK, OK" value="1" type="GuiResourceData"/>
+<property name="Use control register routing (ROUTING_MODE" value="4" type="GuiResourceData"/>
+<property name="multiplexer_axi.v, 145, 129" value="1" type="GuiResourceData"/>
+<property name="multiplexer_axi.v, 459, 305" value="1" type="GuiResourceData"/>
+<property name="multiplexer_axi.v, 467, 196" value="1" type="GuiResourceData"/>
+<property name="multiplexer_axi.v, 469, 314" value="1" type="GuiResourceData"/>
+<property name="multiplexer_axi.v, 474, 344" value="1" type="GuiResourceData"/>
+<property name="multiplexer_axi.v, 489, 300" value="2" type="GuiResourceData"/>
+<property name="multiplexer_axi.v, 489, 300, false, false, false, false, true" value="1" type="GuiResourceData"/>
+<property name="multiplexer_axi.v, 520, 324" value="1" type="GuiResourceData"/>
+<property name="multiplexer_axi.v, 552, 337" value="1" type="GuiResourceData"/>
+</item>
+<item name="Other">
+<property name="GuiMode" value="20" type="GuiMode"/>
+<property name="BatchMode" value="0" type="BatchMode"/>
+<property name="TclMode" value="15" type="TclMode"/>
+</item>
+</section>
+</application>
+</document>

@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2016.2 (64-bit)
+# SW Build 1577090 on Thu Jun  2 16:32:35 MDT 2016
+# IP Build 1577682 on Fri Jun  3 12:00:54 MDT 2016
+# Start of session at: Sat Dec 10 12:47:27 2016
+# Process ID: 18093
+# Current directory: /home/tighe/Desktop/redmasters/FPGA_Xilinx/Cores/Barris/pri_trigger/pri_trigger.runs/synth_1
+# Command line: vivado -log pri_trigger.vds -mode batch -messageDb vivado.pb -notrace -source pri_trigger.tcl
+# Log file: /home/tighe/Desktop/redmasters/FPGA_Xilinx/Cores/Barris/pri_trigger/pri_trigger.runs/synth_1/pri_trigger.vds
+# Journal file: /home/tighe/Desktop/redmasters/FPGA_Xilinx/Cores/Barris/pri_trigger/pri_trigger.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source pri_trigger.tcl -notrace

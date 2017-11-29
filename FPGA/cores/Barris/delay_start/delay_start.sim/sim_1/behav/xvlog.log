@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/tighe/Desktop/redmasters/FPGA_Xilinx/Cores/Barris/delay_start/delay_start.srcs/sources_1/new/delay_start.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module delay_start
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/tighe/Desktop/redmasters/FPGA_Xilinx/Cores/Barris/delay_start/delay_start.sim/sim_1/behav/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl

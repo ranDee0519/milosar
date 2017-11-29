@@ -1,0 +1,1 @@
+-wto "e50db2201c2b4e8ca30c4e42239dbe3d" --debug "typical" --relax --mt "8" -L "xil_defaultlib" -L "unisims_ver" -L "unimacro_ver" -L "secureip" --snapshot "zero_flusher_behav" "xil_defaultlib.zero_flusher" "xil_defaultlib.glbl" -log "elaborate.log" 

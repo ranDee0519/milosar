@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/tighe/Desktop/redmasters/FPGA_Xilinx/Cores/Barris/zero_flusher/zero_flusher.srcs/sources_1/new/zero_flusher.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module zero_flusher
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/tighe/Desktop/redmasters/FPGA_Xilinx/Cores/Barris/zero_flusher/zero_flusher.sim/sim_1/behav/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl

@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/tighe/Desktop/redmasters/FPGA_Xilinx/Cores/Barris/Stop_Counter/Stop_Counter.srcs/sources_1/new/Stop_Counter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Stop_Counter
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/tighe/Desktop/redmasters/FPGA_Xilinx/Cores/Barris/Stop_Counter/Stop_Counter.sim/sim_1/behav/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl

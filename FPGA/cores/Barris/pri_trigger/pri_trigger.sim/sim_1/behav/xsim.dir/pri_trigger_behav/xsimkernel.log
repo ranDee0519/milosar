@@ -1,0 +1,7 @@
+Running: xsim.dir/pri_trigger_behav/xsimk -simmode gui -wdb pri_trigger_behav.wdb -simrunnum 0 -socket 32845
+Design successfully loaded
+Design Loading Memory Usage: 53056 KB (Peak: 53112 KB)
+Design Loading CPU Usage: 20 ms
+Simulation completed
+Simulation Memory Usage: 135772 KB (Peak: 200328 KB)
+Simulation CPU Usage: 50 ms
