@@ -49,7 +49,6 @@ int main(int argc, char **argv)
 	setpriority(PRIO_PROCESS, 0, -20);
 	
 	ASSERT(init_mem(), "Failed to open /dev/mem.");
-	ASSERT(init_prop(), "Failed to create properties file");
 	
 	ASSERT(create_map(SREG, MAP_SHARED, &cfg, CFG_BASE_ADDR), "Failed to allocate map for CFG register.");
 	ASSERT(create_map(SREG, MAP_SHARED, &gen, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
@@ -80,7 +79,7 @@ int main(int argc, char **argv)
 	flash_synth(gpio, &lo_synth);
 	
 	//get user input for final experiment settings
-	configureVerbose(&config, &tx_synth, &lo_synth);
+	config_experiment(&config, &tx_synth, &lo_synth);
 	
 	enable_ramping(gpio, &tx_synth, true);
 	enable_ramping(gpio, &lo_synth, true);
@@ -92,9 +91,6 @@ int main(int argc, char **argv)
 	pthread_create(&B->thread, NULL, record, (void *) B);
 	
 	trigger_synths(gpio, &tx_synth, &lo_synth);
-
-	write_prop_h("CFG REG", get_reg(cfg));
-	write_prop_h("GEN REG", get_reg(gen));
 
 	pthread_join(A->thread, NULL);
 	pthread_join(B->thread, NULL);
@@ -177,6 +173,7 @@ void* record(void *arg)
 	ASSERT(create_map( SREG, MAP_SHARED, &channel->sts, channel->sts_base ), "Failed to allocate map for STS register.");
 	ASSERT(create_map( S4MB, MAP_SHARED, &channel->dma, channel->dma_base ), "Failed to allocate map for DMA RAM.");
 
+	//clear ram
 	memset(channel->dma, 0x0, S4MB);
 
 	int position, limit, offset;

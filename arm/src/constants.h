@@ -54,12 +54,8 @@ typedef struct
 	char* dir_experiment; 				//path to storage directory
 	char* time_stamp;					//experiment timestamp
 	
-	char* ch1_filename; 				//filename of output data including path
-	char* ch2_filename; 				//filename of output data including path
-	char* imu_filename; 				//filename of output data including path
-	char* summary_filename; 			//filename of summary file including path
-
-
+	char* path_imu; 					//filename of output data including path
+	char* path_summary; 				//filename of summary file including path
 } Configuration;
 
 #endif

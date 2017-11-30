@@ -423,7 +423,7 @@ void trigger_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
 }
 
 
-void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer *lo_synth)
+void config_experiment(Configuration *config, Synthesizer *tx_synth, Synthesizer *lo_synth)
 {
 	//read-write mode
 	system("rw\n");
@@ -431,6 +431,8 @@ void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer 
 	//allocate memory 
 	config->time_stamp = (char*)malloc(20*sizeof(char));
 	config->dir_experiment = (char*)malloc(100*sizeof(char));
+	config->path_imu = (char*)malloc(100*sizeof(char));
+	config->path_summary = (char*)malloc(100*sizeof(char));
 	
 	//get the experiment time stamp
 	time_t timer = time(&timer);
@@ -440,27 +442,22 @@ void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer 
 	//set the experiment directory
 	sprintf(config->dir_experiment, "%s/%s/", config->dir_storage, config->time_stamp);
 	
+	//set the imu data file path
+	sprintf(config->path_imu, "%s%s", config->dir_experiment, "imu.bin");
+	
+	//set the summary file path
+	sprintf(config->path_summary, "%s%s", config->dir_experiment, "summary.ini");
+	
 	//make the experiment directory
 	char command[100];
 	sprintf(command, "mkdir %s/%s", config->dir_storage, config->time_stamp);		
 	system(command);
 	
-	char* imu_out = (char*)malloc(100*sizeof(char));
-	strcpy(imu_out, config->dir_experiment);
-	strcat(imu_out, "imu.bin");	
-	
-	char* summary = (char*)malloc(100*sizeof(char));
-	strcpy(summary, config->dir_experiment);
-	strcat(summary, "summary.ini");	
-	
-	config->imu_filename = imu_out;
-	config->summary_filename = summary;
-	
-	FILE* summaryFile;
-	summaryFile = fopen(config->summary_filename, "w");
+	FILE* f;
+	f = fopen(config->path_summary, "w");
 	
 	//Check if file correctly opened
-	if (summaryFile == 0)
+	if (f == 0)
     {
 		cprint("[!!] ", BRIGHT, RED);
 		printf("Could not open summary file. Ensure you have read-write access\n");
@@ -478,53 +475,52 @@ void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer 
 		}
 		
 		//print summary file 
-		fprintf(summaryFile, "[overview]\r\n");
-		fprintf(summaryFile, "timestamp = %s\r\n", config->time_stamp);
+		fprintf(f, "[overview]\r\n");
+		fprintf(f, "timestamp = %s\r\n", config->time_stamp);
 		
 		cprint("[??] ", BRIGHT, BLUE);
 		printf("Comment [140]: ");
 		char userin[140];
 		scanf("%[^\n]s", userin);
 		
-		fprintf(summaryFile, "comment = %s\r\n", userin);
+		fprintf(f, "comment = %s\r\n", userin);
 		
-		fprintf(summaryFile, "\n[dataset]\r\n");
-		fprintf(summaryFile, "storage_directory = %s\r\n", config->ch1_filename);
-		fprintf(summaryFile, "decimation_factor = %d\r\n", config->decimation);
-		fprintf(summaryFile, "sampling_rate =  %.2f\r\n", ADC_RATE/config->decimation);
+		fprintf(f, "\n[dataset]\r\n");
+		fprintf(f, "decimation_factor = %d\r\n", config->decimation);
+		fprintf(f, "sampling_rate =  %.2f\r\n", ADC_RATE/config->decimation);
 	
 		
-		fprintf(summaryFile, "\n[synth_one]\r\n");
-		fprintf(summaryFile, "frequency_offset = %.3f\r\n", vcoOut(tx_synth->fractionalNumerator));
-		fprintf(summaryFile, "fractional_numerator = %d\r\n", tx_synth->fractionalNumerator);		
-		fprintf(summaryFile, "| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\r\n");		
+		fprintf(f, "\n[synth_one]\r\n");
+		fprintf(f, "frequency_offset = %.3f\r\n", vcoOut(tx_synth->fractionalNumerator));
+		fprintf(f, "fractional_numerator = %d\r\n", tx_synth->fractionalNumerator);		
+		fprintf(f, "| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\r\n");		
 		
 		for (int k = 0; k < MAX_RAMPS; k++)
 		{
 			if ((tx_synth->ramps[k].next + tx_synth->ramps[k].length + tx_synth->ramps[k].increment + tx_synth->ramps[k].reset != 0))
 			{
-				fprintf(summaryFile, "|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\r\n", 
+				fprintf(f, "|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\r\n", 
 				tx_synth->ramps[k].number, tx_synth->ramps[k].next, tx_synth->ramps[k].reset, tx_synth->ramps[k].doubler, tx_synth->ramps[k].length, 
 				tx_synth->ramps[k].increment, bnwOut(tx_synth->ramps[k].increment, tx_synth->ramps[k].length));
 			}
 		}
 		
-		fprintf(summaryFile, "\n[synth_two]\r\n");
-		fprintf(summaryFile, "frequency_offset = %.3f\r\n", vcoOut(lo_synth->fractionalNumerator));
-		fprintf(summaryFile, "fractional_numerator = %d\r\n", lo_synth->fractionalNumerator);		
-		fprintf(summaryFile, "| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\r\n");
+		fprintf(f, "\n[synth_two]\r\n");
+		fprintf(f, "frequency_offset = %.3f\r\n", vcoOut(lo_synth->fractionalNumerator));
+		fprintf(f, "fractional_numerator = %d\r\n", lo_synth->fractionalNumerator);		
+		fprintf(f, "| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\r\n");
 		
-		for (int j = 0; j<8; j++)
+		for (int j = 0; j < MAX_RAMPS; j++)
 		{
 			if ((lo_synth->ramps[j].next + lo_synth->ramps[j].length + lo_synth->ramps[j].increment + lo_synth->ramps[j].reset != 0))
 			{
-				fprintf(summaryFile, "|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\r\n", 
+				fprintf(f, "|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\r\n", 
 				lo_synth->ramps[j].number, lo_synth->ramps[j].next, lo_synth->ramps[j].reset, lo_synth->ramps[j].doubler, lo_synth->ramps[j].length, 
 				lo_synth->ramps[j].increment, bnwOut(lo_synth->ramps[j].increment, lo_synth->ramps[j].length));	
 			}	
 		}      
 
-		fclose(summaryFile);
+		fclose(f);
 	}	
 }
 

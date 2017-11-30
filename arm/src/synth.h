@@ -70,7 +70,7 @@ void flash_synth(void* gpio, Synthesizer *synth);
 void init_pins(Synthesizer *synth);
 void set_register(void* gpio, Synthesizer *synth, int address, int value);
 void trigger_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth);
-void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer *lo_synth);
+void config_experiment(Configuration *config, Synthesizer *tx_synth, Synthesizer *lo_synth);
 void decimalToBinary(uint64_t decimalValue, int* binaryValue);
 
 
