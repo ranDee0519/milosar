@@ -2,8 +2,8 @@
 # Vivado v2016.2 (64-bit)
 # SW Build 1577090 on Thu Jun  2 16:32:35 MDT 2016
 # IP Build 1577682 on Fri Jun  3 12:00:54 MDT 2016
-# Start of session at: Wed Nov 29 11:52:59 2017
-# Process ID: 29496
+# Start of session at: Thu Nov 30 13:06:00 2017
+# Process ID: 4688
 # Current directory: /home/darryn/Git/milosar/fpga/milosar.runs/synth_1
 # Command line: vivado -log system_wrapper.vds -mode batch -messageDb vivado.pb -notrace -source system_wrapper.tcl
 # Log file: /home/darryn/Git/milosar/fpga/milosar.runs/synth_1/system_wrapper.vds
@@ -19,13 +19,13 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 29505 
+INFO: Helper process launched with PID 4694 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1078.223 ; gain = 193.152 ; free physical = 2978 ; free virtual = 25985
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1078.223 ; gain = 193.152 ; free physical = 1755 ; free virtual = 25042
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'system_wrapper' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system_wrapper.v:12]
-INFO: [Synth 8-638] synthesizing module 'system' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3189]
-INFO: [Synth 8-638] synthesizing module 'clocking_system_imp_7QV4LN' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:462]
+INFO: [Synth 8-638] synthesizing module 'system' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3203]
+INFO: [Synth 8-638] synthesizing module 'clocking_system_imp_7QV4LN' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:470]
 INFO: [Synth 8-638] synthesizing module 'system_clk_wiz_0_1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_clk_wiz_0_1/system_clk_wiz_0_1.v:70]
 INFO: [Synth 8-638] synthesizing module 'system_clk_wiz_0_1_clk_wiz' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_clk_wiz_0_1/system_clk_wiz_0_1_clk_wiz.v:68]
 INFO: [Synth 8-638] synthesizing module 'IBUF' [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:14145]
@@ -47,8 +47,8 @@ WARNING: [Synth 8-3848] Net BUFHCE_O in module/entity util_ds_buf does not have 
 WARNING: [Synth 8-3848] Net BUFG_GT_O in module/entity util_ds_buf does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/util_ds_buf_v2_1/hdl/vhdl/util_ds_buf.vhd:120]
 INFO: [Synth 8-256] done synthesizing module 'util_ds_buf' (6#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/util_ds_buf_v2_1/hdl/vhdl/util_ds_buf.vhd:125]
 INFO: [Synth 8-256] done synthesizing module 'system_util_ds_buf_0_1' (7#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_util_ds_buf_0_1/synth/system_util_ds_buf_0_1.vhd:67]
-INFO: [Synth 8-256] done synthesizing module 'clocking_system_imp_7QV4LN' (8#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:462]
-INFO: [Synth 8-638] synthesizing module 'daisy_chain_imp_1A80GWR' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:604]
+INFO: [Synth 8-256] done synthesizing module 'clocking_system_imp_7QV4LN' (8#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:470]
+INFO: [Synth 8-638] synthesizing module 'daisy_chain_imp_1A80GWR' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:605]
 INFO: [Synth 8-638] synthesizing module 'system_util_ds_buf_1_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_util_ds_buf_1_0/synth/system_util_ds_buf_1_0.vhd:67]
 INFO: [Synth 8-3491] module 'util_ds_buf' declared at '/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/util_ds_buf_v2_1/hdl/vhdl/util_ds_buf.vhd:71' bound to instance 'U0' of component 'util_ds_buf' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_util_ds_buf_1_0/synth/system_util_ds_buf_1_0.vhd:114]
 INFO: [Synth 8-638] synthesizing module 'util_ds_buf__parameterized1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/util_ds_buf_v2_1/hdl/vhdl/util_ds_buf.vhd:125]
@@ -73,168 +73,172 @@ WARNING: [Synth 8-3848] Net BUFHCE_O in module/entity util_ds_buf__parameterized
 WARNING: [Synth 8-3848] Net BUFG_GT_O in module/entity util_ds_buf__parameterized3 does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/util_ds_buf_v2_1/hdl/vhdl/util_ds_buf.vhd:120]
 INFO: [Synth 8-256] done synthesizing module 'util_ds_buf__parameterized3' (9#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/util_ds_buf_v2_1/hdl/vhdl/util_ds_buf.vhd:125]
 INFO: [Synth 8-256] done synthesizing module 'system_util_ds_buf_2_0' (10#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_util_ds_buf_2_0/synth/system_util_ds_buf_2_0.vhd:67]
-INFO: [Synth 8-256] done synthesizing module 'daisy_chain_imp_1A80GWR' (11#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:604]
-INFO: [Synth 8-638] synthesizing module 'gpio_interface_imp_1EU3LZ6' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:634]
+INFO: [Synth 8-256] done synthesizing module 'daisy_chain_imp_1A80GWR' (11#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:605]
+INFO: [Synth 8-638] synthesizing module 'gpio_interface_imp_1EU3LZ6' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:635]
+INFO: [Synth 8-638] synthesizing module 'system_xlslice_2_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_2_0/synth/system_xlslice_2_0.v:57]
+INFO: [Synth 8-638] synthesizing module 'xlslice' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
+INFO: [Synth 8-256] done synthesizing module 'xlslice' (12#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
+INFO: [Synth 8-256] done synthesizing module 'system_xlslice_2_0' (13#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_2_0/synth/system_xlslice_2_0.v:57]
 INFO: [Synth 8-638] synthesizing module 'system_exp_interface_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_exp_interface_0_0/synth/system_exp_interface_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'exp_interface' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/new/exp_interface.v:3]
-INFO: [Synth 8-256] done synthesizing module 'exp_interface' (12#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/new/exp_interface.v:3]
-INFO: [Synth 8-256] done synthesizing module 'system_exp_interface_0_0' (13#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_exp_interface_0_0/synth/system_exp_interface_0_0.v:56]
+INFO: [Synth 8-256] done synthesizing module 'exp_interface' (14#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/new/exp_interface.v:3]
+INFO: [Synth 8-256] done synthesizing module 'system_exp_interface_0_0' (15#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_exp_interface_0_0/synth/system_exp_interface_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'system_exp_interface_0_1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_exp_interface_0_1/synth/system_exp_interface_0_1.v:56]
-INFO: [Synth 8-256] done synthesizing module 'system_exp_interface_0_1' (14#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_exp_interface_0_1/synth/system_exp_interface_0_1.v:56]
+INFO: [Synth 8-256] done synthesizing module 'system_exp_interface_0_1' (16#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_exp_interface_0_1/synth/system_exp_interface_0_1.v:56]
 INFO: [Synth 8-638] synthesizing module 'system_axi_cfg_register_0_1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axi_cfg_register_0_1/synth/system_axi_cfg_register_0_1.v:56]
 INFO: [Synth 8-638] synthesizing module 'axi_cfg_register' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_cfg_register_v1_0/src/axi_cfg_register.v:4]
 INFO: [Synth 8-638] synthesizing module 'FDRE' [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:3965]
-INFO: [Synth 8-256] done synthesizing module 'FDRE' (15#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:3965]
-INFO: [Synth 8-256] done synthesizing module 'axi_cfg_register' (16#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_cfg_register_v1_0/src/axi_cfg_register.v:4]
-INFO: [Synth 8-256] done synthesizing module 'system_axi_cfg_register_0_1' (17#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axi_cfg_register_0_1/synth/system_axi_cfg_register_0_1.v:56]
+INFO: [Synth 8-256] done synthesizing module 'FDRE' (17#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:3965]
+INFO: [Synth 8-256] done synthesizing module 'axi_cfg_register' (18#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_cfg_register_v1_0/src/axi_cfg_register.v:4]
+INFO: [Synth 8-256] done synthesizing module 'system_axi_cfg_register_0_1' (19#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axi_cfg_register_0_1/synth/system_axi_cfg_register_0_1.v:56]
 INFO: [Synth 8-638] synthesizing module 'system_xlslice_0_1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_1/synth/system_xlslice_0_1.v:57]
-INFO: [Synth 8-638] synthesizing module 'xlslice' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
-INFO: [Synth 8-256] done synthesizing module 'xlslice' (18#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
-INFO: [Synth 8-256] done synthesizing module 'system_xlslice_0_1' (19#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_1/synth/system_xlslice_0_1.v:57]
-INFO: [Synth 8-638] synthesizing module 'system_xlslice_0_2' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_2/synth/system_xlslice_0_2.v:57]
 INFO: [Synth 8-638] synthesizing module 'xlslice__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
 INFO: [Synth 8-256] done synthesizing module 'xlslice__parameterized0' (19#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
-INFO: [Synth 8-256] done synthesizing module 'system_xlslice_0_2' (20#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_2/synth/system_xlslice_0_2.v:57]
-INFO: [Synth 8-256] done synthesizing module 'gpio_interface_imp_1EU3LZ6' (21#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:634]
-INFO: [Synth 8-638] synthesizing module 'processing_system_imp_W26YM1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1403]
+INFO: [Synth 8-256] done synthesizing module 'system_xlslice_0_1' (20#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_1/synth/system_xlslice_0_1.v:57]
+INFO: [Synth 8-638] synthesizing module 'system_xlslice_0_2' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_2/synth/system_xlslice_0_2.v:57]
+INFO: [Synth 8-638] synthesizing module 'xlslice__parameterized1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
+INFO: [Synth 8-256] done synthesizing module 'xlslice__parameterized1' (20#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
+INFO: [Synth 8-256] done synthesizing module 'system_xlslice_0_2' (21#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_2/synth/system_xlslice_0_2.v:57]
+INFO: [Synth 8-256] done synthesizing module 'gpio_interface_imp_1EU3LZ6' (22#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:635]
+INFO: [Synth 8-638] synthesizing module 'processing_system_imp_W26YM1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1411]
 INFO: [Synth 8-638] synthesizing module 'system_ps_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/synth/system_ps_0_0.v:59]
 INFO: [Synth 8-638] synthesizing module 'processing_system7_v5_5_processing_system7' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/hdl/verilog/processing_system7_v5_5_processing_system7.v:156]
 INFO: [Synth 8-5534] Detected attribute (* keep = "true" *) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/hdl/verilog/processing_system7_v5_5_processing_system7.v:1338]
 INFO: [Synth 8-5534] Detected attribute (* keep = "true" *) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/hdl/verilog/processing_system7_v5_5_processing_system7.v:1339]
 INFO: [Synth 8-638] synthesizing module 'BIBUF' [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:268]
-INFO: [Synth 8-256] done synthesizing module 'BIBUF' (22#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:268]
+INFO: [Synth 8-256] done synthesizing module 'BIBUF' (23#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:268]
 INFO: [Synth 8-638] synthesizing module 'PS7' [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:33164]
-INFO: [Synth 8-256] done synthesizing module 'PS7' (23#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:33164]
-INFO: [Synth 8-256] done synthesizing module 'processing_system7_v5_5_processing_system7' (24#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/hdl/verilog/processing_system7_v5_5_processing_system7.v:156]
+INFO: [Synth 8-256] done synthesizing module 'PS7' (24#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:33164]
+INFO: [Synth 8-256] done synthesizing module 'processing_system7_v5_5_processing_system7' (25#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/hdl/verilog/processing_system7_v5_5_processing_system7.v:156]
 WARNING: [Synth 8-350] instance 'inst' of module 'processing_system7_v5_5_processing_system7' requires 685 connections, but only 672 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/synth/system_ps_0_0.v:636]
-INFO: [Synth 8-256] done synthesizing module 'system_ps_0_0' (25#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/synth/system_ps_0_0.v:59]
-WARNING: [Synth 8-350] instance 'ps_0' of module 'system_ps_0_0' requires 174 connections, but only 133 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1977]
-INFO: [Synth 8-638] synthesizing module 'system_ps_0_axi_periph_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3728]
-INFO: [Synth 8-638] synthesizing module 'm00_couplers_imp_1GIFH4O' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:757]
-INFO: [Synth 8-256] done synthesizing module 'm00_couplers_imp_1GIFH4O' (26#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:757]
-INFO: [Synth 8-638] synthesizing module 'm01_couplers_imp_5BE6LL' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:889]
-INFO: [Synth 8-256] done synthesizing module 'm01_couplers_imp_5BE6LL' (27#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:889]
-INFO: [Synth 8-638] synthesizing module 'm02_couplers_imp_GC57VF' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1014]
-INFO: [Synth 8-256] done synthesizing module 'm02_couplers_imp_GC57VF' (28#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1014]
-INFO: [Synth 8-638] synthesizing module 'm03_couplers_imp_157OG3U' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1139]
-INFO: [Synth 8-256] done synthesizing module 'm03_couplers_imp_157OG3U' (29#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1139]
-INFO: [Synth 8-638] synthesizing module 'm04_couplers_imp_T97Z7J' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1271]
-INFO: [Synth 8-256] done synthesizing module 'm04_couplers_imp_T97Z7J' (30#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1271]
-INFO: [Synth 8-638] synthesizing module 's00_couplers_imp_12IK0DL' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2728]
+INFO: [Synth 8-256] done synthesizing module 'system_ps_0_0' (26#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/synth/system_ps_0_0.v:59]
+WARNING: [Synth 8-350] instance 'ps_0' of module 'system_ps_0_0' requires 174 connections, but only 133 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1985]
+INFO: [Synth 8-638] synthesizing module 'system_ps_0_axi_periph_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3746]
+INFO: [Synth 8-638] synthesizing module 'm00_couplers_imp_1GIFH4O' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:765]
+INFO: [Synth 8-256] done synthesizing module 'm00_couplers_imp_1GIFH4O' (27#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:765]
+INFO: [Synth 8-638] synthesizing module 'm01_couplers_imp_5BE6LL' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:897]
+INFO: [Synth 8-256] done synthesizing module 'm01_couplers_imp_5BE6LL' (28#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:897]
+INFO: [Synth 8-638] synthesizing module 'm02_couplers_imp_GC57VF' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1022]
+INFO: [Synth 8-256] done synthesizing module 'm02_couplers_imp_GC57VF' (29#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1022]
+INFO: [Synth 8-638] synthesizing module 'm03_couplers_imp_157OG3U' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1147]
+INFO: [Synth 8-256] done synthesizing module 'm03_couplers_imp_157OG3U' (30#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1147]
+INFO: [Synth 8-638] synthesizing module 'm04_couplers_imp_T97Z7J' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1279]
+INFO: [Synth 8-256] done synthesizing module 'm04_couplers_imp_T97Z7J' (31#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1279]
+INFO: [Synth 8-638] synthesizing module 's00_couplers_imp_12IK0DL' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2737]
 INFO: [Synth 8-638] synthesizing module 'system_auto_pc_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_auto_pc_0/synth/system_auto_pc_0.v:58]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_axi_protocol_converter' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_axi_protocol_converter.v:62]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s.v:39]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_aw_channel' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_aw_channel.v:5]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_cmd_translator' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_cmd_translator.v:17]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_incr_cmd' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_incr_cmd.v:11]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_incr_cmd' (31#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_incr_cmd.v:11]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_incr_cmd' (32#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_incr_cmd.v:11]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_wrap_cmd' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_wrap_cmd.v:11]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_wrap_cmd' (32#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_wrap_cmd.v:11]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_cmd_translator' (33#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_cmd_translator.v:17]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_wrap_cmd' (33#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_wrap_cmd.v:11]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_cmd_translator' (34#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_cmd_translator.v:17]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_wr_cmd_fsm' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_wr_cmd_fsm.v:10]
 INFO: [Synth 8-226] default block is never used [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_wr_cmd_fsm.v:64]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_wr_cmd_fsm' (34#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_wr_cmd_fsm.v:10]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_aw_channel' (35#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_aw_channel.v:5]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_wr_cmd_fsm' (35#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_wr_cmd_fsm.v:10]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_aw_channel' (36#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_aw_channel.v:5]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_b_channel' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_b_channel.v:10]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo' (36#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo' (37#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo__parameterized0' (36#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_b_channel' (37#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_b_channel.v:10]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo__parameterized0' (37#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_b_channel' (38#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_b_channel.v:10]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_ar_channel' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_ar_channel.v:5]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_rd_cmd_fsm' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_rd_cmd_fsm.v:10]
 INFO: [Synth 8-226] default block is never used [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_rd_cmd_fsm.v:72]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_rd_cmd_fsm' (38#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_rd_cmd_fsm.v:10]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_ar_channel' (39#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_ar_channel.v:5]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_rd_cmd_fsm' (39#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_rd_cmd_fsm.v:10]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_ar_channel' (40#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_ar_channel.v:5]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_r_channel' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_r_channel.v:21]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo__parameterized1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo__parameterized1' (39#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo__parameterized1' (40#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo__parameterized2' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo__parameterized2' (39#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_r_channel' (40#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_r_channel.v:21]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_simple_fifo__parameterized2' (40#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_simple_fifo.v:9]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s_r_channel' (41#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s_r_channel.v:21]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axi_register_slice' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axi_register_slice.v:64]
 INFO: [Synth 8-638] synthesizing module 'axi_infrastructure_v1_1_0_axi2vector' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_axi2vector.v:60]
-INFO: [Synth 8-256] done synthesizing module 'axi_infrastructure_v1_1_0_axi2vector' (41#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_axi2vector.v:60]
+INFO: [Synth 8-256] done synthesizing module 'axi_infrastructure_v1_1_0_axi2vector' (42#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_axi2vector.v:60]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice' (42#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice' (43#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized0' (42#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized0' (43#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized1' (42#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized1' (43#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized2' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized2' (42#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized2' (43#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'axi_infrastructure_v1_1_0_vector2axi' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_vector2axi.v:60]
-INFO: [Synth 8-256] done synthesizing module 'axi_infrastructure_v1_1_0_vector2axi' (43#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_vector2axi.v:60]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axi_register_slice' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axi_register_slice.v:64]
+INFO: [Synth 8-256] done synthesizing module 'axi_infrastructure_v1_1_0_vector2axi' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_vector2axi.v:60]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axi_register_slice' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axi_register_slice.v:64]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axi_register_slice__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axi_register_slice.v:64]
 INFO: [Synth 8-638] synthesizing module 'axi_infrastructure_v1_1_0_axi2vector__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_axi2vector.v:60]
-INFO: [Synth 8-256] done synthesizing module 'axi_infrastructure_v1_1_0_axi2vector__parameterized0' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_axi2vector.v:60]
+INFO: [Synth 8-256] done synthesizing module 'axi_infrastructure_v1_1_0_axi2vector__parameterized0' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_axi2vector.v:60]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized3' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized3' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized3' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized4' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized4' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized4' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized5' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized5' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized5' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized6' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized6' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized6' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized7' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized7' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized7' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'axi_infrastructure_v1_1_0_vector2axi__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_vector2axi.v:60]
-INFO: [Synth 8-256] done synthesizing module 'axi_infrastructure_v1_1_0_vector2axi__parameterized0' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_vector2axi.v:60]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axi_register_slice__parameterized0' (44#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axi_register_slice.v:64]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s.v:39]
-INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_axi_protocol_converter' (46#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_axi_protocol_converter.v:62]
-INFO: [Synth 8-256] done synthesizing module 'system_auto_pc_0' (47#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_auto_pc_0/synth/system_auto_pc_0.v:58]
-INFO: [Synth 8-256] done synthesizing module 's00_couplers_imp_12IK0DL' (48#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2728]
+INFO: [Synth 8-256] done synthesizing module 'axi_infrastructure_v1_1_0_vector2axi__parameterized0' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_infrastructure_v1_1/hdl/verilog/axi_infrastructure_v1_1_vector2axi.v:60]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axi_register_slice__parameterized0' (45#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axi_register_slice.v:64]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s' (46#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s.v:39]
+INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_axi_protocol_converter' (47#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_axi_protocol_converter.v:62]
+INFO: [Synth 8-256] done synthesizing module 'system_auto_pc_0' (48#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_auto_pc_0/synth/system_auto_pc_0.v:58]
+INFO: [Synth 8-256] done synthesizing module 's00_couplers_imp_12IK0DL' (49#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2737]
 INFO: [Synth 8-638] synthesizing module 'system_xbar_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xbar_0/synth/system_xbar_0.v:59]
 INFO: [Synth 8-638] synthesizing module 'axi_crossbar_v2_1_10_axi_crossbar' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_axi_crossbar.v:54]
 INFO: [Synth 8-638] synthesizing module 'axi_crossbar_v2_1_10_crossbar_sasd' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_crossbar_sasd.v:79]
 INFO: [Synth 8-638] synthesizing module 'axi_crossbar_v2_1_10_addr_decoder' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_addr_decoder.v:69]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_comparator_static' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_carry_and' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_carry_and.v:62]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_carry_and' (49#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_carry_and.v:62]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static' (50#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_carry_and' (50#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_carry_and.v:62]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static' (51#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized0' (50#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized0' (51#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized1' (50#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized1' (51#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized2' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized2' (50#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized2' (51#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized3' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized3' (50#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
-INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_addr_decoder' (51#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_addr_decoder.v:69]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_comparator_static__parameterized3' (51#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_comparator_static.v:61]
+INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_addr_decoder' (52#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_addr_decoder.v:69]
 INFO: [Synth 8-638] synthesizing module 'axi_crossbar_v2_1_10_decerr_slave' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_decerr_slave.v:64]
-INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_decerr_slave' (52#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_decerr_slave.v:64]
+INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_decerr_slave' (53#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_decerr_slave.v:64]
 INFO: [Synth 8-638] synthesizing module 'axi_crossbar_v2_1_10_addr_arbiter_sasd' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_addr_arbiter_sasd.v:65]
-INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_addr_arbiter_sasd' (53#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_addr_arbiter_sasd.v:65]
+INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_addr_arbiter_sasd' (54#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_addr_arbiter_sasd.v:65]
 INFO: [Synth 8-638] synthesizing module 'axi_crossbar_v2_1_10_splitter' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_splitter.v:72]
-INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_splitter' (54#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_splitter.v:72]
+INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_splitter' (55#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_splitter.v:72]
 INFO: [Synth 8-638] synthesizing module 'axi_crossbar_v2_1_10_splitter__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_splitter.v:72]
-INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_splitter__parameterized0' (54#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_splitter.v:72]
+INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_splitter__parameterized0' (55#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_splitter.v:72]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_mux_enc' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc' (55#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc' (56#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized0' (55#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized0' (56#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized1' (55#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized1' (56#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized2' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized2' (55#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized2' (56#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
 INFO: [Synth 8-638] synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized8' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
-INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized8' (55#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
+INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axic_register_slice__parameterized8' (56#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_register_slice_v2_1/hdl/verilog/axi_register_slice_v2_1_axic_register_slice.v:85]
 INFO: [Synth 8-638] synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized3' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
-INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized3' (55#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
-INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_crossbar_sasd' (56#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_crossbar_sasd.v:79]
-INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_axi_crossbar' (57#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_axi_crossbar.v:54]
-INFO: [Synth 8-256] done synthesizing module 'system_xbar_0' (58#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xbar_0/synth/system_xbar_0.v:59]
-WARNING: [Synth 8-350] instance 'xbar' of module 'system_xbar_0' requires 40 connections, but only 38 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:4627]
-INFO: [Synth 8-256] done synthesizing module 'system_ps_0_axi_periph_0' (59#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3728]
+INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc__parameterized3' (56#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/generic_baseblocks_v2_1/hdl/verilog/generic_baseblocks_v2_1_mux_enc.v:63]
+INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_crossbar_sasd' (57#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_crossbar_sasd.v:79]
+INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_axi_crossbar' (58#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_axi_crossbar.v:54]
+INFO: [Synth 8-256] done synthesizing module 'system_xbar_0' (59#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xbar_0/synth/system_xbar_0.v:59]
+WARNING: [Synth 8-350] instance 'xbar' of module 'system_xbar_0' requires 40 connections, but only 38 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:4645]
+INFO: [Synth 8-256] done synthesizing module 'system_ps_0_axi_periph_0' (60#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3746]
 INFO: [Synth 8-638] synthesizing module 'system_rst_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_rst_0_0/synth/system_rst_0_0.vhd:71]
 INFO: [Synth 8-3491] module 'proc_sys_reset' declared at '/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/proc_sys_reset.vhd:140' bound to instance 'U0' of component 'proc_sys_reset' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_rst_0_0/synth/system_rst_0_0.vhd:116]
 INFO: [Synth 8-638] synthesizing module 'proc_sys_reset' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/proc_sys_reset.vhd:199]
 INFO: [Synth 8-638] synthesizing module 'lpf' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/lpf.vhd:138]
 INFO: [Synth 8-3491] module 'SRL16' declared at '/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:43294' bound to instance 'POR_SRL_I' of component 'SRL16' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/lpf.vhd:190]
 INFO: [Synth 8-638] synthesizing module 'SRL16' [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:43294]
-INFO: [Synth 8-256] done synthesizing module 'SRL16' (60#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:43294]
+INFO: [Synth 8-256] done synthesizing module 'SRL16' (61#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:43294]
 INFO: [Synth 8-638] synthesizing module 'cdc_sync' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/lib_cdc_v1_0/hdl/src/vhdl/cdc_sync.vhd:106]
 INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_IN_cdc_to' to cell 'FDR' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/lib_cdc_v1_0/hdl/src/vhdl/cdc_sync.vhd:514]
 INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_out_d2' to cell 'FDR' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/lib_cdc_v1_0/hdl/src/vhdl/cdc_sync.vhd:545]
@@ -242,101 +246,96 @@ INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_o
 INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_out_d4' to cell 'FDR' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/lib_cdc_v1_0/hdl/src/vhdl/cdc_sync.vhd:564]
 INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_out_d5' to cell 'FDR' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/lib_cdc_v1_0/hdl/src/vhdl/cdc_sync.vhd:574]
 INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_out_d6' to cell 'FDR' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/lib_cdc_v1_0/hdl/src/vhdl/cdc_sync.vhd:584]
-INFO: [Synth 8-256] done synthesizing module 'cdc_sync' (61#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/lib_cdc_v1_0/hdl/src/vhdl/cdc_sync.vhd:106]
-INFO: [Synth 8-256] done synthesizing module 'lpf' (62#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/lpf.vhd:138]
+INFO: [Synth 8-256] done synthesizing module 'cdc_sync' (62#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/lib_cdc_v1_0/hdl/src/vhdl/cdc_sync.vhd:106]
+INFO: [Synth 8-256] done synthesizing module 'lpf' (63#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/lpf.vhd:138]
 INFO: [Synth 8-638] synthesizing module 'sequence_psr' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/sequence_psr.vhd:146]
 INFO: [Synth 8-638] synthesizing module 'upcnt_n' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/upcnt_n.vhd:125]
-INFO: [Synth 8-256] done synthesizing module 'upcnt_n' (63#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/upcnt_n.vhd:125]
-INFO: [Synth 8-256] done synthesizing module 'sequence_psr' (64#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/sequence_psr.vhd:146]
-INFO: [Synth 8-256] done synthesizing module 'proc_sys_reset' (65#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/proc_sys_reset.vhd:199]
-INFO: [Synth 8-256] done synthesizing module 'system_rst_0_0' (66#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_rst_0_0/synth/system_rst_0_0.vhd:71]
-WARNING: [Synth 8-350] instance 'sys_reset_controller' of module 'system_rst_0_0' requires 10 connections, but only 7 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2247]
-INFO: [Synth 8-256] done synthesizing module 'processing_system_imp_W26YM1' (67#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1403]
-INFO: [Synth 8-638] synthesizing module 'receive_chain_imp_N0MRX5' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2257]
+INFO: [Synth 8-256] done synthesizing module 'upcnt_n' (64#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/upcnt_n.vhd:125]
+INFO: [Synth 8-256] done synthesizing module 'sequence_psr' (65#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/sequence_psr.vhd:146]
+INFO: [Synth 8-256] done synthesizing module 'proc_sys_reset' (66#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/proc_sys_reset.vhd:199]
+INFO: [Synth 8-256] done synthesizing module 'system_rst_0_0' (67#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_rst_0_0/synth/system_rst_0_0.vhd:71]
+WARNING: [Synth 8-350] instance 'sys_reset_controller' of module 'system_rst_0_0' requires 10 connections, but only 7 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2255]
+INFO: [Synth 8-256] done synthesizing module 'processing_system_imp_W26YM1' (68#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1411]
+INFO: [Synth 8-638] synthesizing module 'receive_chain_imp_N0MRX5' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2265]
 INFO: [Synth 8-638] synthesizing module 'system_axis_red_pitaya_adc_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_red_pitaya_adc_0_0/synth/system_axis_red_pitaya_adc_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'axis_red_pitaya_adc' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_red_pitaya_adc_v1_0_16/src/axis_red_pitaya_adc.v:4]
-INFO: [Synth 8-256] done synthesizing module 'axis_red_pitaya_adc' (68#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_red_pitaya_adc_v1_0_16/src/axis_red_pitaya_adc.v:4]
-INFO: [Synth 8-256] done synthesizing module 'system_axis_red_pitaya_adc_0_0' (69#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_red_pitaya_adc_0_0/synth/system_axis_red_pitaya_adc_0_0.v:56]
+INFO: [Synth 8-256] done synthesizing module 'axis_red_pitaya_adc' (69#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_red_pitaya_adc_v1_0_16/src/axis_red_pitaya_adc.v:4]
+INFO: [Synth 8-256] done synthesizing module 'system_axis_red_pitaya_adc_0_0' (70#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_red_pitaya_adc_0_0/synth/system_axis_red_pitaya_adc_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'channel_a_imp_JYKOO2' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:12]
 INFO: [Synth 8-638] synthesizing module 'system_axis_decimator_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_decimator_0_0/synth/system_axis_decimator_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'axis_decimator' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_decimator_v1_0_7/src/axis_decimator.v:4]
-INFO: [Synth 8-256] done synthesizing module 'axis_decimator' (70#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_decimator_v1_0_7/src/axis_decimator.v:4]
-INFO: [Synth 8-256] done synthesizing module 'system_axis_decimator_0_0' (71#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_decimator_0_0/synth/system_axis_decimator_0_0.v:56]
-WARNING: [Synth 8-350] instance 'axis_decimator_0' of module 'system_axis_decimator_0_0' requires 9 connections, but only 8 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:171]
+INFO: [Synth 8-256] done synthesizing module 'axis_decimator' (71#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_decimator_v1_0_7/src/axis_decimator.v:4]
+INFO: [Synth 8-256] done synthesizing module 'system_axis_decimator_0_0' (72#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_decimator_0_0/synth/system_axis_decimator_0_0.v:56]
+WARNING: [Synth 8-350] instance 'axis_decimator_0' of module 'system_axis_decimator_0_0' requires 9 connections, but only 8 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:175]
 INFO: [Synth 8-638] synthesizing module 'system_axis_dwidth_converter_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_dwidth_converter_0_0/synth/system_axis_dwidth_converter_0_0.v:57]
 INFO: [Synth 8-638] synthesizing module 'axis_dwidth_converter_v1_1_8_axis_dwidth_converter' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_dwidth_converter_v1_1/hdl/verilog/axis_dwidth_converter_v1_1_axis_dwidth_converter.v:67]
 INFO: [Synth 8-638] synthesizing module 'axis_dwidth_converter_v1_1_8_axisc_upsizer' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_dwidth_converter_v1_1/hdl/verilog/axis_dwidth_converter_v1_1_axisc_upsizer.v:62]
-INFO: [Synth 8-256] done synthesizing module 'axis_dwidth_converter_v1_1_8_axisc_upsizer' (72#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_dwidth_converter_v1_1/hdl/verilog/axis_dwidth_converter_v1_1_axisc_upsizer.v:62]
+INFO: [Synth 8-256] done synthesizing module 'axis_dwidth_converter_v1_1_8_axisc_upsizer' (73#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_dwidth_converter_v1_1/hdl/verilog/axis_dwidth_converter_v1_1_axisc_upsizer.v:62]
 INFO: [Synth 8-638] synthesizing module 'axis_register_slice_v1_1_9_axis_register_slice' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axis_register_slice.v:66]
 INFO: [Synth 8-638] synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_axis2vector.v:66]
-INFO: [Synth 8-256] done synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector' (73#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_axis2vector.v:66]
+INFO: [Synth 8-256] done synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector' (74#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_axis2vector.v:66]
 INFO: [Synth 8-638] synthesizing module 'axis_register_slice_v1_1_9_axisc_register_slice' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axisc_register_slice.v:62]
-INFO: [Synth 8-256] done synthesizing module 'axis_register_slice_v1_1_9_axisc_register_slice' (74#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axisc_register_slice.v:62]
+INFO: [Synth 8-256] done synthesizing module 'axis_register_slice_v1_1_9_axisc_register_slice' (75#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axisc_register_slice.v:62]
 INFO: [Synth 8-638] synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_vector2axis.v:66]
-INFO: [Synth 8-256] done synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis' (75#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_vector2axis.v:66]
-INFO: [Synth 8-256] done synthesizing module 'axis_register_slice_v1_1_9_axis_register_slice' (76#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axis_register_slice.v:66]
+INFO: [Synth 8-256] done synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis' (76#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_vector2axis.v:66]
+INFO: [Synth 8-256] done synthesizing module 'axis_register_slice_v1_1_9_axis_register_slice' (77#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axis_register_slice.v:66]
 INFO: [Synth 8-638] synthesizing module 'axis_register_slice_v1_1_9_axis_register_slice__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axis_register_slice.v:66]
 INFO: [Synth 8-638] synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_axis2vector.v:66]
-INFO: [Synth 8-256] done synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector__parameterized0' (76#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_axis2vector.v:66]
+INFO: [Synth 8-256] done synthesizing module 'axis_infrastructure_v1_1_0_util_axis2vector__parameterized0' (77#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_axis2vector.v:66]
 INFO: [Synth 8-638] synthesizing module 'axis_register_slice_v1_1_9_axisc_register_slice__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axisc_register_slice.v:62]
-INFO: [Synth 8-256] done synthesizing module 'axis_register_slice_v1_1_9_axisc_register_slice__parameterized0' (76#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axisc_register_slice.v:62]
+INFO: [Synth 8-256] done synthesizing module 'axis_register_slice_v1_1_9_axisc_register_slice__parameterized0' (77#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axisc_register_slice.v:62]
 INFO: [Synth 8-638] synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_vector2axis.v:66]
-INFO: [Synth 8-256] done synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis__parameterized0' (76#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_vector2axis.v:66]
-INFO: [Synth 8-256] done synthesizing module 'axis_register_slice_v1_1_9_axis_register_slice__parameterized0' (76#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axis_register_slice.v:66]
-INFO: [Synth 8-256] done synthesizing module 'axis_dwidth_converter_v1_1_8_axis_dwidth_converter' (77#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_dwidth_converter_v1_1/hdl/verilog/axis_dwidth_converter_v1_1_axis_dwidth_converter.v:67]
-INFO: [Synth 8-256] done synthesizing module 'system_axis_dwidth_converter_0_0' (78#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_dwidth_converter_0_0/synth/system_axis_dwidth_converter_0_0.v:57]
+INFO: [Synth 8-256] done synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis__parameterized0' (77#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_vector2axis.v:66]
+INFO: [Synth 8-256] done synthesizing module 'axis_register_slice_v1_1_9_axis_register_slice__parameterized0' (77#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_register_slice_v1_1/hdl/verilog/axis_register_slice_v1_1_axis_register_slice.v:66]
+INFO: [Synth 8-256] done synthesizing module 'axis_dwidth_converter_v1_1_8_axis_dwidth_converter' (78#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_dwidth_converter_v1_1/hdl/verilog/axis_dwidth_converter_v1_1_axis_dwidth_converter.v:67]
+INFO: [Synth 8-256] done synthesizing module 'system_axis_dwidth_converter_0_0' (79#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_dwidth_converter_0_0/synth/system_axis_dwidth_converter_0_0.v:57]
 INFO: [Synth 8-638] synthesizing module 'system_axis_ram_writer_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_ram_writer_0_0/synth/system_axis_ram_writer_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'axis_ram_writer' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/tighe-barris/axis_ram_writer_v1_5_31/src/axis_ram_writer.v:4]
 INFO: [Synth 8-638] synthesizing module 'FIFO36E1' [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:4498]
-INFO: [Synth 8-256] done synthesizing module 'FIFO36E1' (79#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:4498]
+INFO: [Synth 8-256] done synthesizing module 'FIFO36E1' (80#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:4498]
 WARNING: [Synth 8-689] width (72) of port connection 'DI' does not match port width (64) of module 'FIFO36E1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/tighe-barris/axis_ram_writer_v1_5_31/src/axis_ram_writer.v:75]
 WARNING: [Synth 8-689] width (72) of port connection 'DO' does not match port width (64) of module 'FIFO36E1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/tighe-barris/axis_ram_writer_v1_5_31/src/axis_ram_writer.v:78]
 WARNING: [Synth 8-350] instance 'fifo_0' of module 'FIFO36E1' requires 24 connections, but only 9 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/tighe-barris/axis_ram_writer_v1_5_31/src/axis_ram_writer.v:69]
-INFO: [Synth 8-256] done synthesizing module 'axis_ram_writer' (80#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/tighe-barris/axis_ram_writer_v1_5_31/src/axis_ram_writer.v:4]
-INFO: [Synth 8-256] done synthesizing module 'system_axis_ram_writer_0_0' (81#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_ram_writer_0_0/synth/system_axis_ram_writer_0_0.v:56]
+INFO: [Synth 8-256] done synthesizing module 'axis_ram_writer' (81#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/tighe-barris/axis_ram_writer_v1_5_31/src/axis_ram_writer.v:4]
+INFO: [Synth 8-256] done synthesizing module 'system_axis_ram_writer_0_0' (82#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_ram_writer_0_0/synth/system_axis_ram_writer_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'system_const_3_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_const_3_0/sim/system_const_3_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'xlconstant' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlconstant_v1_1/xlconstant.v:23]
-INFO: [Synth 8-256] done synthesizing module 'xlconstant' (82#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlconstant_v1_1/xlconstant.v:23]
-INFO: [Synth 8-256] done synthesizing module 'system_const_3_0' (83#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_const_3_0/sim/system_const_3_0.v:56]
+INFO: [Synth 8-256] done synthesizing module 'xlconstant' (83#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlconstant_v1_1/xlconstant.v:23]
+INFO: [Synth 8-256] done synthesizing module 'system_const_3_0' (84#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_const_3_0/sim/system_const_3_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'system_sts_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_sts_0_0/synth/system_sts_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'axi_sts_register' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_sts_register_v1_0/src/axi_sts_register.v:4]
 WARNING: [Synth 8-3848] Net s_axi_awready in module/entity axi_sts_register does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_sts_register_v1_0/src/axi_sts_register.v:21]
 WARNING: [Synth 8-3848] Net s_axi_wready in module/entity axi_sts_register does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_sts_register_v1_0/src/axi_sts_register.v:24]
 WARNING: [Synth 8-3848] Net s_axi_bresp in module/entity axi_sts_register does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_sts_register_v1_0/src/axi_sts_register.v:25]
 WARNING: [Synth 8-3848] Net s_axi_bvalid in module/entity axi_sts_register does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_sts_register_v1_0/src/axi_sts_register.v:26]
-INFO: [Synth 8-256] done synthesizing module 'axi_sts_register' (84#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_sts_register_v1_0/src/axi_sts_register.v:4]
-INFO: [Synth 8-256] done synthesizing module 'system_sts_0_0' (85#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_sts_0_0/synth/system_sts_0_0.v:56]
-INFO: [Synth 8-256] done synthesizing module 'channel_a_imp_JYKOO2' (86#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:12]
-INFO: [Synth 8-638] synthesizing module 'channel_b_imp_WRMB9B' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:237]
+INFO: [Synth 8-256] done synthesizing module 'axi_sts_register' (85#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axi_sts_register_v1_0/src/axi_sts_register.v:4]
+INFO: [Synth 8-256] done synthesizing module 'system_sts_0_0' (86#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_sts_0_0/synth/system_sts_0_0.v:56]
+INFO: [Synth 8-256] done synthesizing module 'channel_a_imp_JYKOO2' (87#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:12]
+INFO: [Synth 8-638] synthesizing module 'channel_b_imp_WRMB9B' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:241]
 INFO: [Synth 8-638] synthesizing module 'system_axis_decimator_0_1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_decimator_0_1/synth/system_axis_decimator_0_1.v:56]
-INFO: [Synth 8-256] done synthesizing module 'system_axis_decimator_0_1' (87#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_decimator_0_1/synth/system_axis_decimator_0_1.v:56]
-WARNING: [Synth 8-350] instance 'axis_decimator_0' of module 'system_axis_decimator_0_1' requires 9 connections, but only 8 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:396]
+INFO: [Synth 8-256] done synthesizing module 'system_axis_decimator_0_1' (88#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_decimator_0_1/synth/system_axis_decimator_0_1.v:56]
+WARNING: [Synth 8-350] instance 'axis_decimator_0' of module 'system_axis_decimator_0_1' requires 9 connections, but only 8 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:404]
 INFO: [Synth 8-638] synthesizing module 'system_axis_dwidth_converter_0_1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_dwidth_converter_0_1/synth/system_axis_dwidth_converter_0_1.v:57]
-INFO: [Synth 8-256] done synthesizing module 'system_axis_dwidth_converter_0_1' (88#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_dwidth_converter_0_1/synth/system_axis_dwidth_converter_0_1.v:57]
+INFO: [Synth 8-256] done synthesizing module 'system_axis_dwidth_converter_0_1' (89#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_dwidth_converter_0_1/synth/system_axis_dwidth_converter_0_1.v:57]
 INFO: [Synth 8-638] synthesizing module 'system_ch_a_writer_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ch_a_writer_0/synth/system_ch_a_writer_0.v:56]
-INFO: [Synth 8-256] done synthesizing module 'system_ch_a_writer_0' (89#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ch_a_writer_0/synth/system_ch_a_writer_0.v:56]
+INFO: [Synth 8-256] done synthesizing module 'system_ch_a_writer_0' (90#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ch_a_writer_0/synth/system_ch_a_writer_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'system_ram_a_address_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ram_a_address_0/sim/system_ram_a_address_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'xlconstant__parameterized0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlconstant_v1_1/xlconstant.v:23]
-INFO: [Synth 8-256] done synthesizing module 'xlconstant__parameterized0' (89#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlconstant_v1_1/xlconstant.v:23]
-INFO: [Synth 8-256] done synthesizing module 'system_ram_a_address_0' (90#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ram_a_address_0/sim/system_ram_a_address_0.v:56]
+INFO: [Synth 8-256] done synthesizing module 'xlconstant__parameterized0' (90#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlconstant_v1_1/xlconstant.v:23]
+INFO: [Synth 8-256] done synthesizing module 'system_ram_a_address_0' (91#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ram_a_address_0/sim/system_ram_a_address_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'system_sts_a_channel_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_sts_a_channel_0/synth/system_sts_a_channel_0.v:56]
-INFO: [Synth 8-256] done synthesizing module 'system_sts_a_channel_0' (91#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_sts_a_channel_0/synth/system_sts_a_channel_0.v:56]
-INFO: [Synth 8-256] done synthesizing module 'channel_b_imp_WRMB9B' (92#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:237]
-INFO: [Synth 8-638] synthesizing module 'config_settings_imp_18GRB1F' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:487]
+INFO: [Synth 8-256] done synthesizing module 'system_sts_a_channel_0' (92#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_sts_a_channel_0/synth/system_sts_a_channel_0.v:56]
+INFO: [Synth 8-256] done synthesizing module 'channel_b_imp_WRMB9B' (93#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:241]
+INFO: [Synth 8-638] synthesizing module 'config_settings_imp_18GRB1F' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:495]
 INFO: [Synth 8-638] synthesizing module 'system_cfg_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_cfg_0_0/synth/system_cfg_0_0.v:56]
-INFO: [Synth 8-256] done synthesizing module 'system_cfg_0_0' (93#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_cfg_0_0/synth/system_cfg_0_0.v:56]
+INFO: [Synth 8-256] done synthesizing module 'system_cfg_0_0' (94#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_cfg_0_0/synth/system_cfg_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'system_xlslice_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_0/synth/system_xlslice_0_0.v:57]
-INFO: [Synth 8-638] synthesizing module 'xlslice__parameterized1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
-INFO: [Synth 8-256] done synthesizing module 'xlslice__parameterized1' (93#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
-INFO: [Synth 8-256] done synthesizing module 'system_xlslice_0_0' (94#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_0/synth/system_xlslice_0_0.v:57]
-INFO: [Synth 8-638] synthesizing module 'system_xlslice_1_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_1_0/synth/system_xlslice_1_0.v:57]
 INFO: [Synth 8-638] synthesizing module 'xlslice__parameterized2' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
 INFO: [Synth 8-256] done synthesizing module 'xlslice__parameterized2' (94#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlslice_v1_0/xlslice.v:12]
-INFO: [Synth 8-256] done synthesizing module 'system_xlslice_1_0' (95#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_1_0/synth/system_xlslice_1_0.v:57]
-INFO: [Synth 8-256] done synthesizing module 'config_settings_imp_18GRB1F' (96#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:487]
-INFO: [Synth 8-256] done synthesizing module 'receive_chain_imp_N0MRX5' (97#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2257]
-WARNING: [Synth 8-350] instance 'receive_chain' of module 'receive_chain_imp_N0MRX5' requires 88 connections, but only 87 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3613]
-INFO: [Synth 8-638] synthesizing module 'signal_generator_imp_HADG47' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3033]
+INFO: [Synth 8-256] done synthesizing module 'system_xlslice_0_0' (95#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_0/synth/system_xlslice_0_0.v:57]
+INFO: [Synth 8-256] done synthesizing module 'config_settings_imp_18GRB1F' (96#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:495]
+INFO: [Synth 8-256] done synthesizing module 'receive_chain_imp_N0MRX5' (97#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2265]
+INFO: [Synth 8-638] synthesizing module 'signal_generator_imp_HADG47' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3042]
 INFO: [Synth 8-638] synthesizing module 'system_axis_constant_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_constant_0_0/synth/system_axis_constant_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'axis_constant' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_constant_v1_0/src/axis_constant.v:4]
 INFO: [Synth 8-256] done synthesizing module 'axis_constant' (98#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_constant_v1_0/src/axis_constant.v:4]
@@ -347,31 +346,31 @@ INFO: [Synth 8-638] synthesizing module 'ODDR' [/opt/Xilinx/Vivado/2016.2/script
 INFO: [Synth 8-256] done synthesizing module 'ODDR' (100#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:25287]
 INFO: [Synth 8-256] done synthesizing module 'axis_red_pitaya_dac' (101#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_red_pitaya_dac_v1_0/src/axis_red_pitaya_dac.v:4]
 INFO: [Synth 8-256] done synthesizing module 'system_axis_red_pitaya_dac_0_0' (102#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_red_pitaya_dac_0_0/synth/system_axis_red_pitaya_dac_0_0.v:56]
-WARNING: [Synth 8-350] instance 'axis_red_pitaya_dac_0' of module 'system_axis_red_pitaya_dac_0_0' requires 11 connections, but only 10 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3144]
+WARNING: [Synth 8-350] instance 'axis_red_pitaya_dac_0' of module 'system_axis_red_pitaya_dac_0_0' requires 11 connections, but only 10 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3157]
 INFO: [Synth 8-638] synthesizing module 'system_clk_wiz_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0.v:70]
 INFO: [Synth 8-638] synthesizing module 'system_clk_wiz_0_0_clk_wiz' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0_clk_wiz.v:68]
 INFO: [Synth 8-638] synthesizing module 'MMCME2_ADV__parameterized0' [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:20396]
 INFO: [Synth 8-256] done synthesizing module 'MMCME2_ADV__parameterized0' (102#1) [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:20396]
 INFO: [Synth 8-256] done synthesizing module 'system_clk_wiz_0_0_clk_wiz' (103#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0_clk_wiz.v:68]
 INFO: [Synth 8-256] done synthesizing module 'system_clk_wiz_0_0' (104#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0.v:70]
-INFO: [Synth 8-638] synthesizing module 'system_dds_compiler_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:69]
-WARNING: [Synth 8-5640] Port 'debug_axi_pinc_in' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:72]
-WARNING: [Synth 8-5640] Port 'debug_axi_poff_in' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:72]
-WARNING: [Synth 8-5640] Port 'debug_axi_resync_in' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:72]
-WARNING: [Synth 8-5640] Port 'debug_axi_chan_in' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:72]
-WARNING: [Synth 8-5640] Port 'debug_core_nd' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:72]
-WARNING: [Synth 8-5640] Port 'debug_phase' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:72]
-WARNING: [Synth 8-5640] Port 'debug_phase_nd' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:72]
-INFO: [Synth 8-3491] module 'dds_compiler_v6_0_12' declared at '/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/dds_compiler_v6_0/hdl/dds_compiler_v6_0.vhd:60' bound to instance 'U0' of component 'dds_compiler_v6_0_12' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:170]
-INFO: [Synth 8-256] done synthesizing module 'system_dds_compiler_0_0' (113#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:69]
+INFO: [Synth 8-638] synthesizing module 'system_dds_compiler_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:70]
+WARNING: [Synth 8-5640] Port 'debug_axi_pinc_in' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:73]
+WARNING: [Synth 8-5640] Port 'debug_axi_poff_in' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:73]
+WARNING: [Synth 8-5640] Port 'debug_axi_resync_in' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:73]
+WARNING: [Synth 8-5640] Port 'debug_axi_chan_in' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:73]
+WARNING: [Synth 8-5640] Port 'debug_core_nd' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:73]
+WARNING: [Synth 8-5640] Port 'debug_phase' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:73]
+WARNING: [Synth 8-5640] Port 'debug_phase_nd' is missing in component declaration [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:73]
+INFO: [Synth 8-3491] module 'dds_compiler_v6_0_12' declared at '/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/dds_compiler_v6_0/hdl/dds_compiler_v6_0.vhd:60' bound to instance 'U0' of component 'dds_compiler_v6_0_12' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:172]
+INFO: [Synth 8-256] done synthesizing module 'system_dds_compiler_0_0' (113#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_dds_compiler_0_0/synth/system_dds_compiler_0_0.vhd:70]
 INFO: [Synth 8-638] synthesizing module 'system_axi_cfg_register_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axi_cfg_register_0_0/synth/system_axi_cfg_register_0_0.v:56]
 INFO: [Synth 8-256] done synthesizing module 'system_axi_cfg_register_0_0' (114#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axi_cfg_register_0_0/synth/system_axi_cfg_register_0_0.v:56]
-INFO: [Synth 8-256] done synthesizing module 'signal_generator_imp_HADG47' (115#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3033]
-WARNING: [Synth 8-3848] Net adc_enc_n_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3257]
-WARNING: [Synth 8-3848] Net adc_enc_p_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3258]
-WARNING: [Synth 8-3848] Net dac_pwm_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3261]
-WARNING: [Synth 8-3848] Net led_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3271]
-INFO: [Synth 8-256] done synthesizing module 'system' (116#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3189]
+INFO: [Synth 8-256] done synthesizing module 'signal_generator_imp_HADG47' (115#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3042]
+WARNING: [Synth 8-3848] Net adc_enc_n_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3271]
+WARNING: [Synth 8-3848] Net adc_enc_p_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3272]
+WARNING: [Synth 8-3848] Net dac_pwm_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3275]
+WARNING: [Synth 8-3848] Net led_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3285]
+INFO: [Synth 8-256] done synthesizing module 'system' (116#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3203]
 INFO: [Synth 8-256] done synthesizing module 'system_wrapper' (117#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system_wrapper.v:12]
 WARNING: [Synth 8-3331] design axi_cfg_register has unconnected port s_axi_awaddr[31]
 WARNING: [Synth 8-3331] design axi_cfg_register has unconnected port s_axi_awaddr[30]
@@ -475,7 +474,7 @@ WARNING: [Synth 8-3331] design xbip_pipe_v3_0_2_viv__parameterized27 has unconne
 WARNING: [Synth 8-3331] design xbip_pipe_v3_0_2_viv__parameterized27 has unconnected port SINIT
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1256.660 ; gain = 371.590 ; free physical = 2798 ; free virtual = 25806
+Finished RTL Elaboration : Time (s): cpu = 00:00:26 ; elapsed = 00:00:27 . Memory (MB): peak = 1256.660 ; gain = 371.590 ; free physical = 1575 ; free virtual = 24864
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -485,7 +484,7 @@ Report Check Netlist:
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:27 ; elapsed = 00:00:27 . Memory (MB): peak = 1256.660 ; gain = 371.590 ; free physical = 2798 ; free virtual = 25806
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:27 ; elapsed = 00:00:27 . Memory (MB): peak = 1256.660 ; gain = 371.590 ; free physical = 1575 ; free virtual = 24864
 ---------------------------------------------------------------------------------
 INFO: [Netlist 29-17] Analyzing 42 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -553,6 +552,13 @@ WARNING: [Vivado 12-584] No ports matched 'exp_n_alex[0]'. [/home/darryn/Git/mil
 WARNING: [Vivado 12-584] No ports matched 'exp_n_alex[1]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:184]
 WARNING: [Vivado 12-584] No ports matched 'exp_n_alex[2]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:185]
 WARNING: [Vivado 12-584] No ports matched 'exp_n_alex[3]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:186]
+WARNING: [Vivado 12-584] No ports matched 'led_o[1]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:215]
+WARNING: [Vivado 12-584] No ports matched 'led_o[2]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:216]
+WARNING: [Vivado 12-584] No ports matched 'led_o[3]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:217]
+WARNING: [Vivado 12-584] No ports matched 'led_o[4]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:218]
+WARNING: [Vivado 12-584] No ports matched 'led_o[5]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:219]
+WARNING: [Vivado 12-584] No ports matched 'led_o[6]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:220]
+WARNING: [Vivado 12-584] No ports matched 'led_o[7]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:221]
 Finished Parsing XDC File [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc]
 WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/system_wrapper_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/system_wrapper_propImpl.xdc].
@@ -571,16 +577,16 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   OBUFDS => OBUFDS_DUAL_BUF (OBUFDS, OBUFDS, INV): 2 instances
   SRL16 => SRL16E: 1 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 1486.699 ; gain = 0.000 ; free physical = 2726 ; free virtual = 25735
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.03 . Memory (MB): peak = 1486.926 ; gain = 0.000 ; free physical = 1488 ; free virtual = 24776
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:36 ; elapsed = 00:00:36 . Memory (MB): peak = 1486.699 ; gain = 601.629 ; free physical = 2726 ; free virtual = 25734
+Finished Constraint Validation : Time (s): cpu = 00:00:36 ; elapsed = 00:00:36 . Memory (MB): peak = 1486.926 ; gain = 601.855 ; free physical = 1487 ; free virtual = 24775
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z010clg400-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:36 ; elapsed = 00:00:36 . Memory (MB): peak = 1486.699 ; gain = 601.629 ; free physical = 2726 ; free virtual = 25734
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:36 ; elapsed = 00:00:36 . Memory (MB): peak = 1486.926 ; gain = 601.855 ; free physical = 1487 ; free virtual = 24775
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -597,6 +603,7 @@ Applied set_property DONT_TOUCH = true for system_i/clocking_system/clk_wiz_0. (
 Applied set_property DONT_TOUCH = true for system_i/clocking_system/util_ds_buf_0. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/daisy_chain/daisy_chain_buffer. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/daisy_chain/daisy_chain_output. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for system_i/gpio_interface/enable_receive. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/gpio_interface/exp_interface_0. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/gpio_interface/exp_interface_1. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/gpio_interface/gpio_register. (constraint file  auto generated constraint, line ).
@@ -620,14 +627,13 @@ Applied set_property DONT_TOUCH = true for system_i/receive_chain/channel_b/ram_
 Applied set_property DONT_TOUCH = true for system_i/receive_chain/channel_b/sts_b_channel. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/receive_chain/config_settings/cfg. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/receive_chain/config_settings/xlslice_0. (constraint file  auto generated constraint, line ).
-Applied set_property DONT_TOUCH = true for system_i/receive_chain/config_settings/xlslice_1. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/signal_generator/axis_constant_0. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/signal_generator/axis_red_pitaya_dac_0. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/signal_generator/clk_wiz_1. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/signal_generator/dds_compiler_0. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/signal_generator/sig_gen_config. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:36 ; elapsed = 00:00:36 . Memory (MB): peak = 1486.699 ; gain = 601.629 ; free physical = 2726 ; free virtual = 25734
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:36 ; elapsed = 00:00:36 . Memory (MB): peak = 1486.926 ; gain = 601.855 ; free physical = 1487 ; free virtual = 24775
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5544] ROM "p_2_out0" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "p_0_in5" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
@@ -666,7 +672,7 @@ INFO: [Synth 8-5547] Trying to map ROM "sin_cos_lut" into Block RAM due to expli
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'axis_dwidth_converter_v1_1_8_axisc_upsizer'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:38 ; elapsed = 00:00:38 . Memory (MB): peak = 1486.699 ; gain = 601.629 ; free physical = 2714 ; free virtual = 25723
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:38 ; elapsed = 00:00:38 . Memory (MB): peak = 1486.926 ; gain = 601.855 ; free physical = 1477 ; free virtual = 24766
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -695,7 +701,7 @@ BRAMs: 120 (col length: RAMB18 40 RAMB36 20)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
-Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:38 ; elapsed = 00:00:38 . Memory (MB): peak = 1486.699 ; gain = 601.629 ; free physical = 2714 ; free virtual = 25723
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:38 ; elapsed = 00:00:38 . Memory (MB): peak = 1486.926 ; gain = 601.855 ; free physical = 1477 ; free virtual = 24766
 ---------------------------------------------------------------------------------
 Start Cross Boundary Optimization
 ---------------------------------------------------------------------------------
@@ -705,9 +711,9 @@ INFO: [Synth 8-3936] Found unconnected internal register 'inst/gen_sasd.crossbar
 INFO: [Synth 8-5547] Trying to map ROM "p_0_out" into Block RAM due to explicit "ram_style" or "rom_style" specification
 INFO: [Synth 8-5547] Trying to map ROM "p_0_out" into Block RAM due to explicit "ram_style" or "rom_style" specification
 ---------------------------------------------------------------------------------
-Finished Cross Boundary Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:39 . Memory (MB): peak = 1486.699 ; gain = 601.629 ; free physical = 2714 ; free virtual = 25723
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:39 . Memory (MB): peak = 1486.926 ; gain = 601.855 ; free physical = 1477 ; free virtual = 24766
 ---------------------------------------------------------------------------------
-Finished Parallel Reinference  : Time (s): cpu = 00:00:39 ; elapsed = 00:00:39 . Memory (MB): peak = 1486.699 ; gain = 601.629 ; free physical = 2714 ; free virtual = 25723
+Finished Parallel Reinference  : Time (s): cpu = 00:00:39 ; elapsed = 00:00:39 . Memory (MB): peak = 1486.926 ; gain = 601.855 ; free physical = 1477 ; free virtual = 24766
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
@@ -824,9 +830,9 @@ INFO: [Synth 8-3332] Sequential element (inst/gen_upsizer_conversion.axisc_upsiz
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (system_i/\receive_chain/channel_b/axis_dwidth_converter_0 /\inst/gen_upsizer_conversion.axisc_upsizer_0/r0_last_reg )
 INFO: [Synth 8-3332] Sequential element (inst/gen_upsizer_conversion.axisc_upsizer_0/r0_last_reg) is unused and will be removed from module system_axis_dwidth_converter_0_1.
 ---------------------------------------------------------------------------------
-Finished Area Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:42 . Memory (MB): peak = 1486.699 ; gain = 601.629 ; free physical = 2683 ; free virtual = 25691
+Finished Area Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:42 . Memory (MB): peak = 1486.926 ; gain = 601.855 ; free physical = 1446 ; free virtual = 24734
 ---------------------------------------------------------------------------------
-Finished Parallel Area Optimization  : Time (s): cpu = 00:00:42 ; elapsed = 00:00:42 . Memory (MB): peak = 1486.699 ; gain = 601.629 ; free physical = 2683 ; free virtual = 25691
+Finished Parallel Area Optimization  : Time (s): cpu = 00:00:42 ; elapsed = 00:00:42 . Memory (MB): peak = 1486.926 ; gain = 601.855 ; free physical = 1446 ; free virtual = 24734
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
@@ -843,10 +849,10 @@ INFO: [Synth 8-5578] Moved timing constraint from pin 'system_i/clocking_system/
 INFO: [Synth 8-5578] Moved timing constraint from pin 'system_i/signal_generator/clk_wiz_1/inst/clk_in1' to pin 'system_i/clocking_system/clk_wiz_0/inst/clkout1_buf/O'
 INFO: [Synth 8-5820] Moved 2 constraints on hierarchical pins to their respective driving/loading pins
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:48 ; elapsed = 00:00:48 . Memory (MB): peak = 1629.699 ; gain = 744.629 ; free physical = 2512 ; free virtual = 25521
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:48 ; elapsed = 00:00:49 . Memory (MB): peak = 1629.926 ; gain = 744.855 ; free physical = 1285 ; free virtual = 24574
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:49 ; elapsed = 00:00:49 . Memory (MB): peak = 1655.715 ; gain = 770.645 ; free physical = 2486 ; free virtual = 25494
+Finished Timing Optimization : Time (s): cpu = 00:00:49 ; elapsed = 00:00:49 . Memory (MB): peak = 1655.941 ; gain = 770.871 ; free physical = 1259 ; free virtual = 24547
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -862,16 +868,16 @@ INFO: [Synth 8-3332] Sequential element (inst/gen_axilite.gen_b2s_conv.axilite_b
 INFO: [Synth 8-3332] Sequential element (inst/gen_axilite.gen_b2s_conv.axilite_b2s/RD.ar_channel_0/cmd_translator_0/incr_cmd_0/axlen_cnt_reg[8]) is unused and will be removed from module system_auto_pc_0.
 INFO: [Synth 8-3332] Sequential element (inst/gen_axilite.gen_b2s_conv.axilite_b2s/RD.ar_channel_0/cmd_translator_0/wrap_cmd_0/axlen_cnt_reg[4]) is unused and will be removed from module system_auto_pc_0.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:51 ; elapsed = 00:00:51 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2477 ; free virtual = 25485
+Finished Technology Mapping : Time (s): cpu = 00:00:51 ; elapsed = 00:00:52 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 ---------------------------------------------------------------------------------
-Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:00:51 ; elapsed = 00:00:51 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2477 ; free virtual = 25485
+Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:00:51 ; elapsed = 00:00:52 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
 | |RTL Partition |Replication |Instances |
 +-+--------------+------------+----------+
 +-+--------------+------------+----------+
-Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:51 ; elapsed = 00:00:51 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2477 ; free virtual = 25485
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:51 ; elapsed = 00:00:52 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 ---------------------------------------------------------------------------------
 Start IO Insertion
 ---------------------------------------------------------------------------------
@@ -904,7 +910,7 @@ INFO: [Synth 8-4618] Found max_fanout attribute set to 20 on net \inst/gen_axili
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:52 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2476 ; free virtual = 25485
+Finished IO Insertion : Time (s): cpu = 00:00:52 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -917,7 +923,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:52 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2476 ; free virtual = 25485
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:52 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -929,25 +935,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:52 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2476 ; free virtual = 25485
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:52 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2476 ; free virtual = 25485
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:52 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2476 ; free virtual = 25485
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2476 ; free virtual = 25485
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -967,10 +973,10 @@ Report Cell Usage:
 |2     |BUFG       |     4|
 |3     |CARRY4     |    76|
 |4     |FIFO36E1   |     2|
-|5     |LUT1       |   358|
-|6     |LUT2       |   165|
-|7     |LUT3       |   309|
-|8     |LUT4       |   159|
+|5     |LUT1       |   359|
+|6     |LUT2       |   166|
+|7     |LUT3       |   308|
+|8     |LUT4       |   160|
 |9     |LUT5       |   136|
 |10    |LUT6       |   254|
 |11    |MMCME2_ADV |     2|
@@ -981,19 +987,19 @@ Report Cell Usage:
 |16    |SRL16E     |     1|
 |17    |SRLC32E    |    47|
 |18    |FDR        |     8|
-|19    |FDRE       |  1495|
-|20    |FDSE       |    57|
+|19    |FDRE       |  1500|
+|20    |FDSE       |    59|
 |21    |IBUF       |    30|
 |22    |IBUFDS     |     3|
-|23    |OBUF       |    49|
+|23    |OBUF       |    42|
 |24    |OBUFDS     |     2|
 +------+-----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.723 ; gain = 779.652 ; free physical = 2476 ; free virtual = 25485
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.957 ; gain = 779.887 ; free physical = 1250 ; free virtual = 24539
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 767 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:44 ; elapsed = 00:00:44 . Memory (MB): peak = 1664.723 ; gain = 433.457 ; free physical = 2476 ; free virtual = 25485
-Synthesis Optimization Complete : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.730 ; gain = 779.660 ; free physical = 2478 ; free virtual = 25487
+Synthesis finished with 0 errors, 0 critical warnings and 759 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:44 ; elapsed = 00:00:44 . Memory (MB): peak = 1664.957 ; gain = 433.465 ; free physical = 1250 ; free virtual = 24539
+Synthesis Optimization Complete : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 1664.965 ; gain = 779.895 ; free physical = 1252 ; free virtual = 24541
 INFO: [Project 1-571] Translating synthesized netlist
 INFO: [Netlist 29-17] Analyzing 143 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -1010,8 +1016,8 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   SRL16 => SRL16E: 1 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-489 Infos, 180 Warnings, 0 Critical Warnings and 0 Errors encountered.
+489 Infos, 186 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:51 ; elapsed = 00:00:51 . Memory (MB): peak = 1664.730 ; gain = 676.090 ; free physical = 2478 ; free virtual = 25487
-report_utilization: Time (s): cpu = 00:00:00.14 ; elapsed = 00:00:00.19 . Memory (MB): peak = 1672.727 ; gain = 0.000 ; free physical = 2475 ; free virtual = 25484
-INFO: [Common 17-206] Exiting Vivado at Wed Nov 29 11:53:59 2017...
+synth_design: Time (s): cpu = 00:00:51 ; elapsed = 00:00:52 . Memory (MB): peak = 1664.965 ; gain = 676.324 ; free physical = 1251 ; free virtual = 24540
+report_utilization: Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.11 . Memory (MB): peak = 1672.961 ; gain = 0.000 ; free physical = 1250 ; free virtual = 24540
+INFO: [Common 17-206] Exiting Vivado at Thu Nov 30 13:07:00 2017...

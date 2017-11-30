@@ -19,7 +19,7 @@
 #define DIO6_P	(uint64_t)(1 << 14)
 #define DIO7_P	(uint64_t)(1 << 15)
 
-#define TRIGGER (0b10001000)
+#define TRIGGER (0b10000000010001000)
 
 #include <stdint.h>
 #include <stdio.h>

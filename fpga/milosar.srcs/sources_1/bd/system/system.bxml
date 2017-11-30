@@ -2,9 +2,9 @@
 <Root MajorVersion="0" MinorVersion="33">
   <CompositeFile CompositeFileTopName="system" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1511949178"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1511949178"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1511949178"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1512039960"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1512039960"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1512039960"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/system_ps_0_0/system_ps_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system/ps_0"/>
@@ -181,14 +181,6 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/system_xlslice_1_0/system_xlslice_1_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/config_settings/xlslice_1"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
       <File Name="ip/system_dds_compiler_0_0/system_dds_compiler_0_0.xci" Type="IP">
         <Instance HierarchyPath="signal_generator/dds_compiler_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
@@ -263,6 +255,14 @@
       </File>
       <File Name="ip/system_xlslice_0_2/system_xlslice_0_2.xci" Type="IP">
         <Instance HierarchyPath="gpio_interface/xlslice_1"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_xlslice_2_0/system_xlslice_2_0.xci" Type="IP">
+        <Instance HierarchyPath="gpio_interface/enable_receive"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

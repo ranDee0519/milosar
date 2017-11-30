@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date             : Wed Nov 29 11:54:40 2017
+| Date             : Thu Nov 30 13:07:42 2017
 | Host             : ubuntu running 64-bit Ubuntu 17.04
 | Command          : report_power -file system_wrapper_power_routed.rpt -pb system_wrapper_power_summary_routed.pb -rpx system_wrapper_power_routed.rpx
 | Design           : system_wrapper
@@ -30,13 +30,13 @@ Table of Contents
 ----------
 
 +--------------------------+-------+
-| Total On-Chip Power (W)  | 2.192 |
-| Dynamic (W)              | 2.047 |
-| Device Static (W)        | 0.146 |
+| Total On-Chip Power (W)  | 1.892 |
+| Dynamic (W)              | 1.752 |
+| Device Static (W)        | 0.140 |
 | Total Off-Chip Power (W) | 0.013 |
 | Effective TJA (C/W)      | 11.5  |
-| Max Ambient (C)          | 59.9  |
-| Junction Temperature (C) | 50.1  |
+| Max Ambient (C)          | 63.3  |
+| Junction Temperature (C) | 46.7  |
 | Confidence Level         | Low   |
 | Setting File             | ---   |
 | Simulation Activity File | ---   |
@@ -51,19 +51,19 @@ Table of Contents
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
 | Clocks                  |     0.011 |       10 |       --- |             --- |
-| Slice Logic             |     0.003 |     2747 |       --- |             --- |
-|   LUT as Logic          |     0.003 |      932 |     17600 |            5.30 |
-|   Register              |    <0.001 |     1397 |     35200 |            3.97 |
+| Slice Logic             |     0.003 |     2757 |       --- |             --- |
+|   LUT as Logic          |     0.002 |      932 |     17600 |            5.30 |
+|   Register              |    <0.001 |     1404 |     35200 |            3.99 |
 |   CARRY4                |    <0.001 |       60 |      4400 |            1.36 |
 |   LUT as Shift Register |    <0.001 |       49 |      6000 |            0.82 |
-|   Others                |     0.000 |      278 |       --- |             --- |
-| Signals                 |     0.006 |     2255 |       --- |             --- |
+|   Others                |     0.000 |      279 |       --- |             --- |
+| Signals                 |     0.005 |     2262 |       --- |             --- |
 | Block RAM               |     0.012 |        3 |        60 |            5.00 |
 | MMCM                    |     0.213 |        2 |         2 |          100.00 |
-| I/O                     |     0.507 |       87 |       100 |           87.00 |
+| I/O                     |     0.214 |       80 |       100 |           80.00 |
 | PS7                     |     1.282 |        1 |       --- |             --- |
-| Static Power            |     0.146 |          |           |                 |
-| Total                   |     2.179 |          |           |                 |
+| Static Power            |     0.140 |          |           |                 |
+| Total                   |     1.880 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,9 +73,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.045 |       0.036 |      0.009 |
-| Vccaux    |       1.800 |     0.142 |       0.130 |      0.012 |
-| Vcco33    |       3.300 |     0.141 |       0.140 |      0.001 |
+| Vccint    |       1.000 |     0.041 |       0.033 |      0.008 |
+| Vccaux    |       1.800 |     0.137 |       0.125 |      0.012 |
+| Vcco33    |       3.300 |     0.055 |       0.054 |      0.001 |
 | Vcco25    |       2.500 |     0.001 |       0.000 |      0.001 |
 | Vcco18    |       1.800 |     0.020 |       0.019 |      0.001 |
 | Vcco15    |       1.500 |     0.001 |       0.000 |      0.001 |
@@ -86,7 +86,7 @@ Table of Contents
 | MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |
 | MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |
 | MGTVccaux |       1.800 |     0.000 |       0.000 |      0.000 |
-| Vccpint   |       1.000 |     0.705 |       0.669 |      0.036 |
+| Vccpint   |       1.000 |     0.701 |       0.669 |      0.032 |
 | Vccpaux   |       1.800 |     0.037 |       0.027 |      0.010 |
 | Vccpll    |       1.800 |     0.017 |       0.014 |      0.003 |
 | Vcco_ddr  |       1.500 |     0.356 |       0.354 |      0.002 |
@@ -156,8 +156,8 @@ Table of Contents
 +---------------------------------------------------------------------+-----------+
 | Name                                                                | Power (W) |
 +---------------------------------------------------------------------+-----------+
-| system_wrapper                                                      |     2.034 |
-|   system_i                                                          |     1.560 |
+| system_wrapper                                                      |     1.740 |
+|   system_i                                                          |     1.558 |
 |     clocking_system                                                 |     0.107 |
 |       clk_wiz_0                                                     |     0.107 |
 |         inst                                                        |     0.107 |
@@ -171,13 +171,14 @@ Table of Contents
 |           USE_OBUFDS.GEN_OBUFDS[0].OBUFDS_I                         |     0.005 |
 |           USE_OBUFDS.GEN_OBUFDS[1].OBUFDS_I                         |     0.025 |
 |     gpio_interface                                                  |    <0.001 |
+|       enable_receive                                                |     0.000 |
 |       exp_interface_0                                               |     0.000 |
 |       exp_interface_1                                               |     0.000 |
 |       gpio_register                                                 |    <0.001 |
 |         inst                                                        |    <0.001 |
 |       xlslice_0                                                     |     0.000 |
 |       xlslice_1                                                     |     0.000 |
-|     processing_system                                               |     1.291 |
+|     processing_system                                               |     1.290 |
 |       ps_0                                                          |     1.283 |
 |         inst                                                        |     1.283 |
 |       ps_axi_periph                                                 |     0.007 |
@@ -223,7 +224,7 @@ Table of Contents
 |     receive_chain                                                   |     0.010 |
 |       adc_streamer                                                  |    <0.001 |
 |         inst                                                        |    <0.001 |
-|       channel_a                                                     |     0.005 |
+|       channel_a                                                     |     0.004 |
 |         axis_decimator_0                                            |    <0.001 |
 |           inst                                                      |    <0.001 |
 |         axis_dwidth_converter_0                                     |    <0.001 |
@@ -234,7 +235,7 @@ Table of Contents
 |         ram_a_address                                               |     0.000 |
 |         sts_a_channel                                               |    <0.001 |
 |           inst                                                      |    <0.001 |
-|       channel_b                                                     |     0.005 |
+|       channel_b                                                     |     0.004 |
 |         axis_decimator_0                                            |    <0.001 |
 |           inst                                                      |    <0.001 |
 |         axis_dwidth_converter_0                                     |    <0.001 |
@@ -249,10 +250,10 @@ Table of Contents
 |         cfg                                                         |    <0.001 |
 |           inst                                                      |    <0.001 |
 |         xlslice_0                                                   |     0.000 |
-|     signal_generator                                                |     0.121 |
+|     signal_generator                                                |     0.119 |
 |       axis_constant_0                                               |     0.000 |
-|       axis_red_pitaya_dac_0                                         |     0.005 |
-|         inst                                                        |     0.005 |
+|       axis_red_pitaya_dac_0                                         |     0.003 |
+|         inst                                                        |     0.003 |
 |       clk_wiz_1                                                     |     0.107 |
 |         inst                                                        |     0.107 |
 |       dds_compiler_0                                                |     0.009 |

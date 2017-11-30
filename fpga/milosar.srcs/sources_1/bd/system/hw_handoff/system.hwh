@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Nov 29 11:52:56 2017" VIVADOVERSION="2016.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Nov 30 13:05:57 2017" VIVADOVERSION="2016.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -12,7 +12,7 @@
         <CONNECTION INSTANCE="gpio_interface_exp_interface_1" PORT="exp_data"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" LEFT="7" NAME="led_o" RIGHT="0" SIGIS="undef"/>
+    <PORT DIR="O" LEFT="0" NAME="led_o" RIGHT="0" SIGIS="undef"/>
     <PORT DIR="I" LEFT="13" NAME="adc_dat_a_i" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_adc_dat_a_i">
       <CONNECTIONS>
         <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_dat_a"/>
@@ -805,6 +805,36 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
+    <MODULE FULLNAME="/gpio_interface/enable_receive" HWVERSION="1.0" INSTANCE="gpio_interface_enable_receive" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="DIN_FROM" VALUE="16"/>
+        <PARAMETER NAME="DIN_TO" VALUE="16"/>
+        <PARAMETER NAME="DOUT_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_2_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_register_cfg_data">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="cfg_data"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_enable_receive_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_channel_a_axis_decimator_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_a_axis_dwidth_converter_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_b_axis_decimator_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_b_axis_dwidth_converter_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="aresetn"/>
+            <CONNECTION INSTANCE="signal_generator_dds_compiler_0" PORT="aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
     <MODULE FULLNAME="/gpio_interface/exp_interface_0" HWVERSION="1.0" INSTANCE="gpio_interface_exp_interface_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="exp_interface" VLNV="user.org:module_ref:exp_interface:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
@@ -876,6 +906,7 @@
           <CONNECTIONS>
             <CONNECTION INSTANCE="gpio_interface_xlslice_0" PORT="Din"/>
             <CONNECTION INSTANCE="gpio_interface_xlslice_1" PORT="Din"/>
+            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Din"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_register_s_axi_awaddr">
@@ -3976,17 +4007,11 @@
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="peripheral_aresetn" RIGHT="0" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
           <CONNECTIONS>
+            <CONNECTION INSTANCE="signal_generator_sig_gen_config" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_b_sts_b_channel" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_a_sts_a_channel" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_a_axis_decimator_0" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_a_sts_a_channel" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_a_axis_dwidth_converter_0" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_b_axis_decimator_0" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_b_sts_b_channel" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_b_axis_dwidth_converter_0" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="aresetn"/>
-            <CONNECTION INSTANCE="signal_generator_sig_gen_config" PORT="aresetn"/>
             <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="aresetn"/>
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="S00_ARESETN"/>
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M00_ARESETN"/>
@@ -4137,9 +4162,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="15" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_0_Dout">
@@ -4248,9 +4273,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_channel_a_axis_decimator_0_m_axis_tvalid">
@@ -4342,9 +4367,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_channel_a_ram_a_address_dout">
@@ -4718,9 +4743,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="15" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_0_Dout">
@@ -4829,9 +4854,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_channel_b_axis_decimator_0_m_axis_tvalid">
@@ -4923,9 +4948,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_channel_b_ram_b_address_dout">
@@ -5313,7 +5338,6 @@
         <PORT DIR="O" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_cfg_cfg_data">
           <CONNECTIONS>
             <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_0" PORT="Din"/>
-            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_1" PORT="Din"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_awaddr">
@@ -5474,26 +5498,6 @@
             <CONNECTION INSTANCE="receive_chain_channel_a_axis_decimator_0" PORT="cfg_data"/>
           </CONNECTIONS>
         </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
-    </MODULE>
-    <MODULE FULLNAME="/receive_chain/config_settings/xlslice_1" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_xlslice_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="DIN_FROM" VALUE="0"/>
-        <PARAMETER NAME="DIN_TO" VALUE="0"/>
-        <PARAMETER NAME="DOUT_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_1_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_cfg_cfg_data">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="cfg_data"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="0" NAME="Dout" RIGHT="0" SIGIS="undef"/>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
@@ -6205,7 +6209,7 @@
         <PARAMETER NAME="C_POR_MODE" VALUE="0"/>
         <PARAMETER NAME="C_AMPLITUDE" VALUE="0"/>
         <PARAMETER NAME="C_HAS_ACLKEN" VALUE="0"/>
-        <PARAMETER NAME="C_HAS_ARESETN" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_ARESETN" VALUE="1"/>
         <PARAMETER NAME="C_HAS_TLAST" VALUE="0"/>
         <PARAMETER NAME="C_HAS_TREADY" VALUE="0"/>
         <PARAMETER NAME="C_HAS_S_PHASE" VALUE="0"/>
@@ -6258,7 +6262,7 @@
         <PARAMETER NAME="OUTPUT_FORM" VALUE="Twos_Complement"/>
         <PARAMETER NAME="Latency_Configuration" VALUE="Auto"/>
         <PARAMETER NAME="Latency" VALUE="7"/>
-        <PARAMETER NAME="Has_ARESETn" VALUE="false"/>
+        <PARAMETER NAME="Has_ARESETn" VALUE="true"/>
         <PARAMETER NAME="Has_ACLKEN" VALUE="false"/>
         <PARAMETER NAME="Output_Frequency1" VALUE="0"/>
         <PARAMETER NAME="PINC1" VALUE="10000011000100100110111"/>
@@ -6334,6 +6338,11 @@
         <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
           <CONNECTIONS>
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_config_tvalid" SIGIS="undef" SIGNAME="signal_generator_axis_constant_0_m_axis_tvalid">

@@ -203,7 +203,7 @@
           <spirit:wire>
             <spirit:direction>out</spirit:direction>
             <spirit:vector>
-              <spirit:left>7</spirit:left>
+              <spirit:left>0</spirit:left>
               <spirit:right>0</spirit:right>
             </spirit:vector>
           </spirit:wire>
@@ -421,8 +421,8 @@
       <spirit:adHocConnection>
         <spirit:name>xlconstant_0_dout</spirit:name>
         <spirit:internalPortReference spirit:componentRef="processing_system" spirit:portRef="ARESETN"/>
-        <spirit:internalPortReference spirit:componentRef="receive_chain" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="signal_generator" spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="receive_chain" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
@@ -501,6 +501,12 @@
         <spirit:name>Net1</spirit:name>
         <spirit:externalPortReference spirit:portRef="exp_p_tri_io"/>
         <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="exp_data_p"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>enable_1</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="enable"/>
+        <spirit:internalPortReference spirit:componentRef="receive_chain" spirit:portRef="enable"/>
+        <spirit:internalPortReference spirit:componentRef="signal_generator" spirit:portRef="enable"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -607,6 +613,16 @@
             </spirit:vector>
           </spirit:wire>
         </spirit:port>
+        <spirit:port>
+          <spirit:name>enable</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+            <spirit:vector>
+              <spirit:left>0</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
       </spirit:ports>
     </spirit:model>
   </spirit:component>
@@ -664,6 +680,16 @@
           <spirit:configurableElementValue spirit:referenceId="DIN_FROM">15</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>enable_receive</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlslice_2_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DOUT_WIDTH">1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_TO">16</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">16</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
     </spirit:componentInstances>
     <spirit:interconnections/>
     <spirit:adHocConnections>
@@ -672,6 +698,7 @@
         <spirit:internalPortReference spirit:componentRef="gpio_register" spirit:portRef="cfg_data"/>
         <spirit:internalPortReference spirit:componentRef="xlslice_0" spirit:portRef="Din"/>
         <spirit:internalPortReference spirit:componentRef="xlslice_1" spirit:portRef="Din"/>
+        <spirit:internalPortReference spirit:componentRef="enable_receive" spirit:portRef="Din"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>xlslice_0_Dout</spirit:name>
@@ -702,6 +729,11 @@
         <spirit:name>Net1</spirit:name>
         <spirit:externalPortReference spirit:portRef="exp_data_p"/>
         <spirit:internalPortReference spirit:componentRef="exp_interface_1" spirit:portRef="exp_data"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>xlslice_2_Dout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="enable_receive" spirit:portRef="Dout"/>
+        <spirit:externalPortReference spirit:portRef="enable"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -795,6 +827,24 @@
           </spirit:portMap>
         </spirit:portMaps>
       </spirit:busInterface>
+      <spirit:busInterface>
+        <spirit:name>RST.ENABLE</spirit:name>
+        <spirit:displayName>Reset</spirit:displayName>
+        <spirit:description>Reset</spirit:description>
+        <spirit:busType spirit:library="signal" spirit:name="reset" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="signal" spirit:name="reset_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:slave/>
+        <spirit:portMaps>
+          <spirit:portMap>
+            <spirit:logicalPort>
+              <spirit:name>RST</spirit:name>
+            </spirit:logicalPort>
+            <spirit:physicalPort>
+              <spirit:name>enable</spirit:name>
+            </spirit:physicalPort>
+          </spirit:portMap>
+        </spirit:portMaps>
+      </spirit:busInterface>
     </spirit:busInterfaces>
     <spirit:model>
       <spirit:views>
@@ -847,6 +897,16 @@
         </spirit:port>
         <spirit:port>
           <spirit:name>aresetn</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+            <spirit:vector>
+              <spirit:left>0</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>enable</spirit:name>
           <spirit:wire>
             <spirit:direction>in</spirit:direction>
             <spirit:vector>
@@ -908,6 +968,7 @@
           <spirit:configurableElementValue spirit:referenceId="S_PHASE_Has_TUSER">Not_Required</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="M_DATA_Has_TUSER">Not_Required</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Latency">7</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Has_ARESETn">true</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Output_Frequency1">0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="PINC1">10000011000100100110111</spirit:configurableElementValue>
         </spirit:configurableElementValues>
@@ -986,14 +1047,19 @@
         <spirit:externalPortReference spirit:portRef="dac_dat"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
+        <spirit:name>sig_gen_config_cfg_data</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="sig_gen_config" spirit:portRef="cfg_data"/>
+        <spirit:internalPortReference spirit:componentRef="axis_constant_0" spirit:portRef="cfg_data"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
         <spirit:name>aresetn_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="sig_gen_config" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>sig_gen_config_cfg_data</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="sig_gen_config" spirit:portRef="cfg_data"/>
-        <spirit:internalPortReference spirit:componentRef="axis_constant_0" spirit:portRef="cfg_data"/>
+        <spirit:name>aresetn1_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="enable"/>
+        <spirit:internalPortReference spirit:componentRef="dds_compiler_0" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -1058,6 +1124,24 @@
         </spirit:portMaps>
       </spirit:busInterface>
       <spirit:busInterface>
+        <spirit:name>RST.ENABLE</spirit:name>
+        <spirit:displayName>Reset</spirit:displayName>
+        <spirit:description>Reset</spirit:description>
+        <spirit:busType spirit:library="signal" spirit:name="reset" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="signal" spirit:name="reset_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:slave/>
+        <spirit:portMaps>
+          <spirit:portMap>
+            <spirit:logicalPort>
+              <spirit:name>RST</spirit:name>
+            </spirit:logicalPort>
+            <spirit:physicalPort>
+              <spirit:name>enable</spirit:name>
+            </spirit:physicalPort>
+          </spirit:portMap>
+        </spirit:portMaps>
+      </spirit:busInterface>
+      <spirit:busInterface>
         <spirit:name>RST.ARESETN</spirit:name>
         <spirit:displayName>Reset</spirit:displayName>
         <spirit:description>Reset</spirit:description>
@@ -1092,7 +1176,7 @@
           </spirit:wire>
         </spirit:port>
         <spirit:port>
-          <spirit:name>aresetn</spirit:name>
+          <spirit:name>enable</spirit:name>
           <spirit:wire>
             <spirit:direction>in</spirit:direction>
             <spirit:vector>
@@ -1134,9 +1218,9 @@
           </spirit:wire>
         </spirit:port>
         <spirit:port>
-          <spirit:name>active</spirit:name>
+          <spirit:name>aresetn</spirit:name>
           <spirit:wire>
-            <spirit:direction>out</spirit:direction>
+            <spirit:direction>in</spirit:direction>
             <spirit:vector>
               <spirit:left>0</spirit:left>
               <spirit:right>0</spirit:right>
@@ -1203,11 +1287,9 @@
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>xlconstant_0_dout</spirit:name>
-        <spirit:externalPortReference spirit:portRef="aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="adc_streamer" spirit:portRef="aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="aresetn"/>
+        <spirit:externalPortReference spirit:portRef="enable"/>
+        <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="enable"/>
+        <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="enable"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>axis_red_pitaya_adc_0_adc_csn</spirit:name>
@@ -1230,9 +1312,12 @@
         <spirit:internalPortReference spirit:componentRef="adc_streamer" spirit:portRef="adc_dat_b"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>config_settings_enable</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="active"/>
-        <spirit:externalPortReference spirit:portRef="active"/>
+        <spirit:name>aresetn2_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="adc_streamer" spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -1338,16 +1423,6 @@
             </spirit:vector>
           </spirit:wire>
         </spirit:port>
-        <spirit:port>
-          <spirit:name>active</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-            <spirit:vector>
-              <spirit:left>0</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
-          </spirit:wire>
-        </spirit:port>
       </spirit:ports>
     </spirit:model>
   </spirit:component>
@@ -1378,13 +1453,6 @@
           <spirit:configurableElementValue spirit:referenceId="AXI_ADDR_WIDTH">32</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>xlslice_1</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlslice_1_0</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
     </spirit:componentInstances>
     <spirit:interconnections/>
     <spirit:adHocConnections>
@@ -1392,7 +1460,6 @@
         <spirit:name>cfg_0_cfg_data</spirit:name>
         <spirit:internalPortReference spirit:componentRef="cfg" spirit:portRef="cfg_data"/>
         <spirit:internalPortReference spirit:componentRef="xlslice_0" spirit:portRef="Din"/>
-        <spirit:internalPortReference spirit:componentRef="xlslice_1" spirit:portRef="Din"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>xlslice_0_Dout</spirit:name>
@@ -1408,11 +1475,6 @@
         <spirit:name>xlconstant_0_dout</spirit:name>
         <spirit:externalPortReference spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="cfg" spirit:portRef="aresetn"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>xlslice_1_Dout</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="xlslice_1" spirit:portRef="Dout"/>
-        <spirit:externalPortReference spirit:portRef="active"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -1465,6 +1527,24 @@
         </spirit:portMaps>
       </spirit:busInterface>
       <spirit:busInterface>
+        <spirit:name>RST.ENABLE</spirit:name>
+        <spirit:displayName>Reset</spirit:displayName>
+        <spirit:description>Reset</spirit:description>
+        <spirit:busType spirit:library="signal" spirit:name="reset" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="signal" spirit:name="reset_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:slave/>
+        <spirit:portMaps>
+          <spirit:portMap>
+            <spirit:logicalPort>
+              <spirit:name>RST</spirit:name>
+            </spirit:logicalPort>
+            <spirit:physicalPort>
+              <spirit:name>enable</spirit:name>
+            </spirit:physicalPort>
+          </spirit:portMap>
+        </spirit:portMaps>
+      </spirit:busInterface>
+      <spirit:busInterface>
         <spirit:name>RST.ARESETN</spirit:name>
         <spirit:displayName>Reset</spirit:displayName>
         <spirit:description>Reset</spirit:description>
@@ -1504,6 +1584,16 @@
             <spirit:direction>in</spirit:direction>
             <spirit:vector>
               <spirit:left>15</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>enable</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+            <spirit:vector>
+              <spirit:left>0</spirit:left>
               <spirit:right>0</spirit:right>
             </spirit:vector>
           </spirit:wire>
@@ -1613,11 +1703,15 @@
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>aresetn_1</spirit:name>
-        <spirit:externalPortReference spirit:portRef="aresetn"/>
+        <spirit:externalPortReference spirit:portRef="enable"/>
         <spirit:internalPortReference spirit:componentRef="axis_decimator_0" spirit:portRef="aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="sts_b_channel" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="axis_dwidth_converter_0" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="ch_b_writer" spirit:portRef="aresetn"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>aresetn2_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="sts_b_channel" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -1676,6 +1770,24 @@
         </spirit:portMaps>
       </spirit:busInterface>
       <spirit:busInterface>
+        <spirit:name>RST.ENABLE</spirit:name>
+        <spirit:displayName>Reset</spirit:displayName>
+        <spirit:description>Reset</spirit:description>
+        <spirit:busType spirit:library="signal" spirit:name="reset" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="signal" spirit:name="reset_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:slave/>
+        <spirit:portMaps>
+          <spirit:portMap>
+            <spirit:logicalPort>
+              <spirit:name>RST</spirit:name>
+            </spirit:logicalPort>
+            <spirit:physicalPort>
+              <spirit:name>enable</spirit:name>
+            </spirit:physicalPort>
+          </spirit:portMap>
+        </spirit:portMaps>
+      </spirit:busInterface>
+      <spirit:busInterface>
         <spirit:name>RST.ARESETN</spirit:name>
         <spirit:displayName>Reset</spirit:displayName>
         <spirit:description>Reset</spirit:description>
@@ -1717,6 +1829,16 @@
           <spirit:name>aclk</spirit:name>
           <spirit:wire>
             <spirit:direction>in</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>enable</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+            <spirit:vector>
+              <spirit:left>0</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
           </spirit:wire>
         </spirit:port>
         <spirit:port>
@@ -1824,11 +1946,15 @@
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>aresetn_1</spirit:name>
-        <spirit:externalPortReference spirit:portRef="aresetn"/>
+        <spirit:externalPortReference spirit:portRef="enable"/>
         <spirit:internalPortReference spirit:componentRef="axis_decimator_0" spirit:portRef="aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="sts_a_channel" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="axis_dwidth_converter_0" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="ch_a_writer" spirit:portRef="aresetn"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>aresetn1_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="sts_a_channel" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>

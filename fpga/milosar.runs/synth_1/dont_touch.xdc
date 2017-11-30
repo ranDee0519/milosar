@@ -71,9 +71,6 @@ set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_ram_a_ad
 # IP: bd/system/ip/system_sts_a_channel_0/system_sts_a_channel_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_sts_a_channel_0 || ORIG_REF_NAME==system_sts_a_channel_0}]
 
-# IP: bd/system/ip/system_xlslice_1_0/system_xlslice_1_0.xci
-set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_1_0 || ORIG_REF_NAME==system_xlslice_1_0}]
-
 # IP: bd/system/ip/system_dds_compiler_0_0/system_dds_compiler_0_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_dds_compiler_0_0 || ORIG_REF_NAME==system_dds_compiler_0_0}]
 
@@ -103,6 +100,9 @@ set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_exp_inte
 
 # IP: bd/system/ip/system_xlslice_0_2/system_xlslice_0_2.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_0_2 || ORIG_REF_NAME==system_xlslice_0_2}]
+
+# IP: bd/system/ip/system_xlslice_2_0/system_xlslice_2_0.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_2_0 || ORIG_REF_NAME==system_xlslice_2_0}]
 
 # IP: bd/system/ip/system_auto_pc_0/system_auto_pc_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_auto_pc_0 || ORIG_REF_NAME==system_auto_pc_0}]

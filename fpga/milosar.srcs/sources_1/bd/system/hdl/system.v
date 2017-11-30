@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Wed Nov 29 11:52:55 2017
+//Date        : Thu Nov 30 13:05:56 2017
 //Host        : ubuntu running 64-bit Ubuntu 17.04
 //Command     : generate_target system.bd
 //Design      : system
@@ -31,6 +31,7 @@ module channel_a_imp_JYKOO2
     adc_data_tvalid,
     aresetn,
     decimation,
+    enable,
     status_araddr,
     status_arready,
     status_arvalid,
@@ -68,6 +69,7 @@ module channel_a_imp_JYKOO2
   input adc_data_tvalid;
   input [0:0]aresetn;
   input [15:0]decimation;
+  input [0:0]enable;
   input [31:0]status_araddr;
   output status_arready;
   input status_arvalid;
@@ -103,6 +105,7 @@ module channel_a_imp_JYKOO2
   wire Conn1_WVALID;
   wire [15:0]adc_streamer_m00_axis_TDATA;
   wire adc_streamer_m00_axis_TVALID;
+  wire [0:0]aresetn1_1;
   wire [0:0]aresetn_1;
   wire [15:0]axis_decimator_0_m_axis_TDATA;
   wire axis_decimator_0_m_axis_TREADY;
@@ -154,7 +157,8 @@ module channel_a_imp_JYKOO2
   assign M_AXI_wvalid = axis_ram_writer_0_M_AXI_WVALID;
   assign adc_streamer_m00_axis_TDATA = adc_data_tdata[15:0];
   assign adc_streamer_m00_axis_TVALID = adc_data_tvalid;
-  assign aresetn_1 = aresetn[0];
+  assign aresetn1_1 = aresetn[0];
+  assign aresetn_1 = enable[0];
   assign axis_ram_writer_0_M_AXI_AWREADY = M_AXI_awready;
   assign axis_ram_writer_0_M_AXI_BVALID = M_AXI_bvalid;
   assign axis_ram_writer_0_M_AXI_WREADY = M_AXI_wready;
@@ -214,7 +218,7 @@ module channel_a_imp_JYKOO2
        (.dout(ram_a_address_dout));
   system_sts_0_0 sts_a_channel
        (.aclk(clk_sync_clk_out1),
-        .aresetn(aresetn_1),
+        .aresetn(aresetn1_1),
         .s_axi_araddr(Conn1_ARADDR),
         .s_axi_arready(Conn1_ARREADY),
         .s_axi_arvalid(Conn1_ARVALID),
@@ -256,6 +260,7 @@ module channel_b_imp_WRMB9B
     adc_data_tvalid,
     aresetn,
     decimation,
+    enable,
     status_araddr,
     status_arready,
     status_arvalid,
@@ -293,6 +298,7 @@ module channel_b_imp_WRMB9B
   input adc_data_tvalid;
   input [0:0]aresetn;
   input [15:0]decimation;
+  input [0:0]enable;
   input [31:0]status_araddr;
   output status_arready;
   input status_arvalid;
@@ -328,6 +334,7 @@ module channel_b_imp_WRMB9B
   wire Conn1_WVALID;
   wire [15:0]adc_streamer_m00_axis_TDATA;
   wire adc_streamer_m00_axis_TVALID;
+  wire [0:0]aresetn2_1;
   wire [0:0]aresetn_1;
   wire [15:0]axis_decimator_0_m_axis_TDATA;
   wire axis_decimator_0_m_axis_TREADY;
@@ -379,7 +386,8 @@ module channel_b_imp_WRMB9B
   assign M_AXI_wvalid = axis_ram_writer_0_M_AXI_WVALID;
   assign adc_streamer_m00_axis_TDATA = adc_data_tdata[15:0];
   assign adc_streamer_m00_axis_TVALID = adc_data_tvalid;
-  assign aresetn_1 = aresetn[0];
+  assign aresetn2_1 = aresetn[0];
+  assign aresetn_1 = enable[0];
   assign axis_ram_writer_0_M_AXI_AWREADY = M_AXI_awready;
   assign axis_ram_writer_0_M_AXI_BVALID = M_AXI_bvalid;
   assign axis_ram_writer_0_M_AXI_WREADY = M_AXI_wready;
@@ -439,7 +447,7 @@ module channel_b_imp_WRMB9B
        (.dout(ram_a_address_dout));
   system_sts_a_channel_0 sts_b_channel
        (.aclk(clk_sync_clk_out1),
-        .aresetn(aresetn_1),
+        .aresetn(aresetn2_1),
         .s_axi_araddr(Conn1_ARADDR),
         .s_axi_arready(Conn1_ARREADY),
         .s_axi_arvalid(Conn1_ARVALID),
@@ -503,7 +511,6 @@ module config_settings_imp_18GRB1F
     S_AXI_wstrb,
     S_AXI_wvalid,
     aclk,
-    active,
     aresetn,
     decimation);
   input [31:0]S_AXI_araddr;
@@ -524,7 +531,6 @@ module config_settings_imp_18GRB1F
   input [3:0]S_AXI_wstrb;
   input S_AXI_wvalid;
   input aclk;
-  output [0:0]active;
   input [0:0]aresetn;
   output [15:0]decimation;
 
@@ -549,7 +555,6 @@ module config_settings_imp_18GRB1F
   wire ps_0_axi_periph_M00_AXI_WVALID;
   wire [0:0]xlconstant_0_dout;
   wire [15:0]xlslice_0_Dout;
-  wire [0:0]xlslice_1_Dout;
 
   assign S_AXI_arready = ps_0_axi_periph_M00_AXI_ARREADY;
   assign S_AXI_awready = ps_0_axi_periph_M00_AXI_AWREADY;
@@ -559,7 +564,6 @@ module config_settings_imp_18GRB1F
   assign S_AXI_rresp[1:0] = ps_0_axi_periph_M00_AXI_RRESP;
   assign S_AXI_rvalid = ps_0_axi_periph_M00_AXI_RVALID;
   assign S_AXI_wready = ps_0_axi_periph_M00_AXI_WREADY;
-  assign active[0] = xlslice_1_Dout;
   assign clk_sync_clk_out1 = aclk;
   assign decimation[15:0] = xlslice_0_Dout;
   assign ps_0_axi_periph_M00_AXI_ARADDR = S_AXI_araddr[31:0];
@@ -596,9 +600,6 @@ module config_settings_imp_18GRB1F
   system_xlslice_0_0 xlslice_0
        (.Din(cfg_0_cfg_data),
         .Dout(xlslice_0_Dout));
-  system_xlslice_1_0 xlslice_1
-       (.Din(cfg_0_cfg_data),
-        .Dout(xlslice_1_Dout));
 endmodule
 
 module daisy_chain_imp_1A80GWR
@@ -651,6 +652,7 @@ module gpio_interface_imp_1EU3LZ6
     S_AXI_wvalid,
     aclk,
     aresetn,
+    enable,
     exp_data_n,
     exp_data_p);
   input [31:0]S_AXI_araddr;
@@ -672,6 +674,7 @@ module gpio_interface_imp_1EU3LZ6
   input S_AXI_wvalid;
   input aclk;
   input [0:0]aresetn;
+  output [0:0]enable;
   inout [7:0]exp_data_n;
   inout [7:0]exp_data_p;
 
@@ -699,6 +702,7 @@ module gpio_interface_imp_1EU3LZ6
   wire [0:0]xlconstant_0_dout;
   wire [7:0]xlslice_0_Dout;
   wire [7:0]xlslice_1_Dout;
+  wire [0:0]xlslice_2_Dout;
 
   assign S_AXI_arready = processing_system_M04_AXI_ARREADY;
   assign S_AXI_awready = processing_system_M04_AXI_AWREADY;
@@ -709,6 +713,7 @@ module gpio_interface_imp_1EU3LZ6
   assign S_AXI_rvalid = processing_system_M04_AXI_RVALID;
   assign S_AXI_wready = processing_system_M04_AXI_WREADY;
   assign clk_sync_clk_out1 = aclk;
+  assign enable[0] = xlslice_2_Dout;
   assign processing_system_M04_AXI_ARADDR = S_AXI_araddr[31:0];
   assign processing_system_M04_AXI_ARVALID = S_AXI_arvalid;
   assign processing_system_M04_AXI_AWADDR = S_AXI_awaddr[31:0];
@@ -719,6 +724,9 @@ module gpio_interface_imp_1EU3LZ6
   assign processing_system_M04_AXI_WSTRB = S_AXI_wstrb[3:0];
   assign processing_system_M04_AXI_WVALID = S_AXI_wvalid;
   assign xlconstant_0_dout = aresetn[0];
+  system_xlslice_2_0 enable_receive
+       (.Din(axi_cfg_register_0_cfg_data),
+        .Dout(xlslice_2_Dout));
   system_exp_interface_0_0 exp_interface_0
        (.data(xlslice_0_Dout),
         .exp_data(exp_data_n[7:0]));
@@ -2305,11 +2313,11 @@ module receive_chain_imp_N0MRX5
     S_AXI_wstrb,
     S_AXI_wvalid,
     aclk,
-    active,
     adc_csn,
     adc_dat_a,
     adc_dat_b,
     aresetn,
+    enable,
     int_clk,
     status1_araddr,
     status1_arready,
@@ -2393,11 +2401,11 @@ module receive_chain_imp_N0MRX5
   input [3:0]S_AXI_wstrb;
   input S_AXI_wvalid;
   output aclk;
-  output [0:0]active;
   output adc_csn;
   input [13:0]adc_dat_a;
   input [13:0]adc_dat_b;
   input [0:0]aresetn;
+  input [0:0]enable;
   input int_clk;
   input [31:0]status1_araddr;
   output status1_arready;
@@ -2452,6 +2460,7 @@ module receive_chain_imp_N0MRX5
   wire [13:0]adc_dat_b_i_1;
   wire [15:0]adc_streamer_m00_axis_TDATA;
   wire adc_streamer_m00_axis_TVALID;
+  wire [0:0]aresetn2_1;
   wire [31:0]axis_ram_writer_0_M_AXI_AWADDR;
   wire [1:0]axis_ram_writer_0_M_AXI_AWBURST;
   wire [3:0]axis_ram_writer_0_M_AXI_AWCACHE;
@@ -2487,7 +2496,6 @@ module receive_chain_imp_N0MRX5
   wire channel_b_M_AXI_WVALID;
   wire clk_sync_clk_out1;
   wire clk_wiz_0_clk_out1;
-  wire [0:0]config_settings_enable;
   wire [31:0]ps_0_axi_periph_M00_AXI_ARADDR;
   wire ps_0_axi_periph_M00_AXI_ARREADY;
   wire ps_0_axi_periph_M00_AXI_ARVALID;
@@ -2569,10 +2577,10 @@ module receive_chain_imp_N0MRX5
   assign S_AXI_rvalid = ps_0_axi_periph_M00_AXI_RVALID;
   assign S_AXI_wready = ps_0_axi_periph_M00_AXI_WREADY;
   assign aclk = clk_sync_clk_out1;
-  assign active[0] = config_settings_enable;
   assign adc_csn = axis_red_pitaya_adc_0_adc_csn;
   assign adc_dat_a_i_1 = adc_dat_a[13:0];
   assign adc_dat_b_i_1 = adc_dat_b[13:0];
+  assign aresetn2_1 = aresetn[0];
   assign axis_ram_writer_0_M_AXI_AWREADY = M_AXI_awready;
   assign axis_ram_writer_0_M_AXI_BVALID = M_AXI_bvalid;
   assign axis_ram_writer_0_M_AXI_WREADY = M_AXI_wready;
@@ -2613,13 +2621,13 @@ module receive_chain_imp_N0MRX5
   assign status_rresp[1:0] = ps_axi_periph_M01_AXI_RRESP;
   assign status_rvalid = ps_axi_periph_M01_AXI_RVALID;
   assign status_wready = ps_axi_periph_M01_AXI_WREADY;
-  assign xlconstant_0_dout = aresetn[0];
+  assign xlconstant_0_dout = enable[0];
   system_axis_red_pitaya_adc_0_0 adc_streamer
        (.adc_clk(clk_sync_clk_out1),
         .adc_csn(axis_red_pitaya_adc_0_adc_csn),
         .adc_dat_a(adc_dat_a_i_1),
         .adc_dat_b(adc_dat_b_i_1),
-        .aresetn(xlconstant_0_dout),
+        .aresetn(aresetn2_1),
         .int_clk(clk_wiz_0_clk_out1),
         .m00_axis_tdata(adc_streamer_m00_axis_TDATA),
         .m00_axis_tvalid(adc_streamer_m00_axis_TVALID),
@@ -2645,8 +2653,9 @@ module receive_chain_imp_N0MRX5
         .aclk(clk_sync_clk_out1),
         .adc_data_tdata(adc_streamer_m00_axis_TDATA),
         .adc_data_tvalid(adc_streamer_m00_axis_TVALID),
-        .aresetn(xlconstant_0_dout),
+        .aresetn(aresetn2_1),
         .decimation(xlslice_0_Dout),
+        .enable(xlconstant_0_dout),
         .status_araddr(ps_axi_periph_M01_AXI_ARADDR),
         .status_arready(ps_axi_periph_M01_AXI_ARREADY),
         .status_arvalid(ps_axi_periph_M01_AXI_ARVALID),
@@ -2683,8 +2692,9 @@ module receive_chain_imp_N0MRX5
         .aclk(clk_sync_clk_out1),
         .adc_data_tdata(s00_axis_1_TDATA),
         .adc_data_tvalid(s00_axis_1_TVALID),
-        .aresetn(xlconstant_0_dout),
+        .aresetn(aresetn2_1),
         .decimation(xlslice_0_Dout),
+        .enable(xlconstant_0_dout),
         .status_araddr(S_AXI_1_ARADDR),
         .status_arready(S_AXI_1_ARREADY),
         .status_arvalid(S_AXI_1_ARVALID),
@@ -2720,8 +2730,7 @@ module receive_chain_imp_N0MRX5
         .S_AXI_wstrb(ps_0_axi_periph_M00_AXI_WSTRB),
         .S_AXI_wvalid(ps_0_axi_periph_M00_AXI_WVALID),
         .aclk(clk_sync_clk_out1),
-        .active(config_settings_enable),
-        .aresetn(xlconstant_0_dout),
+        .aresetn(aresetn2_1),
         .decimation(xlslice_0_Dout));
 endmodule
 
@@ -3054,7 +3063,8 @@ module signal_generator_imp_HADG47
     dac_dat,
     dac_rst,
     dac_sel,
-    dac_wrt);
+    dac_wrt,
+    enable);
   input [31:0]S_AXI_araddr;
   output S_AXI_arready;
   input S_AXI_arvalid;
@@ -3079,6 +3089,7 @@ module signal_generator_imp_HADG47
   output dac_rst;
   output dac_sel;
   output dac_wrt;
+  input [0:0]enable;
 
   wire [31:0]Conn1_ARADDR;
   wire Conn1_ARREADY;
@@ -3097,6 +3108,7 @@ module signal_generator_imp_HADG47
   wire Conn1_WREADY;
   wire [3:0]Conn1_WSTRB;
   wire Conn1_WVALID;
+  wire [0:0]aresetn1_1;
   wire [0:0]aresetn_1;
   wire [31:0]axis_constant_0_M_AXIS_TDATA;
   wire axis_constant_0_M_AXIS_TVALID;
@@ -3129,6 +3141,7 @@ module signal_generator_imp_HADG47
   assign S_AXI_rresp[1:0] = Conn1_RRESP;
   assign S_AXI_rvalid = Conn1_RVALID;
   assign S_AXI_wready = Conn1_WREADY;
+  assign aresetn1_1 = enable[0];
   assign aresetn_1 = aresetn[0];
   assign clk_sync_clk_out1 = aclk;
   assign dac_clk = axis_red_pitaya_dac_0_dac_clk;
@@ -3158,6 +3171,7 @@ module signal_generator_imp_HADG47
         .locked(clk_wiz_1_locked));
   system_dds_compiler_0_0 dds_compiler_0
        (.aclk(clk_sync_clk_out1),
+        .aresetn(aresetn1_1),
         .m_axis_data_tdata(dds_compiler_0_M_AXIS_DATA_TDATA),
         .m_axis_data_tvalid(dds_compiler_0_M_AXIS_DATA_TVALID),
         .s_axis_config_tdata(axis_constant_0_M_AXIS_TDATA),
@@ -3268,7 +3282,7 @@ module system
   output [1:0]daisy_p_o;
   inout [7:0]exp_n_tri_io;
   inout [7:0]exp_p_tri_io;
-  output [7:0]led_o;
+  output [0:0]led_o;
 
   wire [7:0]Net;
   wire [7:0]Net1;
@@ -3351,6 +3365,7 @@ module system
   wire clk_wiz_0_clk_out1;
   wire [1:0]daisy_n_i_1;
   wire [1:0]daisy_p_i_1;
+  wire [0:0]enable_1;
   wire [31:0]processing_system_M03_AXI_ARADDR;
   wire processing_system_M03_AXI_ARREADY;
   wire processing_system_M03_AXI_ARVALID;
@@ -3469,6 +3484,7 @@ module system
         .S_AXI_wvalid(S_AXI_2_WVALID),
         .aclk(clk_sync_clk_out1),
         .aresetn(xlconstant_0_dout),
+        .enable(enable_1),
         .exp_data_n(exp_n_tri_io[7:0]),
         .exp_data_p(exp_p_tri_io[7:0]));
   processing_system_imp_W26YM1 processing_system
@@ -3665,6 +3681,7 @@ module system
         .adc_dat_a(adc_dat_a_i_1),
         .adc_dat_b(adc_dat_b_i_1),
         .aresetn(xlconstant_0_dout),
+        .enable(enable_1),
         .int_clk(clk_wiz_0_clk_out1),
         .status1_araddr(S_AXI_1_ARADDR),
         .status1_arready(S_AXI_1_ARREADY),
@@ -3722,7 +3739,8 @@ module system
         .dac_dat(axis_red_pitaya_dac_0_dac_dat),
         .dac_rst(axis_red_pitaya_dac_0_dac_rst),
         .dac_sel(axis_red_pitaya_dac_0_dac_sel),
-        .dac_wrt(axis_red_pitaya_dac_0_dac_wrt));
+        .dac_wrt(axis_red_pitaya_dac_0_dac_wrt),
+        .enable(enable_1));
 endmodule
 
 module system_ps_0_axi_periph_0

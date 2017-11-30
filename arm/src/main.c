@@ -47,6 +47,7 @@ int main(int argc, char **argv)
 	load_registers("template/register_template.txt", &lo_synth);	
 	
 	setpriority(PRIO_PROCESS, 0, -20);
+	system("pkill nginx\n");
 	
 	ASSERT(init_mem(), "Failed to open /dev/mem.");
 	
@@ -56,12 +57,6 @@ int main(int argc, char **argv)
 	
 	uint32_t decimation = 0x00080000;
 	set_reg(cfg, decimation);
-	
-	//set dds phase increment
-	double freq_out = PHASE_DETECTOR_FREQ/2;
-	double phase_wth  = 30;
-	int phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
-	set_reg(gen, phase_inc);
 	
 	//set all gpio pins low
 	set_reg(gpio, LOW);
@@ -78,17 +73,24 @@ int main(int argc, char **argv)
 	flash_synth(gpio, &tx_synth);
 	flash_synth(gpio, &lo_synth);
 	
-	//get user input for final experiment settings
-	config_experiment(&config, &tx_synth, &lo_synth);
-	
+	//now that synth parameters have been set
 	enable_ramping(gpio, &tx_synth, true);
 	enable_ramping(gpio, &lo_synth, true);
+	
+	//get user input for final experiment settings
+	config_experiment(&config, &tx_synth, &lo_synth);
 	
 	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
 	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
 
 	pthread_create(&A->thread, NULL, record, (void *) A);
 	pthread_create(&B->thread, NULL, record, (void *) B);
+	
+	//set dds phase increment
+	double freq_out = PHASE_DETECTOR_FREQ/2;
+	double phase_wth  = 30;
+	int phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
+	set_reg(gen, phase_inc);
 	
 	trigger_synths(gpio, &tx_synth, &lo_synth);
 
@@ -204,8 +206,6 @@ void* record(void *arg)
 			limit = limit > 0 ? 0 : S2MB;			
 			fwrite(channel->dma + offset, 1, S2MB , f);
 			nbuffs++;
-
-
 		} 
     }
 

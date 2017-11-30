@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date         : Wed Nov 29 11:53:58 2017
+| Date         : Thu Nov 30 13:07:00 2017
 | Host         : ubuntu running 64-bit Ubuntu 17.04
 | Command      : report_utilization -file system_wrapper_utilization_synth.rpt -pb system_wrapper_utilization_synth.pb
 | Design       : system_wrapper
@@ -30,13 +30,13 @@ Table of Contents
 +----------------------------+------+-------+-----------+-------+
 |          Site Type         | Used | Fixed | Available | Util% |
 +----------------------------+------+-------+-----------+-------+
-| Slice LUTs*                | 1268 |     0 |     17600 |  7.20 |
-|   LUT as Logic             | 1219 |     0 |     17600 |  6.93 |
+| Slice LUTs*                | 1270 |     0 |     17600 |  7.22 |
+|   LUT as Logic             | 1221 |     0 |     17600 |  6.94 |
 |   LUT as Memory            |   49 |     0 |      6000 |  0.82 |
 |     LUT as Distributed RAM |    0 |     0 |           |       |
 |     LUT as Shift Register  |   49 |     0 |           |       |
-| Slice Registers            | 1560 |     0 |     35200 |  4.43 |
-|   Register as Flip Flop    | 1560 |     0 |     35200 |  4.43 |
+| Slice Registers            | 1567 |     0 |     35200 |  4.45 |
+|   Register as Flip Flop    | 1567 |     0 |     35200 |  4.45 |
 |   Register as Latch        |    0 |     0 |     35200 |  0.00 |
 | F7 Muxes                   |    0 |     0 |      8800 |  0.00 |
 | F8 Muxes                   |    0 |     0 |      4400 |  0.00 |
@@ -58,8 +58,8 @@ Table of Contents
 | 0     |          Yes |           - |            - |
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
-| 57    |          Yes |         Set |            - |
-| 1503  |          Yes |       Reset |            - |
+| 59    |          Yes |         Set |            - |
+| 1508  |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -94,7 +94,7 @@ Table of Contents
 +-----------------------------+------+-------+-----------+--------+
 |          Site Type          | Used | Fixed | Available |  Util% |
 +-----------------------------+------+-------+-----------+--------+
-| Bonded IOB                  |   87 |     0 |       100 |  87.00 |
+| Bonded IOB                  |   80 |     0 |       100 |  80.00 |
 | Bonded IPADs                |    0 |     0 |         2 |   0.00 |
 | Bonded IOPADs               |  130 |     0 |       130 | 100.00 |
 | PHY_CONTROL                 |    0 |     0 |         2 |   0.00 |
@@ -151,18 +151,18 @@ Table of Contents
 +------------+------+----------------------+
 |  Ref Name  | Used |  Functional Category |
 +------------+------+----------------------+
-| FDRE       | 1503 |         Flop & Latch |
-| LUT3       |  309 |                  LUT |
+| FDRE       | 1508 |         Flop & Latch |
+| LUT3       |  308 |                  LUT |
 | LUT6       |  254 |                  LUT |
-| LUT1       |  220 |                  LUT |
-| LUT2       |  165 |                  LUT |
-| LUT4       |  159 |                  LUT |
+| LUT1       |  221 |                  LUT |
+| LUT2       |  166 |                  LUT |
+| LUT4       |  160 |                  LUT |
 | LUT5       |  136 |                  LUT |
 | BIBUF      |  130 |                   IO |
 | CARRY4     |   76 |           CarryLogic |
-| FDSE       |   57 |         Flop & Latch |
-| OBUF       |   49 |                   IO |
+| FDSE       |   59 |         Flop & Latch |
 | SRLC32E    |   47 |   Distributed Memory |
+| OBUF       |   42 |                   IO |
 | IBUF       |   28 |                   IO |
 | ODDR       |   18 |                   IO |
 | OBUFDS     |    4 |                   IO |
