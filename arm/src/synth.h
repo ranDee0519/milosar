@@ -64,11 +64,13 @@ int handler(void* user, const char* section, const char* name, const char* value
 void load_ramp_file(Synthesizer *synth);
 void calc_parameters(Synthesizer *synth, Configuration *config);
 void load_registers(const char* filename, Synthesizer *synth);
-void reset_synth(void* gpio, Synthesizer *synth);
-void enable_ramping(void* gpio, Synthesizer *synth, bool is_ramping);
+void reset_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth);
+void set_ramping(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth, bool is_ramping);
 void flash_synth(void* gpio, Synthesizer *synth);
+void flash_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth);
 void init_pins(Synthesizer *synth);
 void set_register(void* gpio, Synthesizer *synth, int address, int value);
+void set_register_parallel(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth, int address, int value);
 void trigger_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth);
 void config_experiment(Configuration *config, Synthesizer *tx_synth, Synthesizer *lo_synth);
 void decimalToBinary(uint64_t decimalValue, int* binaryValue);

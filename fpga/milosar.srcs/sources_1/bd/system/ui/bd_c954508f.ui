@@ -34,36 +34,36 @@ preplace inst clocking_system -pg 1 -lvl 1 -y 280 -defaultsOSRD
 preplace inst gpio_interface -pg 1 -lvl 4 -y 220 -defaultsOSRD
 preplace inst signal_generator -pg 1 -lvl 4 -y 390 -defaultsOSRD
 preplace inst receive_chain -pg 1 -lvl 2 -y 160 -defaultsOSRD
-preplace netloc S_AXI_1 1 1 3 260 280 NJ 280 790
+preplace netloc S_AXI_1 1 1 3 260 290 NJ 290 780
 preplace netloc S_AXI_2 1 3 1 N
 preplace netloc axis_red_pitaya_dac_0_dac_rst 1 4 1 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_sel 1 4 1 NJ
 preplace netloc channel_b_M_AXI 1 2 1 N
 preplace netloc axis_red_pitaya_dac_0_dac_wrt 1 4 1 NJ
-preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 270 NJ 140 NJ
+preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 280 NJ 140 NJ
 preplace netloc adc_clk_n_i_1 1 0 1 NJ
 preplace netloc daisy_p_i_1 1 0 4 NJ 520 NJ 520 NJ 520 NJ
 preplace netloc adc_dat_a_i_1 1 0 2 NJ 190 NJ
-preplace netloc processing_system_M03_AXI 1 3 1 820
+preplace netloc processing_system_M03_AXI 1 3 1 810
 preplace netloc util_ds_buf_2_OBUF_DS_N 1 4 1 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 1 3 250 20 NJ 20 790
-preplace netloc xlconstant_0_dout 1 1 3 280 310 NJ 310 800
+preplace netloc ps_0_axi_periph_M00_AXI 1 1 3 240 10 NJ 10 800
+preplace netloc xlconstant_0_dout 1 1 3 270 300 NJ 300 790
 preplace netloc clk_wiz_0_clk_out1 1 1 1 240
 preplace netloc util_ds_buf_2_OBUF_DS_P 1 4 1 NJ
 preplace netloc ps_0_DDR 1 3 2 NJ 80 NJ
-preplace netloc ps_axi_periph_M01_AXI 1 1 3 240 10 NJ 10 800
+preplace netloc ps_axi_periph_M01_AXI 1 1 3 260 20 NJ 20 780
 preplace netloc Net1 1 4 1 NJ
 preplace netloc Net 1 4 1 NJ
 preplace netloc adc_dat_b_i_1 1 0 2 NJ 210 NJ
 preplace netloc ps_0_FIXED_IO 1 3 2 NJ 100 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_clk 1 4 1 NJ
 preplace netloc axis_ram_writer_0_M_AXI 1 2 1 N
-preplace netloc enable_1 1 1 4 270 300 NJ 300 840 290 1120
+preplace netloc enable_1 1 1 4 250 310 NJ 310 820 290 1110
 preplace netloc axis_red_pitaya_dac_0_dac_dat 1 4 1 NJ
 preplace netloc adc_clk_p_i_1 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 2 2 530 290 830
+preplace netloc clk_sync_clk_out1 1 2 2 520 270 830
 preplace netloc daisy_n_i_1 1 0 4 NJ 540 NJ 540 NJ 540 NJ
-levelinfo -pg 1 0 130 400 660 980 1140 -top 0 -bot 590
+levelinfo -pg 1 0 130 390 650 970 1130 -top 0 -bot 590
 ",
 }
 0

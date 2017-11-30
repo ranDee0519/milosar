@@ -148,18 +148,18 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 }
 
 
-void reset_synth(void* gpio, Synthesizer *synth)
+void reset_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
 {
-	set_register(gpio, synth, 2, 0b00000100);
+	set_register_parallel(gpio, tx_synth, lo_synth, 2, 0b00000100);
 }
 
 
-void enable_ramping(void* gpio, Synthesizer *synth, bool is_ramping)
+void set_ramping(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth, bool is_ramping)
 {
 	if (is_ramping)
-		set_register(gpio, synth, 58, 0b00100001); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
+		set_register_parallel(gpio, tx_synth, lo_synth, 58, 0b00100001); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
 	else
-		set_register(gpio, synth, 58, 0b00100000); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
+		set_register_parallel(gpio, tx_synth, lo_synth, 58, 0b00100000); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
 }
 
 
@@ -353,6 +353,62 @@ void set_register(void* gpio, Synthesizer *synth, int address, int value)
 }
 
 
+void set_register_parallel(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth, int address, int value)
+{
+	int binAddress[16];
+	int binValue[8];
+	
+	memset(binAddress, 0, 16*sizeof(int));
+	memset(binValue, 0, 8*sizeof(int));
+	
+	decimalToBinary(address, binAddress);	
+	decimalToBinary(value, binValue);
+ 
+	set_pin(gpio, (tx_synth->latch | lo_synth->latch), HIGH); 			//set latch high
+	usleep(1);
+	set_pin(gpio, (tx_synth->clock | lo_synth->clock), HIGH);			//set clock high
+	usleep(1);
+	set_pin(gpio, (tx_synth->latch | lo_synth->latch), LOW); 			//set latch low
+	usleep(1);
+	set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 				//set data low
+	usleep(1);
+	set_pin(gpio, (tx_synth->clock | lo_synth->clock), LOW);			//set clock low
+	usleep(1);
+
+	for (int j = 15; j >= 0 ; j--)
+	{
+		if (binAddress[j] == 1)
+			set_pin(gpio, (tx_synth->data | lo_synth->data), HIGH); 	//set data high
+		else
+			set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 		//set data low
+			
+		usleep(1);	
+		set_pin(gpio, (tx_synth->clock | lo_synth->clock), HIGH);		//set clock high
+		usleep(1);
+		set_pin(gpio, (tx_synth->clock | lo_synth->clock), LOW);		//set clock low		
+		usleep(1);
+	}			
+	
+	//Write register data
+	for(int j = 7; j >= 0; j--)
+	{
+		if (binValue[j] == 1)
+			set_pin(gpio, (tx_synth->data | lo_synth->data), HIGH); 	//set data high
+		else
+			set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 		//set data low
+		
+		usleep(1);	
+		set_pin(gpio, (tx_synth->clock | lo_synth->clock), HIGH);		//set clock high
+		usleep(1);
+		set_pin(gpio, (tx_synth->clock | lo_synth->clock), LOW);		//set clock low		
+		usleep(1);
+	}
+	
+	set_pin(gpio, (tx_synth->latch | lo_synth->latch), HIGH); 			//set latch high
+	usleep(1);
+	set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 				//set data low	
+}
+
 void flash_synth(void* gpio, Synthesizer *synth)
 {
 	int start_address[16];
@@ -414,6 +470,83 @@ void flash_synth(void* gpio, Synthesizer *synth)
 	usleep(1);
 	set_pin(gpio, synth->data, LOW); 					//set data low
 }
+ 
+ 
+void flash_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
+{
+	/*int start_address[16];
+	memset(start_address, 0, 16*sizeof(int));
+	decimalToBinary((NUM_REGISTERS - 1), start_address);
+	
+	int address_flag = false;
+	
+	for (int i = (NUM_REGISTERS - 1); i >= 0; i--)
+	{
+		if (address_flag == false)
+		{
+			set_pin(gpio, (tx_synth->latch | lo_synth->latch), HIGH); 			//set latch high
+			usleep(1);
+			set_pin(gpio, (tx_synth->clock | lo_synth->clock), HIGH);			//set clock high
+			usleep(1);
+			set_pin(gpio, (tx_synth->latch | lo_synth->latch), LOW); 			//set latch low
+			usleep(1);
+			set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 				//set data low
+			usleep(1);
+			set_pin(gpio, (tx_synth->clock | lo_synth->clock), LOW);			//set clock low
+			usleep(1);
+
+			for (int j = 15; j >= 0 ; j--)
+			{
+				if (start_address[j] == 1)
+					set_pin(gpio, (tx_synth->data | lo_synth->data), HIGH); 	//set data high
+				else
+					set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 		//set data low
+					
+				usleep(1);	
+				set_pin(gpio, (tx_synth->clock | lo_synth->clock), HIGH);		//set clock high
+				usleep(1);
+				set_pin(gpio, (tx_synth->clock | lo_synth->clock), LOW);		//set clock low		
+				usleep(1);
+			}			
+			
+			//Only do this the first loop iteration, set address_flag
+			address_flag = true;
+		}
+
+		//Write register data
+		for(int j = 7; j >= 0; j--)		
+		{
+			if ((tx_synth->registers[i][j] == 1) && (lo_synth->registers[i][j] == 1))
+			{
+				set_pin(gpio, (tx_synth->data | lo_synth->data), HIGH); 		//set data high
+			}
+			else if ((tx_synth->registers[i][j] == 0) && (lo_synth->registers[i][j] == 0))
+			{	
+				set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 			//set data low
+			}
+			else if ((tx_synth->registers[i][j] == 1) && (lo_synth->registers[i][j] == 0))
+			{	
+				set_pin(gpio, (tx_synth->data), HIGH); 			//set data low
+				set_pin(gpio, (lo_synth->data), LOW); 			//set data low
+			}	
+			else if ((tx_synth->registers[i][j] == 0) && (lo_synth->registers[i][j] == 1))
+			{	
+				set_pin(gpio, (tx_synth->data), LOW); 			//set data low
+				set_pin(gpio, (lo_synth->data), HIGH); 			//set data low
+			}		
+			
+			usleep(1);	
+			set_pin(gpio, (tx_synth->clock | lo_synth->clock), HIGH);			//set clock high
+			usleep(1);
+			set_pin(gpio, (tx_synth->clock | lo_synth->clock), LOW);			//set clock low		
+			usleep(1);
+		}
+	}
+	
+	set_pin(gpio, (tx_synth->latch | lo_synth->latch), HIGH); 			//set latch high
+	usleep(1);
+	set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 				//set data low*/
+} 
  
  
 void trigger_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)

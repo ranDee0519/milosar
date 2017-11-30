@@ -66,16 +66,14 @@ int main(int argc, char **argv)
 	init_pins(&lo_synth);
 	
 	//software reset the synths
-	reset_synth(gpio, &tx_synth);
-	reset_synth(gpio, &lo_synth);
+	reset_synths(gpio, &tx_synth, &lo_synth);
 	
 	//write to the synth registers
 	flash_synth(gpio, &tx_synth);
 	flash_synth(gpio, &lo_synth);
 	
 	//now that synth parameters have been set
-	enable_ramping(gpio, &tx_synth, true);
-	enable_ramping(gpio, &lo_synth, true);
+	set_ramping(gpio, &tx_synth, &lo_synth, true);
 	
 	//get user input for final experiment settings
 	config_experiment(&config, &tx_synth, &lo_synth);
@@ -88,7 +86,7 @@ int main(int argc, char **argv)
 	
 	//set dds phase increment
 	double freq_out = PHASE_DETECTOR_FREQ/2;
-	double phase_wth  = 30;
+	double phase_wth  = 32;
 	int phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
 	set_reg(gen, phase_inc);
 	
@@ -97,8 +95,7 @@ int main(int argc, char **argv)
 	pthread_join(A->thread, NULL);
 	pthread_join(B->thread, NULL);
 	
-	enable_ramping(gpio, &tx_synth, false);
-	enable_ramping(gpio, &lo_synth, false);
+	set_ramping(gpio, &tx_synth, &lo_synth, false);
 	
 	if (config.is_debug)
 	{

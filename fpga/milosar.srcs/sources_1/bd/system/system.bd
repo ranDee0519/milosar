@@ -505,8 +505,8 @@
       <spirit:adHocConnection>
         <spirit:name>enable_1</spirit:name>
         <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="enable"/>
-        <spirit:internalPortReference spirit:componentRef="receive_chain" spirit:portRef="enable"/>
         <spirit:internalPortReference spirit:componentRef="signal_generator" spirit:portRef="enable"/>
+        <spirit:internalPortReference spirit:componentRef="receive_chain" spirit:portRef="enable"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -958,8 +958,8 @@
           <spirit:configurableElementValue spirit:referenceId="Parameter_Entry">Hardware_Parameters</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Frequency_Resolution">0.4</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Noise_Shaping">None</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Phase_Width">30</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Output_Width">13</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Phase_Width">32</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Output_Width">14</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Phase_Increment">Programmable</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Output_Selection">Sine_and_Cosine</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Amplitude_Mode">Full_Range</spirit:configurableElementValue>
@@ -979,6 +979,7 @@
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_axi_cfg_register_0_0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="CFG_DATA_WIDTH">32</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="AXI_DATA_WIDTH">32</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
@@ -986,6 +987,7 @@
         <spirit:componentRef spirit:library="user" spirit:name="axis_constant" spirit:vendor="pavel-demin" spirit:version="1.0"/>
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_axis_constant_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="AXIS_TDATA_WIDTH">32</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
     </spirit:componentInstances>
@@ -1047,11 +1049,6 @@
         <spirit:externalPortReference spirit:portRef="dac_dat"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>sig_gen_config_cfg_data</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="sig_gen_config" spirit:portRef="cfg_data"/>
-        <spirit:internalPortReference spirit:componentRef="axis_constant_0" spirit:portRef="cfg_data"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
         <spirit:name>aresetn_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="sig_gen_config" spirit:portRef="aresetn"/>
@@ -1060,6 +1057,11 @@
         <spirit:name>aresetn1_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="enable"/>
         <spirit:internalPortReference spirit:componentRef="dds_compiler_0" spirit:portRef="aresetn"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>sig_gen_config_cfg_data</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="sig_gen_config" spirit:portRef="cfg_data"/>
+        <spirit:internalPortReference spirit:componentRef="axis_constant_0" spirit:portRef="cfg_data"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -2133,6 +2135,7 @@
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_ps_0_axi_periph_0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="NUM_MI">5</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="ENABLE_ADVANCED_OPTIONS">0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="appcore">xilinx.com:ip:axi_interconnect:2.1</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
