@@ -148,15 +148,15 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 }
 
 
-void reset_synth(Synthesizer *synth)
+void reset_synth(void* gpio, Synthesizer *synth)
 {
-	set_register(synth, 2, 0b00000100);
+	set_register(gpio, synth, 2, 0b00000100);
 }
 
 
-void enable_ramping(Synthesizer *synth)
+void enable_ramping(void* gpio, Synthesizer *synth)
 {
-	set_register(synth, 58, 0b00100001); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
+	set_register(gpio, synth, 58, 0b00100001); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
 }
 
 
@@ -293,97 +293,60 @@ void init_pins(Synthesizer *synth)
 }
 
 
-void set_register(Synthesizer *synth, int registerAddress, int registerValue)
+void set_register(void* gpio, Synthesizer *synth, int address, int value)
 {
-	/*int binAddress[16];
-	int binRegister[8];
+	int binAddress[16];
+	int binValue[8];
 	
 	memset(binAddress, 0, 16*sizeof(int));
-	memset(binRegister, 0, 8*sizeof(int));
+	memset(binValue, 0, 8*sizeof(int));
 	
-	decimalToBinary(registerAddress, binAddress);	
-	decimalToBinary(registerValue, binRegister);
+	decimalToBinary(address, binAddress);	
+	decimalToBinary(value, binValue);
  
-	int addressFlag = 0;
-	
-	//Latch enable high
-	rp_DpinSetState(synth->latchPin, RP_HIGH);
+	set_pin(gpio, synth->latch, HIGH); 			//set latch high
 	usleep(1);
-
-	//Clock high
-	rp_DpinSetState(synth->clockPin, RP_HIGH);
+	set_pin(gpio, synth->clock, HIGH);			//set clock high
 	usleep(1);
-
-	//latch enable low
-	rp_DpinSetState(synth->latchPin, RP_LOW);
+	set_pin(gpio, synth->latch, LOW); 			//set latch low
 	usleep(1);
-
-	//data low
-	rp_DpinSetState(synth->dataPin, RP_LOW);
+	set_pin(gpio, synth->data, LOW); 			//set data low
 	usleep(1);
-
-	//clock setup time
-	usleep(1000);
-
-	//clock high
-	rp_DpinSetState(synth->clockPin, RP_HIGH);
-	usleep(1);
-
-	//clock low
-	rp_DpinSetState(synth->clockPin,RP_LOW);
+	set_pin(gpio, synth->clock, LOW);			//set clock low
 	usleep(1);
 
 	for (int j = 15; j >= 0 ; j--)
 	{
-		//Assert address bits on data line
 		if (binAddress[j] == 1)
-		{
-			rp_DpinSetState(synth->dataPin, RP_HIGH);
-		}
+			set_pin(gpio, synth->data, HIGH); 	//set data high
 		else
-		{
-			rp_DpinSetState(synth->dataPin, RP_LOW);
-		}
-		
-		//clock high
-		rp_DpinSetState(synth->clockPin, RP_HIGH);
+			set_pin(gpio, synth->data, LOW); 	//set data low
+			
+		usleep(1);	
+		set_pin(gpio, synth->clock, HIGH);		//set clock high
 		usleep(1);
-		
-		//clock low
-		rp_DpinSetState(synth->clockPin, RP_LOW);				
+		set_pin(gpio, synth->clock, LOW);		//set clock low		
 		usleep(1);
 	}			
 	
-	//Only do this the first loop iteration, set addressFlag
-	addressFlag = 1;	
-
 	//Write register data
 	for(int j = 7; j >= 0; j--)
 	{
-		if (binRegister[j] == 1)
-		{
-			rp_DpinSetState(synth->dataPin, RP_HIGH);
-		}
+		if (binValue[j] == 1)
+			set_pin(gpio, synth->data, HIGH); 	//set data high
 		else
-		{
-			rp_DpinSetState(synth->dataPin, RP_LOW);
-		}
+			set_pin(gpio, synth->data, LOW); 	//set data low
 		
-		//clock high
-		rp_DpinSetState(synth->clockPin, RP_HIGH);
+		usleep(1);	
+		set_pin(gpio, synth->clock, HIGH);		//set clock high
 		usleep(1);
-		
-		//clock low
-		rp_DpinSetState(synth->clockPin, RP_LOW);
+		set_pin(gpio, synth->clock, LOW);		//set clock low		
 		usleep(1);
 	}
 	
-	//Latch enable high
-	rp_DpinSetState(synth->latchPin, RP_HIGH);
+	set_pin(gpio, synth->latch, HIGH); 			//set latch high
 	usleep(1);
-
-	//data low
-	rp_DpinSetState(synth->dataPin, RP_LOW);*/	
+	set_pin(gpio, synth->data, LOW); 			//set data low
 }
 
 
@@ -450,33 +413,14 @@ void flash_synth(void* gpio, Synthesizer *synth)
 }
  
  
-void triggerSynthesizers(Synthesizer *synthOne, Synthesizer *synthTwo)
+void trigger_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
 {
-	/*rp_DpinSetState(synthOne->trigPin, RP_LOW);
-	rp_DpinSetState(synthTwo->trigPin, RP_LOW);	
-	usleep(1);	
-	rp_DpinSetState(synthTwo->trigPin, RP_HIGH);
-	rp_DpinSetState(synthOne->trigPin, RP_HIGH);*/
+	set_reg(gpio, LOW);
+	set_reg(gpio, TRIGGER);
 }
 
 
-void parallelTrigger(Synthesizer *synthOne, Synthesizer *synthTwo)
-{		
-	/*cprint("[??] ", BRIGHT, BLUE);
-	printf("Press enter to trigger...");
-	
-	//Dirty, but it works...
-	getchar();
-	getchar();
-	
-	//Rising edge required
-	setpins(synthOne->trigPin - RP_DIO0_N, 0, synthTwo->trigPin - RP_DIO0_N, 0, 0x4000001C);
-	usleep(1);
-	setpins(synthOne->trigPin - RP_DIO0_N, 1, synthTwo->trigPin - RP_DIO0_N, 1, 0x4000001C);*/
-}
-
-
-void configureVerbose(Configuration *config, Synthesizer *synthOne, Synthesizer *synthTwo)
+void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer *lo_synth)
 {
 	//read-write mode
 	system("rw\n");
@@ -527,12 +471,12 @@ void configureVerbose(Configuration *config, Synthesizer *synthOne, Synthesizer 
 	else
     {
 		//copy ini parameter files
-		sprintf(syscmd, "cp ramps/%s %s", synthOne->param_file, foldername);
+		sprintf(syscmd, "cp ramps/%s %s", tx_synth->param_file, foldername);
 		system(syscmd);
 		
-		if (synthOne->param_file != synthTwo->param_file)
+		if (tx_synth->param_file != lo_synth->param_file)
 		{
-			sprintf(syscmd, "cp ramps/%s %s", synthTwo->param_file, foldername); 
+			sprintf(syscmd, "cp ramps/%s %s", lo_synth->param_file, foldername); 
 			system(syscmd);
 		}
 		
@@ -554,32 +498,32 @@ void configureVerbose(Configuration *config, Synthesizer *synthOne, Synthesizer 
 		fprintf(summaryFile, "n_ramps = %i\r\n", config->n_ramps);			
 		
 		fprintf(summaryFile, "\n[synth_one]\r\n");
-		fprintf(summaryFile, "frequency_offset = %.3f\r\n", vcoOut(synthOne->fractionalNumerator));
-		fprintf(summaryFile, "fractional_numerator = %d\r\n", synthOne->fractionalNumerator);		
+		fprintf(summaryFile, "frequency_offset = %.3f\r\n", vcoOut(tx_synth->fractionalNumerator));
+		fprintf(summaryFile, "fractional_numerator = %d\r\n", tx_synth->fractionalNumerator);		
 		fprintf(summaryFile, "| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\r\n");		
 		
-		for (int k = 0; k<8; k++)
+		for (int k = 0; k < MAX_RAMPS; k++)
 		{
-			if ((synthOne->ramps[k].next + synthOne->ramps[k].length + synthOne->ramps[k].increment + synthOne->ramps[k].reset != 0))
+			if ((tx_synth->ramps[k].next + tx_synth->ramps[k].length + tx_synth->ramps[k].increment + tx_synth->ramps[k].reset != 0))
 			{
 				fprintf(summaryFile, "|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\r\n", 
-				synthOne->ramps[k].number, synthOne->ramps[k].next, synthOne->ramps[k].reset, synthOne->ramps[k].doubler, synthOne->ramps[k].length, 
-				synthOne->ramps[k].increment, bnwOut(synthOne->ramps[k].increment, synthOne->ramps[k].length));
+				tx_synth->ramps[k].number, tx_synth->ramps[k].next, tx_synth->ramps[k].reset, tx_synth->ramps[k].doubler, tx_synth->ramps[k].length, 
+				tx_synth->ramps[k].increment, bnwOut(tx_synth->ramps[k].increment, tx_synth->ramps[k].length));
 			}
 		}
 		
 		fprintf(summaryFile, "\n[synth_two]\r\n");
-		fprintf(summaryFile, "frequency_offset = %.3f\r\n", vcoOut(synthTwo->fractionalNumerator));
-		fprintf(summaryFile, "fractional_numerator = %d\r\n", synthTwo->fractionalNumerator);		
+		fprintf(summaryFile, "frequency_offset = %.3f\r\n", vcoOut(lo_synth->fractionalNumerator));
+		fprintf(summaryFile, "fractional_numerator = %d\r\n", lo_synth->fractionalNumerator);		
 		fprintf(summaryFile, "| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\r\n");
 		
 		for (int j = 0; j<8; j++)
 		{
-			if ((synthTwo->ramps[j].next + synthTwo->ramps[j].length + synthTwo->ramps[j].increment + synthTwo->ramps[j].reset != 0))
+			if ((lo_synth->ramps[j].next + lo_synth->ramps[j].length + lo_synth->ramps[j].increment + lo_synth->ramps[j].reset != 0))
 			{
 				fprintf(summaryFile, "|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\r\n", 
-				synthTwo->ramps[j].number, synthTwo->ramps[j].next, synthTwo->ramps[j].reset, synthTwo->ramps[j].doubler, synthTwo->ramps[j].length, 
-				synthTwo->ramps[j].increment, bnwOut(synthTwo->ramps[j].increment, synthTwo->ramps[j].length));	
+				lo_synth->ramps[j].number, lo_synth->ramps[j].next, lo_synth->ramps[j].reset, lo_synth->ramps[j].doubler, lo_synth->ramps[j].length, 
+				lo_synth->ramps[j].increment, bnwOut(lo_synth->ramps[j].increment, lo_synth->ramps[j].length));	
 			}	
 		}      
 
@@ -599,17 +543,11 @@ void generateClock(void)
 }
 
 
-int clean_stdin()
-{
-	while (getchar()!='\n');
-	return 1;
-}
-
-
 double vcoOut(uint32_t fracNum)
 {
 	return 25*(100 + fracNum/(pow(2, 24) - 1)) - 2500;
 }
+
 
 double bnwOut(double rampInc, uint16_t rampLen)
 {
@@ -618,6 +556,7 @@ double bnwOut(double rampInc, uint16_t rampLen)
 	else
 		return ((rampInc - pow(2, 30))*rampLen*100)/pow(2, 26);
 }
+
 
 double elapsed_us(struct timeval start_time, struct timeval end_time)
 {

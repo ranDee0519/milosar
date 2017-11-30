@@ -72,8 +72,8 @@ int main(int argc, char **argv)
 	init_pins(&lo_synth);
 	
 	//software reset the synths
-	reset_synth(&tx_synth);
-	reset_synth(&lo_synth);
+	reset_synth(gpio, &tx_synth);
+	reset_synth(gpio, &lo_synth);
 	
 	//write to the synth registers
 	flash_synth(gpio, &tx_synth);
@@ -82,14 +82,16 @@ int main(int argc, char **argv)
 	//get user input for final experiment settings
 	configureVerbose(&config, &tx_synth, &lo_synth);
 	
-	enable_ramping(&tx_synth);
-	enable_ramping(&lo_synth);
+	enable_ramping(gpio, &tx_synth);
+	enable_ramping(gpio, &lo_synth);
 	
 	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
 	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
 
 	pthread_create(&A->thread, NULL, record, (void *) A);
 	pthread_create(&B->thread, NULL, record, (void *) B);
+	
+	trigger_synths(gpio, &tx_synth, &lo_synth);
 
 	write_prop_h("CFG REG", get_reg(cfg));
 	write_prop_h("GEN REG", get_reg(gen));
@@ -180,7 +182,7 @@ void* record(void *arg)
 	
 	int nbuffs = 0;
 
-	while (nbuffs < 1) 
+	while (nbuffs < 10) 
 	{
 		//Get the location of the DMA writer in terms of number of bytes written.
 		position = get_reg(channel->sts) * 4;

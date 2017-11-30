@@ -47,7 +47,7 @@ void set_pin(void *gpio, uint64_t pin, int state)
 	if (state == HIGH)
 		set_reg(gpio, current | pin);
 	else
-		set_reg(gpio, current & pin);
+		set_reg(gpio, current & ~pin);
 }
 
 void set_frequency(void *gen, double freq_A, double freq_B){

@@ -64,19 +64,21 @@ int handler(void* user, const char* section, const char* name, const char* value
 void load_ramp_file(Synthesizer *synth);
 void calc_parameters(Synthesizer *synth, Configuration *config);
 void load_registers(const char* filename, Synthesizer *synth);
-void reset_synth(Synthesizer *synth);
-void enable_ramping(Synthesizer *synth);
+void reset_synth(void* gpio, Synthesizer *synth);
+void enable_ramping(void* gpio, Synthesizer *synth);
 void flash_synth(void* gpio, Synthesizer *synth);
 void init_pins(Synthesizer *synth);
-void set_register(Synthesizer *synth, int registerAddress, int registerValue);
+void set_register(void* gpio, Synthesizer *synth, int address, int value);
+void trigger_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth);
+void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer *lo_synth);
+void decimalToBinary(uint64_t decimalValue, int* binaryValue);
 
 
-void triggerSynthesizers(Synthesizer *synthOne, Synthesizer *synthTwo);
 void parallelTrigger(Synthesizer *synthOne, Synthesizer *synthTwo);
-void configureVerbose(Configuration *config, Synthesizer *synthOne, Synthesizer *synthTwo);
+
 void generateClock(void);
 
-void decimalToBinary(uint64_t decimalValue, int* binaryValue);
+
 void printBinary(int* binaryValue, int paddedSize);
 int  clean_stdin();
 
