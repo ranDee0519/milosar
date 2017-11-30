@@ -64,7 +64,7 @@ int handler(void* pointer, const char* section, const char* attribute, const cha
 
 void calc_parameters(Synthesizer *synth, Configuration *config)
 {	
-	if (config->is_debug_mode) 
+	if (config->is_debug) 
 	{
 		cprint("\n[**] ", BRIGHT, CYAN);	
 		printf("Synthesizer %i loaded with %s:\n", synth->number, synth->param_file);
@@ -117,14 +117,14 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 		synth->ramps[i].ntr += (synth->ramps[i].reset << 2) & 0xFF;
 		synth->ramps[i].ntr += (synth->ramps[i].flag << 0) & 0xFF;
 		
-		if ((config->is_debug_mode) && (synth->ramps[i].next + synth->ramps[i].length + synth->ramps[i].increment + synth->ramps[i].reset != 0))
+		if ((config->is_debug) && (synth->ramps[i].next + synth->ramps[i].length + synth->ramps[i].increment + synth->ramps[i].reset != 0))
 		{
 			printf("|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\n", 
 			synth->ramps[i].number, synth->ramps[i].next, synth->ramps[i].reset, synth->ramps[i].doubler, synth->ramps[i].length, 
 			synth->ramps[i].increment, bnwOut(synth->ramps[i].increment, synth->ramps[i].length));
 		}		
 	}	
-	if (config->is_debug_mode) printf("\n");
+	if (config->is_debug) printf("\n");
 	
 	//calculate the equivalent binary values
 	synth->binFractionalNumerator = (int*)malloc(24*sizeof(int));
@@ -154,9 +154,12 @@ void reset_synth(void* gpio, Synthesizer *synth)
 }
 
 
-void enable_ramping(void* gpio, Synthesizer *synth)
+void enable_ramping(void* gpio, Synthesizer *synth, bool is_ramping)
 {
-	set_register(gpio, synth, 58, 0b00100001); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
+	if (is_ramping)
+		set_register(gpio, synth, 58, 0b00100001); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
+	else
+		set_register(gpio, synth, 58, 0b00100000); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
 }
 
 
@@ -425,37 +428,31 @@ void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer 
 	//read-write mode
 	system("rw\n");
 
-	//create time-stamped folder
-	char syscmd[100];
-	char foldername[100];
-	config->timeStamp = (char*)malloc(20*sizeof(char));
+	//allocate memory 
+	config->time_stamp = (char*)malloc(20*sizeof(char));
+	config->dir_experiment = (char*)malloc(100*sizeof(char));
 	
-	time_t rawtime = time(NULL);
-	struct tm tm = *localtime(&rawtime);
+	//get the experiment time stamp
+	time_t timer = time(&timer);
+    struct tm* tm_info  = localtime(&timer);
+	strftime(config->time_stamp, 20, "%d_%m_%y_%H_%M_%S", tm_info);
 	
-	sprintf(config->timeStamp, "%02d_%02d_%02d_%02d_%02d_%02d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900 - 2000, tm.tm_hour, tm.tm_min, tm.tm_sec);
-	sprintf(foldername, "%s/%s/", config->storageDir, config->timeStamp);
-	sprintf(syscmd, "mkdir %s/%s", config->storageDir, config->timeStamp);		
-	system(syscmd);
+	//set the experiment directory
+	sprintf(config->dir_experiment, "%s/%s/", config->dir_storage, config->time_stamp);
 	
-	char* ch1_out = (char*)malloc(100*sizeof(char));
-	strcpy(ch1_out, foldername);
-	strcat(ch1_out, "ext.bin");
-	
-	char* ch2_out = (char*)malloc(100*sizeof(char));
-	strcpy(ch2_out, foldername);
-	strcat(ch2_out, "ref.bin");
+	//make the experiment directory
+	char command[100];
+	sprintf(command, "mkdir %s/%s", config->dir_storage, config->time_stamp);		
+	system(command);
 	
 	char* imu_out = (char*)malloc(100*sizeof(char));
-	strcpy(imu_out, foldername);
+	strcpy(imu_out, config->dir_experiment);
 	strcat(imu_out, "imu.bin");	
 	
 	char* summary = (char*)malloc(100*sizeof(char));
-	strcpy(summary, foldername);
+	strcpy(summary, config->dir_experiment);
 	strcat(summary, "summary.ini");	
 	
-	config->ch1_filename = ch1_out;
-	config->ch2_filename = ch2_out;
 	config->imu_filename = imu_out;
 	config->summary_filename = summary;
 	
@@ -471,18 +468,18 @@ void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer 
 	else
     {
 		//copy ini parameter files
-		sprintf(syscmd, "cp ramps/%s %s", tx_synth->param_file, foldername);
-		system(syscmd);
+		sprintf(command, "cp ramps/%s %s", tx_synth->param_file, config->dir_experiment);
+		system(command);
 		
 		if (tx_synth->param_file != lo_synth->param_file)
 		{
-			sprintf(syscmd, "cp ramps/%s %s", lo_synth->param_file, foldername); 
-			system(syscmd);
+			sprintf(command, "cp ramps/%s %s", lo_synth->param_file, config->dir_experiment); 
+			system(command);
 		}
 		
 		//print summary file 
 		fprintf(summaryFile, "[overview]\r\n");
-		fprintf(summaryFile, "timestamp = %s\r\n", config->timeStamp);
+		fprintf(summaryFile, "timestamp = %s\r\n", config->time_stamp);
 		
 		cprint("[??] ", BRIGHT, BLUE);
 		printf("Comment [140]: ");
@@ -493,9 +490,9 @@ void configureVerbose(Configuration *config, Synthesizer *tx_synth, Synthesizer 
 		
 		fprintf(summaryFile, "\n[dataset]\r\n");
 		fprintf(summaryFile, "storage_directory = %s\r\n", config->ch1_filename);
-		fprintf(summaryFile, "decimation_factor = %d\r\n", config->decFactor);
-		fprintf(summaryFile, "sampling_rate =  %.2f\r\n", 125e6/config->decFactor);
-		fprintf(summaryFile, "n_ramps = %i\r\n", config->n_ramps);			
+		fprintf(summaryFile, "decimation_factor = %d\r\n", config->decimation);
+		fprintf(summaryFile, "sampling_rate =  %.2f\r\n", ADC_RATE/config->decimation);
+	
 		
 		fprintf(summaryFile, "\n[synth_one]\r\n");
 		fprintf(summaryFile, "frequency_offset = %.3f\r\n", vcoOut(tx_synth->fractionalNumerator));

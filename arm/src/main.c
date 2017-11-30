@@ -28,8 +28,8 @@ int main(int argc, char **argv)
 	lo_synth.number = 1;
 	tx_synth.param_file = false;
 	lo_synth.param_file = false;
-	config.storageDir = "/media/storage";
-	config.is_debug_mode = false;
+	config.dir_storage = "/media/storage";
+	config.is_debug = false;
 	
 	//parse command line options
 	parse_options(argc, argv);
@@ -55,8 +55,7 @@ int main(int argc, char **argv)
 	ASSERT(create_map(SREG, MAP_SHARED, &gen, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
 	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
 	
-	//uint32_t decimation = 0x00080000;
-	uint32_t decimation = 0x00010000;
+	uint32_t decimation = 0x00080000;
 	set_reg(cfg, decimation);
 	
 	//set dds phase increment
@@ -83,8 +82,8 @@ int main(int argc, char **argv)
 	//get user input for final experiment settings
 	configureVerbose(&config, &tx_synth, &lo_synth);
 	
-	enable_ramping(gpio, &tx_synth);
-	enable_ramping(gpio, &lo_synth);
+	enable_ramping(gpio, &tx_synth, true);
+	enable_ramping(gpio, &lo_synth, true);
 	
 	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
 	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
@@ -99,6 +98,20 @@ int main(int argc, char **argv)
 
 	pthread_join(A->thread, NULL);
 	pthread_join(B->thread, NULL);
+	
+	enable_ramping(gpio, &tx_synth, false);
+	enable_ramping(gpio, &lo_synth, false);
+	
+	if (config.is_debug)
+	{
+		cprint("[**] ", BRIGHT, CYAN);
+		printf("Enter host password to transfer files:\n");
+		
+		//copy experiment folder from red pitaya to host computer
+		char command[100];
+		sprintf(command, "scp -r %s/%s darryn@10.42.0.1:/home/darryn/Dropbox/Datasets/Temp", config.dir_storage, config.time_stamp);		
+		system(command);
+	}
  
     return 0;	
 }
@@ -115,10 +128,10 @@ void parse_options(int argc, char *argv[])
         switch (opt)
         {
             case 'd':
-                config.is_debug_mode = true;
+                config.is_debug = true;
                 break;
             case 'r':
-                config.storageDir = "/tmp";
+                config.dir_storage = "/tmp";
                 break;       
             case 'i':
                 config.is_imu = true;
@@ -168,9 +181,8 @@ void* record(void *arg)
 
 	int position, limit, offset;
 
-	char * dir = "/media/storage/recording.";
-	char * path = malloc(strlen(dir) + strlen(channel->letter) + 1 + 4);
-	strcpy(path, dir);
+	char * path = malloc(strlen(config.dir_experiment) + strlen(channel->letter) + 1 + 4);
+	strcpy(path, config.dir_experiment);
 	strcat(path, channel->letter);
 	strcat(path, ".bin");
 

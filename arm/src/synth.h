@@ -65,7 +65,7 @@ void load_ramp_file(Synthesizer *synth);
 void calc_parameters(Synthesizer *synth, Configuration *config);
 void load_registers(const char* filename, Synthesizer *synth);
 void reset_synth(void* gpio, Synthesizer *synth);
-void enable_ramping(void* gpio, Synthesizer *synth);
+void enable_ramping(void* gpio, Synthesizer *synth, bool is_ramping);
 void flash_synth(void* gpio, Synthesizer *synth);
 void init_pins(Synthesizer *synth);
 void set_register(void* gpio, Synthesizer *synth, int address, int value);
