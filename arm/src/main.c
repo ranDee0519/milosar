@@ -55,11 +55,12 @@ int main(int argc, char **argv)
 	ASSERT(create_map(SREG, MAP_SHARED, &gen, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
 	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
 	
-	uint32_t decimation = 0x00080000;
+	//uint32_t decimation = 0x00080000;
+	uint32_t decimation = 0x00010000;
 	set_reg(cfg, decimation);
 	
 	//set dds phase increment
-	double freq_out = 50e6;
+	double freq_out = PHASE_DETECTOR_FREQ/2;
 	double phase_wth  = 30;
 	int phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
 	set_reg(gen, phase_inc);
@@ -182,7 +183,7 @@ void* record(void *arg)
 	
 	int nbuffs = 0;
 
-	while (nbuffs < 10) 
+	while (nbuffs < 1) 
 	{
 		//Get the location of the DMA writer in terms of number of bytes written.
 		position = get_reg(channel->sts) * 4;
