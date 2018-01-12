@@ -55,8 +55,17 @@ int main(int argc, char **argv)
 	ASSERT(create_map(SREG, MAP_SHARED, &gen, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
 	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
 	
+	//set dds phase increment
+	double freq_out = PHASE_DETECTOR_FREQ/2;
+	double phase_wth  = 32;
+	int phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
+	set_reg(gen, phase_inc);
+	
 	uint32_t decimation = 0x00080000;
 	set_reg(cfg, decimation);
+	
+	//get user input for final experiment settings
+	config_experiment(&config, &tx_synth, &lo_synth);
 	
 	//set all gpio pins low
 	set_reg(gpio, LOW);
@@ -64,6 +73,12 @@ int main(int argc, char **argv)
 	//init synth pins
 	init_pins(&tx_synth);
 	init_pins(&lo_synth);
+	
+	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
+	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
+
+	pthread_create(&A->thread, NULL, record, (void *) A);
+	pthread_create(&B->thread, NULL, record, (void *) B);
 	
 	//software reset the synths
 	reset_synths(gpio, &tx_synth, &lo_synth);
@@ -74,21 +89,6 @@ int main(int argc, char **argv)
 	
 	//now that synth parameters have been set
 	set_ramping(gpio, &tx_synth, &lo_synth, true);
-	
-	//get user input for final experiment settings
-	config_experiment(&config, &tx_synth, &lo_synth);
-	
-	init_channel(&A, 'A', DMA_A_BASE_ADDR, STS_A_BASE_ADDR);
-	init_channel(&B, 'B', DMA_B_BASE_ADDR, STS_B_BASE_ADDR);
-
-	pthread_create(&A->thread, NULL, record, (void *) A);
-	pthread_create(&B->thread, NULL, record, (void *) B);
-	
-	//set dds phase increment
-	double freq_out = PHASE_DETECTOR_FREQ/2;
-	double phase_wth  = 32;
-	int phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
-	set_reg(gen, phase_inc);
 	
 	trigger_synths(gpio, &tx_synth, &lo_synth);
 

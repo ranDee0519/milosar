@@ -474,7 +474,7 @@ void flash_synth(void* gpio, Synthesizer *synth)
  
 void flash_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
 {
-	/*int start_address[16];
+	int start_address[16];
 	memset(start_address, 0, 16*sizeof(int));
 	decimalToBinary((NUM_REGISTERS - 1), start_address);
 	
@@ -545,7 +545,7 @@ void flash_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
 	
 	set_pin(gpio, (tx_synth->latch | lo_synth->latch), HIGH); 			//set latch high
 	usleep(1);
-	set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 				//set data low*/
+	set_pin(gpio, (tx_synth->data | lo_synth->data), LOW); 				//set data low
 } 
  
  

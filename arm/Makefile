@@ -1,4 +1,4 @@
-RP_HOST=root@10.42.0.185
+RP_HOST=root@10.42.0.186
 DEST_DIR=/opt/redpitaya/rpc
 
 CC = arm-linux-gnueabihf-gcc

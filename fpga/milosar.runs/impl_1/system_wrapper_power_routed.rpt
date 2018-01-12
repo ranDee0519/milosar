@@ -1,8 +1,8 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date             : Thu Nov 30 15:57:39 2017
-| Host             : ubuntu running 64-bit Ubuntu 17.04
+| Date             : Mon Jan  8 10:18:32 2018
+| Host             : ubuntu running 64-bit Ubuntu 17.10
 | Command          : report_power -file system_wrapper_power_routed.rpt -pb system_wrapper_power_summary_routed.pb -rpx system_wrapper_power_routed.rpx
 | Design           : system_wrapper
 | Device           : xc7z010clg400-1
@@ -30,8 +30,8 @@ Table of Contents
 ----------
 
 +--------------------------+-------+
-| Total On-Chip Power (W)  | 1.895 |
-| Dynamic (W)              | 1.755 |
+| Total On-Chip Power (W)  | 1.893 |
+| Dynamic (W)              | 1.753 |
 | Device Static (W)        | 0.140 |
 | Total Off-Chip Power (W) | 0.013 |
 | Effective TJA (C/W)      | 11.5  |
@@ -51,19 +51,19 @@ Table of Contents
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
 | Clocks                  |     0.011 |       10 |       --- |             --- |
-| Slice Logic             |     0.003 |     2775 |       --- |             --- |
-|   LUT as Logic          |     0.002 |      938 |     17600 |            5.33 |
-|   Register              |    <0.001 |     1416 |     35200 |            4.02 |
+| Slice Logic             |     0.003 |     2763 |       --- |             --- |
+|   LUT as Logic          |     0.002 |      933 |     17600 |            5.30 |
+|   Register              |    <0.001 |     1408 |     35200 |            4.00 |
 |   CARRY4                |    <0.001 |       60 |      4400 |            1.36 |
 |   LUT as Shift Register |    <0.001 |       49 |      6000 |            0.82 |
 |   Others                |     0.000 |      279 |       --- |             --- |
-| Signals                 |     0.005 |     2275 |       --- |             --- |
-| Block RAM               |     0.014 |      3.5 |        60 |            5.83 |
+| Signals                 |     0.005 |     2266 |       --- |             --- |
+| Block RAM               |     0.012 |        3 |        60 |            5.00 |
 | MMCM                    |     0.213 |        2 |         2 |          100.00 |
 | I/O                     |     0.214 |       80 |       100 |           80.00 |
 | PS7                     |     1.282 |        1 |       --- |             --- |
 | Static Power            |     0.140 |          |           |                 |
-| Total                   |     1.882 |          |           |                 |
+| Total                   |     1.880 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,7 +73,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.043 |       0.035 |      0.008 |
+| Vccint    |       1.000 |     0.041 |       0.034 |      0.008 |
 | Vccaux    |       1.800 |     0.137 |       0.125 |      0.012 |
 | Vcco33    |       3.300 |     0.055 |       0.054 |      0.001 |
 | Vcco25    |       2.500 |     0.001 |       0.000 |      0.001 |
@@ -82,7 +82,7 @@ Table of Contents
 | Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |
 | Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |
 | Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |
-| Vccbram   |       1.000 |     0.002 |       0.001 |      0.001 |
+| Vccbram   |       1.000 |     0.001 |       0.001 |      0.001 |
 | MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |
 | MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |
 | MGTVccaux |       1.800 |     0.000 |       0.000 |      0.000 |
@@ -156,8 +156,8 @@ Table of Contents
 +---------------------------------------------------------------------+-----------+
 | Name                                                                | Power (W) |
 +---------------------------------------------------------------------+-----------+
-| system_wrapper                                                      |     1.742 |
-|   system_i                                                          |     1.560 |
+| system_wrapper                                                      |     1.740 |
+|   system_i                                                          |     1.558 |
 |     clocking_system                                                 |     0.107 |
 |       clk_wiz_0                                                     |     0.107 |
 |         inst                                                        |     0.107 |
@@ -178,10 +178,10 @@ Table of Contents
 |         inst                                                        |    <0.001 |
 |       xlslice_0                                                     |     0.000 |
 |       xlslice_1                                                     |     0.000 |
-|     processing_system                                               |     1.290 |
+|     processing_system                                               |     1.291 |
 |       ps_0                                                          |     1.283 |
 |         inst                                                        |     1.283 |
-|       ps_axi_periph                                                 |     0.007 |
+|       ps_axi_periph                                                 |     0.008 |
 |         s00_couplers                                                |     0.006 |
 |           auto_pc                                                   |     0.006 |
 |             inst                                                    |     0.006 |
@@ -194,7 +194,7 @@ Table of Contents
 |                 RD.r_channel_0                                      |     0.001 |
 |                   rd_data_fifo_0                                    |    <0.001 |
 |                   transaction_fifo_0                                |    <0.001 |
-|                 SI_REG                                              |     0.002 |
+|                 SI_REG                                              |     0.003 |
 |                   ar_pipe                                           |    <0.001 |
 |                   aw_pipe                                           |    <0.001 |
 |                   b_pipe                                            |    <0.001 |
@@ -204,12 +204,12 @@ Table of Contents
 |                   cmd_translator_0                                  |    <0.001 |
 |                     incr_cmd_0                                      |    <0.001 |
 |                     wrap_cmd_0                                      |    <0.001 |
-|                 WR.b_channel_0                                      |    <0.001 |
+|                 WR.b_channel_0                                      |     0.001 |
 |                   bid_fifo_0                                        |    <0.001 |
 |                   bresp_fifo_0                                      |    <0.001 |
-|         xbar                                                        |    <0.001 |
-|           inst                                                      |    <0.001 |
-|             gen_sasd.crossbar_sasd_0                                |    <0.001 |
+|         xbar                                                        |     0.001 |
+|           inst                                                      |     0.001 |
+|             gen_sasd.crossbar_sasd_0                                |     0.001 |
 |               addr_arbiter_inst                                     |    <0.001 |
 |               gen_decerr.decerr_slave_inst                          |    <0.001 |
 |               reg_slice_r                                           |    <0.001 |
@@ -250,20 +250,20 @@ Table of Contents
 |         cfg                                                         |    <0.001 |
 |           inst                                                      |    <0.001 |
 |         xlslice_0                                                   |     0.000 |
-|     signal_generator                                                |     0.122 |
+|     signal_generator                                                |     0.119 |
 |       axis_constant_0                                               |     0.000 |
 |       axis_red_pitaya_dac_0                                         |     0.003 |
 |         inst                                                        |     0.003 |
 |       clk_wiz_1                                                     |     0.107 |
 |         inst                                                        |     0.107 |
-|       dds_compiler_0                                                |     0.012 |
-|         U0                                                          |     0.012 |
-|           i_synth                                                   |     0.012 |
-|             i_dds                                                   |     0.011 |
+|       dds_compiler_0                                                |     0.009 |
+|         U0                                                          |     0.009 |
+|           i_synth                                                   |     0.009 |
+|             i_dds                                                   |     0.009 |
 |               I_PHASEGEN.i_conventional_accum.i_accum               |    <0.001 |
 |                 i_fabric.i_common.i_phase_acc                       |    <0.001 |
 |                 i_fabric.i_one_channel.i_accum                      |    <0.001 |
-|               I_SINCOS.i_std_rom.i_rom                              |     0.011 |
+|               I_SINCOS.i_std_rom.i_rom                              |     0.008 |
 |                 i_rtl.i_quarter_table.i_addr_reg_c                  |    <0.001 |
 |                 i_rtl.i_quarter_table.i_piped_map.i_cardinal_cos_ls |    <0.001 |
 |                 i_rtl.i_quarter_table.i_piped_map.i_cardinal_cos_ms |    <0.001 |

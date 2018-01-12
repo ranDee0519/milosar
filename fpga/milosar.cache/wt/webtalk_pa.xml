@@ -3,10 +3,10 @@
 <!--The data in this file is primarily intended for consumption by Xilinx tools.
 The structure and the elements are likely to change over the next few releases.
 This means code written to parse this file will need to be revisited each subsequent release.-->
-<application name="pa" timeStamp="Thu Nov 30 15:55:55 2017">
+<application name="pa" timeStamp="Fri Jan 12 15:14:17 2018">
 <section name="Project Information" visible="false">
 <property name="ProjectID" value="a526011adf15448aad6dbf6ed2583d75" type="ProjectID"/>
-<property name="ProjectIteration" value="90" type="ProjectIteration"/>
+<property name="ProjectIteration" value="95" type="ProjectIteration"/>
 </section>
 <section name="PlanAhead Usage" visible="true">
 <item name="Project Data">
@@ -20,10 +20,10 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="AddSources" value="1" type="JavaHandler"/>
 <property name="ArchiveProject" value="5" type="JavaHandler"/>
 <property name="CloseProject" value="5" type="JavaHandler"/>
-<property name="CustomizeRSBBlock" value="267" type="JavaHandler"/>
-<property name="DisconnectRSBPin" value="32" type="JavaHandler"/>
+<property name="CustomizeRSBBlock" value="272" type="JavaHandler"/>
+<property name="DisconnectRSBPin" value="33" type="JavaHandler"/>
 <property name="EditCopy" value="7" type="JavaHandler"/>
-<property name="EditDelete" value="168" type="JavaHandler"/>
+<property name="EditDelete" value="170" type="JavaHandler"/>
 <property name="EditInIPPackagerHandler" value="2" type="JavaHandler"/>
 <property name="EditPaste" value="5" type="JavaHandler"/>
 <property name="EditProperties" value="1" type="JavaHandler"/>
@@ -35,15 +35,20 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="OpenProject" value="12" type="JavaHandler"/>
 <property name="ProjectSettingsCmdHandler" value="4" type="JavaHandler"/>
 <property name="RecustomizeCore" value="3" type="JavaHandler"/>
-<property name="RegenerateRSBLayout" value="73" type="JavaHandler"/>
-<property name="RotateRSBBlock" value="4" type="JavaHandler"/>
-<property name="RunBitgen" value="95" type="JavaHandler"/>
+<property name="RegenerateRSBLayout" value="75" type="JavaHandler"/>
+<property name="RotateRSBBlock" value="8" type="JavaHandler"/>
+<property name="RunBitgen" value="100" type="JavaHandler"/>
 <property name="SaveProjectAs" value="6" type="JavaHandler"/>
 <property name="SaveRSBDesign" value="3" type="JavaHandler"/>
 <property name="ShowProductWebPage" value="1" type="JavaHandler"/>
 <property name="ShowView" value="6" type="JavaHandler"/>
 <property name="ToggleAutoFitSelection" value="2" type="JavaHandler"/>
 <property name="ViewLayoutCmd" value="2" type="JavaHandler"/>
+</item>
+<item name="Other">
+<property name="GuiMode" value="26" type="GuiMode"/>
+<property name="BatchMode" value="0" type="BatchMode"/>
+<property name="TclMode" value="23" type="TclMode"/>
 </item>
 </section>
 </application>

@@ -189,16 +189,6 @@
           </spirit:wire>
         </spirit:port>
         <spirit:port>
-          <spirit:name>exp_p_tri_io</spirit:name>
-          <spirit:wire>
-            <spirit:direction>inout</spirit:direction>
-            <spirit:vector>
-              <spirit:left>7</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
           <spirit:name>led_o</spirit:name>
           <spirit:wire>
             <spirit:direction>out</spirit:direction>
@@ -322,6 +312,16 @@
         </spirit:port>
         <spirit:port>
           <spirit:name>exp_n_tri_io</spirit:name>
+          <spirit:wire>
+            <spirit:direction>inout</spirit:direction>
+            <spirit:vector>
+              <spirit:left>7</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>exp_p_tri_io</spirit:name>
           <spirit:wire>
             <spirit:direction>inout</spirit:direction>
             <spirit:vector>
@@ -661,16 +661,6 @@
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>exp_interface_1</spirit:instanceName>
-        <spirit:componentRef spirit:library="module_ref" spirit:name="exp_interface" spirit:vendor="user.org" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_exp_interface_0_1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">exp_interface</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
         <spirit:instanceName>xlslice_1</spirit:instanceName>
         <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
         <spirit:configurableElementValues>
@@ -688,6 +678,16 @@
           <spirit:configurableElementValue spirit:referenceId="DOUT_WIDTH">1</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="DIN_TO">16</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="DIN_FROM">16</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>exp_interface_1</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="exp_interface" spirit:vendor="user.org" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_exp_interface_0_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">exp_interface</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
     </spirit:componentInstances>
@@ -959,7 +959,7 @@
           <spirit:configurableElementValue spirit:referenceId="Frequency_Resolution">0.4</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Noise_Shaping">None</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Phase_Width">32</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Output_Width">14</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Output_Width">13</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Phase_Increment">Programmable</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Output_Selection">Sine_and_Cosine</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="Amplitude_Mode">Full_Range</spirit:configurableElementValue>
@@ -1316,9 +1316,9 @@
       <spirit:adHocConnection>
         <spirit:name>aresetn2_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="adc_streamer" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="aresetn"/>
-        <spirit:internalPortReference spirit:componentRef="adc_streamer" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
