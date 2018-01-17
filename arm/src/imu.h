@@ -7,7 +7,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "controller.h"
 #include "colour.h"
 #include "binary.h"
 #include "uart.h"
@@ -97,7 +96,7 @@ typedef struct
   uint8_t uart_fail;
 } heartbeat;
 
-void initIMU(Experiment *experiment);
+void initIMU(int is_debug_mode);
 
 int rxPacket(int address, int attempts);
 int txPacket(packet* tx_packet);

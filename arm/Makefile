@@ -8,10 +8,10 @@ CC = arm-linux-gnueabihf-gcc
 CFLAGS = -std=gnu99 -Wall -Werror -I./src -L lib -lm -lpthread 
 
 #h files used go here
-DEPS = reg.h constants.h setup.h utils.h synth.h colour.h ini.h
+DEPS = reg.h constants.h setup.h utils.h synth.h colour.h ini.h imu.h uart.h binary.h
 
 #c files used go here (with .o extension)
-OBJ = src/main.o src/reg.o src/utils.o src/synth.o src/colour.o src/ini.o
+OBJ = src/main.o src/reg.o src/utils.o src/synth.o src/colour.o src/ini.o src/imu.o src/uart.o src/binary.o
 
 #name of generated binaries
 BIN = milosar

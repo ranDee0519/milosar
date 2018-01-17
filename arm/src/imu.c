@@ -138,7 +138,7 @@ uint8_t parseUART(int address, uint8_t* rx_data, uint8_t rx_length)
 }
 
 
-void initIMU(Experiment *experiment)
+void initIMU(int is_debug_mode)
 {
 	//writeCommand(RESET_TO_FACTORY);
 	
@@ -160,7 +160,7 @@ void initIMU(Experiment *experiment)
 	writeRegister(CREG_COM_RATES6, 4, health);				// heartbeat rate
 	writeRegister(CREG_COM_RATES7, 4, zero_buffer);			// CHR NMEA-style packets*/
 	
-	if (experiment->is_debug_mode)
+	if (is_debug_mode)
 	{
 		writeCommand(GET_FW_REVISION);
 		
