@@ -104,7 +104,7 @@ int main(int argc, char **argv)
 		
 		//copy experiment folder from red pitaya to host computer
 		char command[100];
-		sprintf(command, "scp -r %s/%s darryn@10.42.0.1:/home/darryn/Dropbox/Datasets/Temp", config.dir_storage, config.time_stamp);		
+		sprintf(command, "scp -r %s/%s darryn@137.158.131.79:/home/darryn/Dropbox/Datasets/Temp", config.dir_storage, config.time_stamp);		
 		system(command);
 	}
  

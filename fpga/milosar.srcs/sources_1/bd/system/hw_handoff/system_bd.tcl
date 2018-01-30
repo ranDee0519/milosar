@@ -194,6 +194,25 @@ CONFIG.DOUT_WIDTH {16} \
   connect_bd_net -net xlconstant_0_dout [get_bd_pins aresetn] [get_bd_pins cfg/aresetn]
   connect_bd_net -net xlslice_0_Dout [get_bd_pins decimation] [get_bd_pins xlslice_0/Dout]
 
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain/config_settings] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port S_AXI -pg 1 -y 40 -defaultsOSRD
+preplace port aclk -pg 1 -y 60 -defaultsOSRD
+preplace portBus decimation -pg 1 -y 50 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 80 -defaultsOSRD
+preplace inst xlslice_0 -pg 1 -lvl 2 -y 50 -defaultsOSRD
+preplace inst cfg -pg 1 -lvl 1 -y 60 -defaultsOSRD
+preplace netloc cfg_0_cfg_data 1 1 1 NJ
+preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
+preplace netloc xlconstant_0_dout 1 0 1 NJ
+preplace netloc clk_sync_clk_out1 1 0 1 NJ
+preplace netloc xlslice_0_Dout 1 2 1 NJ
+levelinfo -pg 1 -10 120 340 460 -top -10 -bot 250
+",
+}
+
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -394,6 +413,37 @@ CONFIG.STS_DATA_WIDTH {32} \
   connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins axis_decimator_0/aclk] [get_bd_pins axis_dwidth_converter_0/aclk] [get_bd_pins ch_a_writer/aclk] [get_bd_pins sts_a_channel/aclk]
   connect_bd_net -net ram_a_address_dout [get_bd_pins ch_a_writer/cfg_data] [get_bd_pins ram_a_address/dout]
 
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain/channel_a] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port adc_data -pg 1 -y 60 -defaultsOSRD
+preplace port status -pg 1 -y 230 -defaultsOSRD
+preplace port M_AXI -pg 1 -y 180 -defaultsOSRD
+preplace port aclk -pg 1 -y 80 -defaultsOSRD
+preplace portBus enable -pg 1 -y 100 -defaultsOSRD
+preplace portBus decimation -pg 1 -y 120 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 270 -defaultsOSRD
+preplace inst ch_a_writer -pg 1 -lvl 3 -y 190 -defaultsOSRD
+preplace inst ram_a_address -pg 1 -lvl 2 -y 390 -defaultsOSRD
+preplace inst axis_decimator_0 -pg 1 -lvl 1 -y 90 -defaultsOSRD
+preplace inst sts_a_channel -pg 1 -lvl 2 -y 260 -defaultsOSRD
+preplace inst axis_dwidth_converter_0 -pg 1 -lvl 2 -y 110 -defaultsOSRD
+preplace netloc Conn1 1 0 2 NJ 230 NJ
+preplace netloc ram_a_address_dout 1 2 1 NJ
+preplace netloc axis_dwidth_converter_0_M_AXIS 1 2 1 460
+preplace netloc adc_streamer_m00_axis 1 0 1 NJ
+preplace netloc cfg_data_1 1 0 1 NJ
+preplace netloc axis_decimator_0_m_axis 1 1 1 N
+preplace netloc aresetn_1 1 0 3 20 170 250 180 NJ
+preplace netloc ch_a_writer_sts_data 1 1 3 260 40 NJ 40 730
+preplace netloc axis_ram_writer_0_M_AXI 1 3 1 N
+preplace netloc aresetn1_1 1 0 2 NJ 270 NJ
+preplace netloc clk_sync_clk_out1 1 0 3 20 10 240 30 NJ
+levelinfo -pg 1 0 130 360 600 750 -top 0 -bot 450
+",
+}
+
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -524,6 +574,42 @@ CONFIG.CFG_DATA_WIDTH {32} \
   connect_bd_net -net clk_wiz_1_locked [get_bd_pins axis_red_pitaya_dac_0/locked] [get_bd_pins clk_wiz_1/locked]
   connect_bd_net -net sig_gen_config_cfg_data [get_bd_pins axis_constant_0/cfg_data] [get_bd_pins sig_gen_config/cfg_data]
 
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /signal_generator] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port dac_clk -pg 1 -y 90 -defaultsOSRD
+preplace port S_AXI -pg 1 -y 70 -defaultsOSRD
+preplace port dac_sel -pg 1 -y 130 -defaultsOSRD
+preplace port dac_wrt -pg 1 -y 150 -defaultsOSRD
+preplace port dac_rst -pg 1 -y 110 -defaultsOSRD
+preplace port aclk -pg 1 -y 90 -defaultsOSRD
+preplace portBus enable -pg 1 -y 20 -defaultsOSRD
+preplace portBus dac_dat -pg 1 -y 170 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 110 -defaultsOSRD
+preplace inst dds_compiler_0 -pg 1 -lvl 3 -y 100 -defaultsOSRD
+preplace inst sig_gen_config -pg 1 -lvl 1 -y 90 -defaultsOSRD
+preplace inst axis_constant_0 -pg 1 -lvl 2 -y 80 -defaultsOSRD
+preplace inst clk_wiz_1 -pg 1 -lvl 3 -y 230 -defaultsOSRD
+preplace inst axis_red_pitaya_dac_0 -pg 1 -lvl 4 -y 130 -defaultsOSRD
+preplace netloc Conn1 1 0 1 NJ
+preplace netloc axis_red_pitaya_dac_0_dac_rst 1 4 1 NJ
+preplace netloc axis_red_pitaya_dac_0_dac_sel 1 4 1 NJ
+preplace netloc axis_red_pitaya_dac_0_dac_wrt 1 4 1 NJ
+preplace netloc axis_constant_0_M_AXIS 1 2 1 N
+preplace netloc clk_wiz_1_locked 1 3 1 760
+preplace netloc clk_wiz_1_clk_out1 1 3 1 750
+preplace netloc aresetn_1 1 0 1 NJ
+preplace netloc dds_compiler_0_M_AXIS_DATA 1 3 1 N
+preplace netloc sig_gen_config_cfg_data 1 1 1 N
+preplace netloc axis_red_pitaya_dac_0_dac_clk 1 4 1 NJ
+preplace netloc aresetn1_1 1 0 3 NJ 10 NJ 10 NJ
+preplace netloc axis_red_pitaya_dac_0_dac_dat 1 4 1 NJ
+preplace netloc clk_sync_clk_out1 1 0 4 20 20 240 20 460 30 750
+levelinfo -pg 1 -10 130 350 610 880 1010 -top 0 -bot 290
+",
+}
+
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -611,6 +697,45 @@ CONFIG.AXIS_TDATA_WIDTH {16} \
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins int_clk] [get_bd_pins adc_streamer/int_clk]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins enable] [get_bd_pins channel_a/enable] [get_bd_pins channel_b/enable]
   connect_bd_net -net xlslice_0_Dout [get_bd_pins channel_a/decimation] [get_bd_pins channel_b/decimation] [get_bd_pins config_settings/decimation]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port status1 -pg 1 -y 290 -defaultsOSRD
+preplace port M_AXI1 -pg 1 -y 320 -defaultsOSRD
+preplace port status -pg 1 -y 80 -defaultsOSRD
+preplace port S_AXI -pg 1 -y 190 -defaultsOSRD
+preplace port M_AXI -pg 1 -y 130 -defaultsOSRD
+preplace port int_clk -pg 1 -y 370 -defaultsOSRD
+preplace port aclk -pg 1 -y 20 -defaultsOSRD
+preplace port adc_csn -pg 1 -y 420 -defaultsOSRD
+preplace portBus enable -pg 1 -y 310 -defaultsOSRD
+preplace portBus adc_dat_a -pg 1 -y 390 -defaultsOSRD
+preplace portBus adc_dat_b -pg 1 -y 410 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 230 -defaultsOSRD
+preplace inst adc_streamer -pg 1 -lvl 1 -y 380 -defaultsOSRD
+preplace inst channel_a -pg 1 -lvl 2 -y 130 -defaultsOSRD
+preplace inst channel_b -pg 1 -lvl 2 -y 320 -defaultsOSRD
+preplace inst config_settings -pg 1 -lvl 1 -y 210 -defaultsOSRD
+preplace netloc S_AXI_1 1 0 2 NJ 290 NJ
+preplace netloc channel_b_M_AXI 1 2 1 NJ
+preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 2 NJ 420 NJ
+preplace netloc adc_dat_a_i_1 1 0 1 NJ
+preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
+preplace netloc adc_streamer_m00_axis 1 1 1 290
+preplace netloc xlconstant_0_dout 1 0 2 NJ 300 330
+preplace netloc s00_axis_1 1 1 1 310
+preplace netloc clk_wiz_0_clk_out1 1 0 1 NJ
+preplace netloc ps_axi_periph_M01_AXI 1 0 2 NJ 80 NJ
+preplace netloc adc_dat_b_i_1 1 0 1 NJ
+preplace netloc aresetn2_1 1 0 2 20 280 340
+preplace netloc axis_ram_writer_0_M_AXI 1 2 1 NJ
+preplace netloc clk_sync_clk_out1 1 0 3 20 130 300 20 NJ
+preplace netloc xlslice_0_Dout 1 1 1 320
+levelinfo -pg 1 0 160 460 600 -top 0 -bot 460
+",
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst

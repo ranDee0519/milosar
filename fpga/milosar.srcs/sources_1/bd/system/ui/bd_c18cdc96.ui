@@ -21,8 +21,8 @@ preplace netloc S_AXI_1 1 0 2 NJ 290 NJ
 preplace netloc channel_b_M_AXI 1 2 1 NJ
 preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 2 NJ 420 NJ
 preplace netloc adc_dat_a_i_1 1 0 1 NJ
-preplace netloc adc_streamer_m00_axis 1 1 1 290
 preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
+preplace netloc adc_streamer_m00_axis 1 1 1 290
 preplace netloc xlconstant_0_dout 1 0 2 NJ 300 330
 preplace netloc s00_axis_1 1 1 1 310
 preplace netloc clk_wiz_0_clk_out1 1 0 1 NJ
