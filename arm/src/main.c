@@ -185,10 +185,6 @@ void* record(void *arg)
 	FILE *f = fopen(path, "w");
 	limit = S2MB;
 
-	#ifdef CONTINUOUS_TRANSMISSION
-	sleep(100000);
-	#endif
-	
 	int nbuffs = 0;
 
 	while (nbuffs < 1) 

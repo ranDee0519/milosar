@@ -62,44 +62,6 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_sts_0_0/system_sts_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_const_3_0/system_const_3_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_ps_0_axi_periph_0/system_ps_0_axi_periph_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_cfg_0_0/system_cfg_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_ps_0_0/system_ps_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_rst_0_0/system_rst_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_sts_a_channel_0/system_sts_a_channel_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_ram_a_address_0/system_ram_a_address_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_ch_a_writer_0/system_ch_a_writer_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_dwidth_converter_0_1/system_axis_dwidth_converter_0_1.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_decimator_0_1/system_axis_decimator_0_1.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_decimator_0_0/system_axis_decimator_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_dwidth_converter_0_0/system_axis_dwidth_converter_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xlslice_0_0/system_xlslice_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_clk_wiz_0_1/system_clk_wiz_0_1.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_util_ds_buf_0_1/system_util_ds_buf_0_1.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_util_ds_buf_1_0/system_util_ds_buf_1_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_util_ds_buf_2_0/system_util_ds_buf_2_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_red_pitaya_adc_0_0/system_axis_red_pitaya_adc_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_ram_writer_0_0/system_axis_ram_writer_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hdl/system.v"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xbar_0/system_xbar_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xlslice_2_0/system_xlslice_2_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xlslice_0_2/system_xlslice_0_2.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_exp_interface_0_1/system_exp_interface_0_1.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axi_cfg_register_0_1/system_axi_cfg_register_0_1.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_xlslice_0_1/system_xlslice_0_1.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_exp_interface_0_0/system_exp_interface_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_constant_0_0/system_axis_constant_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axi_cfg_register_0_0/system_axi_cfg_register_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_clk_wiz_0_0/system_clk_wiz_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_axis_red_pitaya_dac_0_0/system_axis_red_pitaya_dac_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_dds_compiler_0_0/system_dds_compiler_0_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hdl/system.hwdef"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hw_handoff/system_bd.tcl"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="hw_handoff/system.hwh"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="ip/system_auto_pc_0/system_auto_pc_0.xci"/>
-        <CompFileExtendedInfo CompFileName="system.bd" FileRelPathName="system_ooc.xdc"/>
       </File>
       <File Path="$PSRCDIR/sources_1/bd/system/hdl/system_wrapper.v">
         <FileInfo>
@@ -179,12 +141,12 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Flow_PerfOptimized_high" Flow="Vivado Synthesis 2016"/>
         <Step Id="synth_design">
-          <Option Id="ResourceSharing">2</Option>
           <Option Id="RepFanoutThreshold">400</Option>
+          <Option Id="ResourceSharing">2</Option>
           <Option Id="FsmExtraction">1</Option>
           <Option Id="NoCombineLuts">1</Option>
-          <Option Id="KeepEquivalentRegisters">1</Option>
           <Option Id="ShregMinSize">5</Option>
+          <Option Id="KeepEquivalentRegisters">1</Option>
         </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
