@@ -90,6 +90,7 @@ int main(int argc, char **argv)
 	//now that synth parameters have been set
 	set_ramping(gpio, &tx_synth, &lo_synth, true);
 	
+	//enable recording and trigger synths in parallel
 	trigger_synths(gpio, &tx_synth, &lo_synth);
 
 	pthread_join(A->thread, NULL);
