@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------
 | Tool Version      : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date              : Tue Jan 30 15:41:01 2018
+| Date              : Fri Feb  2 09:29:05 2018
 | Host              : ubuntu running 64-bit Ubuntu 17.10
 | Command           : report_clock_utilization -file system_wrapper_clock_utilization_routed.rpt
 | Design            : system_wrapper
@@ -51,7 +51,7 @@ Table of Contents
 +-------+-------+-----------------+------------+----------------+--------------+------+-------------------+---------------+-------------+-----------------+--------------+-------------------------------+--------------------------------------------------------+--------------------------------------------------------------------------+
 | GlbID | SrcId | Driver Type/Pin | Constraint | Site           | Clock Region | Root | Clock Delay Group | Clock Regions | Clock Loads | Non-Clock Loads | Clock Period | Clock                         | Driver Pin                                             | Net                                                                      |
 +-------+-------+-----------------+------------+----------------+--------------+------+-------------------+---------------+-------------+-----------------+--------------+-------------------------------+--------------------------------------------------------+--------------------------------------------------------------------------+
-| g0    | src0  | BUFG/O          | None       | BUFGCTRL_X0Y0  | n/a          |      |                   |             4 |        1511 |               0 |        8.000 | clk_out1_system_clk_wiz_0_1   | system_i/clocking_system/clk_wiz_0/inst/clkout1_buf/O  | system_i/clocking_system/clk_wiz_0/inst/clk_out1                         |
+| g0    | src0  | BUFG/O          | None       | BUFGCTRL_X0Y0  | n/a          |      |                   |             4 |        1531 |               0 |        8.000 | clk_out1_system_clk_wiz_0_1   | system_i/clocking_system/clk_wiz_0/inst/clkout1_buf/O  | system_i/clocking_system/clk_wiz_0/inst/clk_out1                         |
 | g1    | src1  | BUFG/O          | None       | BUFGCTRL_X0Y16 | n/a          |      |                   |             1 |           2 |               0 |        4.000 | clk_out1_system_clk_wiz_0_0_1 | system_i/signal_generator/clk_wiz_1/inst/clkout1_buf/O | system_i/signal_generator/clk_wiz_1/inst/clk_out1                        |
 | g2    | src0  | BUFG/O          | None       | BUFGCTRL_X0Y1  | n/a          |      |                   |             1 |           1 |               0 |        8.000 | clkfbout_system_clk_wiz_0_1   | system_i/clocking_system/clk_wiz_0/inst/clkf_buf/O     | system_i/clocking_system/clk_wiz_0/inst/clkfbout_buf_system_clk_wiz_0_1  |
 | g3    | src1  | BUFG/O          | None       | BUFGCTRL_X0Y17 | n/a          |      |                   |             1 |           1 |               0 |        8.000 | clkfbout_system_clk_wiz_0_0_1 | system_i/signal_generator/clk_wiz_1/inst/clkf_buf/O    | system_i/signal_generator/clk_wiz_1/inst/clkfbout_buf_system_clk_wiz_0_0 |
@@ -90,10 +90,10 @@ Table of Contents
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
 | Clock Region Name | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail |
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
-| X0Y0              |    1 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |  698 |  8800 |   38 |  1600 |    0 |     0 |    2 |    10 |    0 |    20 |
-| X1Y0              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |   28 |    50 |    0 |    50 |   37 |  8800 |    0 |  1400 |    0 |     0 |    0 |    20 |    0 |    20 |
-| X0Y1              |    1 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |  130 |  8800 |   10 |  1600 |    0 |     0 |    0 |    10 |    0 |    20 |
-| X1Y1              |    3 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |   18 |    50 |   85 |  8800 |    9 |  1400 |    0 |     0 |    1 |    20 |    0 |    20 |
+| X0Y0              |    1 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |  736 |  8800 |   34 |  1600 |    0 |     0 |    2 |    10 |    0 |    20 |
+| X1Y0              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |   28 |    50 |    0 |    50 |    0 |  8800 |    0 |  1400 |    0 |     0 |    0 |    20 |    0 |    20 |
+| X0Y1              |    1 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |  140 |  8800 |    9 |  1600 |    0 |     0 |    0 |    10 |    0 |    20 |
+| X1Y1              |    3 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |   18 |    50 |   81 |  8800 |    8 |  1400 |    0 |     0 |    1 |    20 |    0 |    20 |
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
 * Used Global Clocks includes only global clock resources based on load placement but does not consider global clock resources used to traverse a clock region. Therefore the actual total of Used Global Clocks may be higher.
 ** RAMB36 site can be used as two RAMB18/FIFO18 sites.
@@ -117,7 +117,7 @@ Table of Contents
 +-------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+--------------------------------------------------+
 | GlbID | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF  | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                              |
 +-------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+--------------------------------------------------+
-| g0    | n/a   | BUFG/O          | None       |           0 |             700 | 698 |     38 |    2 |   0 |  0 |    0 |   0 |       0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1 |
+| g0    | n/a   | BUFG/O          | None       |           0 |             738 | 736 |     34 |    2 |   0 |  0 |    0 |   0 |       0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1 |
 +-------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+--------------------------------------------------+
 * Note: Multiple constraint types applied to the driver. Please check for potential conflicts.
 
@@ -128,7 +128,7 @@ Table of Contents
 +-------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-------------------------------------------------------------------------+
 | GlbID | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                                                     |
 +-------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-------------------------------------------------------------------------+
-| g0    | n/a   | BUFG/O          | None       |           0 |              65 | 37 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1                        |
+| g0    | n/a   | BUFG/O          | None       |           0 |              28 |  0 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1                        |
 | g2    | n/a   | BUFG/O          | None       |           1 |               0 |  0 |      0 |    0 |   0 |  0 |    1 |   0 |       0 | system_i/clocking_system/clk_wiz_0/inst/clkfbout_buf_system_clk_wiz_0_1 |
 +-------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-------------------------------------------------------------------------+
 * Note: Multiple constraint types applied to the driver. Please check for potential conflicts.
@@ -140,7 +140,7 @@ Table of Contents
 +-------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+--------------------------------------------------+
 | GlbID | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF  | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                              |
 +-------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+--------------------------------------------------+
-| g0    | n/a   | BUFG/O          | None       |           0 |             131 | 130 |     10 |    0 |   0 |  0 |    0 |   0 |       0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1 |
+| g0    | n/a   | BUFG/O          | None       |           0 |             141 | 140 |      9 |    0 |   0 |  0 |    0 |   0 |       0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1 |
 +-------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+--------------------------------------------------+
 * Note: Multiple constraint types applied to the driver. Please check for potential conflicts.
 
@@ -151,7 +151,7 @@ Table of Contents
 +-------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+--------------------------------------------------------------------------+
 | GlbID | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                                                      |
 +-------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+--------------------------------------------------------------------------+
-| g0    | n/a   | BUFG/O          | None       |           1 |             102 | 85 |      9 |    1 |   0 |  0 |    1 |   0 |       0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1                         |
+| g0    | n/a   | BUFG/O          | None       |           1 |              98 | 81 |      8 |    1 |   0 |  0 |    1 |   0 |       0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1                         |
 | g1    | n/a   | BUFG/O          | None       |           0 |               2 |  0 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | system_i/signal_generator/clk_wiz_1/inst/clk_out1                        |
 | g3    | n/a   | BUFG/O          | None       |           1 |               0 |  0 |      0 |    0 |   0 |  0 |    1 |   0 |       0 | system_i/signal_generator/clk_wiz_1/inst/clkfbout_buf_system_clk_wiz_0_0 |
 +-------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+--------------------------------------------------------------------------+
@@ -164,16 +164,16 @@ Table of Contents
 +-------+-----------------+-------------------+-----------------------------+-------------+---------------+----------+-------------+----------+-------------+----+--------------------------------------------------+
 | GlbID | Driver Type/Pin | Driver Region (D) | Clock                       | Period (ns) | Waveform (ns) | Root (R) | Slice Loads | IO Loads | Clock Loads | GT | Net                                              |
 +-------+-----------------+-------------------+-----------------------------+-------------+---------------+----------+-------------+----------+-------------+----+--------------------------------------------------+
-| g0    | BUFG/O          | n/a               | clk_out1_system_clk_wiz_0_1 |       8.000 | {0.000 4.000} |          |         998 |        0 |           1 |  0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1 |
+| g0    | BUFG/O          | n/a               | clk_out1_system_clk_wiz_0_1 |       8.000 | {0.000 4.000} |          |        1005 |        0 |           1 |  0 | system_i/clocking_system/clk_wiz_0/inst/clk_out1 |
 +-------+-----------------+-------------------+-----------------------------+-------------+---------------+----------+-------------+----------+-------------+----+--------------------------------------------------+
 
 
-+----+------+------+
-|    | X0   | X1   |
-+----+------+------+
-| Y1 |  131 |  103 |
-| Y0 |  700 |   65 |
-+----+------+------+
++----+------+-----+
+|    | X0   | X1  |
++----+------+-----+
+| Y1 |  141 |  99 |
+| Y0 |  738 |  28 |
++----+------+-----+
 
 
 12. Load Cell Placement Summary for Global Clock g1

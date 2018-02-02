@@ -157,9 +157,9 @@ void reset_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
 void set_ramping(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth, bool is_ramping)
 {
 	if (is_ramping)
-		set_register_parallel(gpio, tx_synth, lo_synth, 58, 0b00100001); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
+		set_register_parallel(gpio, tx_synth, lo_synth, 58, 0b00010001); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
 	else
-		set_register_parallel(gpio, tx_synth, lo_synth, 58, 0b00100000); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
+		set_register_parallel(gpio, tx_synth, lo_synth, 58, 0b00010000); //note: this value assumes RAMP_TRIG_A = TRIG1 terminal rising edge
 }
 
 
@@ -549,7 +549,7 @@ void flash_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
 } 
  
  
-void trigger_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
+void trigger_synths(void* gpio)
 {
 	set_reg(gpio, LOW);
 	set_reg(gpio, TRIGGER);

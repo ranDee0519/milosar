@@ -194,25 +194,6 @@ CONFIG.DOUT_WIDTH {16} \
   connect_bd_net -net xlconstant_0_dout [get_bd_pins aresetn] [get_bd_pins cfg/aresetn]
   connect_bd_net -net xlslice_0_Dout [get_bd_pins decimation] [get_bd_pins xlslice_0/Dout]
 
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain/config_settings] -layout_string {
-   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
-#  -string -flagsOSRD
-preplace port S_AXI -pg 1 -y 40 -defaultsOSRD
-preplace port aclk -pg 1 -y 60 -defaultsOSRD
-preplace portBus decimation -pg 1 -y 50 -defaultsOSRD
-preplace portBus aresetn -pg 1 -y 80 -defaultsOSRD
-preplace inst xlslice_0 -pg 1 -lvl 2 -y 50 -defaultsOSRD
-preplace inst cfg -pg 1 -lvl 1 -y 60 -defaultsOSRD
-preplace netloc cfg_0_cfg_data 1 1 1 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
-preplace netloc xlconstant_0_dout 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 0 1 NJ
-preplace netloc xlslice_0_Dout 1 2 1 NJ
-levelinfo -pg 1 -10 120 340 460 -top -10 -bot 250
-",
-}
-
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -431,16 +412,122 @@ preplace inst sts_a_channel -pg 1 -lvl 2 -y 260 -defaultsOSRD
 preplace inst axis_dwidth_converter_0 -pg 1 -lvl 2 -y 110 -defaultsOSRD
 preplace netloc Conn1 1 0 2 NJ 230 NJ
 preplace netloc ram_a_address_dout 1 2 1 NJ
-preplace netloc axis_dwidth_converter_0_M_AXIS 1 2 1 460
+preplace netloc axis_dwidth_converter_0_M_AXIS 1 2 1 470
 preplace netloc adc_streamer_m00_axis 1 0 1 NJ
 preplace netloc cfg_data_1 1 0 1 NJ
 preplace netloc axis_decimator_0_m_axis 1 1 1 N
-preplace netloc aresetn_1 1 0 3 20 170 250 180 NJ
-preplace netloc ch_a_writer_sts_data 1 1 3 260 40 NJ 40 730
+preplace netloc aresetn_1 1 0 3 -40 10 210 30 NJ
+preplace netloc ch_a_writer_sts_data 1 1 3 230 40 NJ 40 750
 preplace netloc axis_ram_writer_0_M_AXI 1 3 1 N
 preplace netloc aresetn1_1 1 0 2 NJ 270 NJ
-preplace netloc clk_sync_clk_out1 1 0 3 20 10 240 30 NJ
-levelinfo -pg 1 0 130 360 600 750 -top 0 -bot 450
+preplace netloc clk_sync_clk_out1 1 0 3 -50 170 220 180 NJ
+levelinfo -pg 1 -70 100 370 620 770 -top 0 -bot 440
+",
+}
+
+  # Restore current instance
+  current_bd_instance $oldCurInst
+}
+
+# Hierarchical cell: pulse_generator
+proc create_hier_cell_pulse_generator { parentCell nameHier } {
+
+  variable script_folder
+
+  if { $parentCell eq "" || $nameHier eq "" } {
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" create_hier_cell_pulse_generator() - Empty argument(s)!"}
+     return
+  }
+
+  # Get object for parentCell
+  set parentObj [get_bd_cells $parentCell]
+  if { $parentObj == "" } {
+     catch {common::send_msg_id "BD_TCL-100" "ERROR" "Unable to find parent cell <$parentCell>!"}
+     return
+  }
+
+  # Make sure parentObj is hier blk
+  set parentType [get_property TYPE $parentObj]
+  if { $parentType ne "hier" } {
+     catch {common::send_msg_id "BD_TCL-101" "ERROR" "Parent <$parentObj> has TYPE = <$parentType>. Expected to be <hier>."}
+     return
+  }
+
+  # Save current instance; Restore later
+  set oldCurInst [current_bd_instance .]
+
+  # Set parent object as current
+  current_bd_instance $parentObj
+
+  # Create cell and set as current instance
+  set hier_obj [create_bd_cell -type hier $nameHier]
+  current_bd_instance $hier_obj
+
+  # Create interface pins
+
+  # Create pins
+  create_bd_pin -dir I -type clk CLK
+  create_bd_pin -dir O -from 0 -to 0 CRF
+  create_bd_pin -dir I -from 0 -to 0 -type ce enable
+
+  # Create instance: c_counter_binary_0, and set properties
+  set c_counter_binary_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:c_counter_binary:12.0 c_counter_binary_0 ]
+  set_property -dict [ list \
+CONFIG.CE {true} \
+CONFIG.Output_Width {32} \
+CONFIG.SCLR {true} \
+ ] $c_counter_binary_0
+
+  # Create instance: n, and set properties
+  set n [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 n ]
+  set_property -dict [ list \
+CONFIG.DIN_FROM {16} \
+CONFIG.DIN_TO {16} \
+CONFIG.DOUT_WIDTH {1} \
+ ] $n
+
+  # Create instance: util_vector_logic_0, and set properties
+  set util_vector_logic_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_0 ]
+  set_property -dict [ list \
+CONFIG.C_OPERATION {not} \
+CONFIG.C_SIZE {1} \
+CONFIG.LOGO_FILE {data/sym_notgate.png} \
+ ] $util_vector_logic_0
+
+  # Create instance: util_vector_logic_1, and set properties
+  set util_vector_logic_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 util_vector_logic_1 ]
+  set_property -dict [ list \
+CONFIG.C_OPERATION {not} \
+CONFIG.C_SIZE {1} \
+CONFIG.LOGO_FILE {data/sym_notgate.png} \
+ ] $util_vector_logic_1
+
+  # Create port connections
+  connect_bd_net -net c_counter_binary_0_Q [get_bd_pins c_counter_binary_0/Q] [get_bd_pins n/Din]
+  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins CLK] [get_bd_pins c_counter_binary_0/CLK]
+  connect_bd_net -net enable_2 [get_bd_pins enable] [get_bd_pins c_counter_binary_0/CE] [get_bd_pins util_vector_logic_0/Op1]
+  connect_bd_net -net n_Dout [get_bd_pins n/Dout] [get_bd_pins util_vector_logic_1/Op1]
+  connect_bd_net -net util_vector_logic_0_Res [get_bd_pins c_counter_binary_0/SCLR] [get_bd_pins util_vector_logic_0/Res]
+  connect_bd_net -net util_vector_logic_1_Res [get_bd_pins CRF] [get_bd_pins util_vector_logic_1/Res]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /gpio_interface/pulse_generator] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port CLK -pg 1 -y 50 -defaultsOSRD
+preplace portBus enable -pg 1 -y 70 -defaultsOSRD
+preplace portBus CRF -pg 1 -y 70 -defaultsOSRD
+preplace inst util_vector_logic_0 -pg 1 -lvl 1 -y 110 -defaultsOSRD
+preplace inst util_vector_logic_1 -pg 1 -lvl 4 -y 70 -defaultsOSRD
+preplace inst n -pg 1 -lvl 3 -y 70 -defaultsOSRD
+preplace inst c_counter_binary_0 -pg 1 -lvl 2 -y 70 -defaultsOSRD
+preplace netloc enable_2 1 0 2 20 60 NJ
+preplace netloc util_vector_logic_0_Res 1 1 1 NJ
+preplace netloc c_counter_binary_0_Q 1 2 1 NJ
+preplace netloc util_vector_logic_1_Res 1 4 1 NJ
+preplace netloc n_Dout 1 3 1 NJ
+preplace netloc clk_sync_clk_out1 1 0 2 NJ 50 NJ
+levelinfo -pg 1 0 140 350 550 780 920 -top 0 -bot 160
 ",
 }
 
@@ -652,8 +739,8 @@ proc create_hier_cell_receive_chain { parentCell nameHier } {
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 M_AXI
   create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:aximm_rtl:1.0 M_AXI1
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI
-  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 status
-  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 status1
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 ch_a_status
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 ch_b_status
 
   # Create pins
   create_bd_pin -dir O -type clk aclk
@@ -680,12 +767,12 @@ CONFIG.AXIS_TDATA_WIDTH {16} \
   create_hier_cell_config_settings $hier_obj config_settings
 
   # Create interface connections
-  connect_bd_intf_net -intf_net S_AXI_1 [get_bd_intf_pins status1] [get_bd_intf_pins channel_b/status]
+  connect_bd_intf_net -intf_net S_AXI_1 [get_bd_intf_pins ch_b_status] [get_bd_intf_pins channel_b/status]
   connect_bd_intf_net -intf_net adc_streamer_m00_axis [get_bd_intf_pins adc_streamer/m00_axis] [get_bd_intf_pins channel_a/adc_data]
   connect_bd_intf_net -intf_net axis_ram_writer_0_M_AXI [get_bd_intf_pins M_AXI] [get_bd_intf_pins channel_a/M_AXI]
   connect_bd_intf_net -intf_net channel_b_M_AXI [get_bd_intf_pins M_AXI1] [get_bd_intf_pins channel_b/M_AXI]
   connect_bd_intf_net -intf_net ps_0_axi_periph_M00_AXI [get_bd_intf_pins S_AXI] [get_bd_intf_pins config_settings/S_AXI]
-  connect_bd_intf_net -intf_net ps_axi_periph_M01_AXI [get_bd_intf_pins status] [get_bd_intf_pins channel_a/status]
+  connect_bd_intf_net -intf_net ps_axi_periph_M01_AXI [get_bd_intf_pins ch_a_status] [get_bd_intf_pins channel_a/status]
   connect_bd_intf_net -intf_net s00_axis_1 [get_bd_intf_pins adc_streamer/m01_axis] [get_bd_intf_pins channel_b/adc_data]
 
   # Create port connections
@@ -695,20 +782,20 @@ CONFIG.AXIS_TDATA_WIDTH {16} \
   connect_bd_net -net axis_red_pitaya_adc_0_adc_csn [get_bd_pins adc_csn] [get_bd_pins adc_streamer/adc_csn]
   connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins adc_streamer/adc_clk] [get_bd_pins channel_a/aclk] [get_bd_pins channel_b/aclk] [get_bd_pins config_settings/aclk]
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins int_clk] [get_bd_pins adc_streamer/int_clk]
-  connect_bd_net -net xlconstant_0_dout [get_bd_pins enable] [get_bd_pins channel_a/enable] [get_bd_pins channel_b/enable]
+  connect_bd_net -net enable_1 [get_bd_pins enable] [get_bd_pins channel_a/enable] [get_bd_pins channel_b/enable]
   connect_bd_net -net xlslice_0_Dout [get_bd_pins channel_a/decimation] [get_bd_pins channel_b/decimation] [get_bd_pins config_settings/decimation]
 
   # Perform GUI Layout
   regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain] -layout_string {
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace port status1 -pg 1 -y 290 -defaultsOSRD
 preplace port M_AXI1 -pg 1 -y 320 -defaultsOSRD
-preplace port status -pg 1 -y 80 -defaultsOSRD
+preplace port ch_a_status -pg 1 -y 80 -defaultsOSRD
 preplace port S_AXI -pg 1 -y 190 -defaultsOSRD
 preplace port M_AXI -pg 1 -y 130 -defaultsOSRD
 preplace port int_clk -pg 1 -y 370 -defaultsOSRD
 preplace port aclk -pg 1 -y 20 -defaultsOSRD
+preplace port ch_b_status -pg 1 -y 290 -defaultsOSRD
 preplace port adc_csn -pg 1 -y 420 -defaultsOSRD
 preplace portBus enable -pg 1 -y 310 -defaultsOSRD
 preplace portBus adc_dat_a -pg 1 -y 390 -defaultsOSRD
@@ -724,13 +811,13 @@ preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 2 NJ 420 NJ
 preplace netloc adc_dat_a_i_1 1 0 1 NJ
 preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
 preplace netloc adc_streamer_m00_axis 1 1 1 290
-preplace netloc xlconstant_0_dout 1 0 2 NJ 300 330
 preplace netloc s00_axis_1 1 1 1 310
 preplace netloc clk_wiz_0_clk_out1 1 0 1 NJ
 preplace netloc ps_axi_periph_M01_AXI 1 0 2 NJ 80 NJ
 preplace netloc adc_dat_b_i_1 1 0 1 NJ
 preplace netloc aresetn2_1 1 0 2 20 280 340
 preplace netloc axis_ram_writer_0_M_AXI 1 2 1 NJ
+preplace netloc enable_1 1 0 2 NJ 300 330
 preplace netloc clk_sync_clk_out1 1 0 3 20 130 300 20 NJ
 preplace netloc xlslice_0_Dout 1 1 1 320
 levelinfo -pg 1 0 160 460 600 -top 0 -bot 460
@@ -2160,69 +2247,129 @@ proc create_hier_cell_gpio_interface { parentCell nameHier } {
   create_bd_pin -dir IO -from 7 -to 0 exp_data_n
   create_bd_pin -dir IO -from 7 -to 0 exp_data_p
 
-  # Create instance: enable_receive, and set properties
-  set enable_receive [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 enable_receive ]
+  # Create instance: enable, and set properties
+  set enable [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 enable ]
   set_property -dict [ list \
 CONFIG.DIN_FROM {16} \
 CONFIG.DIN_TO {16} \
 CONFIG.DOUT_WIDTH {1} \
- ] $enable_receive
+ ] $enable
 
-  # Create instance: exp_interface_0, and set properties
+  # Create instance: exp_interface_n, and set properties
   set block_name exp_interface
-  set block_cell_name exp_interface_0
-  if { [catch {set exp_interface_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+  set block_cell_name exp_interface_n
+  if { [catch {set exp_interface_n [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
      catch {common::send_msg_id "BD_TCL-105" "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
-   } elseif { $exp_interface_0 eq "" } {
+   } elseif { $exp_interface_n eq "" } {
      catch {common::send_msg_id "BD_TCL-106" "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
   
-  # Create instance: exp_interface_1, and set properties
+  # Create instance: exp_interface_p, and set properties
   set block_name exp_interface
-  set block_cell_name exp_interface_1
-  if { [catch {set exp_interface_1 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+  set block_cell_name exp_interface_p
+  if { [catch {set exp_interface_p [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
      catch {common::send_msg_id "BD_TCL-105" "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
-   } elseif { $exp_interface_1 eq "" } {
+   } elseif { $exp_interface_p eq "" } {
      catch {common::send_msg_id "BD_TCL-106" "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
   
+  # Create instance: gpio_n, and set properties
+  set gpio_n [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 gpio_n ]
+  set_property -dict [ list \
+CONFIG.DIN_FROM {7} \
+CONFIG.DIN_TO {0} \
+CONFIG.DOUT_WIDTH {8} \
+ ] $gpio_n
+
+  # Create instance: gpio_p_lower, and set properties
+  set gpio_p_lower [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 gpio_p_lower ]
+  set_property -dict [ list \
+CONFIG.DIN_FROM {11} \
+CONFIG.DIN_TO {9} \
+CONFIG.DOUT_WIDTH {3} \
+ ] $gpio_p_lower
+
+  # Create instance: gpio_p_upper, and set properties
+  set gpio_p_upper [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 gpio_p_upper ]
+  set_property -dict [ list \
+CONFIG.DIN_FROM {15} \
+CONFIG.DIN_TO {13} \
+CONFIG.DOUT_WIDTH {3} \
+ ] $gpio_p_upper
+
   # Create instance: gpio_register, and set properties
   set gpio_register [ create_bd_cell -type ip -vlnv pavel-demin:user:axi_cfg_register:1.0 gpio_register ]
   set_property -dict [ list \
 CONFIG.CFG_DATA_WIDTH {32} \
  ] $gpio_register
 
-  # Create instance: xlslice_0, and set properties
-  set xlslice_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 xlslice_0 ]
-  set_property -dict [ list \
-CONFIG.DIN_FROM {7} \
-CONFIG.DOUT_WIDTH {8} \
- ] $xlslice_0
+  # Create instance: pulse_generator
+  create_hier_cell_pulse_generator $hier_obj pulse_generator
 
-  # Create instance: xlslice_1, and set properties
-  set xlslice_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 xlslice_1 ]
+  # Create instance: xlconcat_0, and set properties
+  set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0 ]
   set_property -dict [ list \
-CONFIG.DIN_FROM {15} \
-CONFIG.DIN_TO {8} \
-CONFIG.DOUT_WIDTH {8} \
- ] $xlslice_1
+CONFIG.IN0_WIDTH {1} \
+CONFIG.IN1_WIDTH {3} \
+CONFIG.IN2_WIDTH {1} \
+CONFIG.IN3_WIDTH {3} \
+CONFIG.NUM_PORTS {4} \
+ ] $xlconcat_0
 
   # Create interface connections
   connect_bd_intf_net -intf_net processing_system_M04_AXI [get_bd_intf_pins S_AXI] [get_bd_intf_pins gpio_register/S_AXI]
 
   # Create port connections
-  connect_bd_net -net Net [get_bd_pins exp_data_n] [get_bd_pins exp_interface_0/exp_data]
-  connect_bd_net -net Net1 [get_bd_pins exp_data_p] [get_bd_pins exp_interface_1/exp_data]
-  connect_bd_net -net axi_cfg_register_0_cfg_data [get_bd_pins enable_receive/Din] [get_bd_pins gpio_register/cfg_data] [get_bd_pins xlslice_0/Din] [get_bd_pins xlslice_1/Din]
-  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins gpio_register/aclk]
+  connect_bd_net -net Net [get_bd_pins exp_data_n] [get_bd_pins exp_interface_n/exp_data]
+  connect_bd_net -net Net1 [get_bd_pins exp_data_p] [get_bd_pins exp_interface_p/exp_data]
+  connect_bd_net -net axi_cfg_register_0_cfg_data [get_bd_pins enable/Din] [get_bd_pins gpio_n/Din] [get_bd_pins gpio_p_lower/Din] [get_bd_pins gpio_p_upper/Din] [get_bd_pins gpio_register/cfg_data]
+  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins gpio_register/aclk] [get_bd_pins pulse_generator/CLK]
+  connect_bd_net -net enable_prf_Dout [get_bd_pins enable] [get_bd_pins enable/Dout] [get_bd_pins pulse_generator/enable]
+  connect_bd_net -net gpio_n_upper_Dout [get_bd_pins exp_interface_n/data] [get_bd_pins gpio_n/Dout]
+  connect_bd_net -net gpio_p_lower_Dout [get_bd_pins gpio_p_lower/Dout] [get_bd_pins xlconcat_0/In1]
+  connect_bd_net -net gpio_p_upper_Dout [get_bd_pins gpio_p_upper/Dout] [get_bd_pins xlconcat_0/In3]
+  connect_bd_net -net trigger_1 [get_bd_pins pulse_generator/CRF] [get_bd_pins xlconcat_0/In0] [get_bd_pins xlconcat_0/In2]
+  connect_bd_net -net xlconcat_0_dout [get_bd_pins exp_interface_p/data] [get_bd_pins xlconcat_0/dout]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins aresetn] [get_bd_pins gpio_register/aresetn]
-  connect_bd_net -net xlslice_0_Dout [get_bd_pins exp_interface_0/data] [get_bd_pins xlslice_0/Dout]
-  connect_bd_net -net xlslice_1_Dout [get_bd_pins exp_interface_1/data] [get_bd_pins xlslice_1/Dout]
-  connect_bd_net -net xlslice_2_Dout [get_bd_pins enable] [get_bd_pins enable_receive/Dout]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /gpio_interface] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port S_AXI -pg 1 -y 50 -defaultsOSRD
+preplace port aclk -pg 1 -y 70 -defaultsOSRD
+preplace portBus enable -pg 1 -y 160 -defaultsOSRD
+preplace portBus exp_data_n -pg 1 -y 70 -defaultsOSRD
+preplace portBus exp_data_p -pg 1 -y 290 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 90 -defaultsOSRD
+preplace inst gpio_n -pg 1 -lvl 3 -y 70 -defaultsOSRD
+preplace inst enable -pg 1 -lvl 4 -y 160 -defaultsOSRD
+preplace inst gpio_register -pg 1 -lvl 1 -y 70 -defaultsOSRD
+preplace inst pulse_generator -pg 1 -lvl 2 -y 150 -defaultsOSRD
+preplace inst exp_interface_n -pg 1 -lvl 4 -y 70 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 3 -y 290 -defaultsOSRD
+preplace inst exp_interface_p -pg 1 -lvl 4 -y 290 -defaultsOSRD
+preplace inst gpio_p_lower -pg 1 -lvl 2 -y 260 -defaultsOSRD
+preplace inst gpio_p_upper -pg 1 -lvl 2 -y 350 -defaultsOSRD
+preplace netloc trigger_1 1 2 1 460
+preplace netloc processing_system_M04_AXI 1 0 1 NJ
+preplace netloc axi_cfg_register_0_cfg_data 1 1 3 240 70 460 20 NJ
+preplace netloc gpio_n_upper_Dout 1 3 1 NJ
+preplace netloc gpio_p_lower_Dout 1 2 1 NJ
+preplace netloc xlconcat_0_dout 1 3 1 NJ
+preplace netloc xlconstant_0_dout 1 0 1 NJ
+preplace netloc gpio_p_upper_Dout 1 2 1 NJ
+preplace netloc Net1 1 4 1 NJ
+preplace netloc Net 1 4 1 NJ
+preplace netloc enable_prf_Dout 1 1 4 250 10 NJ 10 NJ 10 940
+preplace netloc clk_sync_clk_out1 1 0 2 20 140 NJ
+levelinfo -pg 1 0 130 350 570 810 960 -top 0 -bot 400
+",
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2454,7 +2601,7 @@ proc create_root_design { parentCell } {
   create_hier_cell_signal_generator [current_bd_instance .] signal_generator
 
   # Create interface connections
-  connect_bd_intf_net -intf_net S_AXI_1 [get_bd_intf_pins processing_system/M02_AXI] [get_bd_intf_pins receive_chain/status1]
+  connect_bd_intf_net -intf_net S_AXI_1 [get_bd_intf_pins processing_system/M02_AXI] [get_bd_intf_pins receive_chain/ch_b_status]
   connect_bd_intf_net -intf_net S_AXI_2 [get_bd_intf_pins gpio_interface/S_AXI] [get_bd_intf_pins processing_system/M04_AXI]
   connect_bd_intf_net -intf_net axis_ram_writer_0_M_AXI [get_bd_intf_pins processing_system/S_AXI_HP0] [get_bd_intf_pins receive_chain/M_AXI]
   connect_bd_intf_net -intf_net channel_b_M_AXI [get_bd_intf_pins processing_system/S_AXI_HP1] [get_bd_intf_pins receive_chain/M_AXI1]
@@ -2462,7 +2609,7 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net ps_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system/DDR]
   connect_bd_intf_net -intf_net ps_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system/FIXED_IO]
   connect_bd_intf_net -intf_net ps_0_axi_periph_M00_AXI [get_bd_intf_pins processing_system/M00_AXI] [get_bd_intf_pins receive_chain/S_AXI]
-  connect_bd_intf_net -intf_net ps_axi_periph_M01_AXI [get_bd_intf_pins processing_system/M01_AXI] [get_bd_intf_pins receive_chain/status]
+  connect_bd_intf_net -intf_net ps_axi_periph_M01_AXI [get_bd_intf_pins processing_system/M01_AXI] [get_bd_intf_pins receive_chain/ch_a_status]
 
   # Create port connections
   connect_bd_net -net Net [get_bd_ports exp_n_tri_io] [get_bd_pins gpio_interface/exp_data_n]
@@ -2481,7 +2628,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins clocking_system/clk_out1] [get_bd_pins receive_chain/int_clk]
   connect_bd_net -net daisy_n_i_1 [get_bd_ports daisy_n_i] [get_bd_pins daisy_chain/IBUF_DS_N]
   connect_bd_net -net daisy_p_i_1 [get_bd_ports daisy_p_i] [get_bd_pins daisy_chain/IBUF_DS_P]
-  connect_bd_net -net enable_1 [get_bd_pins gpio_interface/enable] [get_bd_pins receive_chain/enable] [get_bd_pins signal_generator/enable]
+  connect_bd_net -net enable_2 [get_bd_pins gpio_interface/enable] [get_bd_pins receive_chain/enable] [get_bd_pins signal_generator/enable]
   connect_bd_net -net util_ds_buf_2_OBUF_DS_N [get_bd_ports daisy_n_o] [get_bd_pins daisy_chain/OBUF_DS_N]
   connect_bd_net -net util_ds_buf_2_OBUF_DS_P [get_bd_ports daisy_p_o] [get_bd_pins daisy_chain/OBUF_DS_P]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins gpio_interface/aresetn] [get_bd_pins processing_system/ARESETN] [get_bd_pins receive_chain/aresetn] [get_bd_pins signal_generator/aresetn]
@@ -2499,69 +2646,69 @@ proc create_root_design { parentCell } {
   regenerate_bd_layout -layout_string {
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace port adc_enc_p_o -pg 1 -y 40 -defaultsOSRD
-preplace port DDR -pg 1 -y 80 -defaultsOSRD
-preplace port Vp_Vn -pg 1 -y 100 -defaultsOSRD
+preplace port adc_enc_p_o -pg 1 -y 60 -defaultsOSRD
+preplace port DDR -pg 1 -y 100 -defaultsOSRD
+preplace port Vp_Vn -pg 1 -y 140 -defaultsOSRD
 preplace port Vaux0 -pg 1 -y 20 -defaultsOSRD
-preplace port adc_csn_o -pg 1 -y 140 -defaultsOSRD
+preplace port adc_csn_o -pg 1 -y 40 -defaultsOSRD
 preplace port Vaux1 -pg 1 -y 40 -defaultsOSRD
-preplace port adc_clk_p_i -pg 1 -y 270 -defaultsOSRD
-preplace port dac_rst_o -pg 1 -y 370 -defaultsOSRD
-preplace port dac_clk_o -pg 1 -y 350 -defaultsOSRD
+preplace port adc_clk_p_i -pg 1 -y 100 -defaultsOSRD
+preplace port dac_rst_o -pg 1 -y 350 -defaultsOSRD
+preplace port dac_clk_o -pg 1 -y 330 -defaultsOSRD
 preplace port adc_enc_n_o -pg 1 -y 20 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -y 100 -defaultsOSRD
-preplace port dac_sel_o -pg 1 -y 390 -defaultsOSRD
-preplace port dac_wrt_o -pg 1 -y 410 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -y 120 -defaultsOSRD
+preplace port dac_sel_o -pg 1 -y 370 -defaultsOSRD
+preplace port dac_wrt_o -pg 1 -y 390 -defaultsOSRD
 preplace port Vaux8 -pg 1 -y 60 -defaultsOSRD
-preplace port adc_clk_n_i -pg 1 -y 290 -defaultsOSRD
+preplace port adc_clk_n_i -pg 1 -y 120 -defaultsOSRD
 preplace port Vaux9 -pg 1 -y 80 -defaultsOSRD
-preplace portBus daisy_n_i -pg 1 -y 540 -defaultsOSRD
-preplace portBus adc_dat_b_i -pg 1 -y 210 -defaultsOSRD
-preplace portBus exp_p_tri_io -pg 1 -y 220 -defaultsOSRD
-preplace portBus exp_n_tri_io -pg 1 -y 200 -defaultsOSRD
-preplace portBus daisy_p_o -pg 1 -y 520 -defaultsOSRD
-preplace portBus led_o -pg 1 -y 120 -defaultsOSRD
-preplace portBus dac_pwm_o -pg 1 -y 60 -defaultsOSRD
-preplace portBus daisy_n_o -pg 1 -y 540 -defaultsOSRD
-preplace portBus adc_dat_a_i -pg 1 -y 190 -defaultsOSRD
-preplace portBus dac_dat_o -pg 1 -y 430 -defaultsOSRD
-preplace portBus daisy_p_i -pg 1 -y 520 -defaultsOSRD
-preplace inst daisy_chain -pg 1 -lvl 4 -y 530 -defaultsOSRD
-preplace inst processing_system -pg 1 -lvl 3 -y 150 -defaultsOSRD
-preplace inst clocking_system -pg 1 -lvl 1 -y 280 -defaultsOSRD
-preplace inst gpio_interface -pg 1 -lvl 4 -y 220 -defaultsOSRD
-preplace inst signal_generator -pg 1 -lvl 4 -y 390 -defaultsOSRD
+preplace portBus daisy_n_i -pg 1 -y 520 -defaultsOSRD
+preplace portBus adc_dat_b_i -pg 1 -y 190 -defaultsOSRD
+preplace portBus exp_p_tri_io -pg 1 -y 200 -defaultsOSRD
+preplace portBus exp_n_tri_io -pg 1 -y 180 -defaultsOSRD
+preplace portBus daisy_p_o -pg 1 -y 500 -defaultsOSRD
+preplace portBus led_o -pg 1 -y 140 -defaultsOSRD
+preplace portBus dac_pwm_o -pg 1 -y 80 -defaultsOSRD
+preplace portBus daisy_n_o -pg 1 -y 520 -defaultsOSRD
+preplace portBus adc_dat_a_i -pg 1 -y 170 -defaultsOSRD
+preplace portBus dac_dat_o -pg 1 -y 410 -defaultsOSRD
+preplace portBus daisy_p_i -pg 1 -y 500 -defaultsOSRD
+preplace inst daisy_chain -pg 1 -lvl 4 -y 510 -defaultsOSRD
+preplace inst processing_system -pg 1 -lvl 3 -y 170 -defaultsOSRD
+preplace inst clocking_system -pg 1 -lvl 1 -y 110 -defaultsOSRD
+preplace inst gpio_interface -pg 1 -lvl 4 -y 200 -defaultsOSRD
+preplace inst signal_generator -pg 1 -lvl 4 -y 370 -defaultsOSRD
 preplace inst receive_chain -pg 1 -lvl 2 -y 160 -defaultsOSRD
-preplace netloc S_AXI_1 1 1 3 260 280 NJ 280 790
-preplace netloc S_AXI_2 1 3 1 N
+preplace netloc S_AXI_1 1 1 3 250 10 NJ 10 820
+preplace netloc enable_2 1 1 4 270 300 NJ 300 870 270 1150
+preplace netloc S_AXI_2 1 3 1 830
 preplace netloc axis_red_pitaya_dac_0_dac_rst 1 4 1 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_sel 1 4 1 NJ
-preplace netloc channel_b_M_AXI 1 2 1 N
+preplace netloc channel_b_M_AXI 1 2 1 530
 preplace netloc axis_red_pitaya_dac_0_dac_wrt 1 4 1 NJ
-preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 270 NJ 140 NJ
+preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 40 NJ 40 NJ
 preplace netloc adc_clk_n_i_1 1 0 1 NJ
-preplace netloc daisy_p_i_1 1 0 4 NJ 520 NJ 520 NJ 520 NJ
-preplace netloc adc_dat_a_i_1 1 0 2 NJ 190 NJ
-preplace netloc processing_system_M03_AXI 1 3 1 820
+preplace netloc daisy_p_i_1 1 0 4 NJ 500 NJ 500 NJ 500 NJ
+preplace netloc adc_dat_a_i_1 1 0 2 NJ 170 NJ
+preplace netloc processing_system_M03_AXI 1 3 1 840
 preplace netloc util_ds_buf_2_OBUF_DS_N 1 4 1 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 1 3 250 20 NJ 20 790
-preplace netloc xlconstant_0_dout 1 1 3 280 310 NJ 310 800
+preplace netloc ps_0_axi_periph_M00_AXI 1 1 3 260 30 NJ 30 800
+preplace netloc xlconstant_0_dout 1 1 3 260 310 NJ 310 860
 preplace netloc clk_wiz_0_clk_out1 1 1 1 240
 preplace netloc util_ds_buf_2_OBUF_DS_P 1 4 1 NJ
-preplace netloc ps_0_DDR 1 3 2 NJ 80 NJ
-preplace netloc ps_axi_periph_M01_AXI 1 1 3 240 10 NJ 10 800
+preplace netloc ps_0_DDR 1 3 2 NJ 100 NJ
+preplace netloc ps_axi_periph_M01_AXI 1 1 3 270 20 NJ 20 810
 preplace netloc Net1 1 4 1 NJ
 preplace netloc Net 1 4 1 NJ
-preplace netloc adc_dat_b_i_1 1 0 2 NJ 210 NJ
-preplace netloc ps_0_FIXED_IO 1 3 2 NJ 100 NJ
+preplace netloc adc_dat_b_i_1 1 0 2 NJ 190 NJ
+preplace netloc ps_0_FIXED_IO 1 3 2 NJ 120 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_clk 1 4 1 NJ
-preplace netloc axis_ram_writer_0_M_AXI 1 2 1 N
-preplace netloc enable_1 1 1 4 270 300 NJ 300 840 290 1120
+preplace netloc axis_ram_writer_0_M_AXI 1 2 1 540
 preplace netloc axis_red_pitaya_dac_0_dac_dat 1 4 1 NJ
 preplace netloc adc_clk_p_i_1 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 2 2 530 290 830
-preplace netloc daisy_n_i_1 1 0 4 NJ 540 NJ 540 NJ 540 NJ
-levelinfo -pg 1 0 130 400 660 980 1140 -top 0 -bot 590
+preplace netloc clk_sync_clk_out1 1 2 2 520 290 850
+preplace netloc daisy_n_i_1 1 0 4 NJ 520 NJ 520 NJ 520 NJ
+levelinfo -pg 1 0 130 390 670 1010 1170 -top 0 -bot 570
 ",
 }
 

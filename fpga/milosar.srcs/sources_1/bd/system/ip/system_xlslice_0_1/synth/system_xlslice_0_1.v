@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2017 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2018 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -52,7 +52,7 @@
 
 (* X_CORE_INFO = "xlslice,Vivado 2016.2" *)
 (* CHECK_LICENSE_TYPE = "system_xlslice_0_1,xlslice,{}" *)
-(* CORE_GENERATION_INFO = "system_xlslice_0_1,xlslice,{x_ipProduct=Vivado 2016.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=xlslice,x_ipVersion=1.0,x_ipCoreRevision=0,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,DIN_WIDTH=32,DIN_FROM=7,DIN_TO=0}" *)
+(* CORE_GENERATION_INFO = "system_xlslice_0_1,xlslice,{x_ipProduct=Vivado 2016.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=xlslice,x_ipVersion=1.0,x_ipCoreRevision=0,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,DIN_WIDTH=32,DIN_FROM=16,DIN_TO=16}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module system_xlslice_0_1 (
   Din,
@@ -60,12 +60,12 @@ module system_xlslice_0_1 (
 );
 
 input wire [31 : 0] Din;
-output wire [7 : 0] Dout;
+output wire [0 : 0] Dout;
 
   xlslice #(
     .DIN_WIDTH(32),
-    .DIN_FROM(7),
-    .DIN_TO(0)
+    .DIN_FROM(16),
+    .DIN_TO(16)
   ) inst (
     .Din(Din),
     .Dout(Dout)

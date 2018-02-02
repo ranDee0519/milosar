@@ -71,7 +71,7 @@ void flash_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth);
 void init_pins(Synthesizer *synth);
 void set_register(void* gpio, Synthesizer *synth, int address, int value);
 void set_register_parallel(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth, int address, int value);
-void trigger_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth);
+void trigger_synths(void* gpio);
 void config_experiment(Configuration *config, Synthesizer *tx_synth, Synthesizer *lo_synth);
 void decimalToBinary(uint64_t decimalValue, int* binaryValue);
 

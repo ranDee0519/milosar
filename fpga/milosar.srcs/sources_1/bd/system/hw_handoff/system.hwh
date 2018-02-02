@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Jan 30 15:39:04 2018" VIVADOVERSION="2016.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Feb  2 09:27:11 2018" VIVADOVERSION="2016.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -80,12 +80,12 @@
     </PORT>
     <PORT DIR="IO" LEFT="7" NAME="exp_n_tri_io" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_exp_n_tri_io">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="gpio_interface_exp_interface_0" PORT="exp_data"/>
+        <CONNECTION INSTANCE="gpio_interface_exp_interface_n" PORT="exp_data"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="IO" LEFT="7" NAME="exp_p_tri_io" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_exp_p_tri_io">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="gpio_interface_exp_interface_1" PORT="exp_data"/>
+        <CONNECTION INSTANCE="gpio_interface_exp_interface_p" PORT="exp_data"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="IO" NAME="DDR_cas_n" SIGIS="undef"/>
@@ -805,7 +805,7 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE FULLNAME="/gpio_interface/enable_receive" HWVERSION="1.0" INSTANCE="gpio_interface_enable_receive" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+    <MODULE FULLNAME="/gpio_interface/enable" HWVERSION="1.0" INSTANCE="gpio_interface_enable" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
@@ -821,21 +821,23 @@
             <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="cfg_data"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="0" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_enable_receive_Dout">
+        <PORT DIR="O" LEFT="0" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_enable_Dout">
           <CONNECTIONS>
             <CONNECTION INSTANCE="signal_generator_dds_compiler_0" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_a_axis_decimator_0" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_a_axis_dwidth_converter_0" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_axis_decimator_0" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_axis_dwidth_converter_0" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_a_axis_decimator_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_a_axis_dwidth_converter_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="aresetn"/>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_c_counter_binary_0" PORT="CE"/>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_util_vector_logic_0" PORT="Op1"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE FULLNAME="/gpio_interface/exp_interface_0" HWVERSION="1.0" INSTANCE="gpio_interface_exp_interface_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="exp_interface" VLNV="user.org:module_ref:exp_interface:1.0">
+    <MODULE FULLNAME="/gpio_interface/exp_interface_n" HWVERSION="1.0" INSTANCE="gpio_interface_exp_interface_n" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="exp_interface" VLNV="user.org:module_ref:exp_interface:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="DATA_WIDTH" VALUE="8"/>
@@ -848,15 +850,15 @@
             <CONNECTION INSTANCE="External_Ports" PORT="exp_n_tri_io"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="7" NAME="data" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_xlslice_0_Dout">
+        <PORT DIR="I" LEFT="7" NAME="data" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_n_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_xlslice_0" PORT="Dout"/>
+            <CONNECTION INSTANCE="gpio_interface_gpio_n" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE FULLNAME="/gpio_interface/exp_interface_1" HWVERSION="1.0" INSTANCE="gpio_interface_exp_interface_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="exp_interface" VLNV="user.org:module_ref:exp_interface:1.0">
+    <MODULE FULLNAME="/gpio_interface/exp_interface_p" HWVERSION="1.0" INSTANCE="gpio_interface_exp_interface_p" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="exp_interface" VLNV="user.org:module_ref:exp_interface:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="DATA_WIDTH" VALUE="8"/>
@@ -869,9 +871,81 @@
             <CONNECTION INSTANCE="External_Ports" PORT="exp_p_tri_io"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="7" NAME="data" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_xlslice_1_Dout">
+        <PORT DIR="I" LEFT="7" NAME="data" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_xlconcat_0_dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_xlslice_1" PORT="Dout"/>
+            <CONNECTION INSTANCE="gpio_interface_xlconcat_0" PORT="dout"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/gpio_interface/gpio_n" HWVERSION="1.0" INSTANCE="gpio_interface_gpio_n" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="DIN_FROM" VALUE="7"/>
+        <PARAMETER NAME="DIN_TO" VALUE="0"/>
+        <PARAMETER NAME="DOUT_WIDTH" VALUE="8"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_gpio_n_lower_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_register_cfg_data">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="cfg_data"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="7" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_n_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_exp_interface_n" PORT="data"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/gpio_interface/gpio_p_lower" HWVERSION="1.0" INSTANCE="gpio_interface_gpio_p_lower" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="DIN_FROM" VALUE="11"/>
+        <PARAMETER NAME="DIN_TO" VALUE="9"/>
+        <PARAMETER NAME="DOUT_WIDTH" VALUE="3"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_0_3"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_register_cfg_data">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="cfg_data"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="2" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_p_lower_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_xlconcat_0" PORT="In1"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/gpio_interface/gpio_p_upper" HWVERSION="1.0" INSTANCE="gpio_interface_gpio_p_upper" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="DIN_FROM" VALUE="15"/>
+        <PARAMETER NAME="DIN_TO" VALUE="13"/>
+        <PARAMETER NAME="DOUT_WIDTH" VALUE="3"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_0_2"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_register_cfg_data">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="cfg_data"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="2" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_p_upper_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_xlconcat_0" PORT="In3"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -904,9 +978,10 @@
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_register_cfg_data">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_xlslice_0" PORT="Din"/>
-            <CONNECTION INSTANCE="gpio_interface_xlslice_1" PORT="Din"/>
-            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Din"/>
+            <CONNECTION INSTANCE="gpio_interface_gpio_p_upper" PORT="Din"/>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Din"/>
+            <CONNECTION INSTANCE="gpio_interface_gpio_n" PORT="Din"/>
+            <CONNECTION INSTANCE="gpio_interface_gpio_p_lower" PORT="Din"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_register_s_axi_awaddr">
@@ -1045,49 +1120,217 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE FULLNAME="/gpio_interface/xlslice_0" HWVERSION="1.0" INSTANCE="gpio_interface_xlslice_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
-      <DOCUMENTS/>
+    <MODULE FULLNAME="/gpio_interface/pulse_generator/c_counter_binary_0" HWVERSION="12.0" INSTANCE="gpio_interface_pulse_generator_c_counter_binary_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="c_counter_binary" VLNV="xilinx.com:ip:c_counter_binary:12.0">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=c_counter_binary;v=v12_0;d=pg121-c-counter-binary.pdf"/>
+      </DOCUMENTS>
       <PARAMETERS>
-        <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="DIN_FROM" VALUE="7"/>
-        <PARAMETER NAME="DIN_TO" VALUE="0"/>
-        <PARAMETER NAME="DOUT_WIDTH" VALUE="8"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_0_1"/>
+        <PARAMETER NAME="C_IMPLEMENTATION" VALUE="0"/>
+        <PARAMETER NAME="C_VERBOSITY" VALUE="0"/>
+        <PARAMETER NAME="C_XDEVICEFAMILY" VALUE="zynq"/>
+        <PARAMETER NAME="C_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="C_HAS_CE" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_SCLR" VALUE="1"/>
+        <PARAMETER NAME="C_RESTRICT_COUNT" VALUE="0"/>
+        <PARAMETER NAME="C_COUNT_TO" VALUE="1"/>
+        <PARAMETER NAME="C_COUNT_BY" VALUE="1"/>
+        <PARAMETER NAME="C_COUNT_MODE" VALUE="0"/>
+        <PARAMETER NAME="C_THRESH0_VALUE" VALUE="1"/>
+        <PARAMETER NAME="C_CE_OVERRIDES_SYNC" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_THRESH0" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_LOAD" VALUE="0"/>
+        <PARAMETER NAME="C_LOAD_LOW" VALUE="0"/>
+        <PARAMETER NAME="C_LATENCY" VALUE="1"/>
+        <PARAMETER NAME="C_FB_LATENCY" VALUE="0"/>
+        <PARAMETER NAME="C_AINIT_VAL" VALUE="0"/>
+        <PARAMETER NAME="C_SINIT_VAL" VALUE="0"/>
+        <PARAMETER NAME="C_SCLR_OVERRIDES_SSET" VALUE="1"/>
+        <PARAMETER NAME="C_HAS_SSET" VALUE="0"/>
+        <PARAMETER NAME="C_HAS_SINIT" VALUE="0"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_c_counter_binary_0_0"/>
+        <PARAMETER NAME="Implementation" VALUE="Fabric"/>
+        <PARAMETER NAME="Output_Width" VALUE="32"/>
+        <PARAMETER NAME="Increment_Value" VALUE="1"/>
+        <PARAMETER NAME="Restrict_Count" VALUE="false"/>
+        <PARAMETER NAME="Final_Count_Value" VALUE="1"/>
+        <PARAMETER NAME="Count_Mode" VALUE="UP"/>
+        <PARAMETER NAME="Sync_Threshold_Output" VALUE="false"/>
+        <PARAMETER NAME="Threshold_Value" VALUE="1"/>
+        <PARAMETER NAME="CE" VALUE="true"/>
+        <PARAMETER NAME="SCLR" VALUE="true"/>
+        <PARAMETER NAME="SSET" VALUE="false"/>
+        <PARAMETER NAME="SINIT" VALUE="false"/>
+        <PARAMETER NAME="SINIT_Value" VALUE="0"/>
+        <PARAMETER NAME="SyncCtrlPriority" VALUE="Reset_Overrides_Set"/>
+        <PARAMETER NAME="Sync_CE_Priority" VALUE="Sync_Overrides_CE"/>
+        <PARAMETER NAME="AINIT_Value" VALUE="0"/>
+        <PARAMETER NAME="Load" VALUE="false"/>
+        <PARAMETER NAME="Latency_Configuration" VALUE="Manual"/>
+        <PARAMETER NAME="Latency" VALUE="1"/>
+        <PARAMETER NAME="Fb_Latency_Configuration" VALUE="Manual"/>
+        <PARAMETER NAME="Fb_Latency" VALUE="0"/>
+        <PARAMETER NAME="Load_Sense" VALUE="Active_High"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_register_cfg_data">
+        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="CLK" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="cfg_data"/>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="7" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_xlslice_0_Dout">
+        <PORT DIR="I" NAME="CE" SIGIS="ce" SIGNAME="gpio_interface_enable_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_exp_interface_0" PORT="data"/>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="SCLR" SIGIS="rst" SIGNAME="gpio_interface_pulse_generator_util_vector_logic_0_Res">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_util_vector_logic_0" PORT="Res"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="Q" RIGHT="0" SIGIS="data" SIGNAME="gpio_interface_pulse_generator_c_counter_binary_0_Q">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_n" PORT="Din"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE FULLNAME="/gpio_interface/xlslice_1" HWVERSION="1.0" INSTANCE="gpio_interface_xlslice_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+    <MODULE FULLNAME="/gpio_interface/pulse_generator/n" HWVERSION="1.0" INSTANCE="gpio_interface_pulse_generator_n" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="DIN_FROM" VALUE="15"/>
-        <PARAMETER NAME="DIN_TO" VALUE="8"/>
-        <PARAMETER NAME="DOUT_WIDTH" VALUE="8"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_0_2"/>
+        <PARAMETER NAME="DIN_FROM" VALUE="16"/>
+        <PARAMETER NAME="DIN_TO" VALUE="16"/>
+        <PARAMETER NAME="DOUT_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_0_1"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_register_cfg_data">
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_pulse_generator_c_counter_binary_0_Q">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="cfg_data"/>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_c_counter_binary_0" PORT="Q"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="7" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_xlslice_1_Dout">
+        <PORT DIR="O" LEFT="0" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_pulse_generator_n_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_exp_interface_1" PORT="data"/>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_util_vector_logic_1" PORT="Op1"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/gpio_interface/pulse_generator/util_vector_logic_0" HWVERSION="2.0" INSTANCE="gpio_interface_pulse_generator_util_vector_logic_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="util_vector_logic" VLNV="xilinx.com:ip:util_vector_logic:2.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="C_OPERATION" VALUE="not"/>
+        <PARAMETER NAME="C_SIZE" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_util_vector_logic_0_0"/>
+        <PARAMETER NAME="LOGO_FILE" VALUE="data/sym_notgate.png"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="0" NAME="Op1" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_enable_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="Res" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_pulse_generator_util_vector_logic_0_Res">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_c_counter_binary_0" PORT="SCLR"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/gpio_interface/pulse_generator/util_vector_logic_1" HWVERSION="2.0" INSTANCE="gpio_interface_pulse_generator_util_vector_logic_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="util_vector_logic" VLNV="xilinx.com:ip:util_vector_logic:2.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="C_OPERATION" VALUE="not"/>
+        <PARAMETER NAME="C_SIZE" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_util_vector_logic_0_1"/>
+        <PARAMETER NAME="LOGO_FILE" VALUE="data/sym_notgate.png"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="0" NAME="Op1" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_pulse_generator_n_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_n" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="Res" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_pulse_generator_util_vector_logic_1_Res">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_xlconcat_0" PORT="In0"/>
+            <CONNECTION INSTANCE="gpio_interface_xlconcat_0" PORT="In2"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/gpio_interface/xlconcat_0" HWVERSION="2.1" INSTANCE="gpio_interface_xlconcat_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconcat" VLNV="xilinx.com:ip:xlconcat:2.1">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="IN0_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN1_WIDTH" VALUE="3"/>
+        <PARAMETER NAME="IN2_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN3_WIDTH" VALUE="3"/>
+        <PARAMETER NAME="IN4_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN5_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN6_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN7_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN8_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN9_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN10_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN11_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN12_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN13_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN14_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN15_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN16_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN17_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN18_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN19_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN20_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN21_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN22_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN23_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN24_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN25_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN26_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN27_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN28_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN29_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN30_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="IN31_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="dout_width" VALUE="8"/>
+        <PARAMETER NAME="NUM_PORTS" VALUE="4"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlconcat_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="0" NAME="In0" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_pulse_generator_util_vector_logic_1_Res">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_util_vector_logic_1" PORT="Res"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="In1" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_p_lower_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_gpio_p_lower" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="In2" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_pulse_generator_util_vector_logic_1_Res">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_util_vector_logic_1" PORT="Res"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="In3" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_gpio_p_upper_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_gpio_p_upper" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="7" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_xlconcat_0_dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_exp_interface_p" PORT="data"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -4052,6 +4295,7 @@
             <CONNECTION INSTANCE="signal_generator_sig_gen_config" PORT="aclk"/>
             <CONNECTION INSTANCE="signal_generator_axis_constant_0" PORT="aclk"/>
             <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="aclk"/>
+            <CONNECTION INSTANCE="gpio_interface_pulse_generator_c_counter_binary_0" PORT="CLK"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_axis_dwidth_converter_0" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_axis_decimator_0" PORT="aclk"/>
@@ -4162,9 +4406,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="15" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_0_Dout">
@@ -4273,9 +4517,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_channel_a_axis_decimator_0_m_axis_tvalid">
@@ -4367,9 +4611,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_channel_a_ram_a_address_dout">
@@ -4743,9 +4987,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="15" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_0_Dout">
@@ -4854,9 +5098,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_channel_b_axis_decimator_0_m_axis_tvalid">
@@ -4948,9 +5192,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_channel_b_ram_b_address_dout">
@@ -6340,9 +6584,9 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_receive_Dout">
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable_receive" PORT="Dout"/>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_config_tvalid" SIGIS="undef" SIGNAME="signal_generator_axis_constant_0_m_axis_tvalid">

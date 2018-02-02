@@ -91,12 +91,16 @@ int main(int argc, char **argv)
 	set_ramping(gpio, &tx_synth, &lo_synth, true);
 	
 	//enable recording and trigger synths in parallel
-	trigger_synths(gpio, &tx_synth, &lo_synth);
+	trigger_synths(gpio);
 
+	//wait for threads to finish their work
 	pthread_join(A->thread, NULL);
 	pthread_join(B->thread, NULL);
 	
+	//disable ramping once experiment is over
 	set_ramping(gpio, &tx_synth, &lo_synth, false);
+	
+	//TODO disable fpga internal PRF
 	
 	if (config.is_debug)
 	{

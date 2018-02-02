@@ -1,0 +1,15 @@
+v0.1 - Original template used by Ivan/Jean
+v0.2 - Frequency doubler enabled for 50 MHz clock from RP
+v0.3 - MUXout set to DLD (R39 = 0x5A)
+v0.4 - RAMP_EN set low on startup (R58 = 0x20)
+v0.5 - PLL_N = 100 (R16 = 0x64)
+v0.6 - MUXout set to FLAG0 (R39 = F2) - same as TRIG1 to indicate triggers for ADC recording.
+v0.7 - VCO start frequency changed to 2.35 GHz (R16 = 0x5E)
+     - Fractional dither is off, fractional modulator is second order. (R18 = 0x2C)
+	 - Polarity of charge pump switched to negative. (R28 = 0x0F)
+	 - Ramp limits removed (R71 - R82)
+     - PLL_N = 94 (R16 = 0x5E)
+v0.8 - TRIG1_MUX = Input TRIG1 (R36 = 0x0F)
+     - TRIGA = TRIG1 Rising Edge (R58 = 0x10)
+     - TRIGB = TRIG2 Rising Edge (R59 = 0x02)
+  

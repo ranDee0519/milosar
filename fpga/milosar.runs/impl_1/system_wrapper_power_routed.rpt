@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date             : Tue Jan 30 15:41:00 2018
+| Date             : Fri Feb  2 09:29:04 2018
 | Host             : ubuntu running 64-bit Ubuntu 17.10
 | Command          : report_power -file system_wrapper_power_routed.rpt -pb system_wrapper_power_summary_routed.pb -rpx system_wrapper_power_routed.rpx
 | Design           : system_wrapper
@@ -30,8 +30,8 @@ Table of Contents
 ----------
 
 +--------------------------+-------+
-| Total On-Chip Power (W)  | 1.893 |
-| Dynamic (W)              | 1.753 |
+| Total On-Chip Power (W)  | 1.892 |
+| Dynamic (W)              | 1.752 |
 | Device Static (W)        | 0.140 |
 | Total Off-Chip Power (W) | 0.013 |
 | Effective TJA (C/W)      | 11.5  |
@@ -51,19 +51,19 @@ Table of Contents
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
 | Clocks                  |     0.011 |       10 |       --- |             --- |
-| Slice Logic             |     0.003 |     2763 |       --- |             --- |
-|   LUT as Logic          |     0.002 |      933 |     17600 |            5.30 |
-|   Register              |    <0.001 |     1408 |     35200 |            4.00 |
-|   CARRY4                |    <0.001 |       60 |      4400 |            1.36 |
+| Slice Logic             |     0.003 |     2798 |       --- |             --- |
+|   LUT as Logic          |     0.002 |      936 |     17600 |            5.32 |
+|   Register              |    <0.001 |     1428 |     35200 |            4.06 |
+|   CARRY4                |    <0.001 |       65 |      4400 |            1.48 |
 |   LUT as Shift Register |    <0.001 |       49 |      6000 |            0.82 |
-|   Others                |     0.000 |      279 |       --- |             --- |
-| Signals                 |     0.005 |     2266 |       --- |             --- |
+|   Others                |     0.000 |      286 |       --- |             --- |
+| Signals                 |     0.005 |     2292 |       --- |             --- |
 | Block RAM               |     0.012 |        3 |        60 |            5.00 |
 | MMCM                    |     0.213 |        2 |         2 |          100.00 |
 | I/O                     |     0.214 |       80 |       100 |           80.00 |
 | PS7                     |     1.282 |        1 |       --- |             --- |
 | Static Power            |     0.140 |          |           |                 |
-| Total                   |     1.880 |          |           |                 |
+| Total                   |     1.879 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,7 +73,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.041 |       0.034 |      0.008 |
+| Vccint    |       1.000 |     0.041 |       0.033 |      0.008 |
 | Vccaux    |       1.800 |     0.137 |       0.125 |      0.012 |
 | Vcco33    |       3.300 |     0.055 |       0.054 |      0.001 |
 | Vcco25    |       2.500 |     0.001 |       0.000 |      0.001 |
@@ -156,8 +156,8 @@ Table of Contents
 +---------------------------------------------------------------------+-----------+
 | Name                                                                | Power (W) |
 +---------------------------------------------------------------------+-----------+
-| system_wrapper                                                      |     1.740 |
-|   system_i                                                          |     1.558 |
+| system_wrapper                                                      |     1.739 |
+|   system_i                                                          |     1.557 |
 |     clocking_system                                                 |     0.107 |
 |       clk_wiz_0                                                     |     0.107 |
 |         inst                                                        |     0.107 |
@@ -171,17 +171,31 @@ Table of Contents
 |           USE_OBUFDS.GEN_OBUFDS[0].OBUFDS_I                         |     0.005 |
 |           USE_OBUFDS.GEN_OBUFDS[1].OBUFDS_I                         |     0.025 |
 |     gpio_interface                                                  |    <0.001 |
-|       enable_receive                                                |     0.000 |
-|       exp_interface_0                                               |     0.000 |
-|       exp_interface_1                                               |     0.000 |
+|       enable_RnM                                                    |     0.000 |
+|       exp_interface_n                                               |     0.000 |
+|       exp_interface_p                                               |     0.000 |
+|       gpio_n                                                        |     0.000 |
+|       gpio_p_lower                                                  |     0.000 |
+|       gpio_p_upper                                                  |     0.000 |
 |       gpio_register                                                 |    <0.001 |
 |         inst                                                        |    <0.001 |
-|       xlslice_0                                                     |     0.000 |
-|       xlslice_1                                                     |     0.000 |
-|     processing_system                                               |     1.291 |
+|       pulse_generator                                               |    <0.001 |
+|         c_counter_binary_0                                          |    <0.001 |
+|           U0                                                        |    <0.001 |
+|             i_synth                                                 |    <0.001 |
+|               i_baseblox.i_baseblox_counter                         |    <0.001 |
+|                 the_addsub                                          |    <0.001 |
+|                   no_pipelining.the_addsub                          |    <0.001 |
+|                     i_lut6.i_lut6_addsub                            |    <0.001 |
+|                       i_q.i_simple.qreg                             |    <0.001 |
+|         n                                                           |     0.000 |
+|         util_vector_logic_0                                         |    <0.001 |
+|         util_vector_logic_1                                         |    <0.001 |
+|       xlconcat_0                                                    |     0.000 |
+|     processing_system                                               |     1.290 |
 |       ps_0                                                          |     1.283 |
 |         inst                                                        |     1.283 |
-|       ps_axi_periph                                                 |     0.008 |
+|       ps_axi_periph                                                 |     0.007 |
 |         s00_couplers                                                |     0.006 |
 |           auto_pc                                                   |     0.006 |
 |             inst                                                    |     0.006 |
@@ -194,22 +208,22 @@ Table of Contents
 |                 RD.r_channel_0                                      |     0.001 |
 |                   rd_data_fifo_0                                    |    <0.001 |
 |                   transaction_fifo_0                                |    <0.001 |
-|                 SI_REG                                              |     0.003 |
+|                 SI_REG                                              |     0.002 |
 |                   ar_pipe                                           |    <0.001 |
 |                   aw_pipe                                           |    <0.001 |
 |                   b_pipe                                            |    <0.001 |
 |                   r_pipe                                            |    <0.001 |
-|                 WR.aw_channel_0                                     |     0.001 |
+|                 WR.aw_channel_0                                     |    <0.001 |
 |                   aw_cmd_fsm_0                                      |    <0.001 |
 |                   cmd_translator_0                                  |    <0.001 |
 |                     incr_cmd_0                                      |    <0.001 |
 |                     wrap_cmd_0                                      |    <0.001 |
-|                 WR.b_channel_0                                      |     0.001 |
+|                 WR.b_channel_0                                      |    <0.001 |
 |                   bid_fifo_0                                        |    <0.001 |
 |                   bresp_fifo_0                                      |    <0.001 |
-|         xbar                                                        |     0.001 |
-|           inst                                                      |     0.001 |
-|             gen_sasd.crossbar_sasd_0                                |     0.001 |
+|         xbar                                                        |    <0.001 |
+|           inst                                                      |    <0.001 |
+|             gen_sasd.crossbar_sasd_0                                |    <0.001 |
 |               addr_arbiter_inst                                     |    <0.001 |
 |               gen_decerr.decerr_slave_inst                          |    <0.001 |
 |               reg_slice_r                                           |    <0.001 |

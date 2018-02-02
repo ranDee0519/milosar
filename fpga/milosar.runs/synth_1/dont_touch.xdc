@@ -89,9 +89,6 @@ set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_axis_con
 # IP: bd/system/ip/system_exp_interface_0_0/system_exp_interface_0_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_exp_interface_0_0 || ORIG_REF_NAME==system_exp_interface_0_0}]
 
-# IP: bd/system/ip/system_xlslice_0_1/system_xlslice_0_1.xci
-set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_0_1 || ORIG_REF_NAME==system_xlslice_0_1}]
-
 # IP: bd/system/ip/system_axi_cfg_register_0_1/system_axi_cfg_register_0_1.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_axi_cfg_register_0_1 || ORIG_REF_NAME==system_axi_cfg_register_0_1}]
 
@@ -103,6 +100,27 @@ set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_
 
 # IP: bd/system/ip/system_xlslice_2_0/system_xlslice_2_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_2_0 || ORIG_REF_NAME==system_xlslice_2_0}]
+
+# IP: bd/system/ip/system_c_counter_binary_0_0_1/system_c_counter_binary_0_0.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_c_counter_binary_0_0 || ORIG_REF_NAME==system_c_counter_binary_0_0}]
+
+# IP: bd/system/ip/system_xlslice_0_1/system_xlslice_0_1.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_0_1 || ORIG_REF_NAME==system_xlslice_0_1}]
+
+# IP: bd/system/ip/system_gpio_n_lower_0/system_gpio_n_lower_0.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_gpio_n_lower_0 || ORIG_REF_NAME==system_gpio_n_lower_0}]
+
+# IP: bd/system/ip/system_xlconcat_0_0/system_xlconcat_0_0.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlconcat_0_0 || ORIG_REF_NAME==system_xlconcat_0_0}]
+
+# IP: bd/system/ip/system_xlslice_0_3_1/system_xlslice_0_3.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_xlslice_0_3 || ORIG_REF_NAME==system_xlslice_0_3}]
+
+# IP: bd/system/ip/system_util_vector_logic_0_0/system_util_vector_logic_0_0.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_util_vector_logic_0_0 || ORIG_REF_NAME==system_util_vector_logic_0_0}]
+
+# IP: bd/system/ip/system_util_vector_logic_0_1/system_util_vector_logic_0_1.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_util_vector_logic_0_1 || ORIG_REF_NAME==system_util_vector_logic_0_1}]
 
 # IP: bd/system/ip/system_auto_pc_0/system_auto_pc_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==system_auto_pc_0 || ORIG_REF_NAME==system_auto_pc_0}]
@@ -150,6 +168,8 @@ set_property DONT_TOUCH TRUE [get_cells [split [join [get_cells -hier -filter {R
 #dup# set_property DONT_TOUCH TRUE [get_cells [split [join [get_cells -hier -filter {REF_NAME==system_clk_wiz_0_0 || ORIG_REF_NAME==system_clk_wiz_0_0}] {/inst }]/inst ]]
 
 # XDC: bd/system/ip/system_clk_wiz_0_0/system_clk_wiz_0_0_ooc.xdc
+
+# XDC: bd/system/ip/system_c_counter_binary_0_0_1/system_c_counter_binary_0_0_ooc.xdc
 
 # XDC: bd/system/ip/system_auto_pc_0/system_auto_pc_0_ooc.xdc
 
