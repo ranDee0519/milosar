@@ -19,7 +19,7 @@ Channel *A, *B;
 Synthesizer tx_synth, lo_synth;
 Configuration config;
 
-static void *cfg, *gen, *gpio;
+static void *cfg, *gen, *gpio, *canc;
 
 int main(int argc, char **argv)
 {
@@ -54,13 +54,20 @@ int main(int argc, char **argv)
 	ASSERT(create_map(SREG, MAP_SHARED, &cfg, CFG_BASE_ADDR), "Failed to allocate map for CFG register.");
 	ASSERT(create_map(SREG, MAP_SHARED, &gen, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
 	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
+	ASSERT(create_map(SREG, MAP_SHARED, &canc, CANC_BASE_ADDR), "Failed to allocate map for CANC register.");
 	
-	//set dds phase increment
-	double freq_out = PHASE_DETECTOR_FREQ/2;
 	double phase_wth  = 32;
+	//set dds phase increment for synthesizer reference
+	double freq_out = PHASE_DETECTOR_FREQ/2;	
 	int phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
 	set_reg(gen, phase_inc);
 	
+	//set dds phase increment for synthesizer reference
+	freq_out = PHASE_DETECTOR_FREQ/2;
+	phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
+	set_reg(canc, phase_inc);
+	
+	//set decimation factor
 	uint32_t decimation = 0x00080000;
 	set_reg(cfg, decimation);
 	

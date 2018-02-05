@@ -1,4 +1,4 @@
--- (c) Copyright 1995-2017 Xilinx, Inc. All rights reserved.
+-- (c) Copyright 1995-2018 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -63,7 +63,7 @@ ENTITY system_dds_compiler_0_0 IS
     s_axis_config_tvalid : IN STD_LOGIC;
     s_axis_config_tdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axis_data_tvalid : OUT STD_LOGIC;
-    m_axis_data_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
+    m_axis_data_tdata : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
   );
 END system_dds_compiler_0_0;
 
@@ -135,7 +135,7 @@ ARCHITECTURE system_dds_compiler_0_0_arch OF system_dds_compiler_0_0 IS
       s_axis_config_tlast : IN STD_LOGIC;
       m_axis_data_tvalid : OUT STD_LOGIC;
       m_axis_data_tready : IN STD_LOGIC;
-      m_axis_data_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+      m_axis_data_tdata : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
       m_axis_data_tlast : OUT STD_LOGIC;
       m_axis_data_tuser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_axis_phase_tvalid : OUT STD_LOGIC;
@@ -176,7 +176,7 @@ BEGIN
       C_NEGATIVE_COSINE => 0,
       C_NEGATIVE_SINE => 0,
       C_NOISE_SHAPING => 0,
-      C_OUTPUTS_REQUIRED => 2,
+      C_OUTPUTS_REQUIRED => 0,
       C_OUTPUT_FORM => 0,
       C_OUTPUT_WIDTH => 13,
       C_PHASE_ANGLE_WIDTH => 13,
@@ -201,7 +201,7 @@ BEGIN
       C_S_CONFIG_SYNC_MODE => 0,
       C_S_CONFIG_TDATA_WIDTH => 32,
       C_HAS_M_DATA => 1,
-      C_M_DATA_TDATA_WIDTH => 32,
+      C_M_DATA_TDATA_WIDTH => 16,
       C_M_DATA_HAS_TUSER => 0,
       C_M_DATA_TUSER_WIDTH => 1,
       C_HAS_M_PHASE => 0,
