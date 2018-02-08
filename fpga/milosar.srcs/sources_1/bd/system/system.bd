@@ -508,7 +508,7 @@
         <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="exp_data_p"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>enable_2</spirit:name>
+        <spirit:name>enable_1</spirit:name>
         <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="enable"/>
         <spirit:internalPortReference spirit:componentRef="signal_generator" spirit:portRef="enable"/>
         <spirit:internalPortReference spirit:componentRef="receive_chain" spirit:portRef="enable"/>
@@ -647,23 +647,13 @@
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>gpio_p_upper</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlslice_0_2</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DOUT_WIDTH">3</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_TO">13</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">15</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
         <spirit:instanceName>enable</spirit:instanceName>
         <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlslice_2_0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="DOUT_WIDTH">1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_TO">16</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">16</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_TO">8</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">8</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
@@ -689,20 +679,6 @@
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>gpio_p_lower</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlslice_0_3</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DOUT_WIDTH">3</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_TO">9</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">11</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>pulse_generator</spirit:instanceName>
-        <spirit:componentRef spirit:library="BlockDiagram/system_imp/gpio_interface_imp" spirit:name="pulse_generator" spirit:vendor="xilinx.com" spirit:version="1.00.a"/>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
         <spirit:instanceName>exp_interface_n</spirit:instanceName>
         <spirit:componentRef spirit:library="module_ref" spirit:name="exp_interface" spirit:vendor="user.org" spirit:version="1.0"/>
         <spirit:configurableElementValues>
@@ -722,22 +698,50 @@
           <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>divisor_slice</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlslice_0_4</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DOUT_WIDTH">23</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_TO">9</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">31</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>zero_const</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="xlconstant" spirit:vendor="xilinx.com" spirit:version="1.1"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlconstant_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CONST_WIDTH">3</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CONST_VAL">0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>frequency_divider</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="frequency_divider" spirit:vendor="user.org" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_frequency_divider_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">frequency_divider</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
     </spirit:componentInstances>
     <spirit:interconnections/>
     <spirit:adHocConnections>
       <spirit:adHocConnection>
         <spirit:name>axi_cfg_register_0_cfg_data</spirit:name>
         <spirit:internalPortReference spirit:componentRef="gpio_register" spirit:portRef="cfg_data"/>
-        <spirit:internalPortReference spirit:componentRef="gpio_p_upper" spirit:portRef="Din"/>
         <spirit:internalPortReference spirit:componentRef="enable" spirit:portRef="Din"/>
         <spirit:internalPortReference spirit:componentRef="gpio_n" spirit:portRef="Din"/>
-        <spirit:internalPortReference spirit:componentRef="gpio_p_lower" spirit:portRef="Din"/>
+        <spirit:internalPortReference spirit:componentRef="divisor_slice" spirit:portRef="Din"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>clk_sync_clk_out1</spirit:name>
         <spirit:externalPortReference spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="gpio_register" spirit:portRef="aclk"/>
-        <spirit:internalPortReference spirit:componentRef="pulse_generator" spirit:portRef="CLK"/>
+        <spirit:internalPortReference spirit:componentRef="frequency_divider" spirit:portRef="clk_in"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>xlconstant_0_dout</spirit:name>
@@ -758,7 +762,7 @@
         <spirit:name>enable_prf_Dout</spirit:name>
         <spirit:internalPortReference spirit:componentRef="enable" spirit:portRef="Dout"/>
         <spirit:externalPortReference spirit:portRef="enable"/>
-        <spirit:internalPortReference spirit:componentRef="pulse_generator" spirit:portRef="enable"/>
+        <spirit:internalPortReference spirit:componentRef="frequency_divider" spirit:portRef="enable"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>gpio_n_upper_Dout</spirit:name>
@@ -767,7 +771,7 @@
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>trigger_1</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="pulse_generator" spirit:portRef="CRF"/>
+        <spirit:internalPortReference spirit:componentRef="frequency_divider" spirit:portRef="clk_out"/>
         <spirit:internalPortReference spirit:componentRef="xlconcat_0" spirit:portRef="In0"/>
         <spirit:internalPortReference spirit:componentRef="xlconcat_0" spirit:portRef="In2"/>
       </spirit:adHocConnection>
@@ -777,14 +781,15 @@
         <spirit:internalPortReference spirit:componentRef="exp_interface_p" spirit:portRef="data"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>gpio_p_upper_Dout</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="gpio_p_upper" spirit:portRef="Dout"/>
-        <spirit:internalPortReference spirit:componentRef="xlconcat_0" spirit:portRef="In3"/>
+        <spirit:name>xlslice_0_Dout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="divisor_slice" spirit:portRef="Dout"/>
+        <spirit:internalPortReference spirit:componentRef="frequency_divider" spirit:portRef="divisor"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>gpio_p_lower_Dout</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="gpio_p_lower" spirit:portRef="Dout"/>
+        <spirit:name>xlconstant_0_dout1</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="zero_const" spirit:portRef="dout"/>
         <spirit:internalPortReference spirit:componentRef="xlconcat_0" spirit:portRef="In1"/>
+        <spirit:internalPortReference spirit:componentRef="xlconcat_0" spirit:portRef="In3"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
@@ -792,168 +797,6 @@
         <spirit:activeInterface spirit:busRef="S_AXI" spirit:componentRef="gpio_register"/>
       </spirit:hierConnection>
     </spirit:hierConnections>
-  </spirit:design>
-
-  <spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
-    <spirit:vendor>xilinx.com</spirit:vendor>
-    <spirit:library>BlockDiagram/system_imp/gpio_interface_imp</spirit:library>
-    <spirit:name>pulse_generator</spirit:name>
-    <spirit:version>1.00.a</spirit:version>
-    <spirit:busInterfaces>
-      <spirit:busInterface>
-        <spirit:name>CLK.CLK</spirit:name>
-        <spirit:displayName>Clk</spirit:displayName>
-        <spirit:description>Clock</spirit:description>
-        <spirit:busType spirit:library="signal" spirit:name="clock" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:abstractionType spirit:library="signal" spirit:name="clock_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:slave/>
-        <spirit:portMaps>
-          <spirit:portMap>
-            <spirit:logicalPort>
-              <spirit:name>CLK</spirit:name>
-            </spirit:logicalPort>
-            <spirit:physicalPort>
-              <spirit:name>CLK</spirit:name>
-            </spirit:physicalPort>
-          </spirit:portMap>
-        </spirit:portMaps>
-      </spirit:busInterface>
-      <spirit:busInterface>
-        <spirit:name>CE.ENABLE</spirit:name>
-        <spirit:displayName>ClkEnable</spirit:displayName>
-        <spirit:description>Clock Enable</spirit:description>
-        <spirit:busType spirit:library="signal" spirit:name="clockenable" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:abstractionType spirit:library="signal" spirit:name="clockenable_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:slave/>
-        <spirit:portMaps>
-          <spirit:portMap>
-            <spirit:logicalPort>
-              <spirit:name>CE</spirit:name>
-            </spirit:logicalPort>
-            <spirit:physicalPort>
-              <spirit:name>enable</spirit:name>
-            </spirit:physicalPort>
-          </spirit:portMap>
-        </spirit:portMaps>
-      </spirit:busInterface>
-    </spirit:busInterfaces>
-    <spirit:model>
-      <spirit:views>
-        <spirit:view>
-          <spirit:name>BlockDiagram</spirit:name>
-          <spirit:envIdentifier>:vivado.xilinx.com:</spirit:envIdentifier>
-          <spirit:hierarchyRef spirit:library="BlockDiagram/system_imp/gpio_interface_imp" spirit:name="pulse_generator_imp" spirit:vendor="xilinx.com" spirit:version="1.00.a"/>
-        </spirit:view>
-      </spirit:views>
-      <spirit:ports>
-        <spirit:port>
-          <spirit:name>CLK</spirit:name>
-          <spirit:wire>
-            <spirit:direction>in</spirit:direction>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
-          <spirit:name>enable</spirit:name>
-          <spirit:wire>
-            <spirit:direction>in</spirit:direction>
-            <spirit:vector>
-              <spirit:left>0</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
-          <spirit:name>CRF</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-            <spirit:vector>
-              <spirit:left>0</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
-          </spirit:wire>
-        </spirit:port>
-      </spirit:ports>
-    </spirit:model>
-  </spirit:component>
-
-  <spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
-    <spirit:vendor>xilinx.com</spirit:vendor>
-    <spirit:library>BlockDiagram/system_imp/gpio_interface_imp</spirit:library>
-    <spirit:name>pulse_generator_imp</spirit:name>
-    <spirit:version>1.00.a</spirit:version>
-    <spirit:componentInstances>
-      <spirit:componentInstance>
-        <spirit:instanceName>binary_counter</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="c_counter_binary" spirit:vendor="xilinx.com" spirit:version="12.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_c_counter_binary_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Output_Width">32</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="CE">true</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="SCLR">true</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>freq_divider_n</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlslice_0_1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DOUT_WIDTH">1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_TO">16</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">16</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>reset_counter</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="util_vector_logic" spirit:vendor="xilinx.com" spirit:version="2.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_util_vector_logic_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="C_SIZE">1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="C_OPERATION">not</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>init_logic_high</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="util_vector_logic" spirit:vendor="xilinx.com" spirit:version="2.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_util_vector_logic_0_1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="C_SIZE">1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="C_OPERATION">not</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-    </spirit:componentInstances>
-    <spirit:adHocConnections>
-      <spirit:adHocConnection>
-        <spirit:name>c_counter_binary_0_Q</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="binary_counter" spirit:portRef="Q"/>
-        <spirit:internalPortReference spirit:componentRef="freq_divider_n" spirit:portRef="Din"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>clk_sync_clk_out1</spirit:name>
-        <spirit:externalPortReference spirit:portRef="CLK"/>
-        <spirit:internalPortReference spirit:componentRef="binary_counter" spirit:portRef="CLK"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>enable_2</spirit:name>
-        <spirit:externalPortReference spirit:portRef="enable"/>
-        <spirit:internalPortReference spirit:componentRef="binary_counter" spirit:portRef="CE"/>
-        <spirit:internalPortReference spirit:componentRef="reset_counter" spirit:portRef="Op1"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>util_vector_logic_0_Res</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="reset_counter" spirit:portRef="Res"/>
-        <spirit:internalPortReference spirit:componentRef="binary_counter" spirit:portRef="SCLR"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>n_Dout</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="freq_divider_n" spirit:portRef="Dout"/>
-        <spirit:internalPortReference spirit:componentRef="init_logic_high" spirit:portRef="Op1"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
-        <spirit:name>util_vector_logic_1_Res</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="init_logic_high" spirit:portRef="Res"/>
-        <spirit:externalPortReference spirit:portRef="CRF"/>
-      </spirit:adHocConnection>
-    </spirit:adHocConnections>
   </spirit:design>
 
   <spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
@@ -1257,18 +1100,19 @@
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>axis_constant_0</spirit:instanceName>
+        <spirit:instanceName>phase_ramp</spirit:instanceName>
         <spirit:componentRef spirit:library="user" spirit:name="axis_constant" spirit:vendor="pavel-demin" spirit:version="1.0"/>
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_axis_constant_0_1</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>c_counter_binary_0</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="c_counter_binary" spirit:vendor="xilinx.com" spirit:version="12.0"/>
+        <spirit:instanceName>xlconstant_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="xlconstant" spirit:vendor="xilinx.com" spirit:version="1.1"/>
         <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_c_counter_binary_0_1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Output_Width">32</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlconstant_0_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CONST_WIDTH">32</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CONST_VAL">0</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
     </spirit:componentInstances>
@@ -1285,23 +1129,23 @@
       </spirit:interconnection>
       <spirit:interconnection>
         <spirit:name>axis_constant_0_M_AXIS1</spirit:name>
-        <spirit:activeInterface spirit:busRef="M_AXIS" spirit:componentRef="axis_constant_0"/>
+        <spirit:activeInterface spirit:busRef="M_AXIS" spirit:componentRef="phase_ramp"/>
         <spirit:activeInterface spirit:busRef="S_AXIS_PHASE" spirit:componentRef="cancellation_signal"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
-        <spirit:name>axis_combiner_0_M_AXIS</spirit:name>
-        <spirit:activeInterface spirit:busRef="M_AXIS" spirit:componentRef="dac_signal_combiner"/>
-        <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="axis_red_pitaya_dac_0"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
-        <spirit:name>cancellation_signal_M_AXIS_DATA</spirit:name>
-        <spirit:activeInterface spirit:busRef="S00_AXIS" spirit:componentRef="dac_signal_combiner"/>
-        <spirit:activeInterface spirit:busRef="M_AXIS_DATA" spirit:componentRef="cancellation_signal"/>
       </spirit:interconnection>
       <spirit:interconnection>
         <spirit:name>reference_signal_M_AXIS_DATA</spirit:name>
         <spirit:activeInterface spirit:busRef="M_AXIS_DATA" spirit:componentRef="reference_signal"/>
+        <spirit:activeInterface spirit:busRef="S00_AXIS" spirit:componentRef="dac_signal_combiner"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>cancellation_signal_M_AXIS_DATA</spirit:name>
+        <spirit:activeInterface spirit:busRef="M_AXIS_DATA" spirit:componentRef="cancellation_signal"/>
         <spirit:activeInterface spirit:busRef="S01_AXIS" spirit:componentRef="dac_signal_combiner"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>dac_signal_combiner_M_AXIS</spirit:name>
+        <spirit:activeInterface spirit:busRef="M_AXIS" spirit:componentRef="dac_signal_combiner"/>
+        <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="axis_red_pitaya_dac_0"/>
       </spirit:interconnection>
     </spirit:interconnections>
     <spirit:adHocConnections>
@@ -1327,8 +1171,7 @@
         <spirit:internalPortReference spirit:componentRef="canc_const" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="cancellation_signal" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="dac_signal_combiner" spirit:portRef="aclk"/>
-        <spirit:internalPortReference spirit:componentRef="axis_constant_0" spirit:portRef="aclk"/>
-        <spirit:internalPortReference spirit:componentRef="c_counter_binary_0" spirit:portRef="CLK"/>
+        <spirit:internalPortReference spirit:componentRef="phase_ramp" spirit:portRef="aclk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>axis_red_pitaya_dac_0_dac_clk</spirit:name>
@@ -1379,9 +1222,9 @@
         <spirit:internalPortReference spirit:componentRef="canc_const" spirit:portRef="cfg_data"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>c_counter_binary_0_Q</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="c_counter_binary_0" spirit:portRef="Q"/>
-        <spirit:internalPortReference spirit:componentRef="axis_constant_0" spirit:portRef="cfg_data"/>
+        <spirit:name>xlconstant_0_dout</spirit:name>
+        <spirit:internalPortReference spirit:componentRef="xlconstant_0" spirit:portRef="dout"/>
+        <spirit:internalPortReference spirit:componentRef="phase_ramp" spirit:portRef="cfg_data"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>

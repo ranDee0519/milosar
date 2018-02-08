@@ -68,7 +68,7 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 	{
 		cprint("\n[**] ", BRIGHT, CYAN);	
 		printf("Synthesizer %i loaded with %s:\n", synth->number, synth->param_file);
-		printf("Frequency Offset: %f [MHz]\n", vcoOut(synth->fractionalNumerator));
+		printf("Frequency Offset: %f [Hz]\n", vcoOut(synth->fractionalNumerator));
 		printf("Fractional Numerator: %d\n", synth->fractionalNumerator);		
 		printf("| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\n");
 	}
@@ -90,11 +90,11 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 		}
 		
 		//limit the maximum ramp increment to prevent overflow
-		if (synth->ramps[i].increment > MAX_INCREMENT)
+		if (synth->ramps[i].increment > MAX_RAMP_INC)
 		{
 			cprint("[!!] ", BRIGHT, RED);
 			printf("Synth %i, ramp %i increment set to maximum.\n", synth->number, i);
-			synth->ramps[i].length = (uint16_t)MAX_INCREMENT;			
+			synth->ramps[i].length = (uint16_t)MAX_RAMP_INC;			
 		}		
 		
 		//perform two's complement for negative values: 2^30 - value  
@@ -551,8 +551,14 @@ void flash_synths(void* gpio, Synthesizer *tx_synth, Synthesizer *lo_synth)
  
 void trigger_synths(void* gpio)
 {
+	int freq_divisor = ADC_RATE/PRF;
+	uint32_t trigger  = 0;
+	
+	trigger |= (1 << 8); 			//set enable flag
+	trigger |= (freq_divisor << 9); //set divisor value
+	
 	set_reg(gpio, LOW);
-	set_reg(gpio, TRIGGER);
+	set_reg(gpio, trigger);
 }
 
 
@@ -658,26 +664,16 @@ void config_experiment(Configuration *config, Synthesizer *tx_synth, Synthesizer
 }
 
 
-void generateClock(void)
-{
-	/*rp_GenReset();
-	rp_GenOutEnable(RP_CH_1);
-	rp_GenAmp(RP_CH_1, 1.0f);  	// 2*0.5  = 1 Vpp
-	rp_GenFreq(RP_CH_1, 50000000);
-	rp_GenWaveform(RP_CH_1, RP_WAVEFORM_SINE);
-	rp_GenMode(RP_CH_1, RP_GEN_MODE_CONTINUOUS);*/
-}
-
-
 double vcoOut(uint32_t fracNum)
 {
-	return 25*(100 + fracNum/(pow(2, 24) - 1)) - 2500;
+	double F_init = PHASE_DETECTOR_FREQ*N_COUNTER/RF_OUT_DIVIDER;
+	return PHASE_DETECTOR_FREQ*(N_COUNTER + (fracNum)/(pow(2, 24) - 1))/RF_OUT_DIVIDER - F_init;
 }
 
 
 double bnwOut(double rampInc, uint16_t rampLen)
 {
-	if(rampInc < (pow(2, 24) - 1))
+	if (rampInc < (pow(2, 24) - 1))
 		return (rampInc*rampLen*100)/pow(2, 26);
 	else
 		return ((rampInc - pow(2, 30))*rampLen*100)/pow(2, 26);

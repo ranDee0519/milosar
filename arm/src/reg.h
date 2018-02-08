@@ -10,17 +10,6 @@
 #define DIO6_N	(uint64_t)(1 << 6)
 #define DIO7_N	(uint64_t)(1 << 7)
 
-#define DIO0_P	(uint64_t)(1 << 8)
-#define DIO1_P	(uint64_t)(1 << 9)
-#define DIO2_P	(uint64_t)(1 << 10)
-#define DIO3_P	(uint64_t)(1 << 11)
-#define DIO4_P	(uint64_t)(1 << 12)
-#define DIO5_P	(uint64_t)(1 << 13)
-#define DIO6_P	(uint64_t)(1 << 14)
-#define DIO7_P	(uint64_t)(1 << 15)
-
-#define TRIGGER (0b10000000010001000)
-
 #include <stdint.h>
 #include <stdio.h>
 

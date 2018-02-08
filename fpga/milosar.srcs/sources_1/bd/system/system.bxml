@@ -2,9 +2,9 @@
 <Root MajorVersion="0" MinorVersion="33">
   <CompositeFile CompositeFileTopName="system" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1517836457"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1517836457"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1517836457"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1518075821"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1518075821"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1518075821"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/system_ps_0_0/system_ps_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system/ps_0"/>
@@ -245,32 +245,8 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/system_xlslice_0_2/system_xlslice_0_2.xci" Type="IP">
-        <Instance HierarchyPath="gpio_interface/gpio_p_upper"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
       <File Name="ip/system_xlslice_2_0/system_xlslice_2_0.xci" Type="IP">
         <Instance HierarchyPath="gpio_interface/enable"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_c_counter_binary_0_0_1/system_c_counter_binary_0_0.xci" Type="IP">
-        <Instance HierarchyPath="gpio_interface/pulse_generator/binary_counter"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_xlslice_0_1/system_xlslice_0_1.xci" Type="IP">
-        <Instance HierarchyPath="gpio_interface/pulse_generator/freq_divider_n"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -287,30 +263,6 @@
       </File>
       <File Name="ip/system_xlconcat_0_0/system_xlconcat_0_0.xci" Type="IP">
         <Instance HierarchyPath="gpio_interface/xlconcat_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_xlslice_0_3_1/system_xlslice_0_3.xci" Type="IP">
-        <Instance HierarchyPath="gpio_interface/gpio_p_lower"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_util_vector_logic_0_0/system_util_vector_logic_0_0.xci" Type="IP">
-        <Instance HierarchyPath="gpio_interface/pulse_generator/reset_counter"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_util_vector_logic_0_1/system_util_vector_logic_0_1.xci" Type="IP">
-        <Instance HierarchyPath="gpio_interface/pulse_generator/init_logic_high"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -350,15 +302,39 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_axis_constant_0_1/system_axis_constant_0_1.xci" Type="IP">
-        <Instance HierarchyPath="signal_generator/axis_constant_0"/>
+        <Instance HierarchyPath="signal_generator/phase_ramp"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/system_c_counter_binary_0_1/system_c_counter_binary_0_1.xci" Type="IP">
-        <Instance HierarchyPath="signal_generator/c_counter_binary_0"/>
+      <File Name="ip/system_frequency_divider_0_0/system_frequency_divider_0_0.xci" Type="IP">
+        <Instance HierarchyPath="gpio_interface/frequency_divider"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_xlslice_0_4/system_xlslice_0_4.xci" Type="IP">
+        <Instance HierarchyPath="gpio_interface/divisor_slice"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_xlconstant_0_0/system_xlconstant_0_0.xci" Type="IP">
+        <Instance HierarchyPath="gpio_interface/zero_const"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_xlconstant_0_1/system_xlconstant_0_1.xci" Type="IP">
+        <Instance HierarchyPath="signal_generator/xlconstant_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

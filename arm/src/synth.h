@@ -21,7 +21,10 @@
 #define PHASE_DETECTOR_FREQ 	100e6
 #define FRAC_DENOMINATOR 		(pow(2, 24) - 1)
 #define MAX_RAMP_LENGTH			(pow(2, 16) - 1)
-#define MAX_INCREMENT			(pow(2, 30) - 1)
+#define MAX_RAMP_INC			(pow(2, 30) - 1)
+#define	PRF						1000
+#define N_COUNTER				94
+#define RF_OUT_DIVIDER			4
 
 typedef struct 
 {

@@ -60,6 +60,7 @@ ENTITY system_c_counter_binary_0_0 IS
   PORT (
     CLK : IN STD_LOGIC;
     CE : IN STD_LOGIC;
+    SCLR : IN STD_LOGIC;
     Q : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
   );
 END system_c_counter_binary_0_0;
@@ -108,6 +109,7 @@ ARCHITECTURE system_c_counter_binary_0_0_arch OF system_c_counter_binary_0_0 IS
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_INFO OF CLK: SIGNAL IS "xilinx.com:signal:clock:1.0 clk_intf CLK";
   ATTRIBUTE X_INTERFACE_INFO OF CE: SIGNAL IS "xilinx.com:signal:clockenable:1.0 ce_intf CE";
+  ATTRIBUTE X_INTERFACE_INFO OF SCLR: SIGNAL IS "xilinx.com:signal:reset:1.0 sclr_intf RST";
   ATTRIBUTE X_INTERFACE_INFO OF Q: SIGNAL IS "xilinx.com:signal:data:1.0 q_intf DATA";
 BEGIN
   U0 : c_counter_binary_v12_0_9
@@ -117,7 +119,7 @@ BEGIN
       C_XDEVICEFAMILY => "zynq",
       C_WIDTH => 32,
       C_HAS_CE => 1,
-      C_HAS_SCLR => 0,
+      C_HAS_SCLR => 1,
       C_RESTRICT_COUNT => 0,
       C_COUNT_TO => "1",
       C_COUNT_BY => "1",
@@ -138,7 +140,7 @@ BEGIN
     PORT MAP (
       CLK => CLK,
       CE => CE,
-      SCLR => '0',
+      SCLR => SCLR,
       SSET => '0',
       SINIT => '0',
       UP => '1',

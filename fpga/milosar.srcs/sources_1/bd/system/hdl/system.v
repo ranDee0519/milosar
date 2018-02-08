@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Mon Feb  5 15:14:13 2018
+//Date        : Thu Feb  8 09:43:37 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system.bd
 //Design      : system
@@ -684,8 +684,6 @@ module gpio_interface_imp_1EU3LZ6
   wire clk_sync_clk_out1;
   wire [0:0]enable_prf_Dout;
   wire [7:0]gpio_n_upper_Dout;
-  wire [2:0]gpio_p_lower_Dout;
-  wire [2:0]gpio_p_upper_Dout;
   wire [31:0]processing_system_M04_AXI_ARADDR;
   wire processing_system_M04_AXI_ARREADY;
   wire processing_system_M04_AXI_ARVALID;
@@ -703,9 +701,11 @@ module gpio_interface_imp_1EU3LZ6
   wire processing_system_M04_AXI_WREADY;
   wire [3:0]processing_system_M04_AXI_WSTRB;
   wire processing_system_M04_AXI_WVALID;
-  wire [0:0]trigger_1;
+  wire trigger_1;
   wire [7:0]xlconcat_0_dout;
   wire [0:0]xlconstant_0_dout;
+  wire [2:0]xlconstant_0_dout1;
+  wire [22:0]xlslice_0_Dout;
 
   assign S_AXI_arready = processing_system_M04_AXI_ARREADY;
   assign S_AXI_awready = processing_system_M04_AXI_AWREADY;
@@ -727,6 +727,9 @@ module gpio_interface_imp_1EU3LZ6
   assign processing_system_M04_AXI_WSTRB = S_AXI_wstrb[3:0];
   assign processing_system_M04_AXI_WVALID = S_AXI_wvalid;
   assign xlconstant_0_dout = aresetn[0];
+  system_xlslice_0_4 divisor_slice
+       (.Din(axi_cfg_register_0_cfg_data),
+        .Dout(xlslice_0_Dout));
   system_xlslice_2_0 enable_RnM
        (.Din(axi_cfg_register_0_cfg_data),
         .Dout(enable_prf_Dout));
@@ -736,15 +739,14 @@ module gpio_interface_imp_1EU3LZ6
   system_exp_interface_0_1 exp_interface_p
        (.data(xlconcat_0_dout),
         .exp_data(exp_data_p[7:0]));
+  system_frequency_divider_0_0 frequency_divider
+       (.clk_in(clk_sync_clk_out1),
+        .clk_out(trigger_1),
+        .divisor(xlslice_0_Dout),
+        .enable(enable_prf_Dout));
   system_gpio_n_lower_0 gpio_n
        (.Din(axi_cfg_register_0_cfg_data),
         .Dout(gpio_n_upper_Dout));
-  system_xlslice_0_3 gpio_p_lower
-       (.Din(axi_cfg_register_0_cfg_data),
-        .Dout(gpio_p_lower_Dout));
-  system_xlslice_0_2 gpio_p_upper
-       (.Din(axi_cfg_register_0_cfg_data),
-        .Dout(gpio_p_upper_Dout));
   system_axi_cfg_register_0_1 gpio_register
        (.aclk(clk_sync_clk_out1),
         .aresetn(xlconstant_0_dout),
@@ -766,16 +768,14 @@ module gpio_interface_imp_1EU3LZ6
         .s_axi_wready(processing_system_M04_AXI_WREADY),
         .s_axi_wstrb(processing_system_M04_AXI_WSTRB),
         .s_axi_wvalid(processing_system_M04_AXI_WVALID));
-  pulse_generator_imp_HA3ZXV pulse_generator
-       (.CLK(clk_sync_clk_out1),
-        .CRF(trigger_1),
-        .enable(enable_prf_Dout));
   system_xlconcat_0_0 xlconcat_0
        (.In0(trigger_1),
-        .In1(gpio_p_lower_Dout),
+        .In1(xlconstant_0_dout1),
         .In2(trigger_1),
-        .In3(gpio_p_upper_Dout),
+        .In3(xlconstant_0_dout1),
         .dout(xlconcat_0_dout));
+  system_xlconstant_0_0 zero_const
+       (.dout(xlconstant_0_dout1));
 endmodule
 
 module m00_couplers_imp_1GIFH4O
@@ -2497,40 +2497,6 @@ module processing_system_imp_W26YM1
         .slowest_sync_clk(clk_sync_clk_out1));
 endmodule
 
-module pulse_generator_imp_HA3ZXV
-   (CLK,
-    CRF,
-    enable);
-  input CLK;
-  output [0:0]CRF;
-  input [0:0]enable;
-
-  wire [31:0]c_counter_binary_0_Q;
-  wire clk_sync_clk_out1;
-  wire [0:0]enable_2;
-  wire [0:0]n_Dout;
-  wire [0:0]util_vector_logic_0_Res;
-  wire [0:0]util_vector_logic_1_Res;
-
-  assign CRF[0] = util_vector_logic_1_Res;
-  assign clk_sync_clk_out1 = CLK;
-  assign enable_2 = enable[0];
-  system_c_counter_binary_0_0 binary_counter
-       (.CE(enable_2),
-        .CLK(clk_sync_clk_out1),
-        .Q(c_counter_binary_0_Q),
-        .SCLR(util_vector_logic_0_Res));
-  system_xlslice_0_1 freq_divider_n
-       (.Din(c_counter_binary_0_Q),
-        .Dout(n_Dout));
-  system_util_vector_logic_0_1 init_logic_high
-       (.Op1(n_Dout),
-        .Res(util_vector_logic_1_Res));
-  system_util_vector_logic_0_0 reset_counter
-       (.Op1(enable_2),
-        .Res(util_vector_logic_0_Res));
-endmodule
-
 module receive_chain_imp_N0MRX5
    (M_AXI1_awaddr,
     M_AXI1_awburst,
@@ -3430,9 +3396,6 @@ module signal_generator_imp_HADG47
   wire S_AXI1_1_WVALID;
   wire [0:0]aresetn1_1;
   wire [0:0]aresetn_1;
-  wire [31:0]axis_combiner_0_M_AXIS_TDATA;
-  wire axis_combiner_0_M_AXIS_TREADY;
-  wire axis_combiner_0_M_AXIS_TVALID;
   wire [31:0]axis_constant_0_M_AXIS1_TDATA;
   wire axis_constant_0_M_AXIS1_TVALID;
   wire [31:0]axis_constant_0_M_AXIS_TDATA;
@@ -3442,7 +3405,6 @@ module signal_generator_imp_HADG47
   wire axis_red_pitaya_dac_0_dac_rst;
   wire axis_red_pitaya_dac_0_dac_sel;
   wire axis_red_pitaya_dac_0_dac_wrt;
-  wire [31:0]c_counter_binary_0_Q;
   wire [31:0]canc_cfg_cfg_data;
   wire [31:0]canc_const_M_AXIS_TDATA;
   wire canc_const_M_AXIS_TVALID;
@@ -3451,9 +3413,13 @@ module signal_generator_imp_HADG47
   wire clk_sync_clk_out1;
   wire clk_wiz_1_clk_out1;
   wire clk_wiz_1_locked;
+  wire [31:0]dac_signal_combiner_M_AXIS_TDATA;
+  wire dac_signal_combiner_M_AXIS_TREADY;
+  wire dac_signal_combiner_M_AXIS_TVALID;
   wire [15:0]reference_signal_M_AXIS_DATA_TDATA;
   wire reference_signal_M_AXIS_DATA_TVALID;
   wire [31:0]sig_gen_config_cfg_data;
+  wire [31:0]xlconstant_0_dout;
 
   assign Conn1_ARADDR = S_AXI_araddr[31:0];
   assign Conn1_ARVALID = S_AXI_arvalid;
@@ -3497,11 +3463,6 @@ module signal_generator_imp_HADG47
   assign dac_rst = axis_red_pitaya_dac_0_dac_rst;
   assign dac_sel = axis_red_pitaya_dac_0_dac_sel;
   assign dac_wrt = axis_red_pitaya_dac_0_dac_wrt;
-  system_axis_constant_0_1 axis_constant_0
-       (.aclk(clk_sync_clk_out1),
-        .cfg_data(c_counter_binary_0_Q),
-        .m_axis_tdata(axis_constant_0_M_AXIS1_TDATA),
-        .m_axis_tvalid(axis_constant_0_M_AXIS1_TVALID));
   system_axis_red_pitaya_dac_0_0 axis_red_pitaya_dac_0
        (.aclk(clk_sync_clk_out1),
         .dac_clk(axis_red_pitaya_dac_0_dac_clk),
@@ -3511,12 +3472,9 @@ module signal_generator_imp_HADG47
         .dac_wrt(axis_red_pitaya_dac_0_dac_wrt),
         .ddr_clk(clk_wiz_1_clk_out1),
         .locked(clk_wiz_1_locked),
-        .s_axis_tdata(axis_combiner_0_M_AXIS_TDATA),
-        .s_axis_tready(axis_combiner_0_M_AXIS_TREADY),
-        .s_axis_tvalid(axis_combiner_0_M_AXIS_TVALID));
-  system_c_counter_binary_0_1 c_counter_binary_0
-       (.CLK(clk_sync_clk_out1),
-        .Q(c_counter_binary_0_Q));
+        .s_axis_tdata(dac_signal_combiner_M_AXIS_TDATA),
+        .s_axis_tready(dac_signal_combiner_M_AXIS_TREADY),
+        .s_axis_tvalid(dac_signal_combiner_M_AXIS_TVALID));
   system_axi_cfg_register_0_2 canc_cfg
        (.aclk(clk_sync_clk_out1),
         .aresetn(aresetn_1),
@@ -3559,11 +3517,16 @@ module signal_generator_imp_HADG47
   system_axis_combiner_0_0 dac_signal_combiner
        (.aclk(clk_sync_clk_out1),
         .aresetn(aresetn1_1),
-        .m_axis_tdata(axis_combiner_0_M_AXIS_TDATA),
-        .m_axis_tready(axis_combiner_0_M_AXIS_TREADY),
-        .m_axis_tvalid(axis_combiner_0_M_AXIS_TVALID),
-        .s_axis_tdata({reference_signal_M_AXIS_DATA_TDATA,cancellation_signal_M_AXIS_DATA_TDATA}),
-        .s_axis_tvalid({reference_signal_M_AXIS_DATA_TVALID,cancellation_signal_M_AXIS_DATA_TVALID}));
+        .m_axis_tdata(dac_signal_combiner_M_AXIS_TDATA),
+        .m_axis_tready(dac_signal_combiner_M_AXIS_TREADY),
+        .m_axis_tvalid(dac_signal_combiner_M_AXIS_TVALID),
+        .s_axis_tdata({cancellation_signal_M_AXIS_DATA_TDATA,reference_signal_M_AXIS_DATA_TDATA}),
+        .s_axis_tvalid({cancellation_signal_M_AXIS_DATA_TVALID,reference_signal_M_AXIS_DATA_TVALID}));
+  system_axis_constant_0_1 phase_ramp
+       (.aclk(clk_sync_clk_out1),
+        .cfg_data(xlconstant_0_dout),
+        .m_axis_tdata(axis_constant_0_M_AXIS1_TDATA),
+        .m_axis_tvalid(axis_constant_0_M_AXIS1_TVALID));
   system_axi_cfg_register_0_0 ref_cfg
        (.aclk(clk_sync_clk_out1),
         .aresetn(aresetn_1),
@@ -3597,9 +3560,11 @@ module signal_generator_imp_HADG47
         .m_axis_data_tvalid(reference_signal_M_AXIS_DATA_TVALID),
         .s_axis_config_tdata(axis_constant_0_M_AXIS_TDATA),
         .s_axis_config_tvalid(axis_constant_0_M_AXIS_TVALID));
+  system_xlconstant_0_1 xlconstant_0
+       (.dout(xlconstant_0_dout));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=62,numReposBlks=44,numNonXlnxBlks=17,numHierBlks=18,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=58,numReposBlks=41,numNonXlnxBlks=18,numHierBlks=17,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (DDR_addr,
     DDR_ba,
@@ -3765,7 +3730,7 @@ module system
   wire clk_wiz_0_clk_out1;
   wire [1:0]daisy_n_i_1;
   wire [1:0]daisy_p_i_1;
-  wire [0:0]enable_2;
+  wire [0:0]enable_1;
   wire [31:0]processing_system_M03_AXI_ARADDR;
   wire processing_system_M03_AXI_ARREADY;
   wire processing_system_M03_AXI_ARVALID;
@@ -3901,7 +3866,7 @@ module system
         .S_AXI_wvalid(S_AXI_2_WVALID),
         .aclk(clk_sync_clk_out1),
         .aresetn(xlconstant_0_dout),
-        .enable(enable_2),
+        .enable(enable_1),
         .exp_data_n(exp_n_tri_io[7:0]),
         .exp_data_p(exp_p_tri_io[7:0]));
   processing_system_imp_W26YM1 processing_system
@@ -4147,7 +4112,7 @@ module system
         .ch_b_status_wdata(S_AXI_1_WDATA),
         .ch_b_status_wready(S_AXI_1_WREADY),
         .ch_b_status_wvalid(S_AXI_1_WVALID),
-        .enable(enable_2),
+        .enable(enable_1),
         .int_clk(clk_wiz_0_clk_out1));
   signal_generator_imp_HADG47 signal_generator
        (.S_AXI1_araddr(processing_system_M05_AXI_ARADDR),
@@ -4191,7 +4156,7 @@ module system
         .dac_rst(axis_red_pitaya_dac_0_dac_rst),
         .dac_sel(axis_red_pitaya_dac_0_dac_sel),
         .dac_wrt(axis_red_pitaya_dac_0_dac_wrt),
-        .enable(enable_2));
+        .enable(enable_1));
 endmodule
 
 module system_ps_0_axi_periph_0

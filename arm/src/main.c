@@ -63,12 +63,12 @@ int main(int argc, char **argv)
 	set_reg(gen, phase_inc);
 	
 	//set dds phase increment for synthesizer reference
-	freq_out = PHASE_DETECTOR_FREQ/2;
+	freq_out = 9e6;
 	phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
 	set_reg(canc, phase_inc);
 	
 	//set decimation factor
-	uint32_t decimation = 0x00080000;
+	uint32_t decimation = (8 << 16);
 	set_reg(cfg, decimation);
 	
 	//get user input for final experiment settings
@@ -107,7 +107,8 @@ int main(int argc, char **argv)
 	//disable ramping once experiment is over
 	set_ramping(gpio, &tx_synth, &lo_synth, false);
 	
-	//TODO disable fpga internal PRF
+	//lower the enable flag
+	//set_reg(gpio, LOW);
 	
 	if (config.is_debug)
 	{
@@ -199,14 +200,14 @@ void* record(void *arg)
 
 	int nbuffs = 0;
 
-	while (nbuffs < 1) 
+	while (nbuffs < 2) 
 	{
 		//Get the location of the DMA writer in terms of number of bytes written.
 		position = get_reg(channel->sts) * 4;
 
 		//Safe To Read Bottom                 //Safe To Read Top
-		if((limit > 0 && position > limit) || (limit == 0 && position < S2MB)){
-
+		if( (limit > 0 && position > limit) || (limit == 0 && position < S2MB) )
+		{
 			offset = limit > 0 ? 0 : S2MB;
 			limit = limit > 0 ? 0 : S2MB;			
 			fwrite(channel->dma + offset, 1, S2MB , f);

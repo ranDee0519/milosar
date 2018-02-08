@@ -15,24 +15,24 @@ preplace portBus adc_dat_b -pg 1 -y 410 -defaultsOSRD
 preplace portBus aresetn -pg 1 -y 230 -defaultsOSRD
 preplace inst adc_streamer -pg 1 -lvl 1 -y 380 -defaultsOSRD
 preplace inst channel_a -pg 1 -lvl 2 -y 130 -defaultsOSRD
-preplace inst channel_b -pg 1 -lvl 2 -y 326 -defaultsOSRD
+preplace inst channel_b -pg 1 -lvl 2 -y 320 -defaultsOSRD
 preplace inst config_settings -pg 1 -lvl 1 -y 210 -defaultsOSRD
 preplace netloc S_AXI_1 1 0 2 NJ 290 NJ
 preplace netloc channel_b_M_AXI 1 2 1 NJ
-preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 2 NJ 426 NJ
+preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 2 NJ 420 NJ
 preplace netloc adc_dat_a_i_1 1 0 1 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
 preplace netloc adc_streamer_m00_axis 1 1 1 290
-preplace netloc s00_axis_1 1 1 1 340
+preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
+preplace netloc s00_axis_1 1 1 1 310
 preplace netloc clk_wiz_0_clk_out1 1 0 1 NJ
 preplace netloc ps_axi_periph_M01_AXI 1 0 2 NJ 80 NJ
 preplace netloc adc_dat_b_i_1 1 0 1 NJ
-preplace netloc aresetn2_1 1 0 2 20 280 320
+preplace netloc aresetn2_1 1 0 2 20 280 340
 preplace netloc axis_ram_writer_0_M_AXI 1 2 1 NJ
-preplace netloc enable_1 1 0 2 NJ 300 310
+preplace netloc enable_1 1 0 2 NJ 300 330
 preplace netloc clk_sync_clk_out1 1 0 3 20 130 300 20 NJ
-preplace netloc xlslice_0_Dout 1 1 1 350
-levelinfo -pg 1 0 160 570 710 -top 0 -bot 460
+preplace netloc xlslice_0_Dout 1 1 1 320
+levelinfo -pg 1 0 160 460 600 -top 0 -bot 460
 ",
 }
 0

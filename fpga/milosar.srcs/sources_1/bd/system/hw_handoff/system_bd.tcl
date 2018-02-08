@@ -40,7 +40,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # The design that will be created by this Tcl script contains the following 
 # module references:
-# exp_interface, exp_interface
+# exp_interface, exp_interface, frequency_divider
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
@@ -193,6 +193,25 @@ CONFIG.DOUT_WIDTH {16} \
   connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins cfg/aclk]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins aresetn] [get_bd_pins cfg/aresetn]
   connect_bd_net -net xlslice_0_Dout [get_bd_pins decimation] [get_bd_pins xlslice_0/Dout]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain/config_settings] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port S_AXI -pg 1 -y 40 -defaultsOSRD
+preplace port aclk -pg 1 -y 60 -defaultsOSRD
+preplace portBus decimation -pg 1 -y 50 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 80 -defaultsOSRD
+preplace inst xlslice_0 -pg 1 -lvl 2 -y 50 -defaultsOSRD
+preplace inst cfg -pg 1 -lvl 1 -y 60 -defaultsOSRD
+preplace netloc cfg_0_cfg_data 1 1 1 NJ
+preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
+preplace netloc xlconstant_0_dout 1 0 1 NJ
+preplace netloc clk_sync_clk_out1 1 0 1 NJ
+preplace netloc xlslice_0_Dout 1 2 1 NJ
+levelinfo -pg 1 -10 120 340 460 -top -10 -bot 250
+",
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -412,103 +431,18 @@ preplace inst sts_a_channel -pg 1 -lvl 2 -y 260 -defaultsOSRD
 preplace inst axis_dwidth_converter_0 -pg 1 -lvl 2 -y 110 -defaultsOSRD
 preplace netloc Conn1 1 0 2 NJ 230 NJ
 preplace netloc ram_a_address_dout 1 2 1 NJ
-preplace netloc axis_dwidth_converter_0_M_AXIS 1 2 1 400
+preplace netloc axis_dwidth_converter_0_M_AXIS 1 2 1 370
 preplace netloc adc_streamer_m00_axis 1 0 1 NJ
 preplace netloc cfg_data_1 1 0 1 NJ
 preplace netloc axis_decimator_0_m_axis 1 1 1 N
-preplace netloc aresetn_1 1 0 3 -100 10 140 30 NJ
-preplace netloc ch_a_writer_sts_data 1 1 3 160 40 NJ 40 680
+preplace netloc aresetn_1 1 0 3 -130 10 110 30 NJ
+preplace netloc ch_a_writer_sts_data 1 1 3 130 40 NJ 40 650
 preplace netloc axis_ram_writer_0_M_AXI 1 3 1 N
 preplace netloc aresetn1_1 1 0 2 NJ 270 NJ
-preplace netloc clk_sync_clk_out1 1 0 3 -110 170 150 180 NJ
-levelinfo -pg 1 -130 30 300 550 700 -top 0 -bot 440
+preplace netloc clk_sync_clk_out1 1 0 3 -140 170 120 180 NJ
+levelinfo -pg 1 -160 0 270 520 670 -top 0 -bot 440
 ",
 }
-
-  # Restore current instance
-  current_bd_instance $oldCurInst
-}
-
-# Hierarchical cell: pulse_generator
-proc create_hier_cell_pulse_generator { parentCell nameHier } {
-
-  variable script_folder
-
-  if { $parentCell eq "" || $nameHier eq "" } {
-     catch {common::send_msg_id "BD_TCL-102" "ERROR" create_hier_cell_pulse_generator() - Empty argument(s)!"}
-     return
-  }
-
-  # Get object for parentCell
-  set parentObj [get_bd_cells $parentCell]
-  if { $parentObj == "" } {
-     catch {common::send_msg_id "BD_TCL-100" "ERROR" "Unable to find parent cell <$parentCell>!"}
-     return
-  }
-
-  # Make sure parentObj is hier blk
-  set parentType [get_property TYPE $parentObj]
-  if { $parentType ne "hier" } {
-     catch {common::send_msg_id "BD_TCL-101" "ERROR" "Parent <$parentObj> has TYPE = <$parentType>. Expected to be <hier>."}
-     return
-  }
-
-  # Save current instance; Restore later
-  set oldCurInst [current_bd_instance .]
-
-  # Set parent object as current
-  current_bd_instance $parentObj
-
-  # Create cell and set as current instance
-  set hier_obj [create_bd_cell -type hier $nameHier]
-  current_bd_instance $hier_obj
-
-  # Create interface pins
-
-  # Create pins
-  create_bd_pin -dir I -type clk CLK
-  create_bd_pin -dir O -from 0 -to 0 CRF
-  create_bd_pin -dir I -from 0 -to 0 -type ce enable
-
-  # Create instance: binary_counter, and set properties
-  set binary_counter [ create_bd_cell -type ip -vlnv xilinx.com:ip:c_counter_binary:12.0 binary_counter ]
-  set_property -dict [ list \
-CONFIG.CE {true} \
-CONFIG.Output_Width {32} \
-CONFIG.SCLR {true} \
- ] $binary_counter
-
-  # Create instance: freq_divider_n, and set properties
-  set freq_divider_n [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 freq_divider_n ]
-  set_property -dict [ list \
-CONFIG.DIN_FROM {16} \
-CONFIG.DIN_TO {16} \
-CONFIG.DOUT_WIDTH {1} \
- ] $freq_divider_n
-
-  # Create instance: init_logic_high, and set properties
-  set init_logic_high [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 init_logic_high ]
-  set_property -dict [ list \
-CONFIG.C_OPERATION {not} \
-CONFIG.C_SIZE {1} \
-CONFIG.LOGO_FILE {data/sym_notgate.png} \
- ] $init_logic_high
-
-  # Create instance: reset_counter, and set properties
-  set reset_counter [ create_bd_cell -type ip -vlnv xilinx.com:ip:util_vector_logic:2.0 reset_counter ]
-  set_property -dict [ list \
-CONFIG.C_OPERATION {not} \
-CONFIG.C_SIZE {1} \
-CONFIG.LOGO_FILE {data/sym_notgate.png} \
- ] $reset_counter
-
-  # Create port connections
-  connect_bd_net -net c_counter_binary_0_Q [get_bd_pins binary_counter/Q] [get_bd_pins freq_divider_n/Din]
-  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins CLK] [get_bd_pins binary_counter/CLK]
-  connect_bd_net -net enable_2 [get_bd_pins enable] [get_bd_pins binary_counter/CE] [get_bd_pins reset_counter/Op1]
-  connect_bd_net -net n_Dout [get_bd_pins freq_divider_n/Dout] [get_bd_pins init_logic_high/Op1]
-  connect_bd_net -net util_vector_logic_0_Res [get_bd_pins binary_counter/SCLR] [get_bd_pins reset_counter/Res]
-  connect_bd_net -net util_vector_logic_1_Res [get_bd_pins CRF] [get_bd_pins init_logic_high/Res]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -562,17 +496,8 @@ proc create_hier_cell_signal_generator { parentCell nameHier } {
   create_bd_pin -dir O dac_wrt
   create_bd_pin -dir I -from 0 -to 0 -type rst enable
 
-  # Create instance: axis_constant_0, and set properties
-  set axis_constant_0 [ create_bd_cell -type ip -vlnv pavel-demin:user:axis_constant:1.0 axis_constant_0 ]
-
   # Create instance: axis_red_pitaya_dac_0, and set properties
   set axis_red_pitaya_dac_0 [ create_bd_cell -type ip -vlnv pavel-demin:user:axis_red_pitaya_dac:1.0 axis_red_pitaya_dac_0 ]
-
-  # Create instance: c_counter_binary_0, and set properties
-  set c_counter_binary_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:c_counter_binary:12.0 c_counter_binary_0 ]
-  set_property -dict [ list \
-CONFIG.Output_Width {32} \
- ] $c_counter_binary_0
 
   # Create instance: canc_cfg, and set properties
   set canc_cfg [ create_bd_cell -type ip -vlnv pavel-demin:user:axi_cfg_register:1.0 canc_cfg ]
@@ -632,6 +557,9 @@ CONFIG.MMCM_COMPENSATION.VALUE_SRC {DEFAULT} \
   # Create instance: dac_signal_combiner, and set properties
   set dac_signal_combiner [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_combiner:1.1 dac_signal_combiner ]
 
+  # Create instance: phase_ramp, and set properties
+  set phase_ramp [ create_bd_cell -type ip -vlnv pavel-demin:user:axis_constant:1.0 phase_ramp ]
+
   # Create instance: ref_cfg, and set properties
   set ref_cfg [ create_bd_cell -type ip -vlnv pavel-demin:user:axi_cfg_register:1.0 ref_cfg ]
   set_property -dict [ list \
@@ -667,15 +595,22 @@ CONFIG.Phase_Width {32} \
 CONFIG.S_PHASE_Has_TUSER {Not_Required} \
  ] $reference_signal
 
+  # Create instance: xlconstant_0, and set properties
+  set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0 ]
+  set_property -dict [ list \
+CONFIG.CONST_VAL {0} \
+CONFIG.CONST_WIDTH {32} \
+ ] $xlconstant_0
+
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins S_AXI] [get_bd_intf_pins ref_cfg/S_AXI]
   connect_bd_intf_net -intf_net S_AXI1_1 [get_bd_intf_pins S_AXI1] [get_bd_intf_pins canc_cfg/S_AXI]
-  connect_bd_intf_net -intf_net axis_combiner_0_M_AXIS [get_bd_intf_pins axis_red_pitaya_dac_0/S_AXIS] [get_bd_intf_pins dac_signal_combiner/M_AXIS]
   connect_bd_intf_net -intf_net axis_constant_0_M_AXIS [get_bd_intf_pins ref_const/M_AXIS] [get_bd_intf_pins reference_signal/S_AXIS_CONFIG]
-  connect_bd_intf_net -intf_net axis_constant_0_M_AXIS1 [get_bd_intf_pins axis_constant_0/M_AXIS] [get_bd_intf_pins cancellation_signal/S_AXIS_PHASE]
+  connect_bd_intf_net -intf_net axis_constant_0_M_AXIS1 [get_bd_intf_pins cancellation_signal/S_AXIS_PHASE] [get_bd_intf_pins phase_ramp/M_AXIS]
   connect_bd_intf_net -intf_net canc_const_M_AXIS [get_bd_intf_pins canc_const/M_AXIS] [get_bd_intf_pins cancellation_signal/S_AXIS_CONFIG]
-  connect_bd_intf_net -intf_net cancellation_signal_M_AXIS_DATA [get_bd_intf_pins cancellation_signal/M_AXIS_DATA] [get_bd_intf_pins dac_signal_combiner/S00_AXIS]
-  connect_bd_intf_net -intf_net reference_signal_M_AXIS_DATA [get_bd_intf_pins dac_signal_combiner/S01_AXIS] [get_bd_intf_pins reference_signal/M_AXIS_DATA]
+  connect_bd_intf_net -intf_net cancellation_signal_M_AXIS_DATA [get_bd_intf_pins cancellation_signal/M_AXIS_DATA] [get_bd_intf_pins dac_signal_combiner/S01_AXIS]
+  connect_bd_intf_net -intf_net dac_signal_combiner_M_AXIS [get_bd_intf_pins axis_red_pitaya_dac_0/S_AXIS] [get_bd_intf_pins dac_signal_combiner/M_AXIS]
+  connect_bd_intf_net -intf_net reference_signal_M_AXIS_DATA [get_bd_intf_pins dac_signal_combiner/S00_AXIS] [get_bd_intf_pins reference_signal/M_AXIS_DATA]
 
   # Create port connections
   connect_bd_net -net aresetn1_1 [get_bd_pins enable] [get_bd_pins cancellation_signal/aresetn] [get_bd_pins dac_signal_combiner/aresetn] [get_bd_pins reference_signal/aresetn]
@@ -685,60 +620,60 @@ CONFIG.S_PHASE_Has_TUSER {Not_Required} \
   connect_bd_net -net axis_red_pitaya_dac_0_dac_rst [get_bd_pins dac_rst] [get_bd_pins axis_red_pitaya_dac_0/dac_rst]
   connect_bd_net -net axis_red_pitaya_dac_0_dac_sel [get_bd_pins dac_sel] [get_bd_pins axis_red_pitaya_dac_0/dac_sel]
   connect_bd_net -net axis_red_pitaya_dac_0_dac_wrt [get_bd_pins dac_wrt] [get_bd_pins axis_red_pitaya_dac_0/dac_wrt]
-  connect_bd_net -net c_counter_binary_0_Q [get_bd_pins axis_constant_0/cfg_data] [get_bd_pins c_counter_binary_0/Q]
   connect_bd_net -net canc_cfg_cfg_data [get_bd_pins canc_cfg/cfg_data] [get_bd_pins canc_const/cfg_data]
-  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins axis_constant_0/aclk] [get_bd_pins axis_red_pitaya_dac_0/aclk] [get_bd_pins c_counter_binary_0/CLK] [get_bd_pins canc_cfg/aclk] [get_bd_pins canc_const/aclk] [get_bd_pins cancellation_signal/aclk] [get_bd_pins clk_wiz_1/clk_in1] [get_bd_pins dac_signal_combiner/aclk] [get_bd_pins ref_cfg/aclk] [get_bd_pins ref_const/aclk] [get_bd_pins reference_signal/aclk]
+  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins axis_red_pitaya_dac_0/aclk] [get_bd_pins canc_cfg/aclk] [get_bd_pins canc_const/aclk] [get_bd_pins cancellation_signal/aclk] [get_bd_pins clk_wiz_1/clk_in1] [get_bd_pins dac_signal_combiner/aclk] [get_bd_pins phase_ramp/aclk] [get_bd_pins ref_cfg/aclk] [get_bd_pins ref_const/aclk] [get_bd_pins reference_signal/aclk]
   connect_bd_net -net clk_wiz_1_clk_out1 [get_bd_pins axis_red_pitaya_dac_0/ddr_clk] [get_bd_pins clk_wiz_1/clk_out1]
   connect_bd_net -net clk_wiz_1_locked [get_bd_pins axis_red_pitaya_dac_0/locked] [get_bd_pins clk_wiz_1/locked]
   connect_bd_net -net sig_gen_config_cfg_data [get_bd_pins ref_cfg/cfg_data] [get_bd_pins ref_const/cfg_data]
+  connect_bd_net -net xlconstant_0_dout [get_bd_pins phase_ramp/cfg_data] [get_bd_pins xlconstant_0/dout]
 
   # Perform GUI Layout
   regenerate_bd_layout -hierarchy [get_bd_cells /signal_generator] -layout_string {
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace port dac_clk -pg 1 -y 200 -defaultsOSRD
+preplace port dac_clk -pg 1 -y 220 -defaultsOSRD
 preplace port S_AXI -pg 1 -y 180 -defaultsOSRD
-preplace port dac_sel -pg 1 -y 240 -defaultsOSRD
-preplace port dac_wrt -pg 1 -y 260 -defaultsOSRD
-preplace port dac_rst -pg 1 -y 220 -defaultsOSRD
+preplace port dac_sel -pg 1 -y 260 -defaultsOSRD
+preplace port dac_wrt -pg 1 -y 280 -defaultsOSRD
+preplace port dac_rst -pg 1 -y 240 -defaultsOSRD
 preplace port aclk -pg 1 -y 200 -defaultsOSRD
 preplace port S_AXI1 -pg 1 -y 50 -defaultsOSRD
 preplace portBus enable -pg 1 -y 370 -defaultsOSRD
-preplace portBus dac_dat -pg 1 -y 280 -defaultsOSRD
+preplace portBus dac_dat -pg 1 -y 300 -defaultsOSRD
 preplace portBus aresetn -pg 1 -y 220 -defaultsOSRD
 preplace inst canc_const -pg 1 -lvl 2 -y 80 -defaultsOSRD
 preplace inst ref_cfg -pg 1 -lvl 1 -y 200 -defaultsOSRD
-preplace inst dac_signal_combiner -pg 1 -lvl 4 -y 210 -defaultsOSRD
+preplace inst dac_signal_combiner -pg 1 -lvl 4 -y 230 -defaultsOSRD
+preplace inst xlconstant_0 -pg 1 -lvl 1 -y 320 -defaultsOSRD
+preplace inst phase_ramp -pg 1 -lvl 2 -y 310 -defaultsOSRD
 preplace inst cancellation_signal -pg 1 -lvl 3 -y 340 -defaultsOSRD
-preplace inst c_counter_binary_0 -pg 1 -lvl 1 -y 320 -defaultsOSRD
-preplace inst axis_constant_0 -pg 1 -lvl 2 -y 310 -defaultsOSRD
 preplace inst canc_cfg -pg 1 -lvl 1 -y 70 -defaultsOSRD
 preplace inst ref_const -pg 1 -lvl 2 -y 190 -defaultsOSRD
 preplace inst reference_signal -pg 1 -lvl 3 -y 200 -defaultsOSRD
-preplace inst clk_wiz_1 -pg 1 -lvl 4 -y 340 -defaultsOSRD
-preplace inst axis_red_pitaya_dac_0 -pg 1 -lvl 5 -y 240 -defaultsOSRD
+preplace inst clk_wiz_1 -pg 1 -lvl 4 -y 360 -defaultsOSRD
+preplace inst axis_red_pitaya_dac_0 -pg 1 -lvl 5 -y 260 -defaultsOSRD
 preplace netloc Conn1 1 0 1 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_rst 1 5 1 NJ
 preplace netloc axis_constant_0_M_AXIS1 1 2 1 N
-preplace netloc canc_const_M_AXIS 1 2 1 500
+preplace netloc canc_const_M_AXIS 1 2 1 490
 preplace netloc axis_red_pitaya_dac_0_dac_sel 1 5 1 NJ
+preplace netloc dac_signal_combiner_M_AXIS 1 4 1 N
 preplace netloc S_AXI1_1 1 0 1 NJ
 preplace netloc canc_cfg_cfg_data 1 1 1 250
 preplace netloc axis_red_pitaya_dac_0_dac_wrt 1 5 1 NJ
-preplace netloc axis_combiner_0_M_AXIS 1 4 1 N
-preplace netloc axis_constant_0_M_AXIS 1 2 1 490
-preplace netloc cancellation_signal_M_AXIS_DATA 1 3 1 800
-preplace netloc c_counter_binary_0_Q 1 1 1 NJ
-preplace netloc clk_wiz_1_locked 1 4 1 1100
+preplace netloc axis_constant_0_M_AXIS 1 2 1 480
+preplace netloc cancellation_signal_M_AXIS_DATA 1 3 1 790
+preplace netloc xlconstant_0_dout 1 1 1 N
+preplace netloc clk_wiz_1_locked 1 4 1 1110
 preplace netloc clk_wiz_1_clk_out1 1 4 1 1090
 preplace netloc reference_signal_M_AXIS_DATA 1 3 1 N
 preplace netloc aresetn_1 1 0 1 30
 preplace netloc sig_gen_config_cfg_data 1 1 1 N
 preplace netloc axis_red_pitaya_dac_0_dac_clk 1 5 1 NJ
-preplace netloc aresetn1_1 1 0 4 NJ 370 NJ 370 480 130 790
+preplace netloc aresetn1_1 1 0 4 NJ 370 NJ 370 510 420 800
 preplace netloc axis_red_pitaya_dac_0_dac_dat 1 5 1 NJ
-preplace netloc clk_sync_clk_out1 1 0 5 20 270 260 250 510 420 810 130 1090
-levelinfo -pg 1 0 140 370 650 950 1210 1340 -top 0 -bot 430
+preplace netloc clk_sync_clk_out1 1 0 5 20 270 260 20 500 130 810 420 1100
+levelinfo -pg 1 0 140 370 650 950 1220 1350 -top 0 -bot 430
 ",
 }
 
@@ -848,24 +783,24 @@ preplace portBus adc_dat_b -pg 1 -y 410 -defaultsOSRD
 preplace portBus aresetn -pg 1 -y 230 -defaultsOSRD
 preplace inst adc_streamer -pg 1 -lvl 1 -y 380 -defaultsOSRD
 preplace inst channel_a -pg 1 -lvl 2 -y 130 -defaultsOSRD
-preplace inst channel_b -pg 1 -lvl 2 -y 326 -defaultsOSRD
+preplace inst channel_b -pg 1 -lvl 2 -y 320 -defaultsOSRD
 preplace inst config_settings -pg 1 -lvl 1 -y 210 -defaultsOSRD
 preplace netloc S_AXI_1 1 0 2 NJ 290 NJ
 preplace netloc channel_b_M_AXI 1 2 1 NJ
-preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 2 NJ 426 NJ
+preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 2 NJ 420 NJ
 preplace netloc adc_dat_a_i_1 1 0 1 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
 preplace netloc adc_streamer_m00_axis 1 1 1 290
-preplace netloc s00_axis_1 1 1 1 340
+preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
+preplace netloc s00_axis_1 1 1 1 310
 preplace netloc clk_wiz_0_clk_out1 1 0 1 NJ
 preplace netloc ps_axi_periph_M01_AXI 1 0 2 NJ 80 NJ
 preplace netloc adc_dat_b_i_1 1 0 1 NJ
-preplace netloc aresetn2_1 1 0 2 20 280 320
+preplace netloc aresetn2_1 1 0 2 20 280 340
 preplace netloc axis_ram_writer_0_M_AXI 1 2 1 NJ
-preplace netloc enable_1 1 0 2 NJ 300 310
+preplace netloc enable_1 1 0 2 NJ 300 330
 preplace netloc clk_sync_clk_out1 1 0 3 20 130 300 20 NJ
-preplace netloc xlslice_0_Dout 1 1 1 350
-levelinfo -pg 1 0 160 570 710 -top 0 -bot 460
+preplace netloc xlslice_0_Dout 1 1 1 320
+levelinfo -pg 1 0 160 460 600 -top 0 -bot 460
 ",
 }
 
@@ -2330,11 +2265,19 @@ proc create_hier_cell_gpio_interface { parentCell nameHier } {
   create_bd_pin -dir IO -from 7 -to 0 exp_data_n
   create_bd_pin -dir IO -from 7 -to 0 exp_data_p
 
+  # Create instance: divisor_slice, and set properties
+  set divisor_slice [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 divisor_slice ]
+  set_property -dict [ list \
+CONFIG.DIN_FROM {31} \
+CONFIG.DIN_TO {9} \
+CONFIG.DOUT_WIDTH {23} \
+ ] $divisor_slice
+
   # Create instance: enable, and set properties
   set enable [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 enable ]
   set_property -dict [ list \
-CONFIG.DIN_FROM {16} \
-CONFIG.DIN_TO {16} \
+CONFIG.DIN_FROM {8} \
+CONFIG.DIN_TO {8} \
 CONFIG.DOUT_WIDTH {1} \
  ] $enable
 
@@ -2360,6 +2303,17 @@ CONFIG.DOUT_WIDTH {1} \
      return 1
    }
   
+  # Create instance: frequency_divider, and set properties
+  set block_name frequency_divider
+  set block_cell_name frequency_divider
+  if { [catch {set frequency_divider [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_msg_id "BD_TCL-105" "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $frequency_divider eq "" } {
+     catch {common::send_msg_id "BD_TCL-106" "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+  
   # Create instance: gpio_n, and set properties
   set gpio_n [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 gpio_n ]
   set_property -dict [ list \
@@ -2368,30 +2322,11 @@ CONFIG.DIN_TO {0} \
 CONFIG.DOUT_WIDTH {8} \
  ] $gpio_n
 
-  # Create instance: gpio_p_lower, and set properties
-  set gpio_p_lower [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 gpio_p_lower ]
-  set_property -dict [ list \
-CONFIG.DIN_FROM {11} \
-CONFIG.DIN_TO {9} \
-CONFIG.DOUT_WIDTH {3} \
- ] $gpio_p_lower
-
-  # Create instance: gpio_p_upper, and set properties
-  set gpio_p_upper [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlslice:1.0 gpio_p_upper ]
-  set_property -dict [ list \
-CONFIG.DIN_FROM {15} \
-CONFIG.DIN_TO {13} \
-CONFIG.DOUT_WIDTH {3} \
- ] $gpio_p_upper
-
   # Create instance: gpio_register, and set properties
   set gpio_register [ create_bd_cell -type ip -vlnv pavel-demin:user:axi_cfg_register:1.0 gpio_register ]
   set_property -dict [ list \
 CONFIG.CFG_DATA_WIDTH {32} \
  ] $gpio_register
-
-  # Create instance: pulse_generator
-  create_hier_cell_pulse_generator $hier_obj pulse_generator
 
   # Create instance: xlconcat_0, and set properties
   set xlconcat_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconcat:2.1 xlconcat_0 ]
@@ -2403,21 +2338,63 @@ CONFIG.IN3_WIDTH {3} \
 CONFIG.NUM_PORTS {4} \
  ] $xlconcat_0
 
+  # Create instance: zero_const, and set properties
+  set zero_const [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 zero_const ]
+  set_property -dict [ list \
+CONFIG.CONST_VAL {0} \
+CONFIG.CONST_WIDTH {3} \
+ ] $zero_const
+
   # Create interface connections
   connect_bd_intf_net -intf_net processing_system_M04_AXI [get_bd_intf_pins S_AXI] [get_bd_intf_pins gpio_register/S_AXI]
 
   # Create port connections
   connect_bd_net -net Net [get_bd_pins exp_data_n] [get_bd_pins exp_interface_n/exp_data]
   connect_bd_net -net Net1 [get_bd_pins exp_data_p] [get_bd_pins exp_interface_p/exp_data]
-  connect_bd_net -net axi_cfg_register_0_cfg_data [get_bd_pins enable/Din] [get_bd_pins gpio_n/Din] [get_bd_pins gpio_p_lower/Din] [get_bd_pins gpio_p_upper/Din] [get_bd_pins gpio_register/cfg_data]
-  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins gpio_register/aclk] [get_bd_pins pulse_generator/CLK]
-  connect_bd_net -net enable_prf_Dout [get_bd_pins enable] [get_bd_pins enable/Dout] [get_bd_pins pulse_generator/enable]
+  connect_bd_net -net axi_cfg_register_0_cfg_data [get_bd_pins divisor_slice/Din] [get_bd_pins enable/Din] [get_bd_pins gpio_n/Din] [get_bd_pins gpio_register/cfg_data]
+  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins frequency_divider/clk_in] [get_bd_pins gpio_register/aclk]
+  connect_bd_net -net enable_prf_Dout [get_bd_pins enable] [get_bd_pins enable/Dout] [get_bd_pins frequency_divider/enable]
   connect_bd_net -net gpio_n_upper_Dout [get_bd_pins exp_interface_n/data] [get_bd_pins gpio_n/Dout]
-  connect_bd_net -net gpio_p_lower_Dout [get_bd_pins gpio_p_lower/Dout] [get_bd_pins xlconcat_0/In1]
-  connect_bd_net -net gpio_p_upper_Dout [get_bd_pins gpio_p_upper/Dout] [get_bd_pins xlconcat_0/In3]
-  connect_bd_net -net trigger_1 [get_bd_pins pulse_generator/CRF] [get_bd_pins xlconcat_0/In0] [get_bd_pins xlconcat_0/In2]
+  connect_bd_net -net trigger_1 [get_bd_pins frequency_divider/clk_out] [get_bd_pins xlconcat_0/In0] [get_bd_pins xlconcat_0/In2]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins exp_interface_p/data] [get_bd_pins xlconcat_0/dout]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins aresetn] [get_bd_pins gpio_register/aresetn]
+  connect_bd_net -net xlconstant_0_dout1 [get_bd_pins xlconcat_0/In1] [get_bd_pins xlconcat_0/In3] [get_bd_pins zero_const/dout]
+  connect_bd_net -net xlslice_0_Dout [get_bd_pins divisor_slice/Dout] [get_bd_pins frequency_divider/divisor]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /gpio_interface] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port S_AXI -pg 1 -y 100 -defaultsOSRD
+preplace port aclk -pg 1 -y 120 -defaultsOSRD
+preplace portBus enable -pg 1 -y 20 -defaultsOSRD
+preplace portBus exp_data_n -pg 1 -y 60 -defaultsOSRD
+preplace portBus exp_data_p -pg 1 -y 240 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 140 -defaultsOSRD
+preplace inst frequency_divider -pg 1 -lvl 3 -y 80 -defaultsOSRD
+preplace inst zero_const -pg 1 -lvl 3 -y 230 -defaultsOSRD
+preplace inst gpio_n -pg 1 -lvl 4 -y 60 -defaultsOSRD
+preplace inst enable -pg 1 -lvl 5 -y 150 -defaultsOSRD
+preplace inst gpio_register -pg 1 -lvl 1 -y 120 -defaultsOSRD
+preplace inst divisor_slice -pg 1 -lvl 2 -y 100 -defaultsOSRD
+preplace inst exp_interface_n -pg 1 -lvl 5 -y 60 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 4 -y 240 -defaultsOSRD
+preplace inst exp_interface_p -pg 1 -lvl 5 -y 240 -defaultsOSRD
+preplace netloc trigger_1 1 3 1 670
+preplace netloc processing_system_M04_AXI 1 0 1 NJ
+preplace netloc xlconstant_0_dout1 1 3 1 680
+preplace netloc axi_cfg_register_0_cfg_data 1 1 4 240 150 NJ 150 680 150 NJ
+preplace netloc gpio_n_upper_Dout 1 4 1 NJ
+preplace netloc xlconcat_0_dout 1 4 1 NJ
+preplace netloc xlconstant_0_dout 1 0 1 NJ
+preplace netloc Net1 1 5 1 NJ
+preplace netloc Net 1 5 1 NJ
+preplace netloc enable_prf_Dout 1 2 4 450 10 NJ 10 NJ 10 1150
+preplace netloc xlslice_0_Dout 1 2 1 NJ
+preplace netloc clk_sync_clk_out1 1 0 3 20 50 NJ 50 NJ
+levelinfo -pg 1 0 130 340 560 780 1020 1170 -top 0 -bot 320
+",
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2677,7 +2654,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins clocking_system/clk_out1] [get_bd_pins receive_chain/int_clk]
   connect_bd_net -net daisy_n_i_1 [get_bd_ports daisy_n_i] [get_bd_pins daisy_chain/IBUF_DS_N]
   connect_bd_net -net daisy_p_i_1 [get_bd_ports daisy_p_i] [get_bd_pins daisy_chain/IBUF_DS_P]
-  connect_bd_net -net enable_2 [get_bd_pins gpio_interface/enable] [get_bd_pins receive_chain/enable] [get_bd_pins signal_generator/enable]
+  connect_bd_net -net enable_1 [get_bd_pins gpio_interface/enable] [get_bd_pins receive_chain/enable] [get_bd_pins signal_generator/enable]
   connect_bd_net -net util_ds_buf_2_OBUF_DS_N [get_bd_ports daisy_n_o] [get_bd_pins daisy_chain/OBUF_DS_N]
   connect_bd_net -net util_ds_buf_2_OBUF_DS_P [get_bd_ports daisy_p_o] [get_bd_pins daisy_chain/OBUF_DS_P]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins gpio_interface/aresetn] [get_bd_pins processing_system/ARESETN] [get_bd_pins receive_chain/aresetn] [get_bd_pins signal_generator/aresetn]
@@ -2730,7 +2707,6 @@ preplace inst gpio_interface -pg 1 -lvl 4 -y 190 -defaultsOSRD
 preplace inst signal_generator -pg 1 -lvl 4 -y 370 -defaultsOSRD
 preplace inst receive_chain -pg 1 -lvl 2 -y 160 -defaultsOSRD
 preplace netloc S_AXI_1 1 1 3 250 10 NJ 10 820
-preplace netloc enable_2 1 1 4 280 320 NJ 320 880 260 1160
 preplace netloc S_AXI_2 1 3 1 840
 preplace netloc axis_red_pitaya_dac_0_dac_rst 1 4 1 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_sel 1 4 1 NJ
@@ -2755,6 +2731,7 @@ preplace netloc processing_system_M05_AXI 1 3 1 840
 preplace netloc ps_0_FIXED_IO 1 3 2 NJ 110 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_clk 1 4 1 NJ
 preplace netloc axis_ram_writer_0_M_AXI 1 2 1 550
+preplace netloc enable_1 1 1 4 280 320 NJ 320 880 260 1160
 preplace netloc axis_red_pitaya_dac_0_dac_dat 1 4 1 NJ
 preplace netloc adc_clk_p_i_1 1 0 1 NJ
 preplace netloc clk_sync_clk_out1 1 2 2 530 30 870

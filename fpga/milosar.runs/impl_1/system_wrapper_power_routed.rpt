@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date             : Mon Feb  5 15:16:11 2018
+| Date             : Thu Feb  8 09:45:30 2018
 | Host             : ubuntu running 64-bit Ubuntu 17.10
 | Command          : report_power -file system_wrapper_power_routed.rpt -pb system_wrapper_power_summary_routed.pb -rpx system_wrapper_power_routed.rpx
 | Design           : system_wrapper
@@ -30,8 +30,8 @@ Table of Contents
 ----------
 
 +--------------------------+-------+
-| Total On-Chip Power (W)  | 1.827 |
-| Dynamic (W)              | 1.688 |
+| Total On-Chip Power (W)  | 1.822 |
+| Dynamic (W)              | 1.683 |
 | Device Static (W)        | 0.139 |
 | Total Off-Chip Power (W) | 0.013 |
 | Effective TJA (C/W)      | 11.5  |
@@ -51,19 +51,19 @@ Table of Contents
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
 | Clocks                  |     0.012 |       10 |       --- |             --- |
-| Slice Logic             |     0.003 |     3183 |       --- |             --- |
-|   LUT as Logic          |     0.003 |     1061 |     17600 |            6.03 |
-|   Register              |    <0.001 |     1647 |     35200 |            4.68 |
-|   CARRY4                |    <0.001 |       89 |      4400 |            2.02 |
+| Slice Logic             |     0.003 |     3146 |       --- |             --- |
+|   LUT as Logic          |     0.003 |     1069 |     17600 |            6.07 |
+|   Register              |    <0.001 |     1586 |     35200 |            4.51 |
+|   CARRY4                |    <0.001 |       95 |      4400 |            2.16 |
 |   LUT as Shift Register |    <0.001 |       50 |      6000 |            0.83 |
-|   Others                |     0.000 |      309 |       --- |             --- |
-| Signals                 |     0.006 |     2548 |       --- |             --- |
+|   Others                |     0.000 |      292 |       --- |             --- |
+| Signals                 |     0.006 |     2514 |       --- |             --- |
 | Block RAM               |     0.012 |        4 |        60 |            6.67 |
 | MMCM                    |     0.213 |        2 |         2 |          100.00 |
-| I/O                     |     0.147 |       80 |       100 |           80.00 |
+| I/O                     |     0.142 |       80 |       100 |           80.00 |
 | PS7                     |     1.282 |        1 |       --- |             --- |
 | Static Power            |     0.139 |          |           |                 |
-| Total                   |     1.814 |          |           |                 |
+| Total                   |     1.809 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -75,7 +75,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Vccint    |       1.000 |     0.042 |       0.035 |      0.008 |
 | Vccaux    |       1.800 |     0.136 |       0.124 |      0.012 |
-| Vcco33    |       3.300 |     0.035 |       0.034 |      0.001 |
+| Vcco33    |       3.300 |     0.034 |       0.033 |      0.001 |
 | Vcco25    |       2.500 |     0.001 |       0.000 |      0.001 |
 | Vcco18    |       1.800 |     0.020 |       0.019 |      0.001 |
 | Vcco15    |       1.500 |     0.001 |       0.000 |      0.001 |
@@ -86,7 +86,7 @@ Table of Contents
 | MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |
 | MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |
 | MGTVccaux |       1.800 |     0.000 |       0.000 |      0.000 |
-| Vccpint   |       1.000 |     0.700 |       0.669 |      0.032 |
+| Vccpint   |       1.000 |     0.700 |       0.669 |      0.031 |
 | Vccpaux   |       1.800 |     0.037 |       0.027 |      0.010 |
 | Vccpll    |       1.800 |     0.017 |       0.014 |      0.003 |
 | Vcco_ddr  |       1.500 |     0.356 |       0.354 |      0.002 |
@@ -156,7 +156,7 @@ Table of Contents
 +------------------------------------------------------------------------------------+-----------+
 | Name                                                                               | Power (W) |
 +------------------------------------------------------------------------------------+-----------+
-| system_wrapper                                                                     |     1.675 |
+| system_wrapper                                                                     |     1.670 |
 |   system_i                                                                         |     1.559 |
 |     clocking_system                                                                |     0.107 |
 |       clk_wiz_0                                                                    |     0.107 |
@@ -171,28 +171,18 @@ Table of Contents
 |           USE_OBUFDS.GEN_OBUFDS[0].OBUFDS_I                                        |     0.005 |
 |           USE_OBUFDS.GEN_OBUFDS[1].OBUFDS_I                                        |     0.025 |
 |     gpio_interface                                                                 |    <0.001 |
+|       divisor_slice                                                                |     0.000 |
 |       enable_RnM                                                                   |     0.000 |
 |       exp_interface_n                                                              |     0.000 |
 |       exp_interface_p                                                              |     0.000 |
+|       frequency_divider                                                            |    <0.001 |
+|         inst                                                                       |    <0.001 |
 |       gpio_n                                                                       |     0.000 |
-|       gpio_p_lower                                                                 |     0.000 |
-|       gpio_p_upper                                                                 |     0.000 |
 |       gpio_register                                                                |    <0.001 |
 |         inst                                                                       |    <0.001 |
-|       pulse_generator                                                              |    <0.001 |
-|         binary_counter                                                             |    <0.001 |
-|           U0                                                                       |    <0.001 |
-|             i_synth                                                                |    <0.001 |
-|               i_baseblox.i_baseblox_counter                                        |    <0.001 |
-|                 the_addsub                                                         |    <0.001 |
-|                   no_pipelining.the_addsub                                         |    <0.001 |
-|                     i_lut6.i_lut6_addsub                                           |    <0.001 |
-|                       i_q.i_simple.qreg                                            |    <0.001 |
-|         freq_divider_n                                                             |     0.000 |
-|         init_logic_high                                                            |    <0.001 |
-|         reset_counter                                                              |    <0.001 |
 |       xlconcat_0                                                                   |     0.000 |
-|     processing_system                                                              |     1.290 |
+|       zero_const                                                                   |     0.000 |
+|     processing_system                                                              |     1.291 |
 |       ps_0                                                                         |     1.283 |
 |         inst                                                                       |     1.283 |
 |       ps_axi_periph                                                                |     0.007 |
@@ -264,31 +254,21 @@ Table of Contents
 |         cfg                                                                        |    <0.001 |
 |           inst                                                                     |    <0.001 |
 |         xlslice_0                                                                  |     0.000 |
-|     signal_generator                                                               |     0.121 |
-|       axis_constant_0                                                              |     0.000 |
+|     signal_generator                                                               |     0.120 |
 |       axis_red_pitaya_dac_0                                                        |     0.002 |
 |         inst                                                                       |     0.002 |
-|       c_counter_binary_0                                                           |    <0.001 |
-|         U0                                                                         |    <0.001 |
-|           i_synth                                                                  |    <0.001 |
-|             i_baseblox.i_baseblox_counter                                          |    <0.001 |
-|               the_addsub                                                           |    <0.001 |
-|                 no_pipelining.the_addsub                                           |    <0.001 |
-|                   i_lut6.i_lut6_addsub                                             |    <0.001 |
-|                     i_q.i_simple.qreg                                              |    <0.001 |
 |       canc_cfg                                                                     |    <0.001 |
 |         inst                                                                       |    <0.001 |
 |       canc_const                                                                   |     0.000 |
-|       cancellation_signal                                                          |     0.006 |
-|         U0                                                                         |     0.006 |
-|           i_synth                                                                  |     0.006 |
+|       cancellation_signal                                                          |     0.005 |
+|         U0                                                                         |     0.005 |
+|           i_synth                                                                  |     0.005 |
 |             i_dds                                                                  |     0.005 |
 |               I_PHASEGEN.i_conventional_accum.i_accum                              |    <0.001 |
-|                 i_common.i_stream_poff_gen.poff_channel_in                         |    <0.001 |
 |                 i_fabric.i_common.i_phase_acc                                      |    <0.001 |
 |                 i_fabric.i_one_channel.i_accum                                     |    <0.001 |
 |               I_PHASEGEN.i_conventional_accum.i_fabric.i_ph_adj_pipe               |    <0.001 |
-|               I_PHASEGEN.i_conventional_accum.i_fabric.i_phase_adj.i_phase_adj_add |    <0.001 |
+|               I_PHASEGEN.i_conventional_accum.i_fabric.i_phase_adj.i_phase_adj_add |     0.000 |
 |               I_SINCOS.i_std_rom.i_rom                                             |     0.004 |
 |                 i_rtl.i_quarter_table.i_addr_reg_c                                 |    <0.001 |
 |                 i_rtl.i_quarter_table.i_piped_map.i_cardinal_sin_ls                |    <0.001 |
@@ -301,6 +281,7 @@ Table of Contents
 |         inst                                                                       |     0.107 |
 |       dac_signal_combiner                                                          |    <0.001 |
 |         inst                                                                       |    <0.001 |
+|       phase_ramp                                                                   |     0.000 |
 |       ref_cfg                                                                      |    <0.001 |
 |         inst                                                                       |    <0.001 |
 |       ref_const                                                                    |     0.000 |
