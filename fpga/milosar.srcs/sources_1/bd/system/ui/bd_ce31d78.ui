@@ -16,19 +16,19 @@ preplace inst divisor_slice -pg 1 -lvl 2 -y 100 -defaultsOSRD
 preplace inst exp_interface_n -pg 1 -lvl 5 -y 60 -defaultsOSRD
 preplace inst xlconcat_0 -pg 1 -lvl 4 -y 240 -defaultsOSRD
 preplace inst exp_interface_p -pg 1 -lvl 5 -y 240 -defaultsOSRD
-preplace netloc trigger_1 1 3 1 670
+preplace netloc trigger_1 1 3 1 680
 preplace netloc processing_system_M04_AXI 1 0 1 NJ
-preplace netloc xlconstant_0_dout1 1 3 1 680
-preplace netloc axi_cfg_register_0_cfg_data 1 1 4 240 150 NJ 150 680 150 NJ
+preplace netloc xlconstant_0_dout1 1 3 1 690
+preplace netloc axi_cfg_register_0_cfg_data 1 1 4 240 150 NJ 150 690 150 NJ
 preplace netloc gpio_n_upper_Dout 1 4 1 NJ
 preplace netloc xlconcat_0_dout 1 4 1 NJ
 preplace netloc xlconstant_0_dout 1 0 1 NJ
 preplace netloc Net1 1 5 1 NJ
 preplace netloc Net 1 5 1 NJ
-preplace netloc enable_prf_Dout 1 2 4 450 10 NJ 10 NJ 10 1150
+preplace netloc enable_prf_Dout 1 2 4 450 10 NJ 10 NJ 10 1160
 preplace netloc xlslice_0_Dout 1 2 1 NJ
 preplace netloc clk_sync_clk_out1 1 0 3 20 50 NJ 50 NJ
-levelinfo -pg 1 0 130 340 560 780 1020 1170 -top 0 -bot 320
+levelinfo -pg 1 0 130 340 570 790 1030 1180 -top 0 -bot 320
 ",
 }
 0

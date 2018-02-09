@@ -18,12 +18,12 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 20489 
+INFO: Helper process launched with PID 30663 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1083.742 ; gain = 196.152 ; free physical = 5176 ; free virtual = 25000
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1083.750 ; gain = 196.152 ; free physical = 3852 ; free virtual = 22233
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'system_wrapper' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system_wrapper.v:12]
-INFO: [Synth 8-638] synthesizing module 'system' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3568]
+INFO: [Synth 8-638] synthesizing module 'system' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3571]
 INFO: [Synth 8-638] synthesizing module 'clocking_system_imp_7QV4LN' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:470]
 INFO: [Synth 8-638] synthesizing module 'system_clk_wiz_0_1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_clk_wiz_0_1/system_clk_wiz_0_1.v:70]
 INFO: [Synth 8-638] synthesizing module 'system_clk_wiz_0_1_clk_wiz' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_clk_wiz_0_1/system_clk_wiz_0_1_clk_wiz.v:68]
@@ -124,7 +124,7 @@ INFO: [Synth 8-256] done synthesizing module 'processing_system7_v5_5_processing
 WARNING: [Synth 8-350] instance 'inst' of module 'processing_system7_v5_5_processing_system7' requires 685 connections, but only 672 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/synth/system_ps_0_0.v:636]
 INFO: [Synth 8-256] done synthesizing module 'system_ps_0_0' (32#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_ps_0_0/synth/system_ps_0_0.v:59]
 WARNING: [Synth 8-350] instance 'ps_0' of module 'system_ps_0_0' requires 174 connections, but only 133 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2201]
-INFO: [Synth 8-638] synthesizing module 'system_ps_0_axi_periph_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:4162]
+INFO: [Synth 8-638] synthesizing module 'system_ps_0_axi_periph_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:4165]
 INFO: [Synth 8-638] synthesizing module 'm00_couplers_imp_1GIFH4O' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:781]
 INFO: [Synth 8-256] done synthesizing module 'm00_couplers_imp_1GIFH4O' (33#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:781]
 INFO: [Synth 8-638] synthesizing module 'm01_couplers_imp_5BE6LL' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:913]
@@ -137,7 +137,7 @@ INFO: [Synth 8-638] synthesizing module 'm04_couplers_imp_T97Z7J' [/home/darryn/
 INFO: [Synth 8-256] done synthesizing module 'm04_couplers_imp_T97Z7J' (37#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1295]
 INFO: [Synth 8-638] synthesizing module 'm05_couplers_imp_1J8PL66' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1427]
 INFO: [Synth 8-256] done synthesizing module 'm05_couplers_imp_1J8PL66' (38#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:1427]
-INFO: [Synth 8-638] synthesizing module 's00_couplers_imp_12IK0DL' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2972]
+INFO: [Synth 8-638] synthesizing module 's00_couplers_imp_12IK0DL' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2975]
 INFO: [Synth 8-638] synthesizing module 'system_auto_pc_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_auto_pc_0/synth/system_auto_pc_0.v:58]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_axi_protocol_converter' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_axi_protocol_converter.v:62]
 INFO: [Synth 8-638] synthesizing module 'axi_protocol_converter_v2_1_9_b2s' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s.v:39]
@@ -202,7 +202,7 @@ INFO: [Synth 8-256] done synthesizing module 'axi_register_slice_v2_1_9_axi_regi
 INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_b2s' (53#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_b2s.v:39]
 INFO: [Synth 8-256] done synthesizing module 'axi_protocol_converter_v2_1_9_axi_protocol_converter' (54#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_protocol_converter_v2_1/hdl/verilog/axi_protocol_converter_v2_1_axi_protocol_converter.v:62]
 INFO: [Synth 8-256] done synthesizing module 'system_auto_pc_0' (55#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_auto_pc_0/synth/system_auto_pc_0.v:58]
-INFO: [Synth 8-256] done synthesizing module 's00_couplers_imp_12IK0DL' (56#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2972]
+INFO: [Synth 8-256] done synthesizing module 's00_couplers_imp_12IK0DL' (56#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2975]
 INFO: [Synth 8-638] synthesizing module 'system_xbar_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xbar_0/synth/system_xbar_0.v:59]
 INFO: [Synth 8-638] synthesizing module 'axi_crossbar_v2_1_10_axi_crossbar' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_axi_crossbar.v:54]
 INFO: [Synth 8-638] synthesizing module 'axi_crossbar_v2_1_10_crossbar_sasd' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_crossbar_sasd.v:79]
@@ -245,8 +245,8 @@ INFO: [Synth 8-256] done synthesizing module 'generic_baseblocks_v2_1_0_mux_enc_
 INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_crossbar_sasd' (64#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_crossbar_sasd.v:79]
 INFO: [Synth 8-256] done synthesizing module 'axi_crossbar_v2_1_10_axi_crossbar' (65#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axi_crossbar_v2_1/hdl/verilog/axi_crossbar_v2_1_axi_crossbar.v:54]
 INFO: [Synth 8-256] done synthesizing module 'system_xbar_0' (66#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xbar_0/synth/system_xbar_0.v:59]
-WARNING: [Synth 8-350] instance 'xbar' of module 'system_xbar_0' requires 40 connections, but only 38 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:5193]
-INFO: [Synth 8-256] done synthesizing module 'system_ps_0_axi_periph_0' (67#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:4162]
+WARNING: [Synth 8-350] instance 'xbar' of module 'system_xbar_0' requires 40 connections, but only 38 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:5196]
+INFO: [Synth 8-256] done synthesizing module 'system_ps_0_axi_periph_0' (67#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:4165]
 INFO: [Synth 8-638] synthesizing module 'system_rst_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_rst_0_0/synth/system_rst_0_0.vhd:71]
 INFO: [Synth 8-3491] module 'proc_sys_reset' declared at '/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/proc_sys_reset.vhd:140' bound to instance 'U0' of component 'proc_sys_reset' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_rst_0_0/synth/system_rst_0_0.vhd:116]
 INFO: [Synth 8-638] synthesizing module 'proc_sys_reset' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/proc_sys_reset_v5_0/hdl/src/vhdl/proc_sys_reset.vhd:199]
@@ -350,7 +350,8 @@ INFO: [Synth 8-256] done synthesizing module 'xlslice__parameterized2' (100#1) [
 INFO: [Synth 8-256] done synthesizing module 'system_xlslice_0_0' (101#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlslice_0_0/synth/system_xlslice_0_0.v:57]
 INFO: [Synth 8-256] done synthesizing module 'config_settings_imp_18GRB1F' (102#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:495]
 INFO: [Synth 8-256] done synthesizing module 'receive_chain_imp_N0MRX5' (103#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:2500]
-INFO: [Synth 8-638] synthesizing module 'signal_generator_imp_HADG47' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3277]
+WARNING: [Synth 8-350] instance 'receive_chain' of module 'receive_chain_imp_N0MRX5' requires 89 connections, but only 88 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:4031]
+INFO: [Synth 8-638] synthesizing module 'signal_generator_imp_HADG47' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3280]
 INFO: [Synth 8-638] synthesizing module 'system_axis_red_pitaya_dac_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_red_pitaya_dac_0_0/synth/system_axis_red_pitaya_dac_0_0.v:56]
 INFO: [Synth 8-638] synthesizing module 'axis_red_pitaya_dac' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/pavel-demin/axis_red_pitaya_dac_v1_0/src/axis_red_pitaya_dac.v:4]
 INFO: [Synth 8-638] synthesizing module 'ODDR' [/opt/Xilinx/Vivado/2016.2/scripts/rt/data/unisim_comp.v:25287]
@@ -387,7 +388,7 @@ INFO: [Synth 8-638] synthesizing module 'axis_infrastructure_v1_1_0_util_vector2
 INFO: [Synth 8-256] done synthesizing module 'axis_infrastructure_v1_1_0_util_vector2axis__parameterized1' (120#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_infrastructure_v1_1/hdl/verilog/axis_infrastructure_v1_1_util_vector2axis.v:66]
 INFO: [Synth 8-256] done synthesizing module 'axis_combiner_v1_1_8_top' (121#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/axis_combiner_v1_1/hdl/verilog/axis_combiner_v1_1_top.v:56]
 INFO: [Synth 8-256] done synthesizing module 'system_axis_combiner_0_0' (122#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_combiner_0_0/synth/system_axis_combiner_0_0.v:57]
-WARNING: [Synth 8-350] instance 'dac_signal_combiner' of module 'system_axis_combiner_0_0' requires 8 connections, but only 7 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3517]
+WARNING: [Synth 8-350] instance 'dac_signal_combiner' of module 'system_axis_combiner_0_0' requires 8 connections, but only 7 given [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3520]
 INFO: [Synth 8-638] synthesizing module 'system_axis_constant_0_1' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_constant_0_1/synth/system_axis_constant_0_1.v:56]
 INFO: [Synth 8-256] done synthesizing module 'system_axis_constant_0_1' (123#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axis_constant_0_1/synth/system_axis_constant_0_1.v:56]
 INFO: [Synth 8-638] synthesizing module 'system_axi_cfg_register_0_0' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_axi_cfg_register_0_0/synth/system_axi_cfg_register_0_0.v:56]
@@ -408,12 +409,12 @@ INFO: [Synth 8-638] synthesizing module 'system_xlconstant_0_1' [/home/darryn/Gi
 INFO: [Synth 8-638] synthesizing module 'xlconstant__parameterized2' [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlconstant_v1_1/xlconstant.v:23]
 INFO: [Synth 8-256] done synthesizing module 'xlconstant__parameterized2' (126#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ipshared/xilinx.com/xlconstant_v1_1/xlconstant.v:23]
 INFO: [Synth 8-256] done synthesizing module 'system_xlconstant_0_1' (127#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/ip/system_xlconstant_0_1/sim/system_xlconstant_0_1.v:56]
-INFO: [Synth 8-256] done synthesizing module 'signal_generator_imp_HADG47' (128#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3277]
-WARNING: [Synth 8-3848] Net adc_enc_n_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3636]
-WARNING: [Synth 8-3848] Net adc_enc_p_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3637]
-WARNING: [Synth 8-3848] Net dac_pwm_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3640]
-WARNING: [Synth 8-3848] Net led_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3650]
-INFO: [Synth 8-256] done synthesizing module 'system' (129#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3568]
+INFO: [Synth 8-256] done synthesizing module 'signal_generator_imp_HADG47' (128#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3280]
+WARNING: [Synth 8-3848] Net adc_enc_n_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3639]
+WARNING: [Synth 8-3848] Net adc_enc_p_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3640]
+WARNING: [Synth 8-3848] Net dac_pwm_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3643]
+WARNING: [Synth 8-3848] Net led_o in module/entity system does not have driver. [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3653]
+INFO: [Synth 8-256] done synthesizing module 'system' (129#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system.v:3571]
 INFO: [Synth 8-256] done synthesizing module 'system_wrapper' (130#1) [/home/darryn/Git/milosar/fpga/milosar.srcs/sources_1/bd/system/hdl/system_wrapper.v:12]
 WARNING: [Synth 8-3331] design xbip_pipe_v3_0_2_viv__parameterized46 has unconnected port SSET
 WARNING: [Synth 8-3331] design xbip_pipe_v3_0_2_viv__parameterized46 has unconnected port SINIT
@@ -517,7 +518,7 @@ WARNING: [Synth 8-3331] design accum__parameterized0 has unconnected port poff_i
 WARNING: [Synth 8-3331] design accum__parameterized0 has unconnected port poff_in[11]
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:29 ; elapsed = 00:00:29 . Memory (MB): peak = 1262.180 ; gain = 374.590 ; free physical = 5001 ; free virtual = 24826
+Finished RTL Elaboration : Time (s): cpu = 00:00:29 ; elapsed = 00:00:29 . Memory (MB): peak = 1262.188 ; gain = 374.590 ; free physical = 3678 ; free virtual = 22060
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -527,7 +528,7 @@ Report Check Netlist:
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:29 ; elapsed = 00:00:29 . Memory (MB): peak = 1262.180 ; gain = 374.590 ; free physical = 5001 ; free virtual = 24827
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:29 ; elapsed = 00:00:29 . Memory (MB): peak = 1262.188 ; gain = 374.590 ; free physical = 3678 ; free virtual = 22060
 ---------------------------------------------------------------------------------
 INFO: [Netlist 29-17] Analyzing 42 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -595,13 +596,6 @@ WARNING: [Vivado 12-584] No ports matched 'exp_n_alex[0]'. [/home/darryn/Git/mil
 WARNING: [Vivado 12-584] No ports matched 'exp_n_alex[1]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:184]
 WARNING: [Vivado 12-584] No ports matched 'exp_n_alex[2]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:185]
 WARNING: [Vivado 12-584] No ports matched 'exp_n_alex[3]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:186]
-WARNING: [Vivado 12-584] No ports matched 'led_o[1]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:215]
-WARNING: [Vivado 12-584] No ports matched 'led_o[2]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:216]
-WARNING: [Vivado 12-584] No ports matched 'led_o[3]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:217]
-WARNING: [Vivado 12-584] No ports matched 'led_o[4]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:218]
-WARNING: [Vivado 12-584] No ports matched 'led_o[5]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:219]
-WARNING: [Vivado 12-584] No ports matched 'led_o[6]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:220]
-WARNING: [Vivado 12-584] No ports matched 'led_o[7]'. [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc:221]
 Finished Parsing XDC File [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc]
 WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/system_wrapper_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/darryn/Git/milosar/fpga/milosar.srcs/constrs_1/imports/cfg/ports.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/system_wrapper_propImpl.xdc].
@@ -620,16 +614,16 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   OBUFDS => OBUFDS_DUAL_BUF (OBUFDS, OBUFDS, INV): 2 instances
   SRL16 => SRL16E: 1 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 1498.270 ; gain = 0.000 ; free physical = 4930 ; free virtual = 24756
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.03 . Memory (MB): peak = 1498.277 ; gain = 0.000 ; free physical = 3607 ; free virtual = 21989
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:38 ; elapsed = 00:00:39 . Memory (MB): peak = 1498.270 ; gain = 610.680 ; free physical = 4929 ; free virtual = 24755
+Finished Constraint Validation : Time (s): cpu = 00:00:38 ; elapsed = 00:00:38 . Memory (MB): peak = 1498.277 ; gain = 610.680 ; free physical = 3606 ; free virtual = 21988
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z010clg400-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:38 ; elapsed = 00:00:39 . Memory (MB): peak = 1498.270 ; gain = 610.680 ; free physical = 4929 ; free virtual = 24755
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:38 ; elapsed = 00:00:38 . Memory (MB): peak = 1498.277 ; gain = 610.680 ; free physical = 3606 ; free virtual = 21988
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -685,7 +679,7 @@ Applied set_property DONT_TOUCH = true for system_i/signal_generator/ref_const. 
 Applied set_property DONT_TOUCH = true for system_i/signal_generator/reference_signal. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for system_i/signal_generator/xlconstant_0. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:39 ; elapsed = 00:00:39 . Memory (MB): peak = 1498.270 ; gain = 610.680 ; free physical = 4929 ; free virtual = 24755
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:39 ; elapsed = 00:00:39 . Memory (MB): peak = 1498.277 ; gain = 610.680 ; free physical = 3606 ; free virtual = 21988
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5544] ROM "p_2_out0" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "p_0_in6" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
@@ -726,7 +720,7 @@ INFO: [Synth 8-5547] Trying to map ROM "sin_cos_lut" into Block RAM due to expli
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'axis_dwidth_converter_v1_1_8_axisc_upsizer'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:41 ; elapsed = 00:00:41 . Memory (MB): peak = 1498.270 ; gain = 610.680 ; free physical = 4916 ; free virtual = 24742
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:41 ; elapsed = 00:00:41 . Memory (MB): peak = 1498.277 ; gain = 610.680 ; free physical = 3593 ; free virtual = 21975
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -755,7 +749,7 @@ BRAMs: 120 (col length: RAMB18 40 RAMB36 20)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
-Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:41 ; elapsed = 00:00:41 . Memory (MB): peak = 1498.270 ; gain = 610.680 ; free physical = 4916 ; free virtual = 24742
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:41 ; elapsed = 00:00:41 . Memory (MB): peak = 1498.277 ; gain = 610.680 ; free physical = 3593 ; free virtual = 21975
 ---------------------------------------------------------------------------------
 Start Cross Boundary Optimization
 ---------------------------------------------------------------------------------
@@ -765,9 +759,9 @@ INFO: [Synth 8-3936] Found unconnected internal register 'inst/gen_sasd.crossbar
 INFO: [Synth 8-5547] Trying to map ROM "p_0_out" into Block RAM due to explicit "ram_style" or "rom_style" specification
 INFO: [Synth 8-5547] Trying to map ROM "p_0_out" into Block RAM due to explicit "ram_style" or "rom_style" specification
 ---------------------------------------------------------------------------------
-Finished Cross Boundary Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:42 . Memory (MB): peak = 1498.270 ; gain = 610.680 ; free physical = 4916 ; free virtual = 24742
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:42 ; elapsed = 00:00:42 . Memory (MB): peak = 1498.277 ; gain = 610.680 ; free physical = 3593 ; free virtual = 21975
 ---------------------------------------------------------------------------------
-Finished Parallel Reinference  : Time (s): cpu = 00:00:42 ; elapsed = 00:00:42 . Memory (MB): peak = 1498.270 ; gain = 610.680 ; free physical = 4916 ; free virtual = 24742
+Finished Parallel Reinference  : Time (s): cpu = 00:00:42 ; elapsed = 00:00:42 . Memory (MB): peak = 1498.277 ; gain = 610.680 ; free physical = 3593 ; free virtual = 21975
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
@@ -886,9 +880,9 @@ INFO: [Synth 8-3332] Sequential element (inst/gen_upsizer_conversion.axisc_upsiz
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (system_i/\signal_generator/cancellation_signal /U0/i_synth/\has_s_phase.s_phase_tlast_checks.event_s_phase_tlast_unexpected_reg )
 INFO: [Synth 8-3332] Sequential element (has_s_phase.s_phase_tlast_checks.event_s_phase_tlast_unexpected_reg) is unused and will be removed from module dds_compiler_v6_0_12_viv.
 ---------------------------------------------------------------------------------
-Finished Area Optimization : Time (s): cpu = 00:00:45 ; elapsed = 00:00:46 . Memory (MB): peak = 1498.270 ; gain = 610.680 ; free physical = 4882 ; free virtual = 24709
+Finished Area Optimization : Time (s): cpu = 00:00:45 ; elapsed = 00:00:45 . Memory (MB): peak = 1498.277 ; gain = 610.680 ; free physical = 3561 ; free virtual = 21943
 ---------------------------------------------------------------------------------
-Finished Parallel Area Optimization  : Time (s): cpu = 00:00:45 ; elapsed = 00:00:46 . Memory (MB): peak = 1498.270 ; gain = 610.680 ; free physical = 4882 ; free virtual = 24709
+Finished Parallel Area Optimization  : Time (s): cpu = 00:00:45 ; elapsed = 00:00:45 . Memory (MB): peak = 1498.277 ; gain = 610.680 ; free physical = 3561 ; free virtual = 21943
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
@@ -905,10 +899,10 @@ INFO: [Synth 8-5578] Moved timing constraint from pin 'system_i/clocking_system/
 INFO: [Synth 8-5578] Moved timing constraint from pin 'system_i/signal_generator/clk_wiz_1/inst/clk_in1' to pin 'system_i/clocking_system/clk_wiz_0/inst/clkout1_buf/O'
 INFO: [Synth 8-5820] Moved 2 constraints on hierarchical pins to their respective driving/loading pins
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:51 ; elapsed = 00:00:52 . Memory (MB): peak = 1640.270 ; gain = 752.680 ; free physical = 4707 ; free virtual = 24533
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:51 ; elapsed = 00:00:52 . Memory (MB): peak = 1640.277 ; gain = 752.680 ; free physical = 3384 ; free virtual = 21766
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:52 ; elapsed = 00:00:53 . Memory (MB): peak = 1666.285 ; gain = 778.695 ; free physical = 4680 ; free virtual = 24506
+Finished Timing Optimization : Time (s): cpu = 00:00:52 ; elapsed = 00:00:53 . Memory (MB): peak = 1666.293 ; gain = 778.695 ; free physical = 3358 ; free virtual = 21740
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -933,16 +927,16 @@ INFO: [Synth 8-3332] Sequential element (i_dds/I_SINCOS.i_std_rom.i_rom/i_rtl.i_
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (system_i/\signal_generator/dac_signal_combiner /\inst/m_ready_d_reg )
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:55 ; elapsed = 00:00:55 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4665 ; free virtual = 24492
+Finished Technology Mapping : Time (s): cpu = 00:00:55 ; elapsed = 00:00:55 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 ---------------------------------------------------------------------------------
-Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:00:55 ; elapsed = 00:00:55 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4665 ; free virtual = 24492
+Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:00:55 ; elapsed = 00:00:55 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 
 Report RTL Partitions: 
 +-+--------------+------------+----------+
 | |RTL Partition |Replication |Instances |
 +-+--------------+------------+----------+
 +-+--------------+------------+----------+
-Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:55 ; elapsed = 00:00:55 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4665 ; free virtual = 24492
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:55 ; elapsed = 00:00:55 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 ---------------------------------------------------------------------------------
 Start IO Insertion
 ---------------------------------------------------------------------------------
@@ -975,7 +969,7 @@ INFO: [Synth 8-4618] Found max_fanout attribute set to 20 on net \inst/gen_axili
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4664 ; free virtual = 24491
+Finished IO Insertion : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -988,7 +982,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4664 ; free virtual = 24491
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1000,25 +994,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4664 ; free virtual = 24491
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4664 ; free virtual = 24491
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4664 ; free virtual = 24491
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4664 ; free virtual = 24491
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1056,15 +1050,15 @@ Report Cell Usage:
 |20    |FDSE       |    62|
 |21    |IBUF       |    30|
 |22    |IBUFDS     |     3|
-|23    |OBUF       |    42|
+|23    |OBUF       |    49|
 |24    |OBUFDS     |     2|
 +------+-----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1682.301 ; gain = 794.711 ; free physical = 4664 ; free virtual = 24491
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1677.309 ; gain = 789.711 ; free physical = 3348 ; free virtual = 21730
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 820 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:47 ; elapsed = 00:00:48 . Memory (MB): peak = 1682.301 ; gain = 442.465 ; free physical = 4664 ; free virtual = 24491
-Synthesis Optimization Complete : Time (s): cpu = 00:00:57 ; elapsed = 00:00:57 . Memory (MB): peak = 1682.309 ; gain = 794.719 ; free physical = 4666 ; free virtual = 24492
+Synthesis finished with 0 errors, 0 critical warnings and 827 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:47 ; elapsed = 00:00:47 . Memory (MB): peak = 1677.309 ; gain = 437.465 ; free physical = 3348 ; free virtual = 21730
+Synthesis Optimization Complete : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1677.316 ; gain = 789.719 ; free physical = 3349 ; free virtual = 21732
 INFO: [Project 1-571] Translating synthesized netlist
 INFO: [Netlist 29-17] Analyzing 182 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -1081,8 +1075,8 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   SRL16 => SRL16E: 1 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-539 Infos, 193 Warnings, 0 Critical Warnings and 0 Errors encountered.
+539 Infos, 187 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:55 ; elapsed = 00:00:56 . Memory (MB): peak = 1682.309 ; gain = 691.148 ; free physical = 4667 ; free virtual = 24493
-report_utilization: Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.13 . Memory (MB): peak = 1690.305 ; gain = 0.000 ; free physical = 4666 ; free virtual = 24493
-INFO: [Common 17-206] Exiting Vivado at Thu Feb  8 09:44:46 2018...
+synth_design: Time (s): cpu = 00:00:55 ; elapsed = 00:00:55 . Memory (MB): peak = 1677.316 ; gain = 686.148 ; free physical = 3349 ; free virtual = 21732
+report_utilization: Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.13 . Memory (MB): peak = 1685.312 ; gain = 0.000 ; free physical = 3348 ; free virtual = 21731
+INFO: [Common 17-206] Exiting Vivado at Thu Feb  8 16:38:45 2018...

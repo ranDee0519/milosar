@@ -1,18 +1,18 @@
 {
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace port S_AXI -pg 1 -y 40 -defaultsOSRD
-preplace port aclk -pg 1 -y 60 -defaultsOSRD
-preplace portBus decimation -pg 1 -y 50 -defaultsOSRD
-preplace portBus aresetn -pg 1 -y 80 -defaultsOSRD
-preplace inst xlslice_0 -pg 1 -lvl 2 -y 50 -defaultsOSRD
-preplace inst cfg -pg 1 -lvl 1 -y 60 -defaultsOSRD
+preplace port S_AXI -pg 1 -y 50 -defaultsOSRD
+preplace port aclk -pg 1 -y 70 -defaultsOSRD
+preplace portBus decimation -pg 1 -y 70 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 90 -defaultsOSRD
+preplace inst xlslice_0 -pg 1 -lvl 2 -y 70 -defaultsOSRD
+preplace inst cfg -pg 1 -lvl 1 -y 70 -defaultsOSRD
 preplace netloc cfg_0_cfg_data 1 1 1 NJ
 preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
 preplace netloc xlconstant_0_dout 1 0 1 NJ
 preplace netloc clk_sync_clk_out1 1 0 1 NJ
 preplace netloc xlslice_0_Dout 1 2 1 NJ
-levelinfo -pg 1 -10 120 340 460 -top -10 -bot 250
+levelinfo -pg 1 0 130 350 470 -top 0 -bot 140
 ",
 }
 0

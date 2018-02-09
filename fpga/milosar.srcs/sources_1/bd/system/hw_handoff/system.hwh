@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Feb  8 09:43:38 2018" VIVADOVERSION="2016.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Feb  8 16:37:37 2018" VIVADOVERSION="2016.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -7,7 +7,7 @@
     <PORT DIR="O" NAME="adc_enc_p_o" SIGIS="undef"/>
     <PORT DIR="O" NAME="adc_enc_n_o" SIGIS="undef"/>
     <PORT DIR="O" LEFT="3" NAME="dac_pwm_o" RIGHT="0" SIGIS="undef"/>
-    <PORT DIR="O" LEFT="0" NAME="led_o" RIGHT="0" SIGIS="undef"/>
+    <PORT DIR="O" LEFT="7" NAME="led_o" RIGHT="0" SIGIS="undef"/>
     <PORT DIR="I" LEFT="13" NAME="adc_dat_a_i" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_adc_dat_a_i">
       <CONNECTIONS>
         <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_dat_a"/>
@@ -3333,6 +3333,16 @@
             <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="I" NAME="M05_ACLK" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="M05_ARESETN" RIGHT="0" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" NAME="S00_AXI_arvalid" SIGIS="undef" SIGNAME="processing_system_ps_0_M_AXI_GP0_ARVALID">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system_ps_0" PORT="M_AXI_GP0_ARVALID"/>
@@ -3938,22 +3948,11 @@
             <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M05_ACLK" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="M05_ARESETN" RIGHT="0" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
-          </CONNECTIONS>
-        </PORT>
         <PORT DIR="O" LEFT="31" NAME="M05_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M05_AXI_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="signal_generator_canc_cfg" PORT="s_axi_awaddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M05_AXI_awprot" SIGIS="undef"/>
         <PORT DIR="O" NAME="M05_AXI_awvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M05_AXI_awvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="signal_generator_canc_cfg" PORT="s_axi_awvalid"/>
@@ -4004,7 +4003,6 @@
             <CONNECTION INSTANCE="signal_generator_canc_cfg" PORT="s_axi_araddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M05_AXI_arprot" SIGIS="undef"/>
         <PORT DIR="O" NAME="M05_AXI_arvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M05_AXI_arvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="signal_generator_canc_cfg" PORT="s_axi_arvalid"/>
@@ -4185,7 +4183,6 @@
         <BUSINTERFACE BUSNAME="processing_system_ps_axi_periph_M05_AXI" DATAWIDTH="32" NAME="M05_AXI" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
           <PORTMAPS>
             <PORTMAP LOGICAL="AWADDR" PHYSICAL="M05_AXI_awaddr"/>
-            <PORTMAP LOGICAL="AWPROT" PHYSICAL="M05_AXI_awprot"/>
             <PORTMAP LOGICAL="AWVALID" PHYSICAL="M05_AXI_awvalid"/>
             <PORTMAP LOGICAL="AWREADY" PHYSICAL="M05_AXI_awready"/>
             <PORTMAP LOGICAL="WDATA" PHYSICAL="M05_AXI_wdata"/>
@@ -4196,7 +4193,6 @@
             <PORTMAP LOGICAL="BVALID" PHYSICAL="M05_AXI_bvalid"/>
             <PORTMAP LOGICAL="BREADY" PHYSICAL="M05_AXI_bready"/>
             <PORTMAP LOGICAL="ARADDR" PHYSICAL="M05_AXI_araddr"/>
-            <PORTMAP LOGICAL="ARPROT" PHYSICAL="M05_AXI_arprot"/>
             <PORTMAP LOGICAL="ARVALID" PHYSICAL="M05_AXI_arvalid"/>
             <PORTMAP LOGICAL="ARREADY" PHYSICAL="M05_AXI_arready"/>
             <PORTMAP LOGICAL="RDATA" PHYSICAL="M05_AXI_rdata"/>
@@ -5732,8 +5728,8 @@
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="DIN_FROM" VALUE="31"/>
-        <PARAMETER NAME="DIN_TO" VALUE="16"/>
+        <PARAMETER NAME="DIN_FROM" VALUE="15"/>
+        <PARAMETER NAME="DIN_TO" VALUE="0"/>
         <PARAMETER NAME="DOUT_WIDTH" VALUE="16"/>
         <PARAMETER NAME="Component_Name" VALUE="system_xlslice_0_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>

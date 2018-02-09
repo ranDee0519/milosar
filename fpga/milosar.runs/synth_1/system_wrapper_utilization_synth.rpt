@@ -1,7 +1,7 @@
 Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-| Date         : Thu Feb  8 09:44:46 2018
+| Date         : Thu Feb  8 16:38:45 2018
 | Host         : ubuntu running 64-bit Ubuntu 17.10
 | Command      : report_utilization -file system_wrapper_utilization_synth.rpt -pb system_wrapper_utilization_synth.pb
 | Design       : system_wrapper
@@ -94,7 +94,7 @@ Table of Contents
 +-----------------------------+------+-------+-----------+--------+
 |          Site Type          | Used | Fixed | Available |  Util% |
 +-----------------------------+------+-------+-----------+--------+
-| Bonded IOB                  |   80 |     0 |       100 |  80.00 |
+| Bonded IOB                  |   87 |     0 |       100 |  87.00 |
 | Bonded IPADs                |    0 |     0 |         2 |   0.00 |
 | Bonded IOPADs               |  130 |     0 |       130 | 100.00 |
 | PHY_CONTROL                 |    0 |     0 |         2 |   0.00 |
@@ -161,8 +161,8 @@ Table of Contents
 | BIBUF      |  130 |                   IO |
 | CARRY4     |  114 |           CarryLogic |
 | FDSE       |   62 |         Flop & Latch |
+| OBUF       |   49 |                   IO |
 | SRLC32E    |   47 |   Distributed Memory |
-| OBUF       |   42 |                   IO |
 | IBUF       |   28 |                   IO |
 | ODDR       |   18 |                   IO |
 | OBUFDS     |    4 |                   IO |

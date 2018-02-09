@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Thu Feb  8 09:43:37 2018
+//Date        : Thu Feb  8 16:37:36 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system.bd
 //Design      : system
@@ -103,8 +103,8 @@ module channel_a_imp_JYKOO2
   wire [31:0]Conn1_WDATA;
   wire Conn1_WREADY;
   wire Conn1_WVALID;
-  wire [15:0]adc_streamer_m00_axis_TDATA;
-  wire adc_streamer_m00_axis_TVALID;
+  wire [15:0]adc_data_1_TDATA;
+  wire adc_data_1_TVALID;
   wire [0:0]aresetn1_1;
   wire [0:0]aresetn_1;
   wire [15:0]axis_decimator_0_m_axis_TDATA;
@@ -155,8 +155,8 @@ module channel_a_imp_JYKOO2
   assign M_AXI_wlast = axis_ram_writer_0_M_AXI_WLAST;
   assign M_AXI_wstrb[3:0] = axis_ram_writer_0_M_AXI_WSTRB;
   assign M_AXI_wvalid = axis_ram_writer_0_M_AXI_WVALID;
-  assign adc_streamer_m00_axis_TDATA = adc_data_tdata[15:0];
-  assign adc_streamer_m00_axis_TVALID = adc_data_tvalid;
+  assign adc_data_1_TDATA = adc_data_tdata[15:0];
+  assign adc_data_1_TVALID = adc_data_tvalid;
   assign aresetn1_1 = aresetn[0];
   assign aresetn_1 = enable[0];
   assign axis_ram_writer_0_M_AXI_AWREADY = M_AXI_awready;
@@ -179,8 +179,8 @@ module channel_a_imp_JYKOO2
         .m_axis_tdata(axis_decimator_0_m_axis_TDATA),
         .m_axis_tready(axis_decimator_0_m_axis_TREADY),
         .m_axis_tvalid(axis_decimator_0_m_axis_TVALID),
-        .s00_axis_tdata(adc_streamer_m00_axis_TDATA),
-        .s00_axis_tvalid(adc_streamer_m00_axis_TVALID));
+        .s00_axis_tdata(adc_data_1_TDATA),
+        .s00_axis_tvalid(adc_data_1_TVALID));
   system_axis_dwidth_converter_0_0 axis_dwidth_converter_0
        (.aclk(clk_sync_clk_out1),
         .aresetn(aresetn_1),
@@ -2584,6 +2584,7 @@ module receive_chain_imp_N0MRX5
     ch_b_status_wdata,
     ch_b_status_wready,
     ch_b_status_wvalid,
+    decimation,
     enable,
     int_clk);
   output [31:0]M_AXI1_awaddr;
@@ -2672,6 +2673,7 @@ module receive_chain_imp_N0MRX5
   input [31:0]ch_b_status_wdata;
   output ch_b_status_wready;
   input ch_b_status_wvalid;
+  output [15:0]decimation;
   input [0:0]enable;
   input int_clk;
 
@@ -2839,6 +2841,7 @@ module receive_chain_imp_N0MRX5
   assign channel_b_M_AXI_BVALID = M_AXI1_bvalid;
   assign channel_b_M_AXI_WREADY = M_AXI1_wready;
   assign clk_wiz_0_clk_out1 = int_clk;
+  assign decimation[15:0] = xlslice_0_Dout;
   assign enable_1 = enable[0];
   assign ps_0_axi_periph_M00_AXI_ARADDR = S_AXI_araddr[31:0];
   assign ps_0_axi_periph_M00_AXI_ARVALID = S_AXI_arvalid;
@@ -3647,7 +3650,7 @@ module system
   output [1:0]daisy_p_o;
   inout [7:0]exp_n_tri_io;
   inout [7:0]exp_p_tri_io;
-  output [0:0]led_o;
+  output [7:0]led_o;
 
   wire [7:0]Net;
   wire [7:0]Net1;

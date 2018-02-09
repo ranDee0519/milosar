@@ -2,8 +2,8 @@
 # Vivado v2016.2 (64-bit)
 # SW Build 1577090 on Thu Jun  2 16:32:35 MDT 2016
 # IP Build 1577682 on Fri Jun  3 12:00:54 MDT 2016
-# Start of session at: Thu Feb  8 09:43:41 2018
-# Process ID: 20477
+# Start of session at: Thu Feb  8 16:37:41 2018
+# Process ID: 30650
 # Current directory: /home/darryn/Git/milosar/fpga/milosar.runs/synth_1
 # Command line: vivado -log system_wrapper.vds -mode batch -messageDb vivado.pb -notrace -source system_wrapper.tcl
 # Log file: /home/darryn/Git/milosar/fpga/milosar.runs/synth_1/system_wrapper.vds

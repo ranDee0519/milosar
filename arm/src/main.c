@@ -63,12 +63,12 @@ int main(int argc, char **argv)
 	set_reg(gen, phase_inc);
 	
 	//set dds phase increment for synthesizer reference
-	freq_out = 9e6;
+	freq_out = 9.1e6;
 	phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
 	set_reg(canc, phase_inc);
 	
 	//set decimation factor
-	uint32_t decimation = (8 << 16);
+	uint32_t decimation = 8;
 	set_reg(cfg, decimation);
 	
 	//get user input for final experiment settings
@@ -198,9 +198,17 @@ void* record(void *arg)
 	FILE *f = fopen(path, "w");
 	limit = S2MB;
 
-	int nbuffs = 0;
+	int nbuffs = 50;
+	
+	void* buf;
+	
+	if (!(buf = malloc(nbuffs*S2MB)))
+	{
+		fprintf(stderr, "no memory for temp buffer\n");
+		exit(EXIT_FAILURE);
+	}
 
-	while (nbuffs < 2) 
+	for (int i = 0; i < nbuffs; ) 
 	{
 		//Get the location of the DMA writer in terms of number of bytes written.
 		position = get_reg(channel->sts) * 4;
@@ -209,14 +217,17 @@ void* record(void *arg)
 		if( (limit > 0 && position > limit) || (limit == 0 && position < S2MB) )
 		{
 			offset = limit > 0 ? 0 : S2MB;
-			limit = limit > 0 ? 0 : S2MB;			
-			fwrite(channel->dma + offset, 1, S2MB , f);
-			nbuffs++;
+			limit  = limit > 0 ? 0 : S2MB;		
+			memcpy(buf + S2MB*i, channel->dma + offset, S2MB);
+			i++;
 		} 
     }
+    
+    fwrite(buf, 1, nbuffs*S2MB , f);
 
     fclose(f);
 	free(path);
+	free(buf);
 
     #ifdef VERBOSE
     printf("---> Finished Channel %s \n", channel->letter);

@@ -193,7 +193,7 @@
           <spirit:wire>
             <spirit:direction>out</spirit:direction>
             <spirit:vector>
-              <spirit:left>0</spirit:left>
+              <spirit:left>7</spirit:left>
               <spirit:right>0</spirit:right>
             </spirit:vector>
           </spirit:wire>
@@ -689,16 +689,6 @@
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>exp_interface_p</spirit:instanceName>
-        <spirit:componentRef spirit:library="module_ref" spirit:name="exp_interface" spirit:vendor="user.org" spirit:version="1.0"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_exp_interface_0_1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">exp_interface</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
         <spirit:instanceName>divisor_slice</spirit:instanceName>
         <spirit:componentRef spirit:library="ip" spirit:name="xlslice" spirit:vendor="xilinx.com" spirit:version="1.0"/>
         <spirit:configurableElementValues>
@@ -715,6 +705,16 @@
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlconstant_0_0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="CONST_WIDTH">3</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="CONST_VAL">0</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>exp_interface_p</spirit:instanceName>
+        <spirit:componentRef spirit:library="module_ref" spirit:name="exp_interface" spirit:vendor="user.org" spirit:version="1.0"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_exp_interface_0_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceName">exp_interface</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
@@ -1138,14 +1138,14 @@
         <spirit:activeInterface spirit:busRef="S00_AXIS" spirit:componentRef="dac_signal_combiner"/>
       </spirit:interconnection>
       <spirit:interconnection>
-        <spirit:name>cancellation_signal_M_AXIS_DATA</spirit:name>
-        <spirit:activeInterface spirit:busRef="M_AXIS_DATA" spirit:componentRef="cancellation_signal"/>
-        <spirit:activeInterface spirit:busRef="S01_AXIS" spirit:componentRef="dac_signal_combiner"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
         <spirit:name>dac_signal_combiner_M_AXIS</spirit:name>
         <spirit:activeInterface spirit:busRef="M_AXIS" spirit:componentRef="dac_signal_combiner"/>
         <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="axis_red_pitaya_dac_0"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>cancellation_signal_M_AXIS_DATA</spirit:name>
+        <spirit:activeInterface spirit:busRef="M_AXIS_DATA" spirit:componentRef="cancellation_signal"/>
+        <spirit:activeInterface spirit:busRef="S01_AXIS" spirit:componentRef="dac_signal_combiner"/>
       </spirit:interconnection>
     </spirit:interconnections>
     <spirit:adHocConnections>
@@ -1395,6 +1395,16 @@
             </spirit:vector>
           </spirit:wire>
         </spirit:port>
+        <spirit:port>
+          <spirit:name>decimation</spirit:name>
+          <spirit:wire>
+            <spirit:direction>out</spirit:direction>
+            <spirit:vector>
+              <spirit:left>15</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
       </spirit:ports>
     </spirit:model>
   </spirit:component>
@@ -1442,6 +1452,7 @@
       <spirit:adHocConnection>
         <spirit:name>xlslice_0_Dout</spirit:name>
         <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="decimation"/>
+        <spirit:externalPortReference spirit:portRef="decimation"/>
         <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="decimation"/>
         <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="decimation"/>
       </spirit:adHocConnection>
@@ -1607,8 +1618,8 @@
         <spirit:configurableElementValues>
           <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_xlslice_0_0</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="DOUT_WIDTH">16</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_TO">16</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">31</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_TO">0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="DIN_FROM">15</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
@@ -2078,14 +2089,14 @@
     </spirit:componentInstances>
     <spirit:interconnections>
       <spirit:interconnection>
-        <spirit:name>axis_decimator_0_m_axis</spirit:name>
-        <spirit:activeInterface spirit:busRef="m_axis" spirit:componentRef="axis_decimator_0"/>
-        <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="axis_dwidth_converter_0"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
         <spirit:name>axis_dwidth_converter_0_M_AXIS</spirit:name>
         <spirit:activeInterface spirit:busRef="M_AXIS" spirit:componentRef="axis_dwidth_converter_0"/>
         <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="ch_a_writer"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>axis_decimator_0_m_axis</spirit:name>
+        <spirit:activeInterface spirit:busRef="m_axis" spirit:componentRef="axis_decimator_0"/>
+        <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="axis_dwidth_converter_0"/>
       </spirit:interconnection>
     </spirit:interconnections>
     <spirit:adHocConnections>
@@ -2132,7 +2143,7 @@
       <spirit:hierConnection spirit:interfaceRef="M_AXI/axis_ram_writer_0_M_AXI">
         <spirit:activeInterface spirit:busRef="M_AXI" spirit:componentRef="ch_a_writer"/>
       </spirit:hierConnection>
-      <spirit:hierConnection spirit:interfaceRef="adc_data/adc_streamer_m00_axis">
+      <spirit:hierConnection spirit:interfaceRef="adc_data/adc_data_1">
         <spirit:activeInterface spirit:busRef="s00_axis" spirit:componentRef="axis_decimator_0"/>
       </spirit:hierConnection>
     </spirit:hierConnections>

@@ -8,6 +8,7 @@ preplace port slowest_sync_clk -pg 1 -y 150 -defaultsOSRD
 preplace port M04_AXI -pg 1 -y 310 -defaultsOSRD
 preplace port M03_AXI -pg 1 -y 290 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -y 80 -defaultsOSRD
+preplace port M05_AXI -pg 1 -y 210 -defaultsOSRD
 preplace port M02_AXI -pg 1 -y 270 -defaultsOSRD
 preplace port M00_AXI -pg 1 -y 230 -defaultsOSRD
 preplace port S_AXI_HP0 -pg 1 -y 110 -defaultsOSRD
@@ -19,17 +20,18 @@ preplace netloc Conn1 1 2 1 810
 preplace netloc S_AXI_1 1 2 1 NJ
 preplace netloc Conn2 1 2 1 800
 preplace netloc channel_b_M_AXI 1 0 1 NJ
+preplace netloc ps_axi_periph_M05_AXI 1 2 1 840
 preplace netloc ps_0_M_AXI_GP0 1 1 1 480
 preplace netloc ps_0_axi_periph_M00_AXI 1 2 1 NJ
 preplace netloc xlconstant_0_dout 1 1 2 470 0 NJ
 preplace netloc ps_axi_periph_M01_AXI 1 2 1 NJ
 preplace netloc ps_0_DDR 1 1 2 NJ 20 NJ
 preplace netloc rst_0_interconnect_aresetn 1 1 1 500
-preplace netloc ps_0_FCLK_RESET0_N 1 0 2 10 270 450
+preplace netloc ps_0_FCLK_RESET0_N 1 0 2 0 270 450
 preplace netloc ps_0_FIXED_IO 1 1 2 NJ 30 NJ
 preplace netloc axis_ram_writer_0_M_AXI 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 0 2 0 450 490
-levelinfo -pg 1 -20 230 650 860 -top -10 -bot 470
+preplace netloc clk_sync_clk_out1 1 0 2 -10 450 490
+levelinfo -pg 1 -30 230 650 870 -top -10 -bot 470
 ",
 }
 0
