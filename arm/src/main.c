@@ -117,7 +117,7 @@ int main(int argc, char **argv)
 		
 		//copy experiment folder from red pitaya to host computer
 		char command[100];
-		sprintf(command, "scp -r %s/%s darryn@137.158.131.79:/home/darryn/Dropbox/Datasets/Temp", config.dir_storage, config.time_stamp);		
+		sprintf(command, "scp -r %s/%s darryn@137.158.131.94:/home/darryn/Dropbox/Datasets/Temp", config.dir_storage, config.time_stamp);		
 		system(command);
 	}
  
@@ -198,7 +198,7 @@ void* record(void *arg)
 	FILE *f = fopen(path, "w");
 	limit = S2MB;
 
-	int nbuffs = 50;
+	int nbuffs = 5;
 	
 	void* buf;
 	
