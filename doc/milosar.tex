@@ -1,0 +1,176 @@
+\documentclass[a4paper,11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage[margin=3.5cm]{geometry}
+\usepackage{color, colortbl}
+
+\definecolor{Gray}{gray}{0.9}
+
+\title{MiloSAR Documentation}
+\author{Darryn Jordan}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}
+
+\chapter{FPGA}
+
+\section{Registers}
+
+\subsection{Configuration}
+
+\begin{table}[ht]
+    \caption{General configuration register.}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+            \hline
+            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+            \hline
+            \multicolumn{8}{|c|}{Reserved [31:24]} & \multicolumn{8}{c|}{Reserved [23:16]}\\
+            \hline  
+            
+            \addlinespace[0.5cm]
+            
+            \hline 
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+            \hline
+            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+            \hline
+            \multicolumn{16}{|c|}{Decimation Factor [15:0]}\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tab:config_reg}
+\end{table}
+
+\subsection{Channel X Status}
+
+\begin{table}[ht]
+    \caption{Channel X status register.}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+            \hline
+            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+            \hline
+            \multicolumn{16}{|c|}{Channel X Pointer [31:16]}\\
+            \hline  
+            
+            \addlinespace[0.5cm]
+            
+            \hline 
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+            \hline
+            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+            \hline
+            \multicolumn{16}{|c|}{Channel X Pointer [15:0]}\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tab:status_reg}
+\end{table}
+
+\subsection{Synthesizer Reference Signal}
+
+\begin{table}[ht]
+    \caption{Synthesizer reference signal phase increment register.}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+            \hline
+            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+            \hline
+            \multicolumn{16}{|c|}{Phase Increment [31:16]}\\
+            \hline  
+            
+            \addlinespace[0.5cm]
+            
+            \hline 
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+            \hline
+            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+            \hline
+            \multicolumn{16}{|c|}{Phase Increment [15:0]}\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tab:ref_phase_inc}
+\end{table}
+
+\subsection{GPIO}
+
+\begin{table}[ht]
+    \caption{GPIO register.}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+            \hline
+            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+            \hline
+            \multicolumn{16}{|c|}{Clock Divisor [31:16]}\\
+            \hline  
+            
+            \addlinespace[0.5cm]
+            
+            \hline 
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+            \hline
+            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+            \hline
+            \multicolumn{7}{|c|}{Clock Divisor [15:9]} & E & \multicolumn{8}{c|}{GPION [7:0]}\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tab:gpio_reg}
+\end{table}
+
+\subsection{Cancellation}
+
+\begin{table}[ht]
+    \caption{Cancellation signal phase increment register.}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+            \hline
+            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+            \hline
+            \multicolumn{16}{|c|}{Phase Increment [31:16]}\\
+            \hline  
+            
+            \addlinespace[0.5cm]
+            
+            \hline 
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+            \hline
+            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+            \hline
+            \multicolumn{16}{|c|}{Phase Increment [15:0]}\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tab:canc_phase_inc}
+\end{table}
+
+
+\end{document}

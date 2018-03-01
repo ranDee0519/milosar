@@ -1,11 +1,19 @@
-# Vivado Project Files
+###  Vivado Project Files ###
 milosar.runs
 milosar.cache
 
-# Geany
+### LaTeX ###
+*.aux
+*.fdb_latexmk
+*.log
+*.fls
+*.toc
+*.synctex.gz
+
+### Geany ###
 *.geany
 
-# milosar
+### milosar ###
 milosar
 
 # Object files
