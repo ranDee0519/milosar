@@ -1,29 +1,38 @@
 RP_HOST=root@0-26-32-f0-8-64.lan.uct.ac.za
 DEST_DIR=/opt/redpitaya/rpc
 
-CC = arm-linux-gnueabihf-gcc
-#HAD TO CHANGE AWAY FROM GNUEABI
-
-#Default location for h files is ./source
-CFLAGS = -std=gnu99 -Wall -Werror -I./src -L lib -lm -lpthread 
-
-#h files used go here
-DEPS = reg.h constants.h setup.h utils.h synth.h colour.h ini.h imu.h uart.h binary.h
-
-#c files used go here (with .o extension)
-OBJ = src/main.o src/reg.o src/utils.o src/synth.o src/colour.o src/ini.o src/imu.o src/uart.o src/binary.o
-
-#name of generated binaries
+# name of generated binary file
 BIN = milosar
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFlags)
+# must use gnueabihf
+CC = arm-linux-gnueabihf-gcc
 
-milosar: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+# libraries 
+LIBS = -lm -lpthread
+
+# header and objects directory relative to Makefile
+IDIR = ./src
+ODIR = ./src
+
+# compiler flags
+CFLAGS = -std=gnu99 -Wall -Werror -L -I$(IDIR)
+
+# h files used go here
+_DEPS = reg.h utils.h synth.h colour.h ini.h imu.h uart.h binary.h constants.h setup.h
+DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+
+# object files used go here (with .o extension)
+_OBJ =  reg.o utils.o synth.o colour.o ini.o imu.o uart.o binary.o main.o
+OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+$(ODIR)/%.o: %.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+$(BIN): $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 	scp $(BIN) $(RP_HOST):$(DEST_DIR)
 
 .PHONY: clean
 
 clean:
-	rm -f *.o src/*.o
+	rm -f $(ODIR)/*.o
