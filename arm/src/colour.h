@@ -22,5 +22,6 @@
 #define WHITE           8
 
 void cprint(const char* text, int attr, int fg);
+void ctext(char* out, const char* text, int attr, int fg);
 
 #endif
