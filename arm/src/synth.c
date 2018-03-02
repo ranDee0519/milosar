@@ -100,7 +100,7 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 		//perform two's complement for negative values: 2^30 - value  
 		if (synth->ramps[i].increment < 0.0)
 		{
-			synth->ramps[i].increment = pow(2, 30) + synth->ramps[i].increment; //%TODO check this!
+			synth->ramps[i].increment = pow(2, 30) + synth->ramps[i].increment; //TODO check this!
 		}		
 		
 		//set bit 31 if doubler key is true
@@ -614,50 +614,30 @@ void config_experiment(Configuration *config, Synthesizer *tx_synth, Synthesizer
 		}
 		
 		//print summary file 
-		fprintf(f, "[overview]\r\n");
-		fprintf(f, "timestamp = %s\r\n", config->time_stamp);
+		fprintf(f, "[general]\r\n");
+		fprintf(f, "time_stamp = %s\r\n", config->time_stamp);
 		
 		cprint("[??] ", BRIGHT, BLUE);
 		printf("Comment [140]: ");
 		char userin[140];
 		scanf("%[^\n]s", userin);
 		
-		fprintf(f, "comment = %s\r\n", userin);
+		fprintf(f, "operator_comment = %s\r\n", userin);
 		
 		fprintf(f, "\n[dataset]\r\n");
 		fprintf(f, "decimation_factor = %d\r\n", config->decimation);
-		fprintf(f, "sampling_rate =  %.2f\r\n", ADC_RATE/config->decimation);
+		fprintf(f, "sampling_rate = %.2f\r\n", ADC_RATE/config->decimation);
+		fprintf(f, "n_counter = %i\r\n", N_COUNTER);
+		fprintf(f, "prf = %i\r\n", PRF);
 	
 		
 		fprintf(f, "\n[synth_one]\r\n");
-		fprintf(f, "frequency_offset = %.3f\r\n", vcoOut(tx_synth->fractionalNumerator));
+		fprintf(f, "frequency_offset = %.5f\r\n", vcoOut(tx_synth->fractionalNumerator));
 		fprintf(f, "fractional_numerator = %d\r\n", tx_synth->fractionalNumerator);		
-		fprintf(f, "| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\r\n");		
-		
-		for (int k = 0; k < MAX_RAMPS; k++)
-		{
-			if ((tx_synth->ramps[k].next + tx_synth->ramps[k].length + tx_synth->ramps[k].increment + tx_synth->ramps[k].reset != 0))
-			{
-				fprintf(f, "|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\r\n", 
-				tx_synth->ramps[k].number, tx_synth->ramps[k].next, tx_synth->ramps[k].reset, tx_synth->ramps[k].doubler, tx_synth->ramps[k].length, 
-				tx_synth->ramps[k].increment, bnwOut(tx_synth->ramps[k].increment, tx_synth->ramps[k].length));
-			}
-		}
 		
 		fprintf(f, "\n[synth_two]\r\n");
-		fprintf(f, "frequency_offset = %.3f\r\n", vcoOut(lo_synth->fractionalNumerator));
+		fprintf(f, "frequency_offset = %.5f\r\n", vcoOut(lo_synth->fractionalNumerator));
 		fprintf(f, "fractional_numerator = %d\r\n", lo_synth->fractionalNumerator);		
-		fprintf(f, "| NUM | NXT | RST | DBL |   LEN |            INC |      BNW |\r\n");
-		
-		for (int j = 0; j < MAX_RAMPS; j++)
-		{
-			if ((lo_synth->ramps[j].next + lo_synth->ramps[j].length + lo_synth->ramps[j].increment + lo_synth->ramps[j].reset != 0))
-			{
-				fprintf(f, "|   %i |   %i |   %i |   %i | %5i | %14.3f | %8.3f |\r\n", 
-				lo_synth->ramps[j].number, lo_synth->ramps[j].next, lo_synth->ramps[j].reset, lo_synth->ramps[j].doubler, lo_synth->ramps[j].length, 
-				lo_synth->ramps[j].increment, bnwOut(lo_synth->ramps[j].increment, lo_synth->ramps[j].length));	
-			}	
-		}      
 
 		fclose(f);
 	}	

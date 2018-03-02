@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	lo_synth.number = 1;
 	tx_synth.param_file = false;
 	lo_synth.param_file = false;
-	config.dir_storage = "/media/storage";
+	config.dir_storage = SD_STORAGE_DIR;
 	config.is_debug = false;
 	
 	//parse command line options
@@ -44,8 +44,8 @@ int main(int argc, char **argv)
 	calc_parameters(&lo_synth, &config);	
 	
 	//import register values from template file
-	load_registers("template/register_template.txt", &tx_synth);
-	load_registers("template/register_template.txt", &lo_synth);	
+	load_registers(SYNTH_REG_TEMP_DIR, &tx_synth);
+	load_registers(SYNTH_REG_TEMP_DIR, &lo_synth);	
 	
 	setpriority(PRIO_PROCESS, 0, -20);
 	system("pkill nginx\n");
@@ -57,20 +57,18 @@ int main(int argc, char **argv)
 	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
 	ASSERT(create_map(SREG, MAP_SHARED, &canc, CANC_BASE_ADDR), "Failed to allocate map for CANC register.");
 	
-	double phase_wth  = 32;
 	//set dds phase increment for synthesizer reference
-	double freq_out = PHASE_DETECTOR_FREQ/2;	
-	int phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
+	int phase_inc = (int)round( (PHASE_DETECTOR_FREQ/2) * pow(2, DDS_PHASE_WIDTH)/DAC_RATE );	//TODO create a function for calculating the phase increment for DDS
 	set_reg(gen, phase_inc);
 	
 	//set dds phase increment for synthesizer reference
-	freq_out = 9.1e6;
-	phase_inc = (int)round(freq_out*pow(2, phase_wth)/DAC_RATE);	
+	float freq_out = 9.1e6;
+	phase_inc = (int)round( freq_out * pow(2, DDS_PHASE_WIDTH)/DAC_RATE );	
 	set_reg(canc, phase_inc);
 	
 	//set decimation factor
-	uint32_t decimation = 8;
-	set_reg(cfg, decimation);
+	config.decimation = 8;
+	set_reg(cfg, config.decimation);
 	
 	//get user input for final experiment settings
 	config_experiment(&config, &tx_synth, &lo_synth);

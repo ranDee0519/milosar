@@ -71,8 +71,8 @@ visual.r_min     = 0;                   % min range [m]
 visual.r_max     = 250;                 % max range [m]
 
 %% extract binary data
-dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/16_02_18_07_12_54/';
-raw_data.a = extract_data(strcat(dataset_directory, 'A.bin'), 'int16');
+dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/01_03_18_13_08_27/';
+raw_data.a = extract_data(strcat(dataset_directory, 'A.bin'), 'int16'); 
 raw_data.b = extract_data(strcat(dataset_directory, 'B.bin'), 'int16');
 clear dataset_directory;
 

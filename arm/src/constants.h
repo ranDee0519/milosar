@@ -4,10 +4,11 @@
 #include "setup.h"
 
 //Set Operating Constants
-#define ADC_RATE 125e6
-#define DAC_RATE 125e6
+#define ADC_RATE 			125e6
+#define DAC_RATE 			125e6
 #define DAC_BUFFER_CAPACITY 4096
-#define DAC_BIT_LENGTH 14
+#define DAC_BIT_LENGTH 		14
+#define DDS_PHASE_WIDTH		32
 
 //Set Common Data Sizes
 #define S2MB (2 << 20) //2MB
@@ -23,6 +24,9 @@
 #define CANC_BASE_ADDR 	0x40005000
 #define DMA_A_BASE_ADDR 0x1E000000
 #define DMA_B_BASE_ADDR 0x1E400000
+
+#define SD_STORAGE_DIR		"/media/storage"
+#define SYNTH_REG_TEMP_DIR	"template/register_template.txt"
 
 #define OK 0
 #define FAIL -1
@@ -48,7 +52,7 @@ typedef struct
 {
 	int is_imu;							//is the IMU connected?
 	int is_debug;						//is debug mode enabled
-	int decimation; 					//adc decimation factor
+	uint32_t decimation; 				//adc decimation factor
 	int n_buffers;						//number of S2MB buffers to be recorded
 	
 	char* dir_storage; 					//path to storage directory
