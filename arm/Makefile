@@ -32,7 +32,11 @@ $(BIN): $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 	scp $(BIN) $(RP_HOST):$(DEST_DIR)
 
-.PHONY: clean
+.PHONY: clean copy
 
 clean:
 	rm -f $(ODIR)/*.o
+	
+copy:
+	scp $(BIN) $(RP_HOST):$(DEST_DIR)
+	

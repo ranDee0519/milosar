@@ -8,6 +8,7 @@ milosar.cache
 *.log
 *.fls
 *.toc
+*.tex~
 *.synctex.gz
 
 ### Geany ###

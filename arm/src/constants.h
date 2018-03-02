@@ -1,6 +1,8 @@
 #ifndef CONSTANTS
 #define CONSTANTS
 #include <pthread.h>
+#include <math.h>
+
 #include "setup.h"
 
 //Set Operating Constants
@@ -9,6 +11,7 @@
 #define DAC_BUFFER_CAPACITY 4096
 #define DAC_BIT_LENGTH 		14
 #define DDS_PHASE_WIDTH		32
+#define DDS_PHASE_OFFSET	M_PI
 
 //Set Common Data Sizes
 #define S2MB (2 << 20) //2MB

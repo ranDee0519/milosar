@@ -5,10 +5,12 @@
 \usepackage{booktabs}
 \usepackage[margin=3.5cm]{geometry}
 \usepackage{color, colortbl}
+\usepackage{graphicx}
+\usepackage[binary-units=true]{siunitx}  
 
 \definecolor{Gray}{gray}{0.9}
 
-\title{MiloSAR Documentation}
+\title{MiloSAR Documentation \\ \vspace{0.5cm} \Large Version 0.1}
 \author{Darryn Jordan}
 
 \begin{document}
@@ -18,12 +20,25 @@
 
 \chapter{Introduction}
 
+\chapter{Synthesizer}
+
+\section{$ \mu $Wire Interface}
+
+The LMX2492EVM is packaged with a USBtoMANY converter, enabling users to program the evaluation module through its $ \mu $Wire connector using TI's CodeLoader. This process is however tedious, especially when programming two synthesizers with different waveforms. The LMX2492 datasheet provides the timing requirements and clocking structure for programming the synthesizer through its $ \mu $Wire connector pins. GPIO pins on the Red Pitaya were used to program both synthesizers efficiently. Figure~\ref{fig_rp_synth_connect} illustrates the connection between the Red Pitaya and two LMX2492 evaluation boards.
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/rp_synth_connections.pdf}
+        \caption{Wiring diagram for connection between Red Pitaya and the LMX2492.}
+        \label{fig_rp_synth_connect}
+    \end{center}
+\end{figure}
+
 \chapter{FPGA}
 
 \section{Registers}
 
 \subsection{Configuration}
-
+The configuration register is currently only used to set the decimation factor for reducing sampling rate. Sixteen bits are reserved for later use.
 \begin{table}[ht]
     \caption{General configuration register.}
     \begin{center}
@@ -53,7 +68,7 @@
 \end{table}
 
 \subsection{Channel X Status}
-
+Both recording channels within the FPGA require a status register to provide the CPU with the location of the RAM writer's current pointer location.
 \begin{table}[ht]
     \caption{Channel X status register.}
     \begin{center}
@@ -83,7 +98,7 @@
 \end{table}
 
 \subsection{Synthesizer Reference Signal}
-
+Provides the FPGA with the DDS phase increment used to generate the \SI{50}{\MHz} phase reference signal.
 \begin{table}[ht]
     \caption{Synthesizer reference signal phase increment register.}
     \begin{center}
