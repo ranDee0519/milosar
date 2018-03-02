@@ -32,5 +32,7 @@ int dnit_prop(void);
 uint32_t get_phase_increment(double desired_frequency);
 uint32_t get_phase_offset(double desired_offset);
 
+double elapsed_us(struct timeval start_time, struct timeval end_time);
+
 #endif
 

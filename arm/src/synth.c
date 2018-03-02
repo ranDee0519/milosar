@@ -100,7 +100,7 @@ void calc_parameters(Synthesizer *synth, Configuration *config)
 		//perform two's complement for negative values: 2^30 - value  
 		if (synth->ramps[i].increment < 0.0)
 		{
-			synth->ramps[i].increment = pow(2, 30) + synth->ramps[i].increment; //TODO check this!
+			synth->ramps[i].increment = pow(2, 30) + synth->ramps[i].increment; //TODO: check this!
 		}		
 		
 		//set bit 31 if doubler key is true
@@ -644,10 +644,9 @@ void config_experiment(Configuration *config, Synthesizer *tx_synth, Synthesizer
 }
 
 
-double vcoOut(uint32_t fracNum)
+double vcoOut(uint32_t fractional_numerator)
 {
-	double F_init = PHASE_DETECTOR_FREQ*N_COUNTER/RF_OUT_DIVIDER;
-	return PHASE_DETECTOR_FREQ*(N_COUNTER + (fracNum)/(pow(2, 24) - 1))/RF_OUT_DIVIDER - F_init;
+	return PHASE_DETECTOR_FREQ*(N_COUNTER + fractional_numerator/FRAC_DENOMINATOR)/RF_OUT_DIVIDER - RF_OUT_INIT_FREQ;
 }
 
 
@@ -659,11 +658,6 @@ double bnwOut(double rampInc, uint16_t rampLen)
 		return ((rampInc - pow(2, 30))*rampLen*100)/pow(2, 26);
 }
 
-
-double elapsed_us(struct timeval start_time, struct timeval end_time)
-{
-	return ((double)end_time.tv_sec - (double)start_time.tv_sec)*1e6 + ((double)end_time.tv_usec - (double)start_time.tv_usec);
-}
 
 
 

@@ -11,7 +11,8 @@
 #define DAC_BUFFER_CAPACITY 4096
 #define DAC_BIT_LENGTH 		14
 #define DDS_PHASE_WIDTH		32
-#define DDS_PHASE_OFFSET	M_PI
+#define DDS_PHASE_OFFSET	0
+#define DECIMATION_FACTOR	8
 
 //Set Common Data Sizes
 #define S2MB (2 << 20) //2MB

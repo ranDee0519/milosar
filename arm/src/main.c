@@ -68,8 +68,7 @@ int main(int argc, char **argv)
 	set_reg(phase, get_phase_offset(DDS_PHASE_OFFSET));
 	
 	//set decimation factor
-	config.decimation = 8;
-	set_reg(cfg, config.decimation);
+	set_reg(cfg, DECIMATION_FACTOR);
 	
 	//get user input for final experiment settings
 	config_experiment(&config, &tx_synth, &lo_synth);

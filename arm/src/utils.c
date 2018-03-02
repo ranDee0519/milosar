@@ -140,3 +140,9 @@ uint32_t get_phase_offset(double desired_offset)
 }
 
 
+double elapsed_us(struct timeval start_time, struct timeval end_time)
+{
+	return ((double)end_time.tv_sec - (double)start_time.tv_sec)*1e6 + ((double)end_time.tv_usec - (double)start_time.tv_usec);
+}
+
+

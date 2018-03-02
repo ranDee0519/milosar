@@ -25,6 +25,7 @@
 #define	PRF						2500
 #define N_COUNTER				94
 #define RF_OUT_DIVIDER			4
+#define RF_OUT_INIT_FREQ		(PHASE_DETECTOR_FREQ*N_COUNTER/RF_OUT_DIVIDER)
 
 typedef struct 
 {
@@ -78,18 +79,9 @@ void trigger_synths(void* gpio);
 void config_experiment(Configuration *config, Synthesizer *tx_synth, Synthesizer *lo_synth);
 void decimalToBinary(uint64_t decimalValue, int* binaryValue);
 
-
-void parallelTrigger(Synthesizer *synthOne, Synthesizer *synthTwo);
-
-void generateClock(void);
-
-
 void printBinary(int* binaryValue, int paddedSize);
-int  clean_stdin();
 
-double vcoOut(uint32_t fracNum);
+double vcoOut(uint32_t fractional_numerator);
 double bnwOut(double rampInc, uint16_t);
-double elapsed_us(struct timeval start_time, struct timeval end_time);
-
 
 #endif
