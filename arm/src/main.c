@@ -20,7 +20,7 @@ Channel *A, *B;
 Synthesizer tx_synth, lo_synth;
 Configuration config;
 
-static void *cfg, *gen, *gpio, *canc;
+static void *cfg, *ref, *gpio, *canc, *phase;
 
 int main(int argc, char **argv)
 {
@@ -53,18 +53,19 @@ int main(int argc, char **argv)
 	ASSERT(init_mem(), "Failed to open /dev/mem.");
 	
 	ASSERT(create_map(SREG, MAP_SHARED, &cfg, CFG_BASE_ADDR), "Failed to allocate map for CFG register.");
-	ASSERT(create_map(SREG, MAP_SHARED, &gen, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
+	ASSERT(create_map(SREG, MAP_SHARED, &ref, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
 	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
 	ASSERT(create_map(SREG, MAP_SHARED, &canc, CANC_BASE_ADDR), "Failed to allocate map for CANC register.");
+	ASSERT(create_map(SREG, MAP_SHARED, &phase, PHSE_BASE_ADDR), "Failed to allocate map for CANC register.");
 	
 	//set dds phase increment for synthesizer reference
-	int phase_inc = (int)round( (PHASE_DETECTOR_FREQ/2) * pow(2, DDS_PHASE_WIDTH)/DAC_RATE );	//TODO create a function for calculating the phase increment for DDS
-	set_reg(gen, phase_inc);
+	set_reg(ref, get_phase_increment(PHASE_DETECTOR_FREQ/2));
 	
-	//set dds phase increment for synthesizer reference
-	float freq_out = 9.1e6;
-	phase_inc = (int)round( freq_out * pow(2, DDS_PHASE_WIDTH)/DAC_RATE );	
-	set_reg(canc, phase_inc);
+	//set dds phase increment for cancellation signal
+	set_reg(canc, get_phase_increment(PHASE_DETECTOR_FREQ/2));
+	
+	//set dds phase offset of the cancellation signal
+	set_reg(phase, get_phase_offset(DDS_PHASE_OFFSET));
 	
 	//set decimation factor
 	config.decimation = 8;
@@ -112,7 +113,8 @@ int main(int argc, char **argv)
 	if (config.is_debug)
 	{
 		cprint("[**] ", BRIGHT, CYAN);
-		printf("Enter host password to transfer files:\n");
+		//printf("Enter host password to transfer files:\n");
+		printf("Copying Recorded Data to Host:\n");
 		
 		//copy experiment folder from red pitaya to host computer
 		char command[100];

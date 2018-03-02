@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <math.h>
+
 #include "constants.h"
 
 void ASSERT(int, char * message);
@@ -27,6 +28,9 @@ void write_prop_f(char *tag, float message);
 
 int init_prop(void);
 int dnit_prop(void);
+
+uint32_t get_phase_increment(double desired_frequency);
+uint32_t get_phase_offset(double desired_offset);
 
 #endif
 

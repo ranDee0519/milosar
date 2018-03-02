@@ -618,7 +618,7 @@ void config_experiment(Configuration *config, Synthesizer *tx_synth, Synthesizer
 		fprintf(f, "time_stamp = %s\r\n", config->time_stamp);
 		
 		cprint("[??] ", BRIGHT, BLUE);
-		printf("Comment [140]: ");
+		printf("Operator Comment [140]: ");
 		char userin[140];
 		scanf("%[^\n]s", userin);
 		

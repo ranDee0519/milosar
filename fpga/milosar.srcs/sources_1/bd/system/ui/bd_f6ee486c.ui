@@ -21,17 +21,17 @@ preplace netloc S_AXI_1 1 2 1 NJ
 preplace netloc Conn2 1 2 1 800
 preplace netloc channel_b_M_AXI 1 0 1 NJ
 preplace netloc ps_axi_periph_M05_AXI 1 2 1 840
-preplace netloc ps_0_M_AXI_GP0 1 1 1 480
+preplace netloc ps_0_M_AXI_GP0 1 1 1 490
 preplace netloc ps_0_axi_periph_M00_AXI 1 2 1 NJ
-preplace netloc xlconstant_0_dout 1 1 2 470 0 NJ
+preplace netloc xlconstant_0_dout 1 1 2 480 -10 NJ
 preplace netloc ps_axi_periph_M01_AXI 1 2 1 NJ
-preplace netloc ps_0_DDR 1 1 2 NJ 20 NJ
+preplace netloc ps_0_DDR 1 1 2 NJ 0 NJ
 preplace netloc rst_0_interconnect_aresetn 1 1 1 500
 preplace netloc ps_0_FCLK_RESET0_N 1 0 2 0 270 450
-preplace netloc ps_0_FIXED_IO 1 1 2 NJ 30 NJ
+preplace netloc ps_0_FIXED_IO 1 1 2 NJ 10 NJ
 preplace netloc axis_ram_writer_0_M_AXI 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 0 2 -10 450 490
-levelinfo -pg 1 -30 230 650 870 -top -10 -bot 470
+preplace netloc clk_sync_clk_out1 1 0 2 -10 -10 470
+levelinfo -pg 1 -30 230 650 870 -top -20 -bot 490
 ",
 }
 0

@@ -127,3 +127,16 @@ int dnit_prop(void){
     return OK;
 }
 
+
+uint32_t get_phase_increment(double desired_frequency)
+{
+	return (uint32_t)round( (desired_frequency/DAC_RATE) * pow(2, DDS_PHASE_WIDTH) );
+}
+
+
+uint32_t get_phase_offset(double desired_offset)
+{
+	return (uint32_t)round( desired_offset/(2*M_PI) * pow(2, DDS_PHASE_WIDTH) );
+}
+
+
