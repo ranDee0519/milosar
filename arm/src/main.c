@@ -189,7 +189,7 @@ void* record(void *arg)
 
 	int position, limit, offset;
 
-	char * path = malloc(strlen(config.dir_experiment) + strlen(channel->letter) + 1 + 4);
+	char* path = malloc(strlen(config.dir_experiment) + strlen(channel->letter) + 1 + 4);
 	strcpy(path, config.dir_experiment);
 	strcat(path, channel->letter);
 	strcat(path, ".bin");
@@ -209,19 +209,22 @@ void* record(void *arg)
 
 	for (int i = 0; i < nbuffs; ) 
 	{
-		//Get the location of the DMA writer in terms of number of bytes written.
+		//get location of the DMA writer in terms of number of bytes written.
 		position = get_reg(channel->sts) * 4;
 
-		//Safe To Read Bottom                 //Safe To Read Top
+		//safe to read bottom                 //safe to read top
 		if( (limit > 0 && position > limit) || (limit == 0 && position < S2MB) )
 		{
 			offset = limit > 0 ? 0 : S2MB;
 			limit  = limit > 0 ? 0 : S2MB;		
+			
+			//copy data from fpga buffer to cpu ram
 			memcpy(buf + S2MB*i, channel->dma + offset, S2MB);
 			i++;
 		} 
     }
     
+    //write data from cpu ram to sd card
     fwrite(buf, 1, nbuffs*S2MB, f);
 
     fclose(f);
