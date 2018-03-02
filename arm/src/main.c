@@ -224,7 +224,7 @@ void* record(void *arg)
 		} 
     }
     
-    fwrite(buf, 1, nbuffs*S2MB , f);
+    fwrite(buf, 1, nbuffs*S2MB, f);
 
     fclose(f);
 	free(path);
