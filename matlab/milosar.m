@@ -2,7 +2,7 @@
 % asssumes triangular modulation in chunk recording mode
 
 clear;
-close all;
+%close all;
 clc;
 
 %% processing settings
@@ -71,7 +71,7 @@ visual.r_min     = 0;                   % min range [m]
 visual.r_max     = 250;                 % max range [m]
 
 %% extract binary data
-dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/02_03_18_13_31_42/';
+dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/06_03_18_14_34_35/';
 raw_data.a = extract_data(strcat(dataset_directory, 'A.bin'), 'int16'); 
 raw_data.b = extract_data(strcat(dataset_directory, 'B.bin'), 'int16');
 clear dataset_directory;
@@ -223,6 +223,7 @@ int_profile = sum(ssb_matrix.demod, 2);
 
 figure(10);
 plot(r_bb, 10*log10(abs(int_profile)));
+hold on;
 title('Integrated Range Profile');
 xlabel('Range [m]');
 ylabel('Magnitude [dB]');  

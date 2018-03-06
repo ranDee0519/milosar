@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Fri Mar  2 11:42:57 2018
+//Date        : Tue Mar  6 16:47:09 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system.bd
 //Design      : system
@@ -2916,6 +2916,8 @@ module receive_chain_imp_N0MRX5
   wire [13:0]adc_dat_b_i_1;
   wire [15:0]adc_streamer_m00_axis_TDATA;
   wire adc_streamer_m00_axis_TVALID;
+  wire [15:0]anti_aliasing_filter_M_AXIS_DATA_TDATA;
+  wire anti_aliasing_filter_M_AXIS_DATA_TVALID;
   wire [0:0]aresetn2_1;
   wire [31:0]axis_ram_writer_0_M_AXI_AWADDR;
   wire [1:0]axis_ram_writer_0_M_AXI_AWBURST;
@@ -3090,6 +3092,12 @@ module receive_chain_imp_N0MRX5
         .m00_axis_tvalid(adc_streamer_m00_axis_TVALID),
         .m01_axis_tdata(s00_axis_1_TDATA),
         .m01_axis_tvalid(s00_axis_1_TVALID));
+  system_fir_compiler_0_0 anti_aliasing_filter
+       (.aclk(clk_sync_clk_out1),
+        .m_axis_data_tdata(anti_aliasing_filter_M_AXIS_DATA_TDATA),
+        .m_axis_data_tvalid(anti_aliasing_filter_M_AXIS_DATA_TVALID),
+        .s_axis_data_tdata(adc_streamer_m00_axis_TDATA),
+        .s_axis_data_tvalid(adc_streamer_m00_axis_TVALID));
   channel_a_imp_JYKOO2 channel_a
        (.M_AXI_awaddr(axis_ram_writer_0_M_AXI_AWADDR),
         .M_AXI_awburst(axis_ram_writer_0_M_AXI_AWBURST),
@@ -3108,8 +3116,8 @@ module receive_chain_imp_N0MRX5
         .M_AXI_wstrb(axis_ram_writer_0_M_AXI_WSTRB),
         .M_AXI_wvalid(axis_ram_writer_0_M_AXI_WVALID),
         .aclk(clk_sync_clk_out1),
-        .adc_data_tdata(adc_streamer_m00_axis_TDATA),
-        .adc_data_tvalid(adc_streamer_m00_axis_TVALID),
+        .adc_data_tdata(anti_aliasing_filter_M_AXIS_DATA_TDATA),
+        .adc_data_tvalid(anti_aliasing_filter_M_AXIS_DATA_TVALID),
         .aresetn(aresetn2_1),
         .decimation(xlslice_0_Dout),
         .enable(enable_1),
@@ -3873,7 +3881,7 @@ module signal_generator_imp_HADG47
         .s_axis_config_tvalid(axis_constant_0_M_AXIS_TVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=59,numReposBlks=41,numNonXlnxBlks=19,numHierBlks=18,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=60,numReposBlks=42,numNonXlnxBlks=19,numHierBlks=18,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (DDR_addr,
     DDR_ba,

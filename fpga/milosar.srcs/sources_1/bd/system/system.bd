@@ -1450,6 +1450,27 @@
         <spirit:instanceName>config_settings</spirit:instanceName>
         <spirit:componentRef spirit:library="BlockDiagram/system_imp/receive_chain_imp" spirit:name="config_settings" spirit:vendor="xilinx.com" spirit:version="1.00.a"/>
       </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>anti_aliasing_filter</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="fir_compiler" spirit:vendor="xilinx.com" spirit:version="7.2"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_fir_compiler_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CoefficientVector">2 8 19 33 37 15 -47 -147 -249 -295 -229 -31 248 497 593 479 217 -22 -56 184 556 742 405 -578 -1966 -3174 -3520 -2572 -431 2230 4420 5265 4420 2230 -431 -2572 -3520 -3174 -1966 -578 405 742 556 184 -56 -22 217 479 593 497 248 -31 -229 -295 -249 -147 -47 15 37 33 19 8 2</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Sets">1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Sample_Frequency">125</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Clock_Frequency">125</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Sign">Signed</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Quantization">Integer_Coefficients</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Width">16</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Fractional_Bits">0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Structure">Inferred</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Data_Width">14</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Output_Rounding_Mode">Convergent_Rounding_to_Even</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Output_Width">16</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Filter_Architecture">Systolic_Multiply_Accumulate</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="ColumnConfig">32</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
     </spirit:componentInstances>
     <spirit:interconnections>
       <spirit:interconnection>
@@ -1459,7 +1480,12 @@
       </spirit:interconnection>
       <spirit:interconnection>
         <spirit:name>adc_streamer_m00_axis</spirit:name>
+        <spirit:activeInterface spirit:busRef="S_AXIS_DATA" spirit:componentRef="anti_aliasing_filter"/>
         <spirit:activeInterface spirit:busRef="m00_axis" spirit:componentRef="adc_streamer"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>anti_aliasing_filter_M_AXIS_DATA</spirit:name>
+        <spirit:activeInterface spirit:busRef="M_AXIS_DATA" spirit:componentRef="anti_aliasing_filter"/>
         <spirit:activeInterface spirit:busRef="adc_data" spirit:componentRef="channel_a"/>
       </spirit:interconnection>
     </spirit:interconnections>
@@ -1478,6 +1504,7 @@
         <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="aclk"/>
+        <spirit:internalPortReference spirit:componentRef="anti_aliasing_filter" spirit:portRef="aclk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>axis_red_pitaya_adc_0_adc_csn</spirit:name>
