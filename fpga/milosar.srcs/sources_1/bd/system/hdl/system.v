@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Tue Mar  6 16:47:09 2018
+//Date        : Wed Mar  7 11:02:46 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system.bd
 //Design      : system
@@ -107,9 +107,6 @@ module channel_a_imp_JYKOO2
   wire adc_data_1_TVALID;
   wire [0:0]aresetn1_1;
   wire [0:0]aresetn_1;
-  wire [15:0]axis_decimator_0_m_axis_TDATA;
-  wire axis_decimator_0_m_axis_TREADY;
-  wire axis_decimator_0_m_axis_TVALID;
   wire [31:0]axis_dwidth_converter_0_M_AXIS_TDATA;
   wire axis_dwidth_converter_0_M_AXIS_TREADY;
   wire axis_dwidth_converter_0_M_AXIS_TVALID;
@@ -129,7 +126,6 @@ module channel_a_imp_JYKOO2
   wire axis_ram_writer_0_M_AXI_WREADY;
   wire [3:0]axis_ram_writer_0_M_AXI_WSTRB;
   wire axis_ram_writer_0_M_AXI_WVALID;
-  wire [15:0]cfg_data_1;
   wire [31:0]ch_a_writer_sts_data;
   wire clk_sync_clk_out1;
   wire [31:0]ram_a_address_dout;
@@ -162,7 +158,6 @@ module channel_a_imp_JYKOO2
   assign axis_ram_writer_0_M_AXI_AWREADY = M_AXI_awready;
   assign axis_ram_writer_0_M_AXI_BVALID = M_AXI_bvalid;
   assign axis_ram_writer_0_M_AXI_WREADY = M_AXI_wready;
-  assign cfg_data_1 = decimation[15:0];
   assign clk_sync_clk_out1 = aclk;
   assign status_arready = Conn1_ARREADY;
   assign status_awready = Conn1_AWREADY;
@@ -172,24 +167,14 @@ module channel_a_imp_JYKOO2
   assign status_rresp[1:0] = Conn1_RRESP;
   assign status_rvalid = Conn1_RVALID;
   assign status_wready = Conn1_WREADY;
-  system_axis_decimator_0_0 axis_decimator_0
-       (.aclk(clk_sync_clk_out1),
-        .aresetn(aresetn_1),
-        .cfg_data(cfg_data_1),
-        .m_axis_tdata(axis_decimator_0_m_axis_TDATA),
-        .m_axis_tready(axis_decimator_0_m_axis_TREADY),
-        .m_axis_tvalid(axis_decimator_0_m_axis_TVALID),
-        .s00_axis_tdata(adc_data_1_TDATA),
-        .s00_axis_tvalid(adc_data_1_TVALID));
   system_axis_dwidth_converter_0_0 axis_dwidth_converter_0
        (.aclk(clk_sync_clk_out1),
         .aresetn(aresetn_1),
         .m_axis_tdata(axis_dwidth_converter_0_M_AXIS_TDATA),
         .m_axis_tready(axis_dwidth_converter_0_M_AXIS_TREADY),
         .m_axis_tvalid(axis_dwidth_converter_0_M_AXIS_TVALID),
-        .s_axis_tdata(axis_decimator_0_m_axis_TDATA),
-        .s_axis_tready(axis_decimator_0_m_axis_TREADY),
-        .s_axis_tvalid(axis_decimator_0_m_axis_TVALID));
+        .s_axis_tdata(adc_data_1_TDATA),
+        .s_axis_tvalid(adc_data_1_TVALID));
   system_axis_ram_writer_0_0 ch_a_writer
        (.aclk(clk_sync_clk_out1),
         .aresetn(aresetn_1),
@@ -3881,7 +3866,7 @@ module signal_generator_imp_HADG47
         .s_axis_config_tvalid(axis_constant_0_M_AXIS_TVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=60,numReposBlks=42,numNonXlnxBlks=19,numHierBlks=18,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=59,numReposBlks=41,numNonXlnxBlks=18,numHierBlks=18,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (DDR_addr,
     DDR_ba,

@@ -2,7 +2,7 @@
 % asssumes triangular modulation in chunk recording mode
 
 clear;
-%close all;
+close all;
 clc;
 
 %% processing settings
@@ -18,18 +18,17 @@ proc.is_psd_avg  = 0;                   % value greater than one enables averagi
 proc.is_rem_dc   = 1;                   % enable DC offset removal
 proc.is_flip     = 1;                   % flip spectrum to account for nyquist folding
 proc.n_pre_chnks = 1;                   % number of chunks to skip before processing
-proc.n_pre_smpls = 10;                  % number of samples to chop from beginning of each ramp
+proc.n_pre_smpls = 20;                  % number of samples to chop from beginning of each ramp
 
 %% system parameters
 
 % misc
 VF          = 1;                        % velocity factor of propogation medium
 C           = VF*299792458;             % speed of light [m/s]
-Z           = 50;                       % 50 ohm system
 
 % red pitaya 
 F_clk       = 125e6;                    % red pitaya clock frequency
-DF          = 8;                        % sampling decimation factor
+DF          = 10;                        % sampling decimation factor
 F_s         = F_clk/DF;                 % resultant sampling frequency [Hz]
 
 adc.bits    = 14;                       % red pitaya bits per sample
@@ -68,10 +67,10 @@ visual.interp    = 1;                   % interpolation factor
 visual.rti_dr    = -100;                % RTI plot dynamic range [dB]
 visual.rd_dr     = -40;                 % RD plot dynamic range [dB]
 visual.r_min     = 0;                   % min range [m]
-visual.r_max     = 250;                 % max range [m]
+visual.r_max     = 1000;                 % max range [m]
 
 %% extract binary data
-dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/06_03_18_14_34_35/';
+dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/07_03_18_09_05_16/';
 raw_data.a = extract_data(strcat(dataset_directory, 'A.bin'), 'int16'); 
 raw_data.b = extract_data(strcat(dataset_directory, 'B.bin'), 'int16');
 clear dataset_directory;
@@ -91,18 +90,6 @@ preprocessed_data.b = preprocessed_data.b(1 : ns_dataset);
 
 %% plot raw beat signals
 plot_beat(preprocessed_data.a, preprocessed_data.b, visual.n_peek*ns_chunk, adc.min, adc.max, ns_up, proc.n_pre_smpls);
-
-%% perform demodulation
-if (proc.demod == 0)
-    preprocessed_data.demod = preprocessed_data.a .* preprocessed_data.b;
-elseif (proc.demod == 1)
-    % synthesize reference LO signal
-    t_dataset   = linspace(1/F_s, ns_dataset/F_s, ns_dataset); 
-    preprocessed_data.synth = sin(2*pi*F_o*t_dataset)';
-    clear preprocessed_data.synth;
-    
-    preprocessed_data.demod = preprocessed_data.a .* preprocessed_data.synth;
-end
 
 %% remove dc offset
 if (proc.is_rem_dc)
@@ -127,24 +114,27 @@ f_bb        = linspace(0, F_s/2, ns_ssb);
 r_if        = (f_if - F_o)*K_p;
 r_bb        = f_bb*K_p;
 
+%% generate synthetic local oscilator
+t_dataset = linspace(1/F_s, ns_dataset/F_s, ns_dataset); 
+preprocessed_data.lo = 1250*sin(2*pi*F_o*t_dataset)';
 
 %% reshape data into a matrix
 data_matrix.a = reshape(preprocessed_data.a, [ns_chunk n_chunks]);
 data_matrix.b = reshape(preprocessed_data.b, [ns_chunk n_chunks]);
-data_matrix.demod = reshape(preprocessed_data.demod, [ns_chunk n_chunks]);
+data_matrix.lo = reshape(preprocessed_data.lo, [ns_chunk n_chunks]);
 clear preprocessed_data;
 
 %% chop unused data
 data_matrix.a = data_matrix.a(1 + proc.n_pre_smpls : ns_up, :);
 data_matrix.b = data_matrix.b(1 + proc.n_pre_smpls : ns_up, :);
-data_matrix.demod = data_matrix.demod(1 + proc.n_pre_smpls : ns_up, :);
+data_matrix.lo = data_matrix.lo(1 + proc.n_pre_smpls : ns_up, :);
 
 ns_up = ns_up - proc.n_pre_smpls;
 
 %% scale adc counts to volts
 data_matrix.a = data_matrix.a*adc.scaling;
 data_matrix.b = data_matrix.b*adc.scaling;
-data_matrix.demod = data_matrix.demod*adc.scaling;
+data_matrix.lo = data_matrix.lo*adc.scaling;
 
 %% apply range windowing function
 if(proc.is_taper)
@@ -152,19 +142,40 @@ if(proc.is_taper)
     
     data_matrix.a = data_matrix.a .* window_matrix;
     data_matrix.b = data_matrix.b .* window_matrix;
-    data_matrix.demod = data_matrix.demod .* window_matrix;
+    data_matrix.lo = data_matrix.lo .* window_matrix;
     clear window_matrix;
 end;
 
 %% fft each column
 fft_matrix.a = fft(data_matrix.a, ns_fft);
 fft_matrix.b = fft(data_matrix.b, ns_fft);
-fft_matrix.demod = fft(data_matrix.demod, ns_fft);
+fft_matrix.lo = fft(data_matrix.lo, ns_fft);
 clear data_matrix;
+
+%% perform ssb demodulation
+
+% zero the positive half of RF channel spectrum
+half_matrix.a = fft_matrix.a;
+half_matrix.a(1 : ns_ssb, :) = 0;
+
+% zero the negative half of LO channel spectrum
+if (proc.demod == 0) 
+    half_matrix.b = fft_matrix.b;
+elseif (proc.demod == 1)
+    half_matrix.b = fft_matrix.lo;
+end
+
+half_matrix.b(ns_ssb + 1 : end, :) = 0;
+
+% transform to time domain, perform mixing and return to freq domain
+fft_matrix.demod = fft( ifft(half_matrix.a, ns_fft) .* ifft(half_matrix.b, ns_fft) , ns_fft);
+
+clear half_matrix;
 
 %% remove negative spectum
 ssb_matrix.a = fft_matrix.a(1 : ns_ssb, :);
 ssb_matrix.b = fft_matrix.b(1 : ns_ssb, :);
+ssb_matrix.lo = fft_matrix.lo(1 : ns_ssb, :);
 ssb_matrix.demod = fft_matrix.demod(1 : ns_ssb, :);
 clear fft_matrix;
 
@@ -172,10 +183,11 @@ clear fft_matrix;
 if (proc.is_flip)
     ssb_matrix.a = flipud(ssb_matrix.a);
     ssb_matrix.b = flipud(ssb_matrix.b);
+    ssb_matrix.lo = flipud(ssb_matrix.lo);
 end;
 
 %% RTI and RD plots
-figure;
+figure(2);
 subplot(3, 2, 1);
 imagesc(t_slow, r_if, 20*log10(abs(ssb_matrix.a)));
 title('Channel A: Range-Time-Intensity');
@@ -221,18 +233,27 @@ ylim([visual.r_min visual.r_max]);
 %% perform coherent integration
 int_profile = sum(ssb_matrix.demod, 2); 
 
-figure(10);
-plot(r_bb, 10*log10(abs(int_profile)));
+%% compare integrated result with single range profile
+figure(3);
+plot(r_bb, get_psd(ssb_matrix.demod(:, 10), proc.is_taper, 1, ns_ssb));
 hold on;
-title('Integrated Range Profile');
+plot(r_bb, get_psd(int_profile, proc.is_taper, n_chunks, ns_ssb));
+title('Demodulated Range Profile');
 xlabel('Range [m]');
 ylabel('Magnitude [dB]');  
+legend('Single Range Profile', 'Integrated Range Profile');
 xlim([visual.r_min visual.r_max]);
 
-% for i = 1 : n_chunks
-%     plot(r_bb, 10*log10(abs(ssb_matrix.demod(:, i))));
-%     pause();
-% end;
+%% analyse local oscilator signal
+figure(4);
+plot(f_if, get_psd(ssb_matrix.b(:, 10), proc.is_taper, 1, ns_ssb));
+hold on;
+plot(f_if, get_psd(ssb_matrix.lo(:, 10), proc.is_taper, 1, ns_ssb));
+title('Local Oscilator Signal');
+xlabel('Frequency [Hz]');
+ylabel('Magnitude [dB]');  
+legend('Reference Channel', 'Synthetic');
+ylim([-250 50]);
 
 %% generate g2 processor input
 if (proc.is_g2)

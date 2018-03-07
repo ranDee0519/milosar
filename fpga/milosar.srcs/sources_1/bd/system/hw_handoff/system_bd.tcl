@@ -343,13 +343,6 @@ proc create_hier_cell_channel_a { parentCell nameHier } {
   create_bd_pin -dir I -from 15 -to 0 decimation
   create_bd_pin -dir I -from 0 -to 0 -type rst enable
 
-  # Create instance: axis_decimator_0, and set properties
-  set axis_decimator_0 [ create_bd_cell -type ip -vlnv pavel-demin:user:axis_decimator:1.0.7 axis_decimator_0 ]
-  set_property -dict [ list \
-CONFIG.AXIS_TDATA_WIDTH {16} \
-CONFIG.CNTR_WIDTH {16} \
- ] $axis_decimator_0
-
   # Create instance: axis_dwidth_converter_0, and set properties
   set axis_dwidth_converter_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_dwidth_converter:1.1 axis_dwidth_converter_0 ]
   set_property -dict [ list \
@@ -381,17 +374,15 @@ CONFIG.STS_DATA_WIDTH {32} \
 
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins status] [get_bd_intf_pins sts_a_channel/S_AXI]
-  connect_bd_intf_net -intf_net adc_data_1 [get_bd_intf_pins adc_data] [get_bd_intf_pins axis_decimator_0/s00_axis]
-  connect_bd_intf_net -intf_net axis_decimator_0_m_axis [get_bd_intf_pins axis_decimator_0/m_axis] [get_bd_intf_pins axis_dwidth_converter_0/S_AXIS]
+  connect_bd_intf_net -intf_net adc_data_1 [get_bd_intf_pins adc_data] [get_bd_intf_pins axis_dwidth_converter_0/S_AXIS]
   connect_bd_intf_net -intf_net axis_dwidth_converter_0_M_AXIS [get_bd_intf_pins axis_dwidth_converter_0/M_AXIS] [get_bd_intf_pins ch_a_writer/S_AXIS]
   connect_bd_intf_net -intf_net axis_ram_writer_0_M_AXI [get_bd_intf_pins M_AXI] [get_bd_intf_pins ch_a_writer/M_AXI]
 
   # Create port connections
   connect_bd_net -net aresetn1_1 [get_bd_pins aresetn] [get_bd_pins sts_a_channel/aresetn]
-  connect_bd_net -net aresetn_1 [get_bd_pins enable] [get_bd_pins axis_decimator_0/aresetn] [get_bd_pins axis_dwidth_converter_0/aresetn] [get_bd_pins ch_a_writer/aresetn]
-  connect_bd_net -net cfg_data_1 [get_bd_pins decimation] [get_bd_pins axis_decimator_0/cfg_data]
+  connect_bd_net -net aresetn_1 [get_bd_pins enable] [get_bd_pins axis_dwidth_converter_0/aresetn] [get_bd_pins ch_a_writer/aresetn]
   connect_bd_net -net ch_a_writer_sts_data [get_bd_pins ch_a_writer/sts_data] [get_bd_pins sts_a_channel/sts_data]
-  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins axis_decimator_0/aclk] [get_bd_pins axis_dwidth_converter_0/aclk] [get_bd_pins ch_a_writer/aclk] [get_bd_pins sts_a_channel/aclk]
+  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins axis_dwidth_converter_0/aclk] [get_bd_pins ch_a_writer/aclk] [get_bd_pins sts_a_channel/aclk]
   connect_bd_net -net ram_a_address_dout [get_bd_pins ch_a_writer/cfg_data] [get_bd_pins ram_a_address/dout]
 
   # Perform GUI Layout
@@ -407,20 +398,17 @@ preplace portBus decimation -pg 1 -y 110 -defaultsOSRD
 preplace portBus aresetn -pg 1 -y 260 -defaultsOSRD
 preplace inst ch_a_writer -pg 1 -lvl 3 -y 170 -defaultsOSRD
 preplace inst ram_a_address -pg 1 -lvl 2 -y 230 -defaultsOSRD
-preplace inst axis_decimator_0 -pg 1 -lvl 1 -y 80 -defaultsOSRD
 preplace inst sts_a_channel -pg 1 -lvl 1 -y 250 -defaultsOSRD
 preplace inst axis_dwidth_converter_0 -pg 1 -lvl 2 -y 100 -defaultsOSRD
 preplace netloc Conn1 1 0 1 NJ
 preplace netloc ram_a_address_dout 1 2 1 NJ
 preplace netloc axis_dwidth_converter_0_M_AXIS 1 2 1 470
-preplace netloc adc_data_1 1 0 1 NJ
-preplace netloc cfg_data_1 1 0 1 NJ
-preplace netloc axis_decimator_0_m_axis 1 1 1 N
-preplace netloc aresetn_1 1 0 3 20 160 260 30 NJ
+preplace netloc adc_data_1 1 0 2 NJ 50 230
+preplace netloc aresetn_1 1 0 3 N 90 250 30 NJ
 preplace netloc ch_a_writer_sts_data 1 0 4 20 330 NJ 330 NJ 330 740
 preplace netloc axis_ram_writer_0_M_AXI 1 3 1 N
 preplace netloc aresetn1_1 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 0 3 30 170 250 10 NJ
+preplace netloc clk_sync_clk_out1 1 0 3 20 70 240 10 NJ
 levelinfo -pg 1 0 140 360 610 760 -top 0 -bot 340
 ",
 }
@@ -680,13 +668,19 @@ CONFIG.Coefficient_Sets {1} \
 CONFIG.Coefficient_Sign {Signed} \
 CONFIG.Coefficient_Structure {Inferred} \
 CONFIG.Coefficient_Width {16} \
-CONFIG.ColumnConfig {32} \
+CONFIG.ColumnConfig {4} \
 CONFIG.Data_Width {14} \
+CONFIG.Decimation_Rate {10} \
 CONFIG.Filter_Architecture {Systolic_Multiply_Accumulate} \
+CONFIG.Filter_Type {Decimation} \
+CONFIG.Interpolation_Rate {1} \
+CONFIG.Number_Channels {1} \
 CONFIG.Output_Rounding_Mode {Convergent_Rounding_to_Even} \
 CONFIG.Output_Width {16} \
 CONFIG.Quantization {Integer_Coefficients} \
+CONFIG.RateSpecification {Frequency_Specification} \
 CONFIG.Sample_Frequency {125} \
+CONFIG.Zero_Pack_Factor {1} \
  ] $anti_aliasing_filter
 
   # Create instance: channel_a
@@ -744,9 +738,9 @@ preplace netloc S_AXI_1 1 0 2 NJ 440 NJ
 preplace netloc channel_b_M_AXI 1 2 1 NJ
 preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 2 NJ 360 NJ
 preplace netloc adc_dat_a_i_1 1 0 1 NJ
+preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
 preplace netloc anti_aliasing_filter_M_AXIS_DATA 1 1 1 330
 preplace netloc adc_streamer_m00_axis 1 0 2 40 150 320
-preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
 preplace netloc s00_axis_1 1 1 1 360
 preplace netloc clk_wiz_0_clk_out1 1 0 1 NJ
 preplace netloc ps_axi_periph_M01_AXI 1 0 2 NJ 140 NJ
