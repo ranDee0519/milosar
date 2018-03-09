@@ -1410,16 +1410,6 @@
             </spirit:vector>
           </spirit:wire>
         </spirit:port>
-        <spirit:port>
-          <spirit:name>decimation</spirit:name>
-          <spirit:wire>
-            <spirit:direction>out</spirit:direction>
-            <spirit:vector>
-              <spirit:left>15</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
-          </spirit:wire>
-        </spirit:port>
       </spirit:ports>
     </spirit:model>
   </spirit:component>
@@ -1451,66 +1441,41 @@
         <spirit:componentRef spirit:library="BlockDiagram/system_imp/receive_chain_imp" spirit:name="config_settings" spirit:vendor="xilinx.com" spirit:version="1.00.a"/>
       </spirit:componentInstance>
       <spirit:componentInstance>
-        <spirit:instanceName>anti_aliasing_filter</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="fir_compiler" spirit:vendor="xilinx.com" spirit:version="7.2"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_fir_compiler_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="CoefficientVector">2 8 19 33 37 15 -47 -147 -249 -295 -229 -31 248 497 593 479 217 -22 -56 184 556 742 405 -578 -1966 -3174 -3520 -2572 -431 2230 4420 5265 4420 2230 -431 -2572 -3520 -3174 -1966 -578 405 742 556 184 -56 -22 217 479 593 497 248 -31 -229 -295 -249 -147 -47 15 37 33 19 8 2</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Coefficient_Sets">1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Filter_Type">Decimation</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Interpolation_Rate">1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Decimation_Rate">10</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Zero_Pack_Factor">1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Number_Channels">1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="RateSpecification">Frequency_Specification</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Sample_Frequency">125</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Clock_Frequency">125</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Coefficient_Sign">Signed</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Quantization">Integer_Coefficients</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Coefficient_Width">16</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Coefficient_Fractional_Bits">0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Coefficient_Structure">Inferred</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Data_Width">14</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Output_Rounding_Mode">Convergent_Rounding_to_Even</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Output_Width">16</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="Filter_Architecture">Systolic_Multiply_Accumulate</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="ColumnConfig">4</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
+        <spirit:instanceName>anti_aliasing</spirit:instanceName>
+        <spirit:componentRef spirit:library="BlockDiagram/system_imp/receive_chain_imp" spirit:name="anti_aliasing" spirit:vendor="xilinx.com" spirit:version="1.00.a"/>
       </spirit:componentInstance>
     </spirit:componentInstances>
     <spirit:interconnections>
       <spirit:interconnection>
-        <spirit:name>s00_axis_1</spirit:name>
-        <spirit:activeInterface spirit:busRef="adc_data" spirit:componentRef="channel_b"/>
-        <spirit:activeInterface spirit:busRef="m01_axis" spirit:componentRef="adc_streamer"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
         <spirit:name>adc_streamer_m00_axis</spirit:name>
-        <spirit:activeInterface spirit:busRef="S_AXIS_DATA" spirit:componentRef="anti_aliasing_filter"/>
         <spirit:activeInterface spirit:busRef="m00_axis" spirit:componentRef="adc_streamer"/>
+        <spirit:activeInterface spirit:busRef="S00_AXIS" spirit:componentRef="anti_aliasing"/>
       </spirit:interconnection>
       <spirit:interconnection>
-        <spirit:name>anti_aliasing_filter_M_AXIS_DATA</spirit:name>
-        <spirit:activeInterface spirit:busRef="M_AXIS_DATA" spirit:componentRef="anti_aliasing_filter"/>
+        <spirit:name>adc_streamer_m01_axis</spirit:name>
+        <spirit:activeInterface spirit:busRef="m01_axis" spirit:componentRef="adc_streamer"/>
+        <spirit:activeInterface spirit:busRef="S01_AXIS" spirit:componentRef="anti_aliasing"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>axis_broadcaster_0_M00_AXIS</spirit:name>
+        <spirit:activeInterface spirit:busRef="M00_AXIS" spirit:componentRef="anti_aliasing"/>
         <spirit:activeInterface spirit:busRef="adc_data" spirit:componentRef="channel_a"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>axis_broadcaster_0_M01_AXIS</spirit:name>
+        <spirit:activeInterface spirit:busRef="M01_AXIS" spirit:componentRef="anti_aliasing"/>
+        <spirit:activeInterface spirit:busRef="adc_data" spirit:componentRef="channel_b"/>
       </spirit:interconnection>
     </spirit:interconnections>
     <spirit:adHocConnections>
       <spirit:adHocConnection>
-        <spirit:name>xlslice_0_Dout</spirit:name>
-        <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="decimation"/>
-        <spirit:externalPortReference spirit:portRef="decimation"/>
-        <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="decimation"/>
-        <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="decimation"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
         <spirit:name>clk_sync_clk_out1</spirit:name>
         <spirit:internalPortReference spirit:componentRef="adc_streamer" spirit:portRef="adc_clk"/>
         <spirit:externalPortReference spirit:portRef="aclk"/>
-        <spirit:internalPortReference spirit:componentRef="anti_aliasing_filter" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="aclk"/>
+        <spirit:internalPortReference spirit:componentRef="anti_aliasing" spirit:portRef="aclk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>axis_red_pitaya_adc_0_adc_csn</spirit:name>
@@ -1539,6 +1504,7 @@
         <spirit:internalPortReference spirit:componentRef="channel_b" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="channel_a" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="config_settings" spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="anti_aliasing" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>enable_1</spirit:name>
@@ -1562,6 +1528,199 @@
       </spirit:hierConnection>
       <spirit:hierConnection spirit:interfaceRef="S_AXI/ps_0_axi_periph_M00_AXI">
         <spirit:activeInterface spirit:busRef="S_AXI" spirit:componentRef="config_settings"/>
+      </spirit:hierConnection>
+    </spirit:hierConnections>
+  </spirit:design>
+
+  <spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
+    <spirit:vendor>xilinx.com</spirit:vendor>
+    <spirit:library>BlockDiagram/system_imp/receive_chain_imp</spirit:library>
+    <spirit:name>anti_aliasing</spirit:name>
+    <spirit:version>1.00.a</spirit:version>
+    <spirit:busInterfaces>
+      <spirit:busInterface>
+        <spirit:name>S00_AXIS</spirit:name>
+        <spirit:slave/>
+        <spirit:busType spirit:library="interface" spirit:name="axis" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="interface" spirit:name="axis_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+      </spirit:busInterface>
+      <spirit:busInterface>
+        <spirit:name>S01_AXIS</spirit:name>
+        <spirit:slave/>
+        <spirit:busType spirit:library="interface" spirit:name="axis" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="interface" spirit:name="axis_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+      </spirit:busInterface>
+      <spirit:busInterface>
+        <spirit:name>M00_AXIS</spirit:name>
+        <spirit:master/>
+        <spirit:busType spirit:library="interface" spirit:name="axis" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="interface" spirit:name="axis_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+      </spirit:busInterface>
+      <spirit:busInterface>
+        <spirit:name>M01_AXIS</spirit:name>
+        <spirit:master/>
+        <spirit:busType spirit:library="interface" spirit:name="axis" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="interface" spirit:name="axis_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+      </spirit:busInterface>
+      <spirit:busInterface>
+        <spirit:name>CLK.ACLK</spirit:name>
+        <spirit:displayName>Clk</spirit:displayName>
+        <spirit:description>Clock</spirit:description>
+        <spirit:busType spirit:library="signal" spirit:name="clock" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="signal" spirit:name="clock_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:slave/>
+        <spirit:portMaps>
+          <spirit:portMap>
+            <spirit:logicalPort>
+              <spirit:name>CLK</spirit:name>
+            </spirit:logicalPort>
+            <spirit:physicalPort>
+              <spirit:name>aclk</spirit:name>
+            </spirit:physicalPort>
+          </spirit:portMap>
+        </spirit:portMaps>
+      </spirit:busInterface>
+      <spirit:busInterface>
+        <spirit:name>RST.ARESETN</spirit:name>
+        <spirit:displayName>Reset</spirit:displayName>
+        <spirit:description>Reset</spirit:description>
+        <spirit:busType spirit:library="signal" spirit:name="reset" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="signal" spirit:name="reset_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:slave/>
+        <spirit:portMaps>
+          <spirit:portMap>
+            <spirit:logicalPort>
+              <spirit:name>RST</spirit:name>
+            </spirit:logicalPort>
+            <spirit:physicalPort>
+              <spirit:name>aresetn</spirit:name>
+            </spirit:physicalPort>
+          </spirit:portMap>
+        </spirit:portMaps>
+      </spirit:busInterface>
+    </spirit:busInterfaces>
+    <spirit:model>
+      <spirit:views>
+        <spirit:view>
+          <spirit:name>BlockDiagram</spirit:name>
+          <spirit:envIdentifier>:vivado.xilinx.com:</spirit:envIdentifier>
+          <spirit:hierarchyRef spirit:library="BlockDiagram/system_imp/receive_chain_imp" spirit:name="anti_aliasing_imp" spirit:vendor="xilinx.com" spirit:version="1.00.a"/>
+        </spirit:view>
+      </spirit:views>
+      <spirit:ports>
+        <spirit:port>
+          <spirit:name>aclk</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+          </spirit:wire>
+        </spirit:port>
+        <spirit:port>
+          <spirit:name>aresetn</spirit:name>
+          <spirit:wire>
+            <spirit:direction>in</spirit:direction>
+            <spirit:vector>
+              <spirit:left>0</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:wire>
+        </spirit:port>
+      </spirit:ports>
+    </spirit:model>
+  </spirit:component>
+
+  <spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
+    <spirit:vendor>xilinx.com</spirit:vendor>
+    <spirit:library>BlockDiagram/system_imp/receive_chain_imp</spirit:library>
+    <spirit:name>anti_aliasing_imp</spirit:name>
+    <spirit:version>1.00.a</spirit:version>
+    <spirit:componentInstances>
+      <spirit:componentInstance>
+        <spirit:instanceName>anti_aliasing_filter</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="fir_compiler" spirit:vendor="xilinx.com" spirit:version="7.2"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_fir_compiler_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="CoefficientVector">0.000025654459771250994, 0.000074863433896161, 0.00014308597017204932, 0.00019205063416382977, 0.0001604266530866464, -0.000008361124011312541, -0.00032043167611177034, -0.0006926140921754971, -0.000952723258629777, -0.0008994245783101239, -0.0004099213080782916, 0.00045435909055407036, 0.001412980878301107, 0.0020510013567718688, 0.002010531508597773, 0.0012039571783876246, -0.00007720411271357928, -0.001254337513318309, -0.0017500056617930227, -0.0013406384683297494, -0.000364990726555941, 0.0003826285989469067, 0.00008693721353558415, -0.0015214223511449368, -0.003798614881415195, -0.00531121573513606, -0.004506260726651526, -0.0006549938308313636, 0.005439256657198806, 0.011455971684251895, 0.014456936577037123, 0.012339604921760181, 0.005119097924542997, -0.004725973426464719, -0.013202481140406187, -0.016715219789056705, -0.013998812495713744, -0.006966205975086943, 0.00016574983988531652, 0.0032006059922921235, 0.0005689297840865515, -0.0052985069269039795, -0.008860114692637512, -0.004478366117148616, 0.009848915330440116, 0.03011212731262171, 0.04692240258961073, 0.049390849984873475, 0.030726993425922545, -0.0071576310773233615, -0.052642137519117345, -0.08807787289178556, -0.09698989684947774, -0.07171979224533209, -0.01789182930481286, 0.046697650201782306, 0.09868128702828007, 0.11853265350570316, 0.09868128702828007, 0.046697650201782306, -0.01789182930481286, -0.07171979224533209, -0.09698989684947774, -0.08807787289178556, -0.052642137519117345, -0.0071576310773233615, 0.030726993425922545, 0.049390849984873475, 0.04692240258961073, 0.03011212731262171, 0.009848915330440116, -0.004478366117148616, -0.008860114692637512, -0.0052985069269039795, 0.0005689297840865515, 0.0032006059922921235, 0.00016574983988531652, -0.006966205975086943, -0.013998812495713744, -0.016715219789056705, -0.013202481140406187, -0.004725973426464719, 0.005119097924542997, 0.012339604921760181, 0.014456936577037123, 0.011455971684251895, 0.005439256657198806, -0.0006549938308313636, -0.004506260726651526, -0.00531121573513606, -0.003798614881415195, -0.0015214223511449368, 0.00008693721353558415, 0.0003826285989469067, -0.000364990726555941, -0.0013406384683297494, -0.0017500056617930227, -0.001254337513318309, -0.00007720411271357928, 0.0012039571783876246, 0.002010531508597773, 0.0020510013567718688, 0.001412980878301107, 0.00045435909055407036, -0.0004099213080782916, -0.0008994245783101239, -0.000952723258629777, -0.0006926140921754971, -0.00032043167611177034, -0.000008361124011312541, 0.0001604266530866464, 0.00019205063416382977, 0.00014308597017204932, 0.000074863433896161, 0.000025654459771250994</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Sets">1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Filter_Type">Decimation</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Interpolation_Rate">1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Decimation_Rate">8</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Zero_Pack_Factor">1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Number_Channels">1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Number_Paths">2</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="RateSpecification">Frequency_Specification</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Sample_Frequency">125</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Clock_Frequency">125</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Sign">Signed</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Quantization">Quantize_Only</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Width">32</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Fractional_Bits">34</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Coefficient_Structure">Inferred</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Data_Width">14</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Output_Rounding_Mode">Convergent_Rounding_to_Even</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Output_Width">16</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="Filter_Architecture">Systolic_Multiply_Accumulate</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="ColumnConfig">8</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>axis_combiner_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="axis_combiner" spirit:vendor="xilinx.com" spirit:version="1.1"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_axis_combiner_0_1</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="TDATA_NUM_BYTES">2</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
+        <spirit:instanceName>axis_broadcaster_0</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="axis_broadcaster" spirit:vendor="xilinx.com" spirit:version="1.1"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_axis_broadcaster_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="M_TDATA_NUM_BYTES">2</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="S_TDATA_NUM_BYTES">4</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="M00_TDATA_REMAP">tdata[15:0]</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="M01_TDATA_REMAP">tdata[31:16]</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+    </spirit:componentInstances>
+    <spirit:interconnections>
+      <spirit:interconnection>
+        <spirit:name>axis_combiner_0_M_AXIS</spirit:name>
+        <spirit:activeInterface spirit:busRef="M_AXIS" spirit:componentRef="axis_combiner_0"/>
+        <spirit:activeInterface spirit:busRef="S_AXIS_DATA" spirit:componentRef="anti_aliasing_filter"/>
+      </spirit:interconnection>
+      <spirit:interconnection>
+        <spirit:name>anti_aliasing_filter_M_AXIS_DATA</spirit:name>
+        <spirit:activeInterface spirit:busRef="M_AXIS_DATA" spirit:componentRef="anti_aliasing_filter"/>
+        <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="axis_broadcaster_0"/>
+      </spirit:interconnection>
+    </spirit:interconnections>
+    <spirit:adHocConnections>
+      <spirit:adHocConnection>
+        <spirit:name>clk_sync_clk_out1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="aclk"/>
+        <spirit:internalPortReference spirit:componentRef="axis_combiner_0" spirit:portRef="aclk"/>
+        <spirit:internalPortReference spirit:componentRef="axis_broadcaster_0" spirit:portRef="aclk"/>
+        <spirit:internalPortReference spirit:componentRef="anti_aliasing_filter" spirit:portRef="aclk"/>
+      </spirit:adHocConnection>
+      <spirit:adHocConnection>
+        <spirit:name>aresetn2_1</spirit:name>
+        <spirit:externalPortReference spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="axis_broadcaster_0" spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="axis_combiner_0" spirit:portRef="aresetn"/>
+      </spirit:adHocConnection>
+    </spirit:adHocConnections>
+    <spirit:hierConnections>
+      <spirit:hierConnection spirit:interfaceRef="S00_AXIS/adc_streamer_m00_axis">
+        <spirit:activeInterface spirit:busRef="S00_AXIS" spirit:componentRef="axis_combiner_0"/>
+      </spirit:hierConnection>
+      <spirit:hierConnection spirit:interfaceRef="S01_AXIS/adc_streamer_m01_axis">
+        <spirit:activeInterface spirit:busRef="S01_AXIS" spirit:componentRef="axis_combiner_0"/>
+      </spirit:hierConnection>
+      <spirit:hierConnection spirit:interfaceRef="M00_AXIS/axis_broadcaster_0_M00_AXIS">
+        <spirit:activeInterface spirit:busRef="M00_AXIS" spirit:componentRef="axis_broadcaster_0"/>
+      </spirit:hierConnection>
+      <spirit:hierConnection spirit:interfaceRef="M01_AXIS/axis_broadcaster_0_M01_AXIS">
+        <spirit:activeInterface spirit:busRef="M01_AXIS" spirit:componentRef="axis_broadcaster_0"/>
       </spirit:hierConnection>
     </spirit:hierConnections>
   </spirit:design>
@@ -1718,12 +1877,6 @@
     <spirit:version>1.00.a</spirit:version>
     <spirit:busInterfaces>
       <spirit:busInterface>
-        <spirit:name>adc_data</spirit:name>
-        <spirit:slave/>
-        <spirit:busType spirit:library="interface" spirit:name="axis" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-        <spirit:abstractionType spirit:library="interface" spirit:name="axis_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
-      </spirit:busInterface>
-      <spirit:busInterface>
         <spirit:name>M_AXI</spirit:name>
         <spirit:master/>
         <spirit:busType spirit:library="interface" spirit:name="aximm" spirit:vendor="xilinx.com" spirit:version="1.0"/>
@@ -1734,6 +1887,12 @@
         <spirit:slave/>
         <spirit:busType spirit:library="interface" spirit:name="aximm" spirit:vendor="xilinx.com" spirit:version="1.0"/>
         <spirit:abstractionType spirit:library="interface" spirit:name="aximm_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+      </spirit:busInterface>
+      <spirit:busInterface>
+        <spirit:name>adc_data</spirit:name>
+        <spirit:slave/>
+        <spirit:busType spirit:library="interface" spirit:name="axis" spirit:vendor="xilinx.com" spirit:version="1.0"/>
+        <spirit:abstractionType spirit:library="interface" spirit:name="axis_rtl" spirit:vendor="xilinx.com" spirit:version="1.0"/>
       </spirit:busInterface>
       <spirit:busInterface>
         <spirit:name>CLK.ACLK</spirit:name>
@@ -1806,16 +1965,6 @@
           </spirit:wire>
         </spirit:port>
         <spirit:port>
-          <spirit:name>decimation</spirit:name>
-          <spirit:wire>
-            <spirit:direction>in</spirit:direction>
-            <spirit:vector>
-              <spirit:left>15</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
-          </spirit:wire>
-        </spirit:port>
-        <spirit:port>
           <spirit:name>enable</spirit:name>
           <spirit:wire>
             <spirit:direction>in</spirit:direction>
@@ -1845,15 +1994,6 @@
     <spirit:name>channel_b_imp</spirit:name>
     <spirit:version>1.00.a</spirit:version>
     <spirit:componentInstances>
-      <spirit:componentInstance>
-        <spirit:instanceName>axis_decimator_0</spirit:instanceName>
-        <spirit:componentRef spirit:library="user" spirit:name="axis_decimator" spirit:vendor="pavel-demin" spirit:version="1.0.7"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_axis_decimator_0_1</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="AXIS_TDATA_WIDTH">16</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="CNTR_WIDTH">16</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
       <spirit:componentInstance>
         <spirit:instanceName>axis_dwidth_converter_0</spirit:instanceName>
         <spirit:componentRef spirit:library="ip" spirit:name="axis_dwidth_converter" spirit:vendor="xilinx.com" spirit:version="1.1"/>
@@ -1894,11 +2034,6 @@
     </spirit:componentInstances>
     <spirit:interconnections>
       <spirit:interconnection>
-        <spirit:name>axis_decimator_0_m_axis</spirit:name>
-        <spirit:activeInterface spirit:busRef="m_axis" spirit:componentRef="axis_decimator_0"/>
-        <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="axis_dwidth_converter_0"/>
-      </spirit:interconnection>
-      <spirit:interconnection>
         <spirit:name>axis_dwidth_converter_0_M_AXIS</spirit:name>
         <spirit:activeInterface spirit:busRef="M_AXIS" spirit:componentRef="axis_dwidth_converter_0"/>
         <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="ch_b_writer"/>
@@ -1910,7 +2045,6 @@
         <spirit:externalPortReference spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="ch_b_writer" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="axis_dwidth_converter_0" spirit:portRef="aclk"/>
-        <spirit:internalPortReference spirit:componentRef="axis_decimator_0" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="sts_b_channel" spirit:portRef="aclk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
@@ -1924,14 +2058,8 @@
         <spirit:internalPortReference spirit:componentRef="sts_b_channel" spirit:portRef="sts_data"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
-        <spirit:name>cfg_data_1</spirit:name>
-        <spirit:externalPortReference spirit:portRef="decimation"/>
-        <spirit:internalPortReference spirit:componentRef="axis_decimator_0" spirit:portRef="cfg_data"/>
-      </spirit:adHocConnection>
-      <spirit:adHocConnection>
         <spirit:name>aresetn_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="enable"/>
-        <spirit:internalPortReference spirit:componentRef="axis_decimator_0" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="axis_dwidth_converter_0" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="ch_b_writer" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
@@ -1942,14 +2070,14 @@
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
-      <spirit:hierConnection spirit:interfaceRef="adc_data/adc_streamer_m00_axis">
-        <spirit:activeInterface spirit:busRef="s00_axis" spirit:componentRef="axis_decimator_0"/>
-      </spirit:hierConnection>
       <spirit:hierConnection spirit:interfaceRef="M_AXI/axis_ram_writer_0_M_AXI">
         <spirit:activeInterface spirit:busRef="M_AXI" spirit:componentRef="ch_b_writer"/>
       </spirit:hierConnection>
       <spirit:hierConnection spirit:interfaceRef="status/Conn1">
         <spirit:activeInterface spirit:busRef="S_AXI" spirit:componentRef="sts_b_channel"/>
+      </spirit:hierConnection>
+      <spirit:hierConnection spirit:interfaceRef="adc_data/Conn2">
+        <spirit:activeInterface spirit:busRef="S_AXIS" spirit:componentRef="axis_dwidth_converter_0"/>
       </spirit:hierConnection>
     </spirit:hierConnections>
   </spirit:design>
@@ -2042,16 +2170,6 @@
         </spirit:view>
       </spirit:views>
       <spirit:ports>
-        <spirit:port>
-          <spirit:name>decimation</spirit:name>
-          <spirit:wire>
-            <spirit:direction>in</spirit:direction>
-            <spirit:vector>
-              <spirit:left>15</spirit:left>
-              <spirit:right>0</spirit:right>
-            </spirit:vector>
-          </spirit:wire>
-        </spirit:port>
         <spirit:port>
           <spirit:name>aclk</spirit:name>
           <spirit:wire>

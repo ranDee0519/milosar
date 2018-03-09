@@ -8,7 +8,7 @@ clc;
 %% processing settings
 proc.is_g2       = 0;                   % enable G2 SAR processor
 proc.is_taper    = 1;                   % enable tapering
-proc.demod       = 0;                   % 0 = reference channel, 1 = synthetic LO
+proc.demod       = 1;                   % 0 = reference channel, 1 = synthetic LO
 proc.is_mti      = 0;                   % enable moving target indication
 proc.is_doppler  = 0;                   % non zero value enables doppler processing ans sets number of range lines
 proc.is_sub      = 0;                   % non zero value enables coherent subtraction and sets index of profile to use as a reference
@@ -28,7 +28,7 @@ C           = VF*299792458;             % speed of light [m/s]
 
 % red pitaya 
 F_clk       = 125e6;                    % red pitaya clock frequency
-DF          = 10;                        % sampling decimation factor
+DF          = 8;                        % sampling decimation factor
 F_s         = F_clk/DF;                 % resultant sampling frequency [Hz]
 
 adc.bits    = 14;                       % red pitaya bits per sample
@@ -67,10 +67,10 @@ visual.interp    = 1;                   % interpolation factor
 visual.rti_dr    = -100;                % RTI plot dynamic range [dB]
 visual.rd_dr     = -40;                 % RD plot dynamic range [dB]
 visual.r_min     = 0;                   % min range [m]
-visual.r_max     = 1000;                 % max range [m]
+visual.r_max     = 1500;                 % max range [m]
 
 %% extract binary data
-dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/07_03_18_09_05_16/';
+dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/09_03_18_08_14_54/';
 raw_data.a = extract_data(strcat(dataset_directory, 'A.bin'), 'int16'); 
 raw_data.b = extract_data(strcat(dataset_directory, 'B.bin'), 'int16');
 clear dataset_directory;
@@ -108,7 +108,7 @@ t_slow      = linspace(0, CRI*n_chunks, n_chunks);
 % fast time for ramp [s]
 t_fast      = linspace(0, T_up, ns_up);                            
 % spectrum of one ramp [Hz]
-f_if        = (linspace(0, F_s/2, ns_ssb) + (F_s/2));   
+f_if        = linspace(0, F_s/2, ns_ssb) + (F_s/2);   
 f_bb        = linspace(0, F_s/2, ns_ssb);
 % range for one ramp [m]
 r_if        = (f_if - F_o)*K_p;
@@ -165,7 +165,7 @@ elseif (proc.demod == 1)
     half_matrix.b = fft_matrix.lo;
 end
 
-half_matrix.b(ns_ssb + 1 : end, :) = 0;
+half_matrix.b(ns_ssb - 1 : end, :) = 0;
 
 % transform to time domain, perform mixing and return to freq domain
 fft_matrix.demod = fft( ifft(half_matrix.a, ns_fft) .* ifft(half_matrix.b, ns_fft) , ns_fft);
@@ -173,9 +173,9 @@ fft_matrix.demod = fft( ifft(half_matrix.a, ns_fft) .* ifft(half_matrix.b, ns_ff
 clear half_matrix;
 
 %% remove negative spectum
-ssb_matrix.a = fft_matrix.a(1 : ns_ssb, :);
-ssb_matrix.b = fft_matrix.b(1 : ns_ssb, :);
-ssb_matrix.lo = fft_matrix.lo(1 : ns_ssb, :);
+ssb_matrix.a    = fft_matrix.a(1 : ns_ssb, :);
+ssb_matrix.b    = fft_matrix.b(1 : ns_ssb, :);
+ssb_matrix.lo   = fft_matrix.lo(1 : ns_ssb, :);
 ssb_matrix.demod = fft_matrix.demod(1 : ns_ssb, :);
 clear fft_matrix;
 

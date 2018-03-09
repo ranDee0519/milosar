@@ -1,13 +1,85 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Wed Mar  7 11:02:46 2018
+//Date        : Fri Mar  9 10:24:16 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system.bd
 //Design      : system
 //Purpose     : IP block netlist
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
+
+module anti_aliasing_imp_YAGIPJ
+   (M00_AXIS_tdata,
+    M00_AXIS_tvalid,
+    M01_AXIS_tdata,
+    M01_AXIS_tvalid,
+    S00_AXIS_tdata,
+    S00_AXIS_tvalid,
+    S01_AXIS_tdata,
+    S01_AXIS_tvalid,
+    aclk,
+    aresetn);
+  output [15:0]M00_AXIS_tdata;
+  output [0:0]M00_AXIS_tvalid;
+  output [15:0]M01_AXIS_tdata;
+  output [0:0]M01_AXIS_tvalid;
+  input [15:0]S00_AXIS_tdata;
+  input [0:0]S00_AXIS_tvalid;
+  input [15:0]S01_AXIS_tdata;
+  input [0:0]S01_AXIS_tvalid;
+  input aclk;
+  input [0:0]aresetn;
+
+  wire [15:0]adc_streamer_m00_axis_TDATA;
+  wire [0:0]adc_streamer_m00_axis_TVALID;
+  wire [15:0]adc_streamer_m01_axis_TDATA;
+  wire [0:0]adc_streamer_m01_axis_TVALID;
+  wire [31:0]anti_aliasing_filter_M_AXIS_DATA_TDATA;
+  wire anti_aliasing_filter_M_AXIS_DATA_TVALID;
+  wire [0:0]aresetn2_1;
+  wire [15:0]axis_broadcaster_0_M00_AXIS_TDATA;
+  wire [0:0]axis_broadcaster_0_M00_AXIS_TVALID;
+  wire [31:16]axis_broadcaster_0_M01_AXIS_TDATA;
+  wire [1:1]axis_broadcaster_0_M01_AXIS_TVALID;
+  wire [31:0]axis_combiner_0_M_AXIS_TDATA;
+  wire axis_combiner_0_M_AXIS_TREADY;
+  wire axis_combiner_0_M_AXIS_TVALID;
+  wire clk_sync_clk_out1;
+
+  assign M00_AXIS_tdata[15:0] = axis_broadcaster_0_M00_AXIS_TDATA;
+  assign M00_AXIS_tvalid[0] = axis_broadcaster_0_M00_AXIS_TVALID;
+  assign M01_AXIS_tdata[15:0] = axis_broadcaster_0_M01_AXIS_TDATA;
+  assign M01_AXIS_tvalid[0] = axis_broadcaster_0_M01_AXIS_TVALID;
+  assign adc_streamer_m00_axis_TDATA = S00_AXIS_tdata[15:0];
+  assign adc_streamer_m00_axis_TVALID = S00_AXIS_tvalid[0];
+  assign adc_streamer_m01_axis_TDATA = S01_AXIS_tdata[15:0];
+  assign adc_streamer_m01_axis_TVALID = S01_AXIS_tvalid[0];
+  assign aresetn2_1 = aresetn[0];
+  assign clk_sync_clk_out1 = aclk;
+  system_fir_compiler_0_0 anti_aliasing_filter
+       (.aclk(clk_sync_clk_out1),
+        .m_axis_data_tdata(anti_aliasing_filter_M_AXIS_DATA_TDATA),
+        .m_axis_data_tvalid(anti_aliasing_filter_M_AXIS_DATA_TVALID),
+        .s_axis_data_tdata(axis_combiner_0_M_AXIS_TDATA),
+        .s_axis_data_tready(axis_combiner_0_M_AXIS_TREADY),
+        .s_axis_data_tvalid(axis_combiner_0_M_AXIS_TVALID));
+  system_axis_broadcaster_0_0 axis_broadcaster_0
+       (.aclk(clk_sync_clk_out1),
+        .aresetn(aresetn2_1),
+        .m_axis_tdata({axis_broadcaster_0_M01_AXIS_TDATA,axis_broadcaster_0_M00_AXIS_TDATA}),
+        .m_axis_tvalid({axis_broadcaster_0_M01_AXIS_TVALID,axis_broadcaster_0_M00_AXIS_TVALID}),
+        .s_axis_tdata(anti_aliasing_filter_M_AXIS_DATA_TDATA),
+        .s_axis_tvalid(anti_aliasing_filter_M_AXIS_DATA_TVALID));
+  system_axis_combiner_0_1 axis_combiner_0
+       (.aclk(clk_sync_clk_out1),
+        .aresetn(aresetn2_1),
+        .m_axis_tdata(axis_combiner_0_M_AXIS_TDATA),
+        .m_axis_tready(axis_combiner_0_M_AXIS_TREADY),
+        .m_axis_tvalid(axis_combiner_0_M_AXIS_TVALID),
+        .s_axis_tdata({adc_streamer_m01_axis_TDATA,adc_streamer_m00_axis_TDATA}),
+        .s_axis_tvalid({adc_streamer_m01_axis_TVALID,adc_streamer_m00_axis_TVALID}));
+endmodule
 
 module channel_a_imp_JYKOO2
    (M_AXI_awaddr,
@@ -30,7 +102,6 @@ module channel_a_imp_JYKOO2
     adc_data_tdata,
     adc_data_tvalid,
     aresetn,
-    decimation,
     enable,
     status_araddr,
     status_arready,
@@ -66,9 +137,8 @@ module channel_a_imp_JYKOO2
   output M_AXI_wvalid;
   input aclk;
   input [15:0]adc_data_tdata;
-  input adc_data_tvalid;
+  input [0:0]adc_data_tvalid;
   input [0:0]aresetn;
-  input [15:0]decimation;
   input [0:0]enable;
   input [31:0]status_araddr;
   output status_arready;
@@ -104,7 +174,7 @@ module channel_a_imp_JYKOO2
   wire Conn1_WREADY;
   wire Conn1_WVALID;
   wire [15:0]adc_data_1_TDATA;
-  wire adc_data_1_TVALID;
+  wire [0:0]adc_data_1_TVALID;
   wire [0:0]aresetn1_1;
   wire [0:0]aresetn_1;
   wire [31:0]axis_dwidth_converter_0_M_AXIS_TDATA;
@@ -152,7 +222,7 @@ module channel_a_imp_JYKOO2
   assign M_AXI_wstrb[3:0] = axis_ram_writer_0_M_AXI_WSTRB;
   assign M_AXI_wvalid = axis_ram_writer_0_M_AXI_WVALID;
   assign adc_data_1_TDATA = adc_data_tdata[15:0];
-  assign adc_data_1_TVALID = adc_data_tvalid;
+  assign adc_data_1_TVALID = adc_data_tvalid[0];
   assign aresetn1_1 = aresetn[0];
   assign aresetn_1 = enable[0];
   assign axis_ram_writer_0_M_AXI_AWREADY = M_AXI_awready;
@@ -244,7 +314,6 @@ module channel_b_imp_WRMB9B
     adc_data_tdata,
     adc_data_tvalid,
     aresetn,
-    decimation,
     enable,
     status_araddr,
     status_arready,
@@ -280,9 +349,8 @@ module channel_b_imp_WRMB9B
   output M_AXI_wvalid;
   input aclk;
   input [15:0]adc_data_tdata;
-  input adc_data_tvalid;
+  input [0:0]adc_data_tvalid;
   input [0:0]aresetn;
-  input [15:0]decimation;
   input [0:0]enable;
   input [31:0]status_araddr;
   output status_arready;
@@ -317,13 +385,10 @@ module channel_b_imp_WRMB9B
   wire [31:0]Conn1_WDATA;
   wire Conn1_WREADY;
   wire Conn1_WVALID;
-  wire [15:0]adc_streamer_m00_axis_TDATA;
-  wire adc_streamer_m00_axis_TVALID;
+  wire [15:0]Conn2_TDATA;
+  wire [0:0]Conn2_TVALID;
   wire [0:0]aresetn2_1;
   wire [0:0]aresetn_1;
-  wire [15:0]axis_decimator_0_m_axis_TDATA;
-  wire axis_decimator_0_m_axis_TREADY;
-  wire axis_decimator_0_m_axis_TVALID;
   wire [31:0]axis_dwidth_converter_0_M_AXIS_TDATA;
   wire axis_dwidth_converter_0_M_AXIS_TREADY;
   wire axis_dwidth_converter_0_M_AXIS_TVALID;
@@ -343,7 +408,6 @@ module channel_b_imp_WRMB9B
   wire axis_ram_writer_0_M_AXI_WREADY;
   wire [3:0]axis_ram_writer_0_M_AXI_WSTRB;
   wire axis_ram_writer_0_M_AXI_WVALID;
-  wire [15:0]cfg_data_1;
   wire [31:0]ch_a_writer_sts_data;
   wire clk_sync_clk_out1;
   wire [31:0]ram_a_address_dout;
@@ -356,6 +420,8 @@ module channel_b_imp_WRMB9B
   assign Conn1_RREADY = status_rready;
   assign Conn1_WDATA = status_wdata[31:0];
   assign Conn1_WVALID = status_wvalid;
+  assign Conn2_TDATA = adc_data_tdata[15:0];
+  assign Conn2_TVALID = adc_data_tvalid[0];
   assign M_AXI_awaddr[31:0] = axis_ram_writer_0_M_AXI_AWADDR;
   assign M_AXI_awburst[1:0] = axis_ram_writer_0_M_AXI_AWBURST;
   assign M_AXI_awcache[3:0] = axis_ram_writer_0_M_AXI_AWCACHE;
@@ -369,14 +435,11 @@ module channel_b_imp_WRMB9B
   assign M_AXI_wlast = axis_ram_writer_0_M_AXI_WLAST;
   assign M_AXI_wstrb[3:0] = axis_ram_writer_0_M_AXI_WSTRB;
   assign M_AXI_wvalid = axis_ram_writer_0_M_AXI_WVALID;
-  assign adc_streamer_m00_axis_TDATA = adc_data_tdata[15:0];
-  assign adc_streamer_m00_axis_TVALID = adc_data_tvalid;
   assign aresetn2_1 = aresetn[0];
   assign aresetn_1 = enable[0];
   assign axis_ram_writer_0_M_AXI_AWREADY = M_AXI_awready;
   assign axis_ram_writer_0_M_AXI_BVALID = M_AXI_bvalid;
   assign axis_ram_writer_0_M_AXI_WREADY = M_AXI_wready;
-  assign cfg_data_1 = decimation[15:0];
   assign clk_sync_clk_out1 = aclk;
   assign status_arready = Conn1_ARREADY;
   assign status_awready = Conn1_AWREADY;
@@ -386,24 +449,14 @@ module channel_b_imp_WRMB9B
   assign status_rresp[1:0] = Conn1_RRESP;
   assign status_rvalid = Conn1_RVALID;
   assign status_wready = Conn1_WREADY;
-  system_axis_decimator_0_1 axis_decimator_0
-       (.aclk(clk_sync_clk_out1),
-        .aresetn(aresetn_1),
-        .cfg_data(cfg_data_1),
-        .m_axis_tdata(axis_decimator_0_m_axis_TDATA),
-        .m_axis_tready(axis_decimator_0_m_axis_TREADY),
-        .m_axis_tvalid(axis_decimator_0_m_axis_TVALID),
-        .s00_axis_tdata(adc_streamer_m00_axis_TDATA),
-        .s00_axis_tvalid(adc_streamer_m00_axis_TVALID));
   system_axis_dwidth_converter_0_1 axis_dwidth_converter_0
        (.aclk(clk_sync_clk_out1),
         .aresetn(aresetn_1),
         .m_axis_tdata(axis_dwidth_converter_0_M_AXIS_TDATA),
         .m_axis_tready(axis_dwidth_converter_0_M_AXIS_TREADY),
         .m_axis_tvalid(axis_dwidth_converter_0_M_AXIS_TVALID),
-        .s_axis_tdata(axis_decimator_0_m_axis_TDATA),
-        .s_axis_tready(axis_decimator_0_m_axis_TREADY),
-        .s_axis_tvalid(axis_decimator_0_m_axis_TVALID));
+        .s_axis_tdata(Conn2_TDATA),
+        .s_axis_tvalid(Conn2_TVALID));
   system_ch_a_writer_0 ch_b_writer
        (.aclk(clk_sync_clk_out1),
         .aresetn(aresetn_1),
@@ -2788,7 +2841,6 @@ module receive_chain_imp_N0MRX5
     ch_b_status_wdata,
     ch_b_status_wready,
     ch_b_status_wvalid,
-    decimation,
     enable,
     int_clk);
   output [31:0]M_AXI1_awaddr;
@@ -2877,7 +2929,6 @@ module receive_chain_imp_N0MRX5
   input [31:0]ch_b_status_wdata;
   output ch_b_status_wready;
   input ch_b_status_wvalid;
-  output [15:0]decimation;
   input [0:0]enable;
   input int_clk;
 
@@ -2901,9 +2952,13 @@ module receive_chain_imp_N0MRX5
   wire [13:0]adc_dat_b_i_1;
   wire [15:0]adc_streamer_m00_axis_TDATA;
   wire adc_streamer_m00_axis_TVALID;
-  wire [15:0]anti_aliasing_filter_M_AXIS_DATA_TDATA;
-  wire anti_aliasing_filter_M_AXIS_DATA_TVALID;
+  wire [15:0]adc_streamer_m01_axis_TDATA;
+  wire adc_streamer_m01_axis_TVALID;
   wire [0:0]aresetn2_1;
+  wire [15:0]axis_broadcaster_0_M00_AXIS_TDATA;
+  wire [0:0]axis_broadcaster_0_M00_AXIS_TVALID;
+  wire [15:0]axis_broadcaster_0_M01_AXIS_TDATA;
+  wire [0:0]axis_broadcaster_0_M01_AXIS_TVALID;
   wire [31:0]axis_ram_writer_0_M_AXI_AWADDR;
   wire [1:0]axis_ram_writer_0_M_AXI_AWBURST;
   wire [3:0]axis_ram_writer_0_M_AXI_AWCACHE;
@@ -2973,9 +3028,6 @@ module receive_chain_imp_N0MRX5
   wire [31:0]ps_axi_periph_M01_AXI_WDATA;
   wire ps_axi_periph_M01_AXI_WREADY;
   wire ps_axi_periph_M01_AXI_WVALID;
-  wire [15:0]s00_axis_1_TDATA;
-  wire s00_axis_1_TVALID;
-  wire [15:0]xlslice_0_Dout;
 
   assign M_AXI1_awaddr[31:0] = channel_b_M_AXI_AWADDR;
   assign M_AXI1_awburst[1:0] = channel_b_M_AXI_AWBURST;
@@ -3047,7 +3099,6 @@ module receive_chain_imp_N0MRX5
   assign channel_b_M_AXI_BVALID = M_AXI1_bvalid;
   assign channel_b_M_AXI_WREADY = M_AXI1_wready;
   assign clk_wiz_0_clk_out1 = int_clk;
-  assign decimation[15:0] = xlslice_0_Dout;
   assign enable_1 = enable[0];
   assign ps_0_axi_periph_M00_AXI_ARADDR = S_AXI_araddr[31:0];
   assign ps_0_axi_periph_M00_AXI_ARVALID = S_AXI_arvalid;
@@ -3075,14 +3126,19 @@ module receive_chain_imp_N0MRX5
         .int_clk(clk_wiz_0_clk_out1),
         .m00_axis_tdata(adc_streamer_m00_axis_TDATA),
         .m00_axis_tvalid(adc_streamer_m00_axis_TVALID),
-        .m01_axis_tdata(s00_axis_1_TDATA),
-        .m01_axis_tvalid(s00_axis_1_TVALID));
-  system_fir_compiler_0_0 anti_aliasing_filter
-       (.aclk(clk_sync_clk_out1),
-        .m_axis_data_tdata(anti_aliasing_filter_M_AXIS_DATA_TDATA),
-        .m_axis_data_tvalid(anti_aliasing_filter_M_AXIS_DATA_TVALID),
-        .s_axis_data_tdata(adc_streamer_m00_axis_TDATA),
-        .s_axis_data_tvalid(adc_streamer_m00_axis_TVALID));
+        .m01_axis_tdata(adc_streamer_m01_axis_TDATA),
+        .m01_axis_tvalid(adc_streamer_m01_axis_TVALID));
+  anti_aliasing_imp_YAGIPJ anti_aliasing
+       (.M00_AXIS_tdata(axis_broadcaster_0_M00_AXIS_TDATA),
+        .M00_AXIS_tvalid(axis_broadcaster_0_M00_AXIS_TVALID),
+        .M01_AXIS_tdata(axis_broadcaster_0_M01_AXIS_TDATA),
+        .M01_AXIS_tvalid(axis_broadcaster_0_M01_AXIS_TVALID),
+        .S00_AXIS_tdata(adc_streamer_m00_axis_TDATA),
+        .S00_AXIS_tvalid(adc_streamer_m00_axis_TVALID),
+        .S01_AXIS_tdata(adc_streamer_m01_axis_TDATA),
+        .S01_AXIS_tvalid(adc_streamer_m01_axis_TVALID),
+        .aclk(clk_sync_clk_out1),
+        .aresetn(aresetn2_1));
   channel_a_imp_JYKOO2 channel_a
        (.M_AXI_awaddr(axis_ram_writer_0_M_AXI_AWADDR),
         .M_AXI_awburst(axis_ram_writer_0_M_AXI_AWBURST),
@@ -3101,10 +3157,9 @@ module receive_chain_imp_N0MRX5
         .M_AXI_wstrb(axis_ram_writer_0_M_AXI_WSTRB),
         .M_AXI_wvalid(axis_ram_writer_0_M_AXI_WVALID),
         .aclk(clk_sync_clk_out1),
-        .adc_data_tdata(anti_aliasing_filter_M_AXIS_DATA_TDATA),
-        .adc_data_tvalid(anti_aliasing_filter_M_AXIS_DATA_TVALID),
+        .adc_data_tdata(axis_broadcaster_0_M00_AXIS_TDATA),
+        .adc_data_tvalid(axis_broadcaster_0_M00_AXIS_TVALID),
         .aresetn(aresetn2_1),
-        .decimation(xlslice_0_Dout),
         .enable(enable_1),
         .status_araddr(ps_axi_periph_M01_AXI_ARADDR),
         .status_arready(ps_axi_periph_M01_AXI_ARREADY),
@@ -3140,10 +3195,9 @@ module receive_chain_imp_N0MRX5
         .M_AXI_wstrb(channel_b_M_AXI_WSTRB),
         .M_AXI_wvalid(channel_b_M_AXI_WVALID),
         .aclk(clk_sync_clk_out1),
-        .adc_data_tdata(s00_axis_1_TDATA),
-        .adc_data_tvalid(s00_axis_1_TVALID),
+        .adc_data_tdata(axis_broadcaster_0_M01_AXIS_TDATA),
+        .adc_data_tvalid(axis_broadcaster_0_M01_AXIS_TVALID),
         .aresetn(aresetn2_1),
-        .decimation(xlslice_0_Dout),
         .enable(enable_1),
         .status_araddr(S_AXI_1_ARADDR),
         .status_arready(S_AXI_1_ARREADY),
@@ -3180,8 +3234,7 @@ module receive_chain_imp_N0MRX5
         .S_AXI_wstrb(ps_0_axi_periph_M00_AXI_WSTRB),
         .S_AXI_wvalid(ps_0_axi_periph_M00_AXI_WVALID),
         .aclk(clk_sync_clk_out1),
-        .aresetn(aresetn2_1),
-        .decimation(xlslice_0_Dout));
+        .aresetn(aresetn2_1));
 endmodule
 
 module s00_couplers_imp_12IK0DL
@@ -3866,7 +3919,7 @@ module signal_generator_imp_HADG47
         .s_axis_config_tvalid(axis_constant_0_M_AXIS_TVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=59,numReposBlks=41,numNonXlnxBlks=18,numHierBlks=18,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=61,numReposBlks=42,numNonXlnxBlks=17,numHierBlks=19,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (DDR_addr,
     DDR_ba,

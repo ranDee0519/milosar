@@ -39,7 +39,7 @@ preplace netloc S_AXI2_1 1 3 1 890
 preplace netloc S_AXI_2 1 3 1 890
 preplace netloc axis_red_pitaya_dac_0_dac_rst 1 4 1 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_sel 1 4 1 NJ
-preplace netloc channel_b_M_AXI 1 2 1 590
+preplace netloc channel_b_M_AXI 1 2 1 560
 preplace netloc axis_red_pitaya_dac_0_dac_wrt 1 4 1 NJ
 preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 20 NJ 20 NJ
 preplace netloc adc_clk_n_i_1 1 0 1 NJ
@@ -59,11 +59,11 @@ preplace netloc adc_dat_b_i_1 1 0 2 NJ 190 NJ
 preplace netloc ps_0_FIXED_IO 1 3 2 NJ 110 NJ
 preplace netloc processing_system_M05_AXI 1 3 1 900
 preplace netloc axis_red_pitaya_dac_0_dac_clk 1 4 1 NJ
-preplace netloc axis_ram_writer_0_M_AXI 1 2 1 600
+preplace netloc axis_ram_writer_0_M_AXI 1 2 1 580
 preplace netloc enable_1 1 1 4 290 350 NJ 350 870 260 1200
 preplace netloc axis_red_pitaya_dac_0_dac_dat 1 4 1 NJ
 preplace netloc adc_clk_p_i_1 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 2 2 570 330 910
+preplace netloc clk_sync_clk_out1 1 2 2 550 330 910
 preplace netloc daisy_n_i_1 1 0 4 NJ 540 NJ 540 NJ 540 NJ
 levelinfo -pg 1 0 130 430 730 1060 1230 -top 0 -bot 590
 ",

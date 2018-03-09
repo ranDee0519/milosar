@@ -2,9 +2,9 @@
 <Root MajorVersion="0" MinorVersion="33">
   <CompositeFile CompositeFileTopName="system" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1520413371"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1520413371"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1520413371"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1520583860"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1520583860"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1520583860"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/system_ps_0_0/system_ps_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system/ps_0"/>
@@ -127,14 +127,6 @@
       </File>
       <File Name="ip/system_axis_dwidth_converter_0_0/system_axis_dwidth_converter_0_0.xci" Type="IP">
         <Instance HierarchyPath="receive_chain/channel_a/axis_dwidth_converter_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_axis_decimator_0_1/system_axis_decimator_0_1.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/channel_b/axis_decimator_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -334,7 +326,23 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_fir_compiler_0_0/system_fir_compiler_0_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/anti_aliasing_filter"/>
+        <Instance HierarchyPath="receive_chain/anti_aliasing/anti_aliasing_filter"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_axis_combiner_0_1/system_axis_combiner_0_1.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/anti_aliasing/axis_combiner_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_axis_broadcaster_0_0/system_axis_broadcaster_0_0.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/anti_aliasing/axis_broadcaster_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

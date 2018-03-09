@@ -2,29 +2,25 @@
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
 preplace port adc_data -pg 1 -y 50 -defaultsOSRD
-preplace port status -pg 1 -y 220 -defaultsOSRD
-preplace port M_AXI -pg 1 -y 160 -defaultsOSRD
+preplace port status -pg 1 -y 200 -defaultsOSRD
+preplace port M_AXI -pg 1 -y 130 -defaultsOSRD
 preplace port aclk -pg 1 -y 70 -defaultsOSRD
 preplace portBus enable -pg 1 -y 90 -defaultsOSRD
-preplace portBus decimation -pg 1 -y 110 -defaultsOSRD
-preplace portBus aresetn -pg 1 -y 260 -defaultsOSRD
-preplace inst axis_decimator_0 -pg 1 -lvl 1 -y 80 -defaultsOSRD
-preplace inst axis_dwidth_converter_0 -pg 1 -lvl 2 -y 100 -defaultsOSRD
-preplace inst sts_b_channel -pg 1 -lvl 1 -y 250 -defaultsOSRD
-preplace inst ch_b_writer -pg 1 -lvl 3 -y 170 -defaultsOSRD
-preplace inst ram_b_address -pg 1 -lvl 2 -y 230 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 240 -defaultsOSRD
+preplace inst axis_dwidth_converter_0 -pg 1 -lvl 1 -y 70 -defaultsOSRD
+preplace inst sts_b_channel -pg 1 -lvl 1 -y 230 -defaultsOSRD
+preplace inst ch_b_writer -pg 1 -lvl 2 -y 140 -defaultsOSRD
+preplace inst ram_b_address -pg 1 -lvl 1 -y 350 -defaultsOSRD
 preplace netloc Conn1 1 0 1 NJ
-preplace netloc ram_a_address_dout 1 2 1 NJ
-preplace netloc axis_dwidth_converter_0_M_AXIS 1 2 1 460
-preplace netloc adc_streamer_m00_axis 1 0 1 NJ
-preplace netloc cfg_data_1 1 0 1 NJ
-preplace netloc axis_decimator_0_m_axis 1 1 1 N
-preplace netloc aresetn_1 1 0 3 20 170 250 180 NJ
-preplace netloc ch_a_writer_sts_data 1 0 4 20 330 NJ 330 NJ 330 720
+preplace netloc Conn2 1 0 1 NJ
+preplace netloc ram_a_address_dout 1 1 1 NJ
+preplace netloc axis_dwidth_converter_0_M_AXIS 1 1 1 230
+preplace netloc aresetn_1 1 0 2 20 150 NJ
+preplace netloc ch_a_writer_sts_data 1 0 3 20 400 NJ 400 490
 preplace netloc aresetn2_1 1 0 1 NJ
-preplace netloc axis_ram_writer_0_M_AXI 1 3 1 N
-preplace netloc clk_sync_clk_out1 1 0 3 30 160 260 170 NJ
-levelinfo -pg 1 0 140 360 590 740 -top 0 -bot 340
+preplace netloc axis_ram_writer_0_M_AXI 1 2 1 N
+preplace netloc clk_sync_clk_out1 1 0 2 30 140 NJ
+levelinfo -pg 1 0 130 360 510 -top 0 -bot 410
 ",
 }
 0

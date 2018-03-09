@@ -240,15 +240,7 @@ proc create_hier_cell_channel_b { parentCell nameHier } {
   # Create pins
   create_bd_pin -dir I -type clk aclk
   create_bd_pin -dir I -from 0 -to 0 -type rst aresetn
-  create_bd_pin -dir I -from 15 -to 0 decimation
   create_bd_pin -dir I -from 0 -to 0 -type rst enable
-
-  # Create instance: axis_decimator_0, and set properties
-  set axis_decimator_0 [ create_bd_cell -type ip -vlnv pavel-demin:user:axis_decimator:1.0.7 axis_decimator_0 ]
-  set_property -dict [ list \
-CONFIG.AXIS_TDATA_WIDTH {16} \
-CONFIG.CNTR_WIDTH {16} \
- ] $axis_decimator_0
 
   # Create instance: axis_dwidth_converter_0, and set properties
   set axis_dwidth_converter_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_dwidth_converter:1.1 axis_dwidth_converter_0 ]
@@ -281,18 +273,43 @@ CONFIG.STS_DATA_WIDTH {32} \
 
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins status] [get_bd_intf_pins sts_b_channel/S_AXI]
-  connect_bd_intf_net -intf_net adc_streamer_m00_axis [get_bd_intf_pins adc_data] [get_bd_intf_pins axis_decimator_0/s00_axis]
-  connect_bd_intf_net -intf_net axis_decimator_0_m_axis [get_bd_intf_pins axis_decimator_0/m_axis] [get_bd_intf_pins axis_dwidth_converter_0/S_AXIS]
+  connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins adc_data] [get_bd_intf_pins axis_dwidth_converter_0/S_AXIS]
   connect_bd_intf_net -intf_net axis_dwidth_converter_0_M_AXIS [get_bd_intf_pins axis_dwidth_converter_0/M_AXIS] [get_bd_intf_pins ch_b_writer/S_AXIS]
   connect_bd_intf_net -intf_net axis_ram_writer_0_M_AXI [get_bd_intf_pins M_AXI] [get_bd_intf_pins ch_b_writer/M_AXI]
 
   # Create port connections
   connect_bd_net -net aresetn2_1 [get_bd_pins aresetn] [get_bd_pins sts_b_channel/aresetn]
-  connect_bd_net -net aresetn_1 [get_bd_pins enable] [get_bd_pins axis_decimator_0/aresetn] [get_bd_pins axis_dwidth_converter_0/aresetn] [get_bd_pins ch_b_writer/aresetn]
-  connect_bd_net -net cfg_data_1 [get_bd_pins decimation] [get_bd_pins axis_decimator_0/cfg_data]
+  connect_bd_net -net aresetn_1 [get_bd_pins enable] [get_bd_pins axis_dwidth_converter_0/aresetn] [get_bd_pins ch_b_writer/aresetn]
   connect_bd_net -net ch_a_writer_sts_data [get_bd_pins ch_b_writer/sts_data] [get_bd_pins sts_b_channel/sts_data]
-  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins axis_decimator_0/aclk] [get_bd_pins axis_dwidth_converter_0/aclk] [get_bd_pins ch_b_writer/aclk] [get_bd_pins sts_b_channel/aclk]
+  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins axis_dwidth_converter_0/aclk] [get_bd_pins ch_b_writer/aclk] [get_bd_pins sts_b_channel/aclk]
   connect_bd_net -net ram_a_address_dout [get_bd_pins ch_b_writer/cfg_data] [get_bd_pins ram_b_address/dout]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain/channel_b] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port adc_data -pg 1 -y 50 -defaultsOSRD
+preplace port status -pg 1 -y 200 -defaultsOSRD
+preplace port M_AXI -pg 1 -y 130 -defaultsOSRD
+preplace port aclk -pg 1 -y 70 -defaultsOSRD
+preplace portBus enable -pg 1 -y 90 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 240 -defaultsOSRD
+preplace inst axis_dwidth_converter_0 -pg 1 -lvl 1 -y 70 -defaultsOSRD
+preplace inst sts_b_channel -pg 1 -lvl 1 -y 230 -defaultsOSRD
+preplace inst ch_b_writer -pg 1 -lvl 2 -y 140 -defaultsOSRD
+preplace inst ram_b_address -pg 1 -lvl 1 -y 350 -defaultsOSRD
+preplace netloc Conn1 1 0 1 NJ
+preplace netloc Conn2 1 0 1 NJ
+preplace netloc ram_a_address_dout 1 1 1 NJ
+preplace netloc axis_dwidth_converter_0_M_AXIS 1 1 1 230
+preplace netloc aresetn_1 1 0 2 20 150 NJ
+preplace netloc ch_a_writer_sts_data 1 0 3 20 400 NJ 400 490
+preplace netloc aresetn2_1 1 0 1 NJ
+preplace netloc axis_ram_writer_0_M_AXI 1 2 1 N
+preplace netloc clk_sync_clk_out1 1 0 2 30 140 NJ
+levelinfo -pg 1 0 130 360 510 -top 0 -bot 410
+",
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -340,7 +357,6 @@ proc create_hier_cell_channel_a { parentCell nameHier } {
   # Create pins
   create_bd_pin -dir I -type clk aclk
   create_bd_pin -dir I -from 0 -to 0 -type rst aresetn
-  create_bd_pin -dir I -from 15 -to 0 decimation
   create_bd_pin -dir I -from 0 -to 0 -type rst enable
 
   # Create instance: axis_dwidth_converter_0, and set properties
@@ -390,26 +406,151 @@ CONFIG.STS_DATA_WIDTH {32} \
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
 preplace port adc_data -pg 1 -y 50 -defaultsOSRD
-preplace port status -pg 1 -y 220 -defaultsOSRD
-preplace port M_AXI -pg 1 -y 160 -defaultsOSRD
+preplace port status -pg 1 -y 200 -defaultsOSRD
+preplace port M_AXI -pg 1 -y 130 -defaultsOSRD
 preplace port aclk -pg 1 -y 70 -defaultsOSRD
 preplace portBus enable -pg 1 -y 90 -defaultsOSRD
-preplace portBus decimation -pg 1 -y 110 -defaultsOSRD
-preplace portBus aresetn -pg 1 -y 260 -defaultsOSRD
-preplace inst ch_a_writer -pg 1 -lvl 3 -y 170 -defaultsOSRD
-preplace inst ram_a_address -pg 1 -lvl 2 -y 230 -defaultsOSRD
-preplace inst sts_a_channel -pg 1 -lvl 1 -y 250 -defaultsOSRD
-preplace inst axis_dwidth_converter_0 -pg 1 -lvl 2 -y 100 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 240 -defaultsOSRD
+preplace inst ch_a_writer -pg 1 -lvl 2 -y 140 -defaultsOSRD
+preplace inst ram_a_address -pg 1 -lvl 1 -y 350 -defaultsOSRD
+preplace inst sts_a_channel -pg 1 -lvl 1 -y 230 -defaultsOSRD
+preplace inst axis_dwidth_converter_0 -pg 1 -lvl 1 -y 70 -defaultsOSRD
 preplace netloc Conn1 1 0 1 NJ
-preplace netloc ram_a_address_dout 1 2 1 NJ
-preplace netloc axis_dwidth_converter_0_M_AXIS 1 2 1 470
-preplace netloc adc_data_1 1 0 2 NJ 50 230
-preplace netloc aresetn_1 1 0 3 N 90 250 30 NJ
-preplace netloc ch_a_writer_sts_data 1 0 4 20 330 NJ 330 NJ 330 740
-preplace netloc axis_ram_writer_0_M_AXI 1 3 1 N
+preplace netloc ram_a_address_dout 1 1 1 NJ
+preplace netloc axis_dwidth_converter_0_M_AXIS 1 1 1 230
+preplace netloc adc_data_1 1 0 1 NJ
+preplace netloc aresetn_1 1 0 2 20 150 NJ
+preplace netloc ch_a_writer_sts_data 1 0 3 20 400 NJ 400 490
+preplace netloc axis_ram_writer_0_M_AXI 1 2 1 N
 preplace netloc aresetn1_1 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 0 3 20 70 240 10 NJ
-levelinfo -pg 1 0 140 360 610 760 -top 0 -bot 340
+preplace netloc clk_sync_clk_out1 1 0 2 30 140 NJ
+levelinfo -pg 1 0 130 360 510 -top 0 -bot 410
+",
+}
+
+  # Restore current instance
+  current_bd_instance $oldCurInst
+}
+
+# Hierarchical cell: anti_aliasing
+proc create_hier_cell_anti_aliasing { parentCell nameHier } {
+
+  variable script_folder
+
+  if { $parentCell eq "" || $nameHier eq "" } {
+     catch {common::send_msg_id "BD_TCL-102" "ERROR" create_hier_cell_anti_aliasing() - Empty argument(s)!"}
+     return
+  }
+
+  # Get object for parentCell
+  set parentObj [get_bd_cells $parentCell]
+  if { $parentObj == "" } {
+     catch {common::send_msg_id "BD_TCL-100" "ERROR" "Unable to find parent cell <$parentCell>!"}
+     return
+  }
+
+  # Make sure parentObj is hier blk
+  set parentType [get_property TYPE $parentObj]
+  if { $parentType ne "hier" } {
+     catch {common::send_msg_id "BD_TCL-101" "ERROR" "Parent <$parentObj> has TYPE = <$parentType>. Expected to be <hier>."}
+     return
+  }
+
+  # Save current instance; Restore later
+  set oldCurInst [current_bd_instance .]
+
+  # Set parent object as current
+  current_bd_instance $parentObj
+
+  # Create cell and set as current instance
+  set hier_obj [create_bd_cell -type hier $nameHier]
+  current_bd_instance $hier_obj
+
+  # Create interface pins
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 M00_AXIS
+  create_bd_intf_pin -mode Master -vlnv xilinx.com:interface:axis_rtl:1.0 M01_AXIS
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:axis_rtl:1.0 S00_AXIS
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:axis_rtl:1.0 S01_AXIS
+
+  # Create pins
+  create_bd_pin -dir I -type clk aclk
+  create_bd_pin -dir I -from 0 -to 0 -type rst aresetn
+
+  # Create instance: anti_aliasing_filter, and set properties
+  set anti_aliasing_filter [ create_bd_cell -type ip -vlnv xilinx.com:ip:fir_compiler:7.2 anti_aliasing_filter ]
+  set_property -dict [ list \
+CONFIG.Clock_Frequency {125} \
+CONFIG.CoefficientVector {0.000025654459771250994, 0.000074863433896161, 0.00014308597017204932, 0.00019205063416382977, 0.0001604266530866464, -0.000008361124011312541, -0.00032043167611177034, -0.0006926140921754971, -0.000952723258629777, -0.0008994245783101239, -0.0004099213080782916, 0.00045435909055407036, 0.001412980878301107, 0.0020510013567718688, 0.002010531508597773, 0.0012039571783876246, -0.00007720411271357928, -0.001254337513318309, -0.0017500056617930227, -0.0013406384683297494, -0.000364990726555941, 0.0003826285989469067, 0.00008693721353558415, -0.0015214223511449368, -0.003798614881415195, -0.00531121573513606, -0.004506260726651526, -0.0006549938308313636, 0.005439256657198806, 0.011455971684251895, 0.014456936577037123, 0.012339604921760181, 0.005119097924542997, -0.004725973426464719, -0.013202481140406187, -0.016715219789056705, -0.013998812495713744, -0.006966205975086943, 0.00016574983988531652, 0.0032006059922921235, 0.0005689297840865515, -0.0052985069269039795, -0.008860114692637512, -0.004478366117148616, 0.009848915330440116, 0.03011212731262171, 0.04692240258961073, 0.049390849984873475, 0.030726993425922545, -0.0071576310773233615, -0.052642137519117345, -0.08807787289178556, -0.09698989684947774, -0.07171979224533209, -0.01789182930481286, 0.046697650201782306, 0.09868128702828007, 0.11853265350570316, 0.09868128702828007, 0.046697650201782306, -0.01789182930481286, -0.07171979224533209, -0.09698989684947774, -0.08807787289178556, -0.052642137519117345, -0.0071576310773233615, 0.030726993425922545, 0.049390849984873475, 0.04692240258961073, 0.03011212731262171, 0.009848915330440116, -0.004478366117148616, -0.008860114692637512, -0.0052985069269039795, 0.0005689297840865515, 0.0032006059922921235, 0.00016574983988531652, -0.006966205975086943, -0.013998812495713744, -0.016715219789056705, -0.013202481140406187, -0.004725973426464719, 0.005119097924542997, 0.012339604921760181, 0.014456936577037123, 0.011455971684251895, 0.005439256657198806, -0.0006549938308313636, -0.004506260726651526, -0.00531121573513606, -0.003798614881415195, -0.0015214223511449368, 0.00008693721353558415, 0.0003826285989469067, -0.000364990726555941, -0.0013406384683297494, -0.0017500056617930227, -0.001254337513318309, -0.00007720411271357928, 0.0012039571783876246, 0.002010531508597773, 0.0020510013567718688, 0.001412980878301107, 0.00045435909055407036, -0.0004099213080782916, -0.0008994245783101239, -0.000952723258629777, -0.0006926140921754971, -0.00032043167611177034, -0.000008361124011312541, 0.0001604266530866464, 0.00019205063416382977, 0.00014308597017204932, 0.000074863433896161, 0.000025654459771250994} \
+CONFIG.Coefficient_Fractional_Bits {34} \
+CONFIG.Coefficient_Sets {1} \
+CONFIG.Coefficient_Sign {Signed} \
+CONFIG.Coefficient_Structure {Inferred} \
+CONFIG.Coefficient_Width {32} \
+CONFIG.ColumnConfig {8} \
+CONFIG.Data_Width {14} \
+CONFIG.Decimation_Rate {8} \
+CONFIG.Filter_Architecture {Systolic_Multiply_Accumulate} \
+CONFIG.Filter_Type {Decimation} \
+CONFIG.Interpolation_Rate {1} \
+CONFIG.Number_Channels {1} \
+CONFIG.Number_Paths {2} \
+CONFIG.Output_Rounding_Mode {Convergent_Rounding_to_Even} \
+CONFIG.Output_Width {16} \
+CONFIG.Quantization {Quantize_Only} \
+CONFIG.RateSpecification {Frequency_Specification} \
+CONFIG.Sample_Frequency {125} \
+CONFIG.Zero_Pack_Factor {1} \
+ ] $anti_aliasing_filter
+
+  # Create instance: axis_broadcaster_0, and set properties
+  set axis_broadcaster_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_broadcaster:1.1 axis_broadcaster_0 ]
+  set_property -dict [ list \
+CONFIG.M00_TDATA_REMAP {tdata[15:0]} \
+CONFIG.M01_TDATA_REMAP {tdata[31:16]} \
+CONFIG.M_TDATA_NUM_BYTES {2} \
+CONFIG.S_TDATA_NUM_BYTES {4} \
+ ] $axis_broadcaster_0
+
+  # Create instance: axis_combiner_0, and set properties
+  set axis_combiner_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axis_combiner:1.1 axis_combiner_0 ]
+  set_property -dict [ list \
+CONFIG.TDATA_NUM_BYTES {2} \
+ ] $axis_combiner_0
+
+  # Create interface connections
+  connect_bd_intf_net -intf_net adc_streamer_m00_axis [get_bd_intf_pins S00_AXIS] [get_bd_intf_pins axis_combiner_0/S00_AXIS]
+  connect_bd_intf_net -intf_net adc_streamer_m01_axis [get_bd_intf_pins S01_AXIS] [get_bd_intf_pins axis_combiner_0/S01_AXIS]
+  connect_bd_intf_net -intf_net anti_aliasing_filter_M_AXIS_DATA [get_bd_intf_pins anti_aliasing_filter/M_AXIS_DATA] [get_bd_intf_pins axis_broadcaster_0/S_AXIS]
+  connect_bd_intf_net -intf_net axis_broadcaster_0_M00_AXIS [get_bd_intf_pins M00_AXIS] [get_bd_intf_pins axis_broadcaster_0/M00_AXIS]
+  connect_bd_intf_net -intf_net axis_broadcaster_0_M01_AXIS [get_bd_intf_pins M01_AXIS] [get_bd_intf_pins axis_broadcaster_0/M01_AXIS]
+  connect_bd_intf_net -intf_net axis_combiner_0_M_AXIS [get_bd_intf_pins anti_aliasing_filter/S_AXIS_DATA] [get_bd_intf_pins axis_combiner_0/M_AXIS]
+
+  # Create port connections
+  connect_bd_net -net aresetn2_1 [get_bd_pins aresetn] [get_bd_pins axis_broadcaster_0/aresetn] [get_bd_pins axis_combiner_0/aresetn]
+  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins anti_aliasing_filter/aclk] [get_bd_pins axis_broadcaster_0/aclk] [get_bd_pins axis_combiner_0/aclk]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain/anti_aliasing] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port S01_AXIS -pg 1 -y 80 -defaultsOSRD
+preplace port S00_AXIS -pg 1 -y 60 -defaultsOSRD
+preplace port M01_AXIS -pg 1 -y 130 -defaultsOSRD
+preplace port aclk -pg 1 -y 100 -defaultsOSRD
+preplace port M00_AXIS -pg 1 -y 110 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 10 -defaultsOSRD
+preplace inst axis_broadcaster_0 -pg 1 -lvl 3 -y 120 -defaultsOSRD
+preplace inst axis_combiner_0 -pg 1 -lvl 1 -y 90 -defaultsOSRD
+preplace inst anti_aliasing_filter -pg 1 -lvl 2 -y 100 -defaultsOSRD
+preplace netloc axis_broadcaster_0_M00_AXIS 1 3 1 NJ
+preplace netloc axis_broadcaster_0_M01_AXIS 1 3 1 NJ
+preplace netloc axis_combiner_0_M_AXIS 1 1 1 N
+preplace netloc adc_streamer_m00_axis 1 0 1 NJ
+preplace netloc anti_aliasing_filter_M_AXIS_DATA 1 2 1 N
+preplace netloc adc_streamer_m01_axis 1 0 1 NJ
+preplace netloc aresetn2_1 1 0 3 20 180 NJ 180 600
+preplace netloc clk_sync_clk_out1 1 0 3 30 170 310 160 590
+levelinfo -pg 1 0 170 450 740 900 -top -10 -bot 190
 ",
 }
 
@@ -597,6 +738,58 @@ CONFIG.S_PHASE_Has_TUSER {Not_Required} \
   connect_bd_net -net clk_wiz_1_locked [get_bd_pins axis_red_pitaya_dac_0/locked] [get_bd_pins clk_wiz_1/locked]
   connect_bd_net -net sig_gen_config_cfg_data [get_bd_pins ref_const/cfg_data] [get_bd_pins ref_phase_inc/cfg_data]
 
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /signal_generator] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port c_phase_off -pg 1 -y 60 -defaultsOSRD
+preplace port c_phase_inc -pg 1 -y 190 -defaultsOSRD
+preplace port dac_clk -pg 1 -y 210 -defaultsOSRD
+preplace port dac_sel -pg 1 -y 250 -defaultsOSRD
+preplace port dac_wrt -pg 1 -y 270 -defaultsOSRD
+preplace port dac_rst -pg 1 -y 230 -defaultsOSRD
+preplace port aclk -pg 1 -y 20 -defaultsOSRD
+preplace port r_phase_inc -pg 1 -y 330 -defaultsOSRD
+preplace portBus enable -pg 1 -y 280 -defaultsOSRD
+preplace portBus dac_dat -pg 1 -y 290 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 210 -defaultsOSRD
+preplace inst canc_const -pg 1 -lvl 2 -y 200 -defaultsOSRD
+preplace inst dac_signal_combiner -pg 1 -lvl 4 -y 220 -defaultsOSRD
+preplace inst ref_phase_inc -pg 1 -lvl 1 -y 350 -defaultsOSRD
+preplace inst cancellation_signal -pg 1 -lvl 3 -y 210 -defaultsOSRD
+preplace inst phase_const -pg 1 -lvl 2 -y 90 -defaultsOSRD
+preplace inst canc_phase_inc -pg 1 -lvl 1 -y 210 -defaultsOSRD
+preplace inst ref_const -pg 1 -lvl 2 -y 340 -defaultsOSRD
+preplace inst reference_signal -pg 1 -lvl 3 -y 360 -defaultsOSRD
+preplace inst clk_wiz_1 -pg 1 -lvl 4 -y 350 -defaultsOSRD
+preplace inst axis_red_pitaya_dac_0 -pg 1 -lvl 5 -y 250 -defaultsOSRD
+preplace inst canc_phase_offset -pg 1 -lvl 1 -y 80 -defaultsOSRD
+preplace netloc Conn1 1 0 1 NJ
+preplace netloc axis_red_pitaya_dac_0_dac_rst 1 5 1 NJ
+preplace netloc axis_constant_0_M_AXIS1 1 2 1 480
+preplace netloc canc_const_M_AXIS 1 2 1 N
+preplace netloc axi_cfg_register_0_cfg_data 1 1 1 250
+preplace netloc axis_red_pitaya_dac_0_dac_sel 1 5 1 NJ
+preplace netloc S_AXI1_1 1 0 1 NJ
+preplace netloc dac_signal_combiner_M_AXIS 1 4 1 N
+preplace netloc canc_cfg_cfg_data 1 1 1 N
+preplace netloc axis_red_pitaya_dac_0_dac_wrt 1 5 1 NJ
+preplace netloc axis_constant_0_M_AXIS 1 2 1 N
+preplace netloc cancellation_signal_M_AXIS_DATA 1 3 1 N
+preplace netloc clk_wiz_1_locked 1 4 1 1100
+preplace netloc clk_wiz_1_clk_out1 1 4 1 1080
+preplace netloc reference_signal_M_AXIS_DATA 1 3 1 790
+preplace netloc aresetn_1 1 0 1 20
+preplace netloc sig_gen_config_cfg_data 1 1 1 N
+preplace netloc axis_red_pitaya_dac_0_dac_clk 1 5 1 NJ
+preplace netloc S_AXI2 1 0 1 N
+preplace netloc aresetn1_1 1 0 4 NJ 280 NJ 280 500 290 800
+preplace netloc axis_red_pitaya_dac_0_dac_dat 1 5 1 NJ
+preplace netloc clk_sync_clk_out1 1 0 5 30 420 260 260 490 130 780 410 1090
+levelinfo -pg 1 0 140 370 640 940 1210 1340 -top 0 -bot 430
+",
+}
+
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -648,7 +841,6 @@ proc create_hier_cell_receive_chain { parentCell nameHier } {
   create_bd_pin -dir I -from 13 -to 0 adc_dat_a
   create_bd_pin -dir I -from 13 -to 0 adc_dat_b
   create_bd_pin -dir I -from 0 -to 0 -type rst aresetn
-  create_bd_pin -dir O -from 15 -to 0 decimation
   create_bd_pin -dir I -from 0 -to 0 -type rst enable
   create_bd_pin -dir I int_clk
 
@@ -658,30 +850,8 @@ proc create_hier_cell_receive_chain { parentCell nameHier } {
 CONFIG.AXIS_TDATA_WIDTH {16} \
  ] $adc_streamer
 
-  # Create instance: anti_aliasing_filter, and set properties
-  set anti_aliasing_filter [ create_bd_cell -type ip -vlnv xilinx.com:ip:fir_compiler:7.2 anti_aliasing_filter ]
-  set_property -dict [ list \
-CONFIG.Clock_Frequency {125} \
-CONFIG.CoefficientVector {2 8 19 33 37 15 -47 -147 -249 -295 -229 -31 248 497 593 479 217 -22 -56 184 556 742 405 -578 -1966 -3174 -3520 -2572 -431 2230 4420 5265 4420 2230 -431 -2572 -3520 -3174 -1966 -578 405 742 556 184 -56 -22 217 479 593 497 248 -31 -229 -295 -249 -147 -47 15 37 33 19 8 2} \
-CONFIG.Coefficient_Fractional_Bits {0} \
-CONFIG.Coefficient_Sets {1} \
-CONFIG.Coefficient_Sign {Signed} \
-CONFIG.Coefficient_Structure {Inferred} \
-CONFIG.Coefficient_Width {16} \
-CONFIG.ColumnConfig {4} \
-CONFIG.Data_Width {14} \
-CONFIG.Decimation_Rate {10} \
-CONFIG.Filter_Architecture {Systolic_Multiply_Accumulate} \
-CONFIG.Filter_Type {Decimation} \
-CONFIG.Interpolation_Rate {1} \
-CONFIG.Number_Channels {1} \
-CONFIG.Output_Rounding_Mode {Convergent_Rounding_to_Even} \
-CONFIG.Output_Width {16} \
-CONFIG.Quantization {Integer_Coefficients} \
-CONFIG.RateSpecification {Frequency_Specification} \
-CONFIG.Sample_Frequency {125} \
-CONFIG.Zero_Pack_Factor {1} \
- ] $anti_aliasing_filter
+  # Create instance: anti_aliasing
+  create_hier_cell_anti_aliasing $hier_obj anti_aliasing
 
   # Create instance: channel_a
   create_hier_cell_channel_a $hier_obj channel_a
@@ -694,63 +864,62 @@ CONFIG.Zero_Pack_Factor {1} \
 
   # Create interface connections
   connect_bd_intf_net -intf_net S_AXI_1 [get_bd_intf_pins ch_b_status] [get_bd_intf_pins channel_b/status]
-  connect_bd_intf_net -intf_net adc_streamer_m00_axis [get_bd_intf_pins adc_streamer/m00_axis] [get_bd_intf_pins anti_aliasing_filter/S_AXIS_DATA]
-  connect_bd_intf_net -intf_net anti_aliasing_filter_M_AXIS_DATA [get_bd_intf_pins anti_aliasing_filter/M_AXIS_DATA] [get_bd_intf_pins channel_a/adc_data]
+  connect_bd_intf_net -intf_net adc_streamer_m00_axis [get_bd_intf_pins adc_streamer/m00_axis] [get_bd_intf_pins anti_aliasing/S00_AXIS]
+  connect_bd_intf_net -intf_net adc_streamer_m01_axis [get_bd_intf_pins adc_streamer/m01_axis] [get_bd_intf_pins anti_aliasing/S01_AXIS]
+  connect_bd_intf_net -intf_net axis_broadcaster_0_M00_AXIS [get_bd_intf_pins anti_aliasing/M00_AXIS] [get_bd_intf_pins channel_a/adc_data]
+  connect_bd_intf_net -intf_net axis_broadcaster_0_M01_AXIS [get_bd_intf_pins anti_aliasing/M01_AXIS] [get_bd_intf_pins channel_b/adc_data]
   connect_bd_intf_net -intf_net axis_ram_writer_0_M_AXI [get_bd_intf_pins M_AXI] [get_bd_intf_pins channel_a/M_AXI]
   connect_bd_intf_net -intf_net channel_b_M_AXI [get_bd_intf_pins M_AXI1] [get_bd_intf_pins channel_b/M_AXI]
   connect_bd_intf_net -intf_net ps_0_axi_periph_M00_AXI [get_bd_intf_pins S_AXI] [get_bd_intf_pins config_settings/S_AXI]
   connect_bd_intf_net -intf_net ps_axi_periph_M01_AXI [get_bd_intf_pins ch_a_status] [get_bd_intf_pins channel_a/status]
-  connect_bd_intf_net -intf_net s00_axis_1 [get_bd_intf_pins adc_streamer/m01_axis] [get_bd_intf_pins channel_b/adc_data]
 
   # Create port connections
   connect_bd_net -net adc_dat_a_i_1 [get_bd_pins adc_dat_a] [get_bd_pins adc_streamer/adc_dat_a]
   connect_bd_net -net adc_dat_b_i_1 [get_bd_pins adc_dat_b] [get_bd_pins adc_streamer/adc_dat_b]
-  connect_bd_net -net aresetn2_1 [get_bd_pins aresetn] [get_bd_pins adc_streamer/aresetn] [get_bd_pins channel_a/aresetn] [get_bd_pins channel_b/aresetn] [get_bd_pins config_settings/aresetn]
+  connect_bd_net -net aresetn2_1 [get_bd_pins aresetn] [get_bd_pins adc_streamer/aresetn] [get_bd_pins anti_aliasing/aresetn] [get_bd_pins channel_a/aresetn] [get_bd_pins channel_b/aresetn] [get_bd_pins config_settings/aresetn]
   connect_bd_net -net axis_red_pitaya_adc_0_adc_csn [get_bd_pins adc_csn] [get_bd_pins adc_streamer/adc_csn]
-  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins adc_streamer/adc_clk] [get_bd_pins anti_aliasing_filter/aclk] [get_bd_pins channel_a/aclk] [get_bd_pins channel_b/aclk] [get_bd_pins config_settings/aclk]
+  connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins adc_streamer/adc_clk] [get_bd_pins anti_aliasing/aclk] [get_bd_pins channel_a/aclk] [get_bd_pins channel_b/aclk] [get_bd_pins config_settings/aclk]
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins int_clk] [get_bd_pins adc_streamer/int_clk]
   connect_bd_net -net enable_1 [get_bd_pins enable] [get_bd_pins channel_a/enable] [get_bd_pins channel_b/enable]
-  connect_bd_net -net xlslice_0_Dout [get_bd_pins decimation] [get_bd_pins channel_a/decimation] [get_bd_pins channel_b/decimation] [get_bd_pins config_settings/decimation]
 
   # Perform GUI Layout
   regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain] -layout_string {
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace port M_AXI1 -pg 1 -y 470 -defaultsOSRD
-preplace port ch_a_status -pg 1 -y 140 -defaultsOSRD
-preplace port S_AXI -pg 1 -y 50 -defaultsOSRD
-preplace port M_AXI -pg 1 -y 190 -defaultsOSRD
-preplace port int_clk -pg 1 -y 350 -defaultsOSRD
-preplace port aclk -pg 1 -y 80 -defaultsOSRD
-preplace port ch_b_status -pg 1 -y 440 -defaultsOSRD
-preplace port adc_csn -pg 1 -y 360 -defaultsOSRD
-preplace portBus enable -pg 1 -y 460 -defaultsOSRD
-preplace portBus adc_dat_a -pg 1 -y 370 -defaultsOSRD
-preplace portBus adc_dat_b -pg 1 -y 390 -defaultsOSRD
-preplace portBus decimation -pg 1 -y 290 -defaultsOSRD
-preplace portBus aresetn -pg 1 -y 90 -defaultsOSRD
-preplace inst adc_streamer -pg 1 -lvl 1 -y 360 -defaultsOSRD
-preplace inst anti_aliasing_filter -pg 1 -lvl 1 -y 210 -defaultsOSRD
-preplace inst channel_a -pg 1 -lvl 2 -y 190 -defaultsOSRD
-preplace inst channel_b -pg 1 -lvl 2 -y 470 -defaultsOSRD
-preplace inst config_settings -pg 1 -lvl 1 -y 70 -defaultsOSRD
-preplace netloc S_AXI_1 1 0 2 NJ 440 NJ
-preplace netloc channel_b_M_AXI 1 2 1 NJ
-preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 2 NJ 360 NJ
+preplace port M_AXI1 -pg 1 -y 450 -defaultsOSRD
+preplace port ch_a_status -pg 1 -y 230 -defaultsOSRD
+preplace port S_AXI -pg 1 -y 580 -defaultsOSRD
+preplace port M_AXI -pg 1 -y 280 -defaultsOSRD
+preplace port int_clk -pg 1 -y 310 -defaultsOSRD
+preplace port aclk -pg 1 -y 90 -defaultsOSRD
+preplace port ch_b_status -pg 1 -y 410 -defaultsOSRD
+preplace port adc_csn -pg 1 -y 180 -defaultsOSRD
+preplace portBus enable -pg 1 -y 430 -defaultsOSRD
+preplace portBus adc_dat_a -pg 1 -y 330 -defaultsOSRD
+preplace portBus adc_dat_b -pg 1 -y 370 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 350 -defaultsOSRD
+preplace inst adc_streamer -pg 1 -lvl 1 -y 320 -defaultsOSRD
+preplace inst anti_aliasing -pg 1 -lvl 2 -y 320 -defaultsOSRD
+preplace inst channel_a -pg 1 -lvl 3 -y 280 -defaultsOSRD
+preplace inst channel_b -pg 1 -lvl 3 -y 450 -defaultsOSRD
+preplace inst config_settings -pg 1 -lvl 3 -y 600 -defaultsOSRD
+preplace netloc S_AXI_1 1 0 3 NJ 410 NJ 410 NJ
+preplace netloc axis_broadcaster_0_M00_AXIS 1 2 1 280
+preplace netloc channel_b_M_AXI 1 3 1 NJ
+preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 3 30 180 N 180 NJ
+preplace netloc axis_broadcaster_0_M01_AXIS 1 2 1 280
 preplace netloc adc_dat_a_i_1 1 0 1 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 0 1 NJ
-preplace netloc anti_aliasing_filter_M_AXIS_DATA 1 1 1 330
-preplace netloc adc_streamer_m00_axis 1 0 2 40 150 320
-preplace netloc s00_axis_1 1 1 1 360
+preplace netloc adc_streamer_m00_axis 1 1 1 NJ
+preplace netloc ps_0_axi_periph_M00_AXI 1 0 3 NJ 580 NJ 580 NJ
+preplace netloc adc_streamer_m01_axis 1 1 1 NJ
 preplace netloc clk_wiz_0_clk_out1 1 0 1 NJ
-preplace netloc ps_axi_periph_M01_AXI 1 0 2 NJ 140 NJ
+preplace netloc ps_axi_periph_M01_AXI 1 0 3 NJ 230 NJ 230 NJ
 preplace netloc adc_dat_b_i_1 1 0 1 NJ
-preplace netloc aresetn2_1 1 0 2 20 280 380
-preplace netloc axis_ram_writer_0_M_AXI 1 2 1 NJ
-preplace netloc enable_1 1 0 2 NJ 460 350
-preplace netloc clk_sync_clk_out1 1 0 3 30 270 370 80 NJ
-preplace netloc xlslice_0_Dout 1 1 2 340 290 NJ
-levelinfo -pg 1 0 180 510 650 -top 0 -bot 570
+preplace netloc aresetn2_1 1 0 3 -220 400 40 400 300
+preplace netloc axis_ram_writer_0_M_AXI 1 3 1 NJ
+preplace netloc enable_1 1 0 3 NJ 430 N 430 270
+preplace netloc clk_sync_clk_out1 1 1 3 40 210 290 90 N
+levelinfo -pg 1 -240 -90 160 430 590 -top 0 -bot 670
 ",
 }
 
@@ -2277,6 +2446,41 @@ CONFIG.CONST_WIDTH {3} \
   connect_bd_net -net xlconstant_0_dout1 [get_bd_pins xlconcat_0/In1] [get_bd_pins xlconcat_0/In3] [get_bd_pins zero_const/dout]
   connect_bd_net -net xlslice_0_Dout [get_bd_pins divisor_slice/Dout] [get_bd_pins frequency_divider/divisor]
 
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /gpio_interface] -layout_string {
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port S_AXI -pg 1 -y 100 -defaultsOSRD
+preplace port aclk -pg 1 -y 120 -defaultsOSRD
+preplace portBus enable -pg 1 -y 20 -defaultsOSRD
+preplace portBus exp_data_n -pg 1 -y 60 -defaultsOSRD
+preplace portBus exp_data_p -pg 1 -y 240 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 140 -defaultsOSRD
+preplace inst frequency_divider -pg 1 -lvl 3 -y 80 -defaultsOSRD
+preplace inst zero_const -pg 1 -lvl 3 -y 230 -defaultsOSRD
+preplace inst gpio_n -pg 1 -lvl 4 -y 60 -defaultsOSRD
+preplace inst enable -pg 1 -lvl 5 -y 150 -defaultsOSRD
+preplace inst gpio_register -pg 1 -lvl 1 -y 120 -defaultsOSRD
+preplace inst divisor_slice -pg 1 -lvl 2 -y 100 -defaultsOSRD
+preplace inst exp_interface_n -pg 1 -lvl 5 -y 60 -defaultsOSRD
+preplace inst xlconcat_0 -pg 1 -lvl 4 -y 240 -defaultsOSRD
+preplace inst exp_interface_p -pg 1 -lvl 5 -y 240 -defaultsOSRD
+preplace netloc trigger_1 1 3 1 680
+preplace netloc processing_system_M04_AXI 1 0 1 NJ
+preplace netloc xlconstant_0_dout1 1 3 1 690
+preplace netloc axi_cfg_register_0_cfg_data 1 1 4 240 150 NJ 150 690 150 NJ
+preplace netloc gpio_n_upper_Dout 1 4 1 NJ
+preplace netloc xlconcat_0_dout 1 4 1 NJ
+preplace netloc xlconstant_0_dout 1 0 1 NJ
+preplace netloc Net1 1 5 1 NJ
+preplace netloc Net 1 5 1 NJ
+preplace netloc enable_prf_Dout 1 2 4 450 10 NJ 10 NJ 10 1160
+preplace netloc xlslice_0_Dout 1 2 1 NJ
+preplace netloc clk_sync_clk_out1 1 0 3 20 50 NJ 50 NJ
+levelinfo -pg 1 0 130 340 570 790 1030 1180 -top 0 -bot 320
+",
+}
+
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -2594,7 +2798,7 @@ preplace netloc S_AXI2_1 1 3 1 890
 preplace netloc S_AXI_2 1 3 1 890
 preplace netloc axis_red_pitaya_dac_0_dac_rst 1 4 1 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_sel 1 4 1 NJ
-preplace netloc channel_b_M_AXI 1 2 1 590
+preplace netloc channel_b_M_AXI 1 2 1 560
 preplace netloc axis_red_pitaya_dac_0_dac_wrt 1 4 1 NJ
 preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 20 NJ 20 NJ
 preplace netloc adc_clk_n_i_1 1 0 1 NJ
@@ -2614,11 +2818,11 @@ preplace netloc adc_dat_b_i_1 1 0 2 NJ 190 NJ
 preplace netloc ps_0_FIXED_IO 1 3 2 NJ 110 NJ
 preplace netloc processing_system_M05_AXI 1 3 1 900
 preplace netloc axis_red_pitaya_dac_0_dac_clk 1 4 1 NJ
-preplace netloc axis_ram_writer_0_M_AXI 1 2 1 600
+preplace netloc axis_ram_writer_0_M_AXI 1 2 1 580
 preplace netloc enable_1 1 1 4 290 350 NJ 350 870 260 1200
 preplace netloc axis_red_pitaya_dac_0_dac_dat 1 4 1 NJ
 preplace netloc adc_clk_p_i_1 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 2 2 570 330 910
+preplace netloc clk_sync_clk_out1 1 2 2 550 330 910
 preplace netloc daisy_n_i_1 1 0 4 NJ 540 NJ 540 NJ 540 NJ
 levelinfo -pg 1 0 130 430 730 1060 1230 -top 0 -bot 590
 ",

@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2017 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2018 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -47,54 +47,71 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: pavel-demin:user:axis_decimator:1.0.7
-// IP Revision: 2
+// IP VLNV: xilinx.com:ip:axis_combiner:1.1
+// IP Revision: 8
 
-(* X_CORE_INFO = "axis_decimator,Vivado 2016.2" *)
-(* CHECK_LICENSE_TYPE = "system_axis_decimator_0_1,axis_decimator,{}" *)
+`timescale 1ns/1ps
+
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_axis_decimator_0_1 (
+module system_axis_combiner_0_1 (
   aclk,
   aresetn,
-  cfg_data,
-  s00_axis_tdata,
-  s00_axis_tvalid,
-  s00_axis_tready,
+  s_axis_tvalid,
+  s_axis_tready,
+  s_axis_tdata,
+  m_axis_tvalid,
   m_axis_tready,
-  m_axis_tdata,
-  m_axis_tvalid
+  m_axis_tdata
 );
 
-(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 aclk CLK" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLKIF CLK" *)
 input wire aclk;
-(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 aresetn RST" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RSTIF RST" *)
 input wire aresetn;
-input wire [15 : 0] cfg_data;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s00_axis TDATA" *)
-input wire [15 : 0] s00_axis_tdata;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s00_axis TVALID" *)
-input wire s00_axis_tvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s00_axis TREADY" *)
-output wire s00_axis_tready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis TREADY" *)
-input wire m_axis_tready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis TDATA" *)
-output wire [15 : 0] m_axis_tdata;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis TVALID" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S00_AXIS TVALID [0:0] [0:0], xilinx.com:interface:axis:1.0 S01_AXIS TVALID [0:0] [1:1]" *)
+input wire [1 : 0] s_axis_tvalid;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S00_AXIS TREADY [0:0] [0:0], xilinx.com:interface:axis:1.0 S01_AXIS TREADY [0:0] [1:1]" *)
+output wire [1 : 0] s_axis_tready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S00_AXIS TDATA [15:0] [15:0], xilinx.com:interface:axis:1.0 S01_AXIS TDATA [15:0] [31:16]" *)
+input wire [31 : 0] s_axis_tdata;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TVALID" *)
 output wire m_axis_tvalid;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TREADY" *)
+input wire m_axis_tready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TDATA" *)
+output wire [31 : 0] m_axis_tdata;
 
-  axis_decimator #(
-    .AXIS_TDATA_WIDTH(16),
-    .CNTR_WIDTH(16)
+  axis_combiner_v1_1_8_top #(
+    .C_FAMILY("zynq"),
+    .C_AXIS_TDATA_WIDTH(16),
+    .C_AXIS_TID_WIDTH(1),
+    .C_AXIS_TDEST_WIDTH(1),
+    .C_AXIS_TUSER_WIDTH(1),
+    .C_AXIS_SIGNAL_SET(32'B00000000000000000000000000000011),
+    .C_MASTER_PORT_NUM(0),
+    .C_NUM_SI_SLOTS(2)
   ) inst (
     .aclk(aclk),
     .aresetn(aresetn),
-    .cfg_data(cfg_data),
-    .s00_axis_tdata(s00_axis_tdata),
-    .s00_axis_tvalid(s00_axis_tvalid),
-    .s00_axis_tready(s00_axis_tready),
+    .aclken(1'H1),
+    .s_axis_tvalid(s_axis_tvalid),
+    .s_axis_tready(s_axis_tready),
+    .s_axis_tdata(s_axis_tdata),
+    .s_axis_tstrb(4'HF),
+    .s_axis_tkeep(4'HF),
+    .s_axis_tlast(2'H3),
+    .s_axis_tid(2'H0),
+    .s_axis_tdest(2'H0),
+    .s_axis_tuser(2'H0),
+    .m_axis_tvalid(m_axis_tvalid),
     .m_axis_tready(m_axis_tready),
     .m_axis_tdata(m_axis_tdata),
-    .m_axis_tvalid(m_axis_tvalid)
+    .m_axis_tstrb(),
+    .m_axis_tkeep(),
+    .m_axis_tlast(),
+    .m_axis_tid(),
+    .m_axis_tdest(),
+    .m_axis_tuser(),
+    .s_cmd_err()
   );
 endmodule

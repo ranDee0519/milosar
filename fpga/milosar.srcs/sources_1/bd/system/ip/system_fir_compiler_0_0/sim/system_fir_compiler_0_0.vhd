@@ -61,9 +61,9 @@ ENTITY system_fir_compiler_0_0 IS
     aclk : IN STD_LOGIC;
     s_axis_data_tvalid : IN STD_LOGIC;
     s_axis_data_tready : OUT STD_LOGIC;
-    s_axis_data_tdata : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    s_axis_data_tdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     m_axis_data_tvalid : OUT STD_LOGIC;
-    m_axis_data_tdata : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+    m_axis_data_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
   );
 END system_fir_compiler_0_0;
 
@@ -151,7 +151,7 @@ ARCHITECTURE system_fir_compiler_0_0_arch OF system_fir_compiler_0_0 IS
       s_axis_data_tready : OUT STD_LOGIC;
       s_axis_data_tlast : IN STD_LOGIC;
       s_axis_data_tuser : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-      s_axis_data_tdata : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+      s_axis_data_tdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       s_axis_config_tvalid : IN STD_LOGIC;
       s_axis_config_tready : OUT STD_LOGIC;
       s_axis_config_tlast : IN STD_LOGIC;
@@ -164,7 +164,7 @@ ARCHITECTURE system_fir_compiler_0_0_arch OF system_fir_compiler_0_0 IS
       m_axis_data_tready : IN STD_LOGIC;
       m_axis_data_tlast : OUT STD_LOGIC;
       m_axis_data_tuser : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
-      m_axis_data_tdata : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+      m_axis_data_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
       event_s_data_tlast_missing : OUT STD_LOGIC;
       event_s_data_tlast_unexpected : OUT STD_LOGIC;
       event_s_data_chanid_incorrect : OUT STD_LOGIC;
@@ -188,14 +188,14 @@ BEGIN
       C_ELABORATION_DIR => "./",
       C_COMPONENT_NAME => "system_fir_compiler_0_0",
       C_COEF_FILE => "system_fir_compiler_0_0.mif",
-      C_COEF_FILE_LINES => 40,
+      C_COEF_FILE_LINES => 128,
       C_FILTER_TYPE => 1,
       C_INTERP_RATE => 1,
-      C_DECIM_RATE => 10,
+      C_DECIM_RATE => 8,
       C_ZERO_PACKING_FACTOR => 1,
       C_SYMMETRY => 1,
       C_NUM_FILTS => 1,
-      C_NUM_TAPS => 63,
+      C_NUM_TAPS => 115,
       C_NUM_CHANNELS => 1,
       C_CHANNEL_PATTERN => "fixed",
       C_ROUND_MODE => 4,
@@ -203,31 +203,31 @@ BEGIN
       C_NUM_RELOAD_SLOTS => 1,
       C_COL_MODE => 1,
       C_COL_PIPE_LEN => 4,
-      C_COL_CONFIG => "4",
+      C_COL_CONFIG => "8",
       C_OPTIMIZATION => 0,
-      C_DATA_PATH_WIDTHS => "14",
-      C_DATA_IP_PATH_WIDTHS => "14",
-      C_DATA_PX_PATH_WIDTHS => "14",
+      C_DATA_PATH_WIDTHS => "14,14,14,14",
+      C_DATA_IP_PATH_WIDTHS => "14,14",
+      C_DATA_PX_PATH_WIDTHS => "14,14",
       C_DATA_WIDTH => 14,
-      C_COEF_PATH_WIDTHS => "16",
-      C_COEF_WIDTH => 16,
-      C_DATA_PATH_SRC => "0",
-      C_COEF_PATH_SRC => "0",
-      C_PX_PATH_SRC => "0",
-      C_DATA_PATH_SIGN => "0",
-      C_COEF_PATH_SIGN => "0",
-      C_ACCUM_PATH_WIDTHS => "30",
+      C_COEF_PATH_WIDTHS => "14,18,14,18",
+      C_COEF_WIDTH => 32,
+      C_DATA_PATH_SRC => "0,0,2,2",
+      C_COEF_PATH_SRC => "0,1,0,1",
+      C_PX_PATH_SRC => "0,1,2,3",
+      C_DATA_PATH_SIGN => "0,0,0,0",
+      C_COEF_PATH_SIGN => "1,0,1,0",
+      C_ACCUM_PATH_WIDTHS => "34,35,34,35",
       C_OUTPUT_WIDTH => 16,
-      C_OUTPUT_PATH_WIDTHS => "16",
-      C_ACCUM_OP_PATH_WIDTHS => "30",
-      C_EXT_MULT_CNFG => "none",
+      C_OUTPUT_PATH_WIDTHS => "16,16",
+      C_ACCUM_OP_PATH_WIDTHS => "49,49",
+      C_EXT_MULT_CNFG => "0,1,0,14;2,3,0,14",
       C_DATA_PATH_PSAMP_SRC => "0",
       C_OP_PATH_PSAMP_SRC => "0",
-      C_NUM_MADDS => 4,
-      C_OPT_MADDS => "none",
+      C_NUM_MADDS => 8,
+      C_OPT_MADDS => "none;none",
       C_OVERSAMPLING_RATE => 1,
       C_INPUT_RATE => 1,
-      C_OUTPUT_RATE => 10,
+      C_OUTPUT_RATE => 8,
       C_DATA_MEMTYPE => 0,
       C_COEF_MEMTYPE => 2,
       C_IPBUFF_MEMTYPE => 2,
@@ -237,17 +237,17 @@ BEGIN
       C_DATA_MEM_PACKING => 0,
       C_COEF_MEM_PACKING => 0,
       C_FILTS_PACKED => 0,
-      C_LATENCY => 11,
+      C_LATENCY => 17,
       C_HAS_ARESETn => 0,
       C_HAS_ACLKEN => 0,
       C_DATA_HAS_TLAST => 0,
       C_S_DATA_HAS_FIFO => 1,
       C_S_DATA_HAS_TUSER => 0,
-      C_S_DATA_TDATA_WIDTH => 16,
+      C_S_DATA_TDATA_WIDTH => 32,
       C_S_DATA_TUSER_WIDTH => 1,
       C_M_DATA_HAS_TREADY => 0,
       C_M_DATA_HAS_TUSER => 0,
-      C_M_DATA_TDATA_WIDTH => 16,
+      C_M_DATA_TDATA_WIDTH => 32,
       C_M_DATA_TUSER_WIDTH => 1,
       C_HAS_CONFIG_CHANNEL => 0,
       C_CONFIG_SYNC_MODE => 0,

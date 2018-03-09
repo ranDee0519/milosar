@@ -7,6 +7,10 @@
 \usepackage{color, colortbl}
 \usepackage{graphicx}
 \usepackage[binary-units=true]{siunitx}  
+\usepackage[cmex10]{amsmath}
+
+\parindent=0mm
+\parskip=3mm
 
 \definecolor{Gray}{gray}{0.9}
 
@@ -24,12 +28,12 @@
 
 \section{$ \mu $Wire Interface}
 
-The LMX2492EVM is packaged with a USBtoMANY converter, enabling users to program the evaluation module through its $ \mu $Wire connector using TI's CodeLoader. This process is however tedious, especially when programming two synthesizers with different waveforms. The LMX2492 datasheet provides the timing requirements and clocking structure for programming the synthesizer through its $ \mu $Wire connector pins. GPIO pins on the Red Pitaya were used to program both synthesizers efficiently. Figure~\ref{fig_rp_synth_connect} illustrates the connection between the Red Pitaya and two LMX2492 evaluation boards.
+The LMX2492EVM is packaged with a USBtoMANY converter, enabling users to program the evaluation module through its $ \mu $Wire connector using TI's CodeLoader. This process is however tedious, especially when programming two synthesizers with different waveforms. The LMX2492 datasheet provides the timing requirements and clocking structure for programming the synthesizer through its $ \mu $Wire connector pins. GPIO pins on the Red Pitaya were used to program both synthesizers efficiently. Figure~\ref{fig:rp_synth_connect} illustrates the connection between the Red Pitaya and two LMX2492 evaluation boards.
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{images/rp_synth_connections.pdf}
         \caption{Wiring diagram for connection between Red Pitaya and the LMX2492.}
-        \label{fig_rp_synth_connect}
+        \label{fig:rp_synth_connect}
     \end{center}
 \end{figure}
 
@@ -67,6 +71,7 @@ The configuration register is currently only used to set the decimation factor f
     \label{tab:config_reg}
 \end{table}
 
+\newpage
 \subsection{Channel X Status}
 Both recording channels within the FPGA require a status register to provide the CPU with the location of the RAM writer's current pointer location.
 \begin{table}[ht]
@@ -97,6 +102,7 @@ Both recording channels within the FPGA require a status register to provide the
     \label{tab:status_reg}
 \end{table}
 
+\newpage
 \subsection{Synthesizer Reference Signal}
 Provides the FPGA with the DDS phase increment used to generate the \SI{50}{\MHz} phase reference signal.
 \begin{table}[ht]
@@ -127,8 +133,9 @@ Provides the FPGA with the DDS phase increment used to generate the \SI{50}{\MHz
     \label{tab:ref_phase_inc}
 \end{table}
 
+\newpage
 \subsection{GPIO}
-
+The GPIO register is currently haphazard and contains the clock divisor value, which is used to set the PRF. Furthermore, an enable flag, bit 8, is used to enable the receive chain. It is suggested that both of these settings be moved the the configuration register once the decimation factor is fixed. 
 \begin{table}[ht]
     \caption{GPIO register.}
     \begin{center}
@@ -157,6 +164,7 @@ Provides the FPGA with the DDS phase increment used to generate the \SI{50}{\MHz
     \label{tab:gpio_reg}
 \end{table}
 
+\newpage
 \subsection{Cancellation}
 
 \begin{table}[ht]
@@ -186,6 +194,50 @@ Provides the FPGA with the DDS phase increment used to generate the \SI{50}{\MHz
     \end{center}
     \label{tab:canc_phase_inc}
 \end{table}
+
+\newpage
+\section{Digital Receiver Design}
+Design of the digital receiver begins with the selection of a suitable analogue bandpass filter. The SBP-10.7+ bandpass filter (BPF), procured from Mini-Circuits, features a \SI{3}{\dB} bandwidth of \SI{3.8}{MHz} and lower-side cut-off frequency, $ f_{\SI{3}{\dB}} $, of \SI{8.5}{\dB} as illustrated in Figure~\ref{fig:band_pass_response}. The SBP-10.7+ serves a dual role in suppressing feed-through and implementing sensitivity frequency-control. 
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/band_pass_response}
+        \caption{Frequency response of the SBP-10.7+ BPF with dashed lines indicating the Nyquist band of interest .}
+        \label{fig:band_pass_response}
+    \end{center}
+\end{figure}
+
+Following the SBP-10.7+, the beat spectrum is oversampled at a rate of \SI{125}{\MHz} using the Red Pitaya. This results in a spreading of quantization noise over the full sampled bandwidth (\SI{62.5}{\MHz}). With appropriate filtering, quantization noise is greatly reduced. An additional benefit of oversampling is the ability to perform decimation through averaging in order to increase the effective number of bits (ENOB). Equation~\ref{eqn:oversampling} reveals that an additional \SI{1.5}{} bits are gained through decimation by a factor of 8.
+\begin{align} \label{eqn:oversampling}
+n = \log_4 (DF)
+\end{align}
+The SBP-10.7+ BPF is ideally positioned to make use of the second Nyquist zone when using a decimation factor (DF) of 8. All signals of interest must therefore be contained within the $ f_{s}/2 $ to $ f_{s} $ band, or \SI{7.8125}{\MHz} to \SI{15.625}{\MHz} respectively, illustrated by the dashed lines in Figure~\ref{fig:band_pass_response}. Components out of the Nyquist band of interest are therefore attenuated by more than \SI{20}{\dB}. 
+
+Having oversampled the beat spectrum at IF, the first step in the digital receive chain is pass the signal through the bandpass FIR decimation filter illustrated in Figure~\ref{fig:fir_filter}.  
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/fir_filter}
+        \caption{Frequency response of the FIR filter within the Red Pitaya.}
+        \label{fig:fir_filter}
+    \end{center}
+\end{figure}
+
+Over \SI{100}{\dB} of suppression is provided by this 115-tap FIR filter. In addition to this, the filter is responsible for implementing decimation through averaging. It is important to note that the SBP-10.7+ analogue filter provides 
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/aliased_down_conversion}
+        \caption{Down-conversion with aliasing owing to low sample rate.}
+        \label{fig:aliased_down_conversion}
+    \end{center}
+\end{figure}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/anti_alias_down_conversion}
+        \caption{Down-conversion without aliasing.}
+        \label{fig:anti_alias_down_conversion}
+    \end{center}
+\end{figure}
 
 
 \end{document}
