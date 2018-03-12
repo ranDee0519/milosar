@@ -16,8 +16,9 @@ preplace netloc axis_combiner_0_M_AXIS 1 1 1 N
 preplace netloc adc_streamer_m00_axis 1 0 1 NJ
 preplace netloc anti_aliasing_filter_M_AXIS_DATA 1 2 1 N
 preplace netloc adc_streamer_m01_axis 1 0 1 NJ
-preplace netloc aresetn2_1 1 0 3 20 180 NJ 180 600
-preplace netloc clk_sync_clk_out1 1 0 3 30 170 310 160 590
-levelinfo -pg 1 0 170 450 740 900 -top -10 -bot 190
+preplace netloc aresetn2_1 1 0 3 -50 180 NJ 180 530
+preplace netloc clk_sync_clk_out1 1 0 3 -40 170 240 160 520
+levelinfo -pg 1 -70 100 380 670 830 -top -10 -bot 190
 ",
 }
+0

@@ -198,7 +198,7 @@ void* record(void *arg)
 	FILE *f = fopen(path, "w");
 	limit = S2MB;
 
-	int nbuffs = 10;
+	int nbuffs = 1;
 	
 	void* buf;
 	

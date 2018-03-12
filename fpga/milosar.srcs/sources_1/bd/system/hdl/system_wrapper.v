@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Fri Mar  9 10:24:16 2018
+//Date        : Mon Mar 12 17:17:01 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -36,11 +36,8 @@ module system_wrapper
     adc_csn_o,
     adc_dat_a_i,
     adc_dat_b_i,
-    adc_enc_n_o,
-    adc_enc_p_o,
     dac_clk_o,
     dac_dat_o,
-    dac_pwm_o,
     dac_rst_o,
     dac_sel_o,
     dac_wrt_o,
@@ -77,11 +74,8 @@ module system_wrapper
   output adc_csn_o;
   input [13:0]adc_dat_a_i;
   input [13:0]adc_dat_b_i;
-  output adc_enc_n_o;
-  output adc_enc_p_o;
   output dac_clk_o;
   output [13:0]dac_dat_o;
-  output [3:0]dac_pwm_o;
   output dac_rst_o;
   output dac_sel_o;
   output dac_wrt_o;
@@ -119,11 +113,8 @@ module system_wrapper
   wire adc_csn_o;
   wire [13:0]adc_dat_a_i;
   wire [13:0]adc_dat_b_i;
-  wire adc_enc_n_o;
-  wire adc_enc_p_o;
   wire dac_clk_o;
   wire [13:0]dac_dat_o;
-  wire [3:0]dac_pwm_o;
   wire dac_rst_o;
   wire dac_sel_o;
   wire dac_wrt_o;
@@ -162,11 +153,8 @@ module system_wrapper
         .adc_csn_o(adc_csn_o),
         .adc_dat_a_i(adc_dat_a_i),
         .adc_dat_b_i(adc_dat_b_i),
-        .adc_enc_n_o(adc_enc_n_o),
-        .adc_enc_p_o(adc_enc_p_o),
         .dac_clk_o(dac_clk_o),
         .dac_dat_o(dac_dat_o),
-        .dac_pwm_o(dac_pwm_o),
         .dac_rst_o(dac_rst_o),
         .dac_sel_o(dac_sel_o),
         .dac_wrt_o(dac_wrt_o),

@@ -2,9 +2,9 @@
 <Root MajorVersion="0" MinorVersion="33">
   <CompositeFile CompositeFileTopName="system" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1520583860"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1520583860"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1520583860"/>
+    <Generation Name="SYNTHESIS" State="STALE" Timestamp="1520868403"/>
+    <Generation Name="IMPLEMENTATION" State="STALE" Timestamp="1520868403"/>
+    <Generation Name="SIMULATION" State="STALE" Timestamp="1520868403"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/system_ps_0_0/system_ps_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system/ps_0"/>
@@ -125,16 +125,8 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/system_axis_dwidth_converter_0_0/system_axis_dwidth_converter_0_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/channel_a/axis_dwidth_converter_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
       <File Name="ip/system_axis_dwidth_converter_0_1/system_axis_dwidth_converter_0_1.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/channel_b/axis_dwidth_converter_0"/>
+        <Instance HierarchyPath="receive_chain/axis_dwidth_converter_1"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -343,6 +335,78 @@
       </File>
       <File Name="ip/system_axis_broadcaster_0_0/system_axis_broadcaster_0_0.xci" Type="IP">
         <Instance HierarchyPath="receive_chain/anti_aliasing/axis_broadcaster_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_axis_data_fifo_0_0/system_axis_data_fifo_0_0.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/axis_data_fifo_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_xlconstant_0_1/system_xlconstant_0_1.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/n_pulses"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_xlconstant_0_2/system_xlconstant_0_2.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/n_samples"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_xlconstant_0_3/system_xlconstant_0_3.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/start_index"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_start_index_0/system_start_index_0.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/stop_index"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_axis_constant_0_2/system_axis_constant_0_2.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/axis_constant_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_pulse_int_0_0/system_pulse_int_0_0.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/pulse_int_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_axis_dwidth_converter_0_0/system_axis_dwidth_converter_0_0.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/axis_dwidth_converter_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_c_counter_binary_0_0_1/system_c_counter_binary_0_0.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/c_counter_binary_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

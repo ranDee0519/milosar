@@ -70,10 +70,13 @@ visual.r_min     = 0;                   % min range [m]
 visual.r_max     = 1500;                 % max range [m]
 
 %% extract binary data
-dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/09_03_18_08_14_54/';
+dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/12_03_18_15_14_48/';
 raw_data.a = extract_data(strcat(dataset_directory, 'A.bin'), 'int16'); 
 raw_data.b = extract_data(strcat(dataset_directory, 'B.bin'), 'int16');
 clear dataset_directory;
+
+plot(raw_data.a);
+stop;
 
 %% preprocess data
 preprocessed_data.a = raw_data.a(proc.n_pre_chnks*ns_chunk + 1 : length(raw_data.a));

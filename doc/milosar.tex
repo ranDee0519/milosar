@@ -221,8 +221,11 @@ Having oversampled the beat spectrum at IF, the first step in the digital receiv
     \end{center}
 \end{figure}
 
-Over \SI{100}{\dB} of suppression is provided by this 115-tap FIR filter. In addition to this, the filter is responsible for implementing decimation through averaging. It is important to note that the SBP-10.7+ analogue filter provides 
+Over \SI{100}{\dB} of suppression is provided by this 115-tap FIR filter. In addition to this, the filter is responsible for implementing decimation through averaging. It is important to note that the SBP-10.7+ analogue filter suppresses signals out of the second Nyquist band by an additional \SI{20}{\dB}.  
 
+Both the main and reference channel pass through these filters and are saved to disk for further processing in Matlab. Figure~\ref{fig:aliased_down_conversion} illustrates the frequency domain steps for demodulating the main channel using the reference channel.
+
+The topmost two spectrums illustrate the process of Nyquist folding during undersampling. The analogue beat spectrum folds around $ f_{s}/2 $, resulting in a flipped digital replica of the spectrum. The third spectrum is simply the same result of Nyquist folding for the reference channel. 
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{images/aliased_down_conversion}
@@ -231,7 +234,10 @@ Over \SI{100}{\dB} of suppression is provided by this 115-tap FIR filter. In add
     \end{center}
 \end{figure}
 
-\begin{figure}[h!]
+The digitised main and reference channels are then multiplied together to perform demodulation, however, the post-mixer spectrum reveals a potential problem. The components shifted to a higher frequency fall out to the sampled bandwidth and therefore fold into the baseband spectrum. This unforeseen problem can however be avoided by zeroing the components that fold into the baseband spectrum before mixing.
+
+Figure~\ref{fig:anti_alias_down_conversion} illustrates the result of nullifying half of the main and reference channel before mixing. This process can be seen to prevent aliasing and avoid a doubling of the DC component.
+\begin{figure}[!ht]
     \begin{center}
         \includegraphics[width=\textwidth]{images/anti_alias_down_conversion}
         \caption{Down-conversion without aliasing.}
