@@ -12,9 +12,9 @@ module pulse_int #( parameter integer AXIS_DATA_WIDTH = 32 )
   input  wire [AXIS_DATA_WIDTH-1:0]  s_axis_tdata,
   input  wire                        s_axis_tvalid,
   
-  input  wire                        m_axi_wready,  // AXI master: Write ready
-  output wire [AXIS_DATA_WIDTH-1:0]  m_axi_wdata,   // AXI master: Write data
-  output wire                        m_axi_wvalid,  // AXI master: Write valid  
+  input  wire                        m_axi_wready,          // AXI master: Write ready
+  output wire [AXIS_DATA_WIDTH-1:0]  m_axi_wdata,           // AXI master: Write data
+  output wire                        m_axi_wvalid,          // AXI master: Write valid  
   
   // FIFO interface
   output wire                        s_axis_tready_fifo,
@@ -22,25 +22,25 @@ module pulse_int #( parameter integer AXIS_DATA_WIDTH = 32 )
   input  wire                        s_axis_tvalid_fifo,
   
   // Master side
-  output wire [AXIS_DATA_WIDTH-1:0]  m_axi_wdata_fifo,   // AXI master: Write data
-  output wire                        m_axi_wvalid_fifo,  // AXI master: Write valid
-  input  wire                        m_axi_wready_fifo,  // AXI master: Write ready
+  output wire [AXIS_DATA_WIDTH-1:0]  m_axi_wdata_fifo,      // AXI master: Write data
+  output wire                        m_axi_wvalid_fifo,     // AXI master: Write valid
+  input  wire                        m_axi_wready_fifo,     // AXI master: Write ready
   
   // Configuration
-  input wire [7:0]                   n_pulses,
-  input wire [15:0]                  n_samples,  
-  input wire [15:0]                  start_index, 
-  input wire [15:0]                  end_index
+  input wire [7:0]                   n_pulses,              // number of pulses to integrate over
+  input wire [15:0]                  n_samples,             // number of samples in each pulse
+  input wire [15:0]                  start_index,           // start sample of the pulse
+  input wire [15:0]                  end_index              // end sample of the pulse
 );
   
   reg [AXIS_DATA_WIDTH-1:0] data;
   
-  reg rd_en;
-  reg wr_en;
-  reg out_en;
-  reg [1:0] state;
-  reg [31:0] pulse_index;
-  reg [31:0] sample_index;
+  reg rd_en;                                                // enable reading from the FIFO
+  reg wr_en;                                                // enable writing to the FIFO
+  reg out_en;                                               // enable writing out of the pulse integrator
+  reg [1:0] state;              
+  reg [31:0] pulse_index;                                   // index of the current pulse
+  reg [31:0] sample_index;                                  // index of the current sample within a pulse
   
   parameter IDLE                = 0;
   parameter REST_WRITE          = 1;
@@ -101,8 +101,8 @@ module pulse_int #( parameter integer AXIS_DATA_WIDTH = 32 )
                     sample_index    <= 1;
                     pulse_index     <= pulse_index + 1;
                     
-                    if (pulse_index == n_pulses - 1)
-                    begin
+                    if (pulse_index == n_pulses - 1)        // check for the beginning of the pulse of interest
+                    begin                                   // pulse increment occurs at the end of a pulse    
                         out_en          <= 1;
                     end 
                     
@@ -120,7 +120,7 @@ module pulse_int #( parameter integer AXIS_DATA_WIDTH = 32 )
   end
 
   assign m_axi_wdata        = s_axis_tdata_fifo;
-  assign m_axi_wvalid       = s_axis_tvalid & out_en; // & (sample_index >= start_index) & (sample_index <= end_index);
+  assign m_axi_wvalid       = s_axis_tvalid & out_en & (sample_index >= start_index) & (sample_index <= end_index);
   
   assign m_axi_wdata_fifo   = data;
   assign m_axi_wvalid_fifo  = s_axis_tvalid & wr_en;

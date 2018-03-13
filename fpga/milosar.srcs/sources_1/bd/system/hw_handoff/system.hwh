@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Mar 12 17:17:02 2018" VIVADOVERSION="2016.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Mar 13 09:38:33 2018" VIVADOVERSION="2016.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -4422,7 +4422,6 @@
             <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="aclk"/>
             <CONNECTION INSTANCE="gpio_interface_frequency_divider" PORT="clk_in"/>
             <CONNECTION INSTANCE="receive_chain_axis_dwidth_converter_1" PORT="aclk"/>
-            <CONNECTION INSTANCE="receive_chain_axis_constant_0" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_sts_b_channel" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="aclk"/>
@@ -4434,6 +4433,7 @@
             <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="s_axis_aclk"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="aclk"/>
+            <CONNECTION INSTANCE="receive_chain_axis_constant_0" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_c_counter_binary_0" PORT="CLK"/>
           </CONNECTIONS>
         </PORT>
@@ -6420,7 +6420,7 @@
     <MODULE FULLNAME="/receive_chain/profile_integration/n_pulses" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_n_pulses" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
       <DOCUMENTS/>
       <PARAMETERS>
-        <PARAMETER NAME="CONST_VAL" VALUE="00000001"/>
+        <PARAMETER NAME="CONST_VAL" VALUE="00000010"/>
         <PARAMETER NAME="CONST_WIDTH" VALUE="8"/>
         <PARAMETER NAME="Component_Name" VALUE="system_xlconstant_0_1"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
@@ -6588,7 +6588,7 @@
     <MODULE FULLNAME="/receive_chain/profile_integration/stop_index" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_stop_index" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
       <DOCUMENTS/>
       <PARAMETERS>
-        <PARAMETER NAME="CONST_VAL" VALUE="0000000111111111"/>
+        <PARAMETER NAME="CONST_VAL" VALUE="0000000001100100"/>
         <PARAMETER NAME="CONST_WIDTH" VALUE="16"/>
         <PARAMETER NAME="Component_Name" VALUE="system_start_index_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>

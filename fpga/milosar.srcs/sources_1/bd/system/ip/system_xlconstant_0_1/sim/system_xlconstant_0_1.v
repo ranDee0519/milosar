@@ -60,7 +60,7 @@ module system_xlconstant_0_1 (
 output wire [8-1 : 0] dout;
 
   xlconstant #(
-    .CONST_VAL(8'd1),
+    .CONST_VAL(8'd2),
     .CONST_WIDTH(8)
   ) inst (
     .dout(dout)

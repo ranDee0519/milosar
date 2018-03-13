@@ -186,7 +186,7 @@ CONFIG.S_TDATA_NUM_BYTES {2} \
   # Create instance: n_pulses, and set properties
   set n_pulses [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 n_pulses ]
   set_property -dict [ list \
-CONFIG.CONST_VAL {1} \
+CONFIG.CONST_VAL {2} \
 CONFIG.CONST_WIDTH {8} \
  ] $n_pulses
 
@@ -221,7 +221,7 @@ CONFIG.CONST_WIDTH {16} \
   # Create instance: stop_index, and set properties
   set stop_index [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 stop_index ]
   set_property -dict [ list \
-CONFIG.CONST_VAL {511} \
+CONFIG.CONST_VAL {100} \
 CONFIG.CONST_WIDTH {16} \
  ] $stop_index
 
@@ -948,47 +948,47 @@ CONFIG.Output_Width {10} \
   regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain] -layout_string {
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace port M_AXI1 -pg 1 -y 690 -defaultsOSRD
-preplace port ch_a_status -pg 1 -y 460 -defaultsOSRD
-preplace port S_AXI -pg 1 -y 820 -defaultsOSRD
-preplace port M_AXI -pg 1 -y 500 -defaultsOSRD
-preplace port int_clk -pg 1 -y 70 -defaultsOSRD
-preplace port aclk -pg 1 -y 90 -defaultsOSRD
-preplace port ch_b_status -pg 1 -y 650 -defaultsOSRD
-preplace port adc_csn -pg 1 -y 110 -defaultsOSRD
-preplace portBus enable -pg 1 -y 480 -defaultsOSRD
-preplace portBus adc_dat_a -pg 1 -y 90 -defaultsOSRD
-preplace portBus adc_dat_b -pg 1 -y 110 -defaultsOSRD
-preplace portBus aresetn -pg 1 -y 170 -defaultsOSRD
-preplace inst adc_streamer -pg 1 -lvl 4 -y 80 -defaultsOSRD
-preplace inst anti_aliasing -pg 1 -lvl 2 -y 270 -defaultsOSRD
-preplace inst channel_a -pg 1 -lvl 4 -y 500 -defaultsOSRD
-preplace inst c_counter_binary_0 -pg 1 -lvl 1 -y 400 -defaultsOSRD
-preplace inst profile_integration -pg 1 -lvl 3 -y 390 -defaultsOSRD
-preplace inst channel_b -pg 1 -lvl 4 -y 690 -defaultsOSRD
-preplace inst axis_constant_0 -pg 1 -lvl 2 -y 390 -defaultsOSRD
-preplace inst config_settings -pg 1 -lvl 4 -y 840 -defaultsOSRD
-preplace inst axis_dwidth_converter_1 -pg 1 -lvl 3 -y 530 -defaultsOSRD
-preplace netloc S_AXI_1 1 0 4 NJ 650 NJ 650 NJ 650 NJ
-preplace netloc anti_aliasing_M01_AXIS 1 2 1 400
+preplace port M_AXI1 -pg 1 -y 430 -defaultsOSRD
+preplace port ch_a_status -pg 1 -y 180 -defaultsOSRD
+preplace port S_AXI -pg 1 -y 50 -defaultsOSRD
+preplace port M_AXI -pg 1 -y 220 -defaultsOSRD
+preplace port int_clk -pg 1 -y 610 -defaultsOSRD
+preplace port aclk -pg 1 -y 540 -defaultsOSRD
+preplace port ch_b_status -pg 1 -y 480 -defaultsOSRD
+preplace port adc_csn -pg 1 -y 650 -defaultsOSRD
+preplace portBus enable -pg 1 -y 460 -defaultsOSRD
+preplace portBus adc_dat_a -pg 1 -y 630 -defaultsOSRD
+preplace portBus adc_dat_b -pg 1 -y 650 -defaultsOSRD
+preplace portBus aresetn -pg 1 -y 420 -defaultsOSRD
+preplace inst adc_streamer -pg 1 -lvl 4 -y 620 -defaultsOSRD
+preplace inst anti_aliasing -pg 1 -lvl 2 -y 390 -defaultsOSRD
+preplace inst channel_a -pg 1 -lvl 4 -y 220 -defaultsOSRD
+preplace inst c_counter_binary_0 -pg 1 -lvl 1 -y 250 -defaultsOSRD
+preplace inst profile_integration -pg 1 -lvl 3 -y 260 -defaultsOSRD
+preplace inst channel_b -pg 1 -lvl 4 -y 430 -defaultsOSRD
+preplace inst axis_constant_0 -pg 1 -lvl 2 -y 240 -defaultsOSRD
+preplace inst config_settings -pg 1 -lvl 4 -y 70 -defaultsOSRD
+preplace inst axis_dwidth_converter_1 -pg 1 -lvl 3 -y 410 -defaultsOSRD
+preplace netloc S_AXI_1 1 0 4 NJ 480 NJ 480 NJ 480 NJ
+preplace netloc anti_aliasing_M01_AXIS 1 2 1 470
 preplace netloc channel_b_M_AXI 1 4 1 NJ
 preplace netloc axis_red_pitaya_adc_0_adc_csn 1 4 1 NJ
-preplace netloc axis_constant_0_M_AXIS 1 2 1 390
-preplace netloc adc_dat_a_i_1 1 0 4 NJ 90 NJ 90 NJ 90 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 0 4 NJ 820 NJ 820 NJ 820 NJ
-preplace netloc adc_streamer_m00_axis 1 1 4 160 150 NJ 150 NJ 160 930
-preplace netloc c_counter_binary_0_Q 1 1 1 N
-preplace netloc adc_streamer_m01_axis 1 1 4 170 160 NJ 160 NJ 170 920
-preplace netloc clk_wiz_0_clk_out1 1 0 4 NJ 70 NJ 70 NJ 70 NJ
-preplace netloc S_AXIS_1 1 3 1 620
-preplace netloc ps_axi_periph_M01_AXI 1 0 4 NJ 460 NJ 460 NJ 460 NJ
-preplace netloc adc_dat_b_i_1 1 0 4 NJ 110 NJ 110 NJ 110 NJ
-preplace netloc axis_dwidth_converter_1_M_AXIS 1 3 1 620
-preplace netloc aresetn2_1 1 0 4 NJ 170 140 170 NJ 170 640
+preplace netloc axis_constant_0_M_AXIS 1 2 1 N
+preplace netloc adc_dat_a_i_1 1 0 4 NJ 630 NJ 630 NJ 630 NJ
+preplace netloc ps_0_axi_periph_M00_AXI 1 0 4 NJ 50 NJ 50 NJ 50 NJ
+preplace netloc adc_streamer_m00_axis 1 1 4 220 520 NJ 520 NJ 520 980
+preplace netloc c_counter_binary_0_Q 1 1 1 NJ
+preplace netloc adc_streamer_m01_axis 1 1 4 230 530 NJ 530 NJ 530 970
+preplace netloc clk_wiz_0_clk_out1 1 0 4 NJ 610 NJ 610 NJ 610 NJ
+preplace netloc S_AXIS_1 1 3 1 670
+preplace netloc ps_axi_periph_M01_AXI 1 0 4 NJ 180 NJ 180 NJ 180 NJ
+preplace netloc adc_dat_b_i_1 1 0 4 NJ 650 NJ 650 NJ 650 NJ
+preplace netloc axis_dwidth_converter_1_M_AXIS 1 3 1 N
+preplace netloc aresetn2_1 1 0 4 NJ 420 210 490 NJ 490 690
 preplace netloc axis_ram_writer_0_M_AXI 1 4 1 NJ
-preplace netloc enable_1 1 0 4 NJ 480 NJ 480 420 600 660
-preplace netloc clk_sync_clk_out1 1 0 5 -40 350 150 180 410 200 630 200 940
-levelinfo -pg 1 -60 50 280 520 790 960 -top -30 -bot 910
+preplace netloc enable_1 1 0 4 NJ 460 NJ 470 460 340 710
+preplace netloc clk_sync_clk_out1 1 0 5 20 200 210 300 450 330 680 540 990
+levelinfo -pg 1 0 110 340 570 840 1010 -top 0 -bot 700
 ",
 }
 

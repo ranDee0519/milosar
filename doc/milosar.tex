@@ -206,7 +206,7 @@ Design of the digital receiver begins with the selection of a suitable analogue 
     \end{center}
 \end{figure}
 
-Following the SBP-10.7+, the beat spectrum is oversampled at a rate of \SI{125}{\MHz} using the Red Pitaya. This results in a spreading of quantization noise over the full sampled bandwidth (\SI{62.5}{\MHz}). With appropriate filtering, quantization noise is greatly reduced. An additional benefit of oversampling is the ability to perform decimation through averaging in order to increase the effective number of bits (ENOB). Equation~\ref{eqn:oversampling} reveals that an additional \SI{1.5}{} bits are gained through decimation by a factor of 8.
+Following the SBP-10.7+, the beat spectrum is oversampled at a rate of \SI{125}{\MHz} using the Red Pitaya. This results in a spreading of quantization noise over the full sampled bandwidth (\SI{62.5}{\MHz}). With appropriate filtering, quantization noise is greatly reduced. An additional benefit of oversampling is the ability to perform decimation through averaging in order to increase the effective number of bits (ENOB). Equation~\ref{eqn:oversampling} reveals that an additional \SI{1.5}{\bit}s are gained through decimation by a factor of 8.
 \begin{align} \label{eqn:oversampling}
 n = \log_4 (DF)
 \end{align}
@@ -221,7 +221,7 @@ Having oversampled the beat spectrum at IF, the first step in the digital receiv
     \end{center}
 \end{figure}
 
-Over \SI{100}{\dB} of suppression is provided by this 115-tap FIR filter. In addition to this, the filter is responsible for implementing decimation through averaging. It is important to note that the SBP-10.7+ analogue filter suppresses signals out of the second Nyquist band by an additional \SI{20}{\dB}.  
+It is important to note that the SBP-10.7+ analogue filter suppresses signals out of the second Nyquist band by an additional \SI{20}{\dB}. Over \SI{100}{\dB} of suppression is provided by this 115-tap FIR filter. In addition to this, the filter is responsible for implementing decimation through averaging. As explained previously, \SI{1.5}{\bit}s are gained through averaging. The output samples are however limited to \SI{15}{\bit} samples, taking advantage of an extra \SI{1}{\bit}.
 
 Both the main and reference channel pass through these filters and are saved to disk for further processing in Matlab. Figure~\ref{fig:aliased_down_conversion} illustrates the frequency domain steps for demodulating the main channel using the reference channel.
 
@@ -244,6 +244,8 @@ Figure~\ref{fig:anti_alias_down_conversion} illustrates the result of nullifying
         \label{fig:anti_alias_down_conversion}
     \end{center}
 \end{figure}
+
+The final processing step is then to preform integration of range profiles on the real data. Addition of two \SI{15}{\bit} numbers results in a single \SI{}{\bit} growth. Our data is now \SI{16}{\bit} and the PRF has been halved, resulting in a halving of the data rate.
 
 
 \end{document}

@@ -60,7 +60,7 @@ module system_start_index_0 (
 output wire [16-1 : 0] dout;
 
   xlconstant #(
-    .CONST_VAL(16'd511),
+    .CONST_VAL(16'd100),
     .CONST_WIDTH(16)
   ) inst (
     .dout(dout)
