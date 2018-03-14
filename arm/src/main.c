@@ -20,7 +20,7 @@ Channel *A, *B;
 Synthesizer tx_synth, lo_synth;
 Configuration config;
 
-static void *cfg, *ref, *gpio, *canc, *phase;
+static void *integ, *indx, *ref, *gpio, *canc, *phase;
 
 int main(int argc, char **argv)
 {
@@ -52,7 +52,8 @@ int main(int argc, char **argv)
 	
 	ASSERT(init_mem(), "Failed to open /dev/mem.");
 	
-	ASSERT(create_map(SREG, MAP_SHARED, &cfg, CFG_BASE_ADDR), "Failed to allocate map for CFG register.");
+	ASSERT(create_map(SREG, MAP_SHARED, &integ, INT_BASE_ADDR), "Failed to allocate map for CFG register.");
+	ASSERT(create_map(SREG, MAP_SHARED, &indx, INDX_BASE_ADDR), "Failed to allocate map for CFG register.");
 	ASSERT(create_map(SREG, MAP_SHARED, &ref, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
 	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
 	ASSERT(create_map(SREG, MAP_SHARED, &canc, CANC_BASE_ADDR), "Failed to allocate map for CANC register.");
@@ -67,8 +68,13 @@ int main(int argc, char **argv)
 	//set dds phase offset of the cancellation signal
 	set_reg(phase, get_phase_offset(DDS_PHASE_OFFSET));
 	
-	//set decimation factor
-	set_reg(cfg, DECIMATION_FACTOR);
+	//set chunck start and stop index
+	uint32_t chunk_index = (0 << 0) + (1023 << 16);
+	set_reg(indx, chunk_index);
+	
+	//set number of samples in chunk and integration factor
+	uint32_t integration = (1024 << 0) + (1 << 16);
+	set_reg(integ, integration);
 	
 	//get user input for final experiment settings
 	config_experiment(&config, &tx_synth, &lo_synth);

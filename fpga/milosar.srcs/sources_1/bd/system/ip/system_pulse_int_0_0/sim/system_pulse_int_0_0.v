@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2014 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2018 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -47,22 +47,77 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: xilinx.com:ip:xlconstant:1.1
+// IP VLNV: user.org:module_ref:pulse_int:1.0
 // IP Revision: 1
 
 `timescale 1ns/1ps
 
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_xlconstant_0_2 (
-  dout
+module system_pulse_int_0_0 (
+  aclk,
+  aresetn,
+  s_axis_tready,
+  s_axis_tdata,
+  s_axis_tvalid,
+  m_axi_wready,
+  m_axi_wdata,
+  m_axi_wvalid,
+  s_axis_tready_fifo,
+  s_axis_tdata_fifo,
+  s_axis_tvalid_fifo,
+  m_axi_wdata_fifo,
+  m_axi_wvalid_fifo,
+  m_axi_wready_fifo,
+  n_pulses,
+  n_samples,
+  start_index,
+  end_index
 );
 
-output wire [16-1 : 0] dout;
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 aclk CLK" *)
+input wire aclk;
+(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 aresetn RST" *)
+input wire aresetn;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis TREADY" *)
+output wire s_axis_tready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis TDATA" *)
+input wire [15 : 0] s_axis_tdata;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis TVALID" *)
+input wire s_axis_tvalid;
+input wire m_axi_wready;
+output wire [15 : 0] m_axi_wdata;
+output wire m_axi_wvalid;
+output wire s_axis_tready_fifo;
+input wire [15 : 0] s_axis_tdata_fifo;
+input wire s_axis_tvalid_fifo;
+output wire [15 : 0] m_axi_wdata_fifo;
+output wire m_axi_wvalid_fifo;
+input wire m_axi_wready_fifo;
+input wire [15 : 0] n_pulses;
+input wire [15 : 0] n_samples;
+input wire [15 : 0] start_index;
+input wire [15 : 0] end_index;
 
-  xlconstant #(
-    .CONST_VAL(16'd1024),
-    .CONST_WIDTH(16)
+  pulse_int #(
+    .AXIS_DATA_WIDTH(16)
   ) inst (
-    .dout(dout)
+    .aclk(aclk),
+    .aresetn(aresetn),
+    .s_axis_tready(s_axis_tready),
+    .s_axis_tdata(s_axis_tdata),
+    .s_axis_tvalid(s_axis_tvalid),
+    .m_axi_wready(m_axi_wready),
+    .m_axi_wdata(m_axi_wdata),
+    .m_axi_wvalid(m_axi_wvalid),
+    .s_axis_tready_fifo(s_axis_tready_fifo),
+    .s_axis_tdata_fifo(s_axis_tdata_fifo),
+    .s_axis_tvalid_fifo(s_axis_tvalid_fifo),
+    .m_axi_wdata_fifo(m_axi_wdata_fifo),
+    .m_axi_wvalid_fifo(m_axi_wvalid_fifo),
+    .m_axi_wready_fifo(m_axi_wready_fifo),
+    .n_pulses(n_pulses),
+    .n_samples(n_samples),
+    .start_index(start_index),
+    .end_index(end_index)
   );
 endmodule

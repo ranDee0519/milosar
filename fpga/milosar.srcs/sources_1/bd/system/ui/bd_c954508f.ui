@@ -31,38 +31,42 @@ preplace inst clocking_system -pg 1 -lvl 1 -y 110 -defaultsOSRD
 preplace inst gpio_interface -pg 1 -lvl 4 -y 190 -defaultsOSRD
 preplace inst signal_generator -pg 1 -lvl 4 -y 380 -defaultsOSRD
 preplace inst receive_chain -pg 1 -lvl 2 -y 160 -defaultsOSRD
-preplace netloc S_AXI_1 1 1 3 250 10 NJ 10 840
-preplace netloc S_AXI2_1 1 3 1 850
-preplace netloc S_AXI_2 1 3 1 850
+preplace netloc S_AXI_1 1 1 3 240 -10 NJ -10 920
+preplace netloc S_AXI2_1 1 3 1 880
+preplace netloc S_AXI_2 1 3 1 870
 preplace netloc axis_red_pitaya_dac_0_dac_rst 1 4 1 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_sel 1 4 1 NJ
-preplace netloc channel_b_M_AXI 1 2 1 540
+preplace netloc channel_b_M_AXI 1 2 1 550
 preplace netloc axis_red_pitaya_dac_0_dac_wrt 1 4 1 NJ
-preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 20 NJ 20 NJ
+preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 10 NJ 10 NJ
+preplace netloc receive_chain_adc_clk 1 2 1 N
 preplace netloc adc_clk_n_i_1 1 0 1 NJ
 preplace netloc daisy_p_i_1 1 0 4 NJ 520 NJ 520 NJ 520 NJ
 preplace netloc adc_dat_a_i_1 1 0 2 NJ 170 NJ
-preplace netloc processing_system_M03_AXI 1 3 1 840
+preplace netloc processing_system_M07_AXI 1 1 3 250 330 NJ 330 860
+preplace netloc processing_system_M03_AXI 1 3 1 920
 preplace netloc util_ds_buf_2_OBUF_DS_N 1 4 1 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 1 3 260 30 NJ 30 820
-preplace netloc xlconstant_0_dout 1 1 3 280 340 NJ 340 880
+preplace netloc ps_0_axi_periph_M00_AXI 1 1 3 250 20 NJ 20 870
+preplace netloc xlconstant_0_dout 1 1 3 260 350 NJ 350 870
 preplace netloc clk_wiz_0_clk_out1 1 1 1 240
 preplace netloc util_ds_buf_2_OBUF_DS_P 1 4 1 NJ
-preplace netloc ps_0_DDR 1 3 2 NJ 90 NJ
-preplace netloc ps_axi_periph_M01_AXI 1 1 3 270 320 NJ 320 820
+preplace netloc ps_0_DDR 1 3 2 NJ 80 NJ
+preplace netloc ps_axi_periph_M01_AXI 1 1 3 270 0 NJ 0 900
 preplace netloc Net1 1 4 1 NJ
 preplace netloc Net 1 4 1 NJ
 preplace netloc adc_dat_b_i_1 1 0 2 NJ 190 NJ
-preplace netloc ps_0_FIXED_IO 1 3 2 NJ 110 NJ
-preplace netloc processing_system_M05_AXI 1 3 1 860
+preplace netloc ps_0_FIXED_IO 1 3 2 NJ 100 NJ
+preplace netloc processing_system_M05_AXI 1 3 1 890
 preplace netloc axis_red_pitaya_dac_0_dac_clk 1 4 1 NJ
 preplace netloc axis_ram_writer_0_M_AXI 1 2 1 560
-preplace netloc enable_1 1 1 4 290 350 NJ 350 830 260 1160
+preplace netloc enable_1 1 1 4 270 360 NJ 360 910 260 1230
 preplace netloc axis_red_pitaya_dac_0_dac_dat 1 4 1 NJ
 preplace netloc adc_clk_p_i_1 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 2 2 530 330 870
+preplace netloc clk_sync_clk_out1 1 2 2 530 340 900
 preplace netloc daisy_n_i_1 1 0 4 NJ 540 NJ 540 NJ 540 NJ
-levelinfo -pg 1 0 130 410 690 1020 1190 -top 0 -bot 590
+levelinfo -pg 1 0 130 410 730 1090 1270 -top -20 -bot 590
 ",
 }
-0
+{
+   da_axi4_cnt: "1",
+}

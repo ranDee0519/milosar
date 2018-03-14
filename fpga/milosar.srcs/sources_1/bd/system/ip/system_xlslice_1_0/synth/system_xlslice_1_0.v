@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2014 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2018 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -47,22 +47,27 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: xilinx.com:ip:xlconstant:1.1
-// IP Revision: 1
+// IP VLNV: xilinx.com:ip:xlslice:1.0
+// IP Revision: 0
 
-`timescale 1ns/1ps
-
+(* X_CORE_INFO = "xlslice,Vivado 2016.2" *)
+(* CHECK_LICENSE_TYPE = "system_xlslice_1_0,xlslice,{}" *)
+(* CORE_GENERATION_INFO = "system_xlslice_1_0,xlslice,{x_ipProduct=Vivado 2016.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=xlslice,x_ipVersion=1.0,x_ipCoreRevision=0,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,DIN_WIDTH=32,DIN_FROM=31,DIN_TO=16}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_start_index_0 (
-  dout
+module system_xlslice_1_0 (
+  Din,
+  Dout
 );
 
-output wire [16-1 : 0] dout;
+input wire [31 : 0] Din;
+output wire [15 : 0] Dout;
 
-  xlconstant #(
-    .CONST_VAL(16'd100),
-    .CONST_WIDTH(16)
+  xlslice #(
+    .DIN_WIDTH(32),
+    .DIN_FROM(31),
+    .DIN_TO(16)
   ) inst (
-    .dout(dout)
+    .Din(Din),
+    .Dout(Dout)
   );
 endmodule

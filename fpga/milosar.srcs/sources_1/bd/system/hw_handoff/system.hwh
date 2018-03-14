@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Mar 13 09:38:33 2018" VIVADOVERSION="2016.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Mar 14 15:58:03 2018" VIVADOVERSION="2016.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -967,8 +967,8 @@
         <PARAMETER NAME="AXI_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="Component_Name" VALUE="system_axi_cfg_register_0_1"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-        <PARAMETER NAME="C_BASEADDR" VALUE="0x40004000"/>
-        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40004FFF"/>
+        <PARAMETER NAME="C_BASEADDR" VALUE="0x40002000"/>
+        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40002FFF"/>
       </PARAMETERS>
       <PORTS>
         <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
@@ -2921,22 +2921,24 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
       <MEMORYMAP>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40000FFF" INSTANCE="receive_chain_config_settings_cfg" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40001000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40001FFF" INSTANCE="receive_chain_channel_a_sts_a_channel" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40002000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40002FFF" INSTANCE="receive_chain_channel_b_sts_b_channel" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40000FFF" INSTANCE="receive_chain_channel_a_sts_a_channel" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40001000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40001FFF" INSTANCE="receive_chain_channel_b_sts_b_channel" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40002000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40002FFF" INSTANCE="gpio_interface_gpio_register" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
         <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40003000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40003FFF" INSTANCE="signal_generator_ref_phase_inc" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40004000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40004FFF" INSTANCE="gpio_interface_gpio_register" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40005000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40005FFF" INSTANCE="signal_generator_canc_phase_inc" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40006000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40006FFF" INSTANCE="signal_generator_canc_phase_offset" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40004000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40004FFF" INSTANCE="signal_generator_canc_phase_inc" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40005000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40005FFF" INSTANCE="signal_generator_canc_phase_offset" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40006000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40006FFF" INSTANCE="receive_chain_config_settings_int_config" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40007000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40007FFF" INSTANCE="receive_chain_config_settings_index_config" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
       </MEMORYMAP>
       <PERIPHERALS>
-        <PERIPHERAL INSTANCE="receive_chain_config_settings_cfg"/>
         <PERIPHERAL INSTANCE="receive_chain_channel_a_sts_a_channel"/>
         <PERIPHERAL INSTANCE="receive_chain_channel_b_sts_b_channel"/>
-        <PERIPHERAL INSTANCE="signal_generator_ref_phase_inc"/>
         <PERIPHERAL INSTANCE="gpio_interface_gpio_register"/>
+        <PERIPHERAL INSTANCE="signal_generator_ref_phase_inc"/>
         <PERIPHERAL INSTANCE="signal_generator_canc_phase_inc"/>
         <PERIPHERAL INSTANCE="signal_generator_canc_phase_offset"/>
+        <PERIPHERAL INSTANCE="receive_chain_config_settings_int_config"/>
+        <PERIPHERAL INSTANCE="receive_chain_config_settings_index_config"/>
       </PERIPHERALS>
     </MODULE>
     <MODULE FULLNAME="/processing_system/ps_axi_periph" HWVERSION="2.1" INSTANCE="processing_system_ps_axi_periph" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axi_interconnect" VLNV="xilinx.com:ip:axi_interconnect:2.1">
@@ -2945,7 +2947,7 @@
       </DOCUMENTS>
       <PARAMETERS>
         <PARAMETER NAME="NUM_SI" VALUE="1"/>
-        <PARAMETER NAME="NUM_MI" VALUE="7"/>
+        <PARAMETER NAME="NUM_MI" VALUE="8"/>
         <PARAMETER NAME="STRATEGY" VALUE="0"/>
         <PARAMETER NAME="ENABLE_ADVANCED_OPTIONS" VALUE="0"/>
         <PARAMETER NAME="ENABLE_PROTOCOL_CHECKERS" VALUE="0"/>
@@ -3544,87 +3546,87 @@
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_awaddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_awaddr"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_awaddr"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_awvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_awvalid"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_awvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_awready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_awready"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_awready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_wdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_wdata"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_wdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="3" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_wstrb">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_wstrb"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_wstrb"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_wvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_wvalid"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_wvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_wready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_wready"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_wready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="1" NAME="M00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_bresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_bresp"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_bresp"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_bvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_bvalid"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_bvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_bready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_bready"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_bready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_araddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_araddr"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_araddr"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_arvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_arvalid"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_arvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_arready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_arready"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_arready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_rdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_rdata"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_rdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="1" NAME="M00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_rresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_rresp"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_rresp"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_rvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_rvalid"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_rvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_rready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="s_axi_rready"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M01_AXI_awaddr">
@@ -4127,6 +4129,103 @@
             <CONNECTION INSTANCE="signal_generator_canc_phase_offset" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="I" NAME="M07_ACLK" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="M07_ARESETN" RIGHT="0" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M07_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M07_AXI_awprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M07_AXI_awvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M07_AXI_awready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M07_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="3" NAME="M07_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_wstrb"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M07_AXI_wvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M07_AXI_wready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M07_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_bresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_bresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M07_AXI_bvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M07_AXI_bready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M07_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M07_AXI_arprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M07_AXI_arvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M07_AXI_arready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="M07_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M07_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_rresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M07_AXI_rvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M07_AXI_rready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_rready"/>
+          </CONNECTIONS>
+        </PORT>
       </PORTS>
       <BUSINTERFACES>
         <BUSINTERFACE BUSNAME="processing_system_ps_0_M_AXI_GP0" DATAWIDTH="32" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
@@ -4316,6 +4415,29 @@
             <PORTMAP LOGICAL="RREADY" PHYSICAL="M06_AXI_rready"/>
           </PORTMAPS>
         </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="processing_system_ps_axi_periph_M07_AXI" DATAWIDTH="32" NAME="M07_AXI" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="AWADDR" PHYSICAL="M07_AXI_awaddr"/>
+            <PORTMAP LOGICAL="AWPROT" PHYSICAL="M07_AXI_awprot"/>
+            <PORTMAP LOGICAL="AWVALID" PHYSICAL="M07_AXI_awvalid"/>
+            <PORTMAP LOGICAL="AWREADY" PHYSICAL="M07_AXI_awready"/>
+            <PORTMAP LOGICAL="WDATA" PHYSICAL="M07_AXI_wdata"/>
+            <PORTMAP LOGICAL="WSTRB" PHYSICAL="M07_AXI_wstrb"/>
+            <PORTMAP LOGICAL="WVALID" PHYSICAL="M07_AXI_wvalid"/>
+            <PORTMAP LOGICAL="WREADY" PHYSICAL="M07_AXI_wready"/>
+            <PORTMAP LOGICAL="BRESP" PHYSICAL="M07_AXI_bresp"/>
+            <PORTMAP LOGICAL="BVALID" PHYSICAL="M07_AXI_bvalid"/>
+            <PORTMAP LOGICAL="BREADY" PHYSICAL="M07_AXI_bready"/>
+            <PORTMAP LOGICAL="ARADDR" PHYSICAL="M07_AXI_araddr"/>
+            <PORTMAP LOGICAL="ARPROT" PHYSICAL="M07_AXI_arprot"/>
+            <PORTMAP LOGICAL="ARVALID" PHYSICAL="M07_AXI_arvalid"/>
+            <PORTMAP LOGICAL="ARREADY" PHYSICAL="M07_AXI_arready"/>
+            <PORTMAP LOGICAL="RDATA" PHYSICAL="M07_AXI_rdata"/>
+            <PORTMAP LOGICAL="RRESP" PHYSICAL="M07_AXI_rresp"/>
+            <PORTMAP LOGICAL="RVALID" PHYSICAL="M07_AXI_rvalid"/>
+            <PORTMAP LOGICAL="RREADY" PHYSICAL="M07_AXI_rready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
     <MODULE FULLNAME="/processing_system/sys_reset_controller" HWVERSION="5.0" INSTANCE="processing_system_sys_reset_controller" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="proc_sys_reset" VLNV="xilinx.com:ip:proc_sys_reset:5.0">
@@ -4367,7 +4489,8 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_sts_b_channel" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_a_sts_a_channel" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_broadcaster_0" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_combiner_0" PORT="aresetn"/>
             <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="aresetn"/>
@@ -4379,6 +4502,7 @@
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M04_ARESETN"/>
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M05_ARESETN"/>
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M06_ARESETN"/>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_ARESETN"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -4408,6 +4532,7 @@
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M04_ACLK"/>
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M05_ACLK"/>
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M06_ACLK"/>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_ACLK"/>
             <CONNECTION INSTANCE="signal_generator_reference_signal" PORT="aclk"/>
             <CONNECTION INSTANCE="signal_generator_clk_wiz_1" PORT="clk_in1"/>
             <CONNECTION INSTANCE="signal_generator_axis_red_pitaya_dac_0" PORT="aclk"/>
@@ -4424,7 +4549,8 @@
             <CONNECTION INSTANCE="receive_chain_axis_dwidth_converter_1" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_sts_b_channel" PORT="aclk"/>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="aclk"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="aclk"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_a_sts_a_channel" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_combiner_0" PORT="aclk"/>
@@ -5475,8 +5601,8 @@
         <PARAMETER NAME="AXI_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="Component_Name" VALUE="system_sts_0_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-        <PARAMETER NAME="C_BASEADDR" VALUE="0x40001000"/>
-        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40001FFF"/>
+        <PARAMETER NAME="C_BASEADDR" VALUE="0x40000000"/>
+        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40000FFF"/>
       </PARAMETERS>
       <PORTS>
         <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
@@ -5854,8 +5980,8 @@
         <PARAMETER NAME="AXI_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="Component_Name" VALUE="system_sts_a_channel_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-        <PARAMETER NAME="C_BASEADDR" VALUE="0x40002000"/>
-        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40002FFF"/>
+        <PARAMETER NAME="C_BASEADDR" VALUE="0x40001000"/>
+        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40001FFF"/>
       </PARAMETERS>
       <PORTS>
         <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
@@ -6003,7 +6129,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE FULLNAME="/receive_chain/config_settings/cfg" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_cfg" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_cfg_register" VLNV="pavel-demin:user:axi_cfg_register:1.0">
+    <MODULE FULLNAME="/receive_chain/config_settings/index_config" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_index_config" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_cfg_register" VLNV="pavel-demin:user:axi_cfg_register:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="s_axi" NAME="reg0" RANGE="4294967296" USAGE="register"/>
@@ -6014,8 +6140,8 @@
         <PARAMETER NAME="AXI_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="Component_Name" VALUE="system_cfg_0_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-        <PARAMETER NAME="C_BASEADDR" VALUE="0x40000000"/>
-        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40000FFF"/>
+        <PARAMETER NAME="C_BASEADDR" VALUE="0x40007000"/>
+        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40007FFF"/>
       </PARAMETERS>
       <PORTS>
         <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
@@ -6028,9 +6154,10 @@
             <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_cfg_cfg_data">
+        <PORT DIR="O" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_index_config_cfg_data">
           <CONNECTIONS>
             <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_0" PORT="Din"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_1" PORT="Din"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_awaddr">
@@ -6169,6 +6296,173 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
+    <MODULE FULLNAME="/receive_chain/config_settings/int_config" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_int_config" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_cfg_register" VLNV="pavel-demin:user:axi_cfg_register:1.0">
+      <DOCUMENTS/>
+      <ADDRESSBLOCKS>
+        <ADDRESSBLOCK ACCESS="" INTERFACE="s_axi" NAME="reg0" RANGE="4294967296" USAGE="register"/>
+      </ADDRESSBLOCKS>
+      <PARAMETERS>
+        <PARAMETER NAME="CFG_DATA_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="AXI_DATA_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="AXI_ADDR_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_axi_cfg_register_0_4"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+        <PARAMETER NAME="C_BASEADDR" VALUE="0x40006000"/>
+        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40006FFF"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_int_config_cfg_data">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_2" PORT="Din"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_3" PORT="Din"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axi_awvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axi_awready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="s_axi_wdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="3" NAME="s_axi_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_wstrb"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axi_wvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axi_wready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="1" NAME="s_axi_bresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_bresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_bresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axi_bvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axi_bready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="s_axi_araddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axi_arvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axi_arready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="s_axi_rdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="1" NAME="s_axi_rresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_rresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axi_rvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axi_rready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M07_AXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="processing_system_ps_axi_periph_M07_AXI" DATAWIDTH="32" NAME="S_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
+          <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
+          <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
+          <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="WUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="RUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="READ_WRITE_MODE" VALUE="READ_WRITE"/>
+          <PARAMETER NAME="HAS_BURST" VALUE="0"/>
+          <PARAMETER NAME="HAS_LOCK" VALUE="0"/>
+          <PARAMETER NAME="HAS_PROT" VALUE="0"/>
+          <PARAMETER NAME="HAS_CACHE" VALUE="0"/>
+          <PARAMETER NAME="HAS_QOS" VALUE="0"/>
+          <PARAMETER NAME="HAS_REGION" VALUE="0"/>
+          <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
+          <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
+          <PARAMETER NAME="HAS_RRESP" VALUE="1"/>
+          <PARAMETER NAME="SUPPORTS_NARROW_BURST" VALUE="0"/>
+          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="1"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="AWADDR" PHYSICAL="s_axi_awaddr"/>
+            <PORTMAP LOGICAL="AWVALID" PHYSICAL="s_axi_awvalid"/>
+            <PORTMAP LOGICAL="AWREADY" PHYSICAL="s_axi_awready"/>
+            <PORTMAP LOGICAL="WDATA" PHYSICAL="s_axi_wdata"/>
+            <PORTMAP LOGICAL="WSTRB" PHYSICAL="s_axi_wstrb"/>
+            <PORTMAP LOGICAL="WVALID" PHYSICAL="s_axi_wvalid"/>
+            <PORTMAP LOGICAL="WREADY" PHYSICAL="s_axi_wready"/>
+            <PORTMAP LOGICAL="BRESP" PHYSICAL="s_axi_bresp"/>
+            <PORTMAP LOGICAL="BVALID" PHYSICAL="s_axi_bvalid"/>
+            <PORTMAP LOGICAL="BREADY" PHYSICAL="s_axi_bready"/>
+            <PORTMAP LOGICAL="ARADDR" PHYSICAL="s_axi_araddr"/>
+            <PORTMAP LOGICAL="ARVALID" PHYSICAL="s_axi_arvalid"/>
+            <PORTMAP LOGICAL="ARREADY" PHYSICAL="s_axi_arready"/>
+            <PORTMAP LOGICAL="RDATA" PHYSICAL="s_axi_rdata"/>
+            <PORTMAP LOGICAL="RRESP" PHYSICAL="s_axi_rresp"/>
+            <PORTMAP LOGICAL="RVALID" PHYSICAL="s_axi_rvalid"/>
+            <PORTMAP LOGICAL="RREADY" PHYSICAL="s_axi_rready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
     <MODULE FULLNAME="/receive_chain/config_settings/xlslice_0" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_xlslice_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
@@ -6180,12 +6474,88 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_cfg_cfg_data">
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_index_config_cfg_data">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_cfg" PORT="cfg_data"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="cfg_data"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_0_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="start_index"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/receive_chain/config_settings/xlslice_1" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_xlslice_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="DIN_FROM" VALUE="31"/>
+        <PARAMETER NAME="DIN_TO" VALUE="16"/>
+        <PARAMETER NAME="DOUT_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_1_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_index_config_cfg_data">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="cfg_data"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_1_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="end_index"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/receive_chain/config_settings/xlslice_2" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_xlslice_2" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="DIN_FROM" VALUE="15"/>
+        <PARAMETER NAME="DIN_TO" VALUE="0"/>
+        <PARAMETER NAME="DOUT_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_2_1"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_int_config_cfg_data">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="cfg_data"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_2_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="n_samples"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE FULLNAME="/receive_chain/config_settings/xlslice_3" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_xlslice_3" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="DIN_FROM" VALUE="31"/>
+        <PARAMETER NAME="DIN_TO" VALUE="16"/>
+        <PARAMETER NAME="DOUT_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlslice_3_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_int_config_cfg_data">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="cfg_data"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_3_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="n_pulses"/>
+          </CONNECTIONS>
+        </PORT>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
@@ -6417,40 +6787,6 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE FULLNAME="/receive_chain/profile_integration/n_pulses" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_n_pulses" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="CONST_VAL" VALUE="00000010"/>
-        <PARAMETER NAME="CONST_WIDTH" VALUE="8"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_xlconstant_0_1"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="O" LEFT="7" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_n_pulses_dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="n_pulses"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
-    </MODULE>
-    <MODULE FULLNAME="/receive_chain/profile_integration/n_samples" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_n_samples" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="CONST_VAL" VALUE="0000010000000000"/>
-        <PARAMETER NAME="CONST_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_xlconstant_0_2"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="O" LEFT="15" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_n_samples_dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="n_samples"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
-    </MODULE>
     <MODULE FULLNAME="/receive_chain/profile_integration/pulse_int_0" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_pulse_int_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="pulse_int" VLNV="user.org:module_ref:pulse_int:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
@@ -6525,24 +6861,24 @@
             <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="s_axis_tready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="7" NAME="n_pulses" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_n_pulses_dout">
+        <PORT DIR="I" LEFT="15" NAME="n_pulses" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_3_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_n_pulses" PORT="dout"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_3" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="15" NAME="n_samples" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_n_samples_dout">
+        <PORT DIR="I" LEFT="15" NAME="n_samples" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_2_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_n_samples" PORT="dout"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_2" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="15" NAME="start_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_start_index_dout">
+        <PORT DIR="I" LEFT="15" NAME="start_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_0_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_start_index" PORT="dout"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_0" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="15" NAME="end_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_stop_index_dout">
+        <PORT DIR="I" LEFT="15" NAME="end_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_1_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_stop_index" PORT="dout"/>
+            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_1" PORT="Dout"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -6567,40 +6903,6 @@
           </PORTMAPS>
         </BUSINTERFACE>
       </BUSINTERFACES>
-    </MODULE>
-    <MODULE FULLNAME="/receive_chain/profile_integration/start_index" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_start_index" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="CONST_VAL" VALUE="0000000000000000"/>
-        <PARAMETER NAME="CONST_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_xlconstant_0_3"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="O" LEFT="15" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_start_index_dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="start_index"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
-    </MODULE>
-    <MODULE FULLNAME="/receive_chain/profile_integration/stop_index" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_stop_index" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="CONST_VAL" VALUE="0000000001100100"/>
-        <PARAMETER NAME="CONST_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_start_index_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="O" LEFT="15" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_stop_index_dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="end_index"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
     </MODULE>
     <MODULE FULLNAME="/signal_generator/axis_red_pitaya_dac_0" HWVERSION="1.0" INSTANCE="signal_generator_axis_red_pitaya_dac_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_red_pitaya_dac" VLNV="pavel-demin:user:axis_red_pitaya_dac:1.0">
       <DOCUMENTS/>
@@ -6750,8 +7052,8 @@
         <PARAMETER NAME="AXI_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="Component_Name" VALUE="system_axi_cfg_register_0_2"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-        <PARAMETER NAME="C_BASEADDR" VALUE="0x40005000"/>
-        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40005FFF"/>
+        <PARAMETER NAME="C_BASEADDR" VALUE="0x40004000"/>
+        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40004FFF"/>
       </PARAMETERS>
       <PORTS>
         <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
@@ -6916,8 +7218,8 @@
         <PARAMETER NAME="AXI_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="Component_Name" VALUE="system_axi_cfg_register_0_3"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-        <PARAMETER NAME="C_BASEADDR" VALUE="0x40006000"/>
-        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40006FFF"/>
+        <PARAMETER NAME="C_BASEADDR" VALUE="0x40005000"/>
+        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40005FFF"/>
       </PARAMETERS>
       <PORTS>
         <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
