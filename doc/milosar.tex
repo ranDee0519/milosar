@@ -292,7 +292,7 @@ Design of the digital receiver begins with the selection of a suitable analogue 
 \begin{figure}[h!]
     \begin{center}
         \includegraphics[width=\textwidth]{images/band_pass_response}
-        \caption{Frequency response of the SBP-10.7+ BPF with dashed lines indicating the Nyquist band of interest .}
+        \caption{Frequency response of the SBP-10.7+ BPF with dashed lines indicating the Nyquist band of interest.}
         \label{fig:band_pass_response}
     \end{center}
 \end{figure}
@@ -327,6 +327,7 @@ The topmost two spectrums illustrate the process of Nyquist folding during under
 
 The digitised main and reference channels are then multiplied together to perform demodulation, however, the post-mixer spectrum reveals a potential problem. The components shifted to a higher frequency fall out to the sampled bandwidth and therefore fold into the baseband spectrum. This unforeseen problem can however be avoided by zeroing the components that fold into the baseband spectrum before mixing.
 
+\newpage
 Figure~\ref{fig:anti_alias_down_conversion} illustrates the result of nullifying half of the main and reference channel before mixing. This process can be seen to prevent aliasing and avoid a doubling of the DC component.
 \begin{figure}[!ht]
     \begin{center}
@@ -337,6 +338,26 @@ Figure~\ref{fig:anti_alias_down_conversion} illustrates the result of nullifying
 \end{figure}
 
 The final processing step is then to preform integration of range profiles on the real data. Addition of two \SI{15}{\bit} numbers results in a single \SI{}{\bit} growth. Our data is now \SI{16}{\bit} and the PRF has been halved, resulting in a halving of the data rate.
+
+As an additional measure for data rate reduction, the unused portion of the FMCW ramp need not be recorded. In other words, the down-ramp portion of the transmitted waveform (which is necessary to maintain PLL lock) need not be stored. \textbf{[Add diagrams for explanation]}
+
+\newpage
+\section{Preliminary Results}
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/loop_back}
+        \caption{Loop-back cable response without the presence of the feed-through return. There is clearly some on-board leakage within the system, manifesting as a peak near DC.}
+        \label{fig:loop_back}
+    \end{center}
+\end{figure}
+
+\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=\textwidth]{images/feed_through}
+        \caption{Comparison of range profiles for the non-integrated loop-back cable response and the feed-through return. More than \SI{20}{\dB} of SNR is lost to the phase noise of the feed through.}
+        \label{fig:feed_through}
+    \end{center}
+\end{figure}
 
 
 \end{document}

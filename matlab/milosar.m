@@ -2,7 +2,7 @@
 % asssumes triangular modulation in chunk recording mode
 
 clear;
-close all;
+% close all;
 clc;
 
 %% processing settings
@@ -71,7 +71,7 @@ visual.r_min     = 0;                   % min range [m]
 visual.r_max     = 1500;                 % max range [m]
 
 %% extract binary data
-dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/20_03_18_12_54_05/';
+dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/20_03_18_13_36_26/';
 raw_data.a = extract_data(strcat(dataset_directory, 'A.bin'), 'int16'); 
 raw_data.b = extract_data(strcat(dataset_directory, 'B.bin'), 'int16');
 clear dataset_directory;
