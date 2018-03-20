@@ -14,7 +14,7 @@
 
 \definecolor{Gray}{gray}{0.9}
 
-\title{MiloSAR Documentation \\ \vspace{0.5cm} \Large Version 0.1}
+\title{MiloSAR Documentation \\ \vspace{0.5cm} \Large Version 0.2}
 \author{Darryn Jordan}
 
 \begin{document}
@@ -41,37 +41,37 @@ The LMX2492EVM is packaged with a USBtoMANY converter, enabling users to program
 
 \section{Registers}
 
-\subsection{Configuration}
-The configuration register is currently only used to set the decimation factor for reducing sampling rate. Sixteen bits are reserved for later use.
-\begin{table}[ht]
-    \caption{General configuration register.}
-    \begin{center}
-        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-            \hline
-            \rowcolor{Gray}
-            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
-            \hline
-            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
-            \hline
-            \multicolumn{8}{|c|}{Reserved [31:24]} & \multicolumn{8}{c|}{Reserved [23:16]}\\
-            \hline  
-            
-            \addlinespace[0.5cm]
-            
-            \hline 
-            \rowcolor{Gray}
-            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
-            \hline
-            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
-            \hline
-            \multicolumn{16}{|c|}{Decimation Factor [15:0]}\\
-            \hline
-        \end{tabular}
-    \end{center}
-    \label{tab:config_reg}
-\end{table}
+% \subsection{Configuration}
+% The configuration register is currently only used to set the decimation factor for reducing sampling rate. Sixteen bits are reserved for later use.
+% \begin{table}[ht]
+%     \caption{General configuration register.}
+%     \begin{center}
+%         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+%             \hline
+%             \rowcolor{Gray}
+%             \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+%             \hline
+%             31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+%             \hline
+%             \multicolumn{8}{|c|}{Reserved [31:24]} & \multicolumn{8}{c|}{Reserved [23:16]}\\
+%             \hline  
+%             
+%             \addlinespace[0.5cm]
+%             
+%             \hline 
+%             \rowcolor{Gray}
+%             \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+%             \hline
+%             15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+%             \hline
+%             \multicolumn{16}{|c|}{Decimation Factor [15:0]}\\
+%             \hline
+%         \end{tabular}
+%     \end{center}
+%     \label{tab:config_reg}
+% \end{table}
+% \newpage
 
-\newpage
 \subsection{Channel X Status}
 Both recording channels within the FPGA require a status register to provide the CPU with the location of the RAM writer's current pointer location.
 \begin{table}[ht]
@@ -101,39 +101,8 @@ Both recording channels within the FPGA require a status register to provide the
     \end{center}
     \label{tab:status_reg}
 \end{table}
-
 \newpage
-\subsection{Synthesizer Reference Signal}
-Provides the FPGA with the DDS phase increment used to generate the \SI{50}{\MHz} phase reference signal.
-\begin{table}[ht]
-    \caption{Synthesizer reference signal phase increment register.}
-    \begin{center}
-        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-            \hline
-            \rowcolor{Gray}
-            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
-            \hline
-            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
-            \hline
-            \multicolumn{16}{|c|}{Phase Increment [31:16]}\\
-            \hline  
-            
-            \addlinespace[0.5cm]
-            
-            \hline 
-            \rowcolor{Gray}
-            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
-            \hline
-            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
-            \hline
-            \multicolumn{16}{|c|}{Phase Increment [15:0]}\\
-            \hline
-        \end{tabular}
-    \end{center}
-    \label{tab:ref_phase_inc}
-\end{table}
 
-\newpage
 \subsection{GPIO}
 The GPIO register is currently haphazard and contains the clock divisor value, which is used to set the PRF. Furthermore, an enable flag, bit 8, is used to enable the receive chain. It is suggested that both of these settings be moved the the configuration register once the decimation factor is fixed. 
 \begin{table}[ht]
@@ -163,10 +132,41 @@ The GPIO register is currently haphazard and contains the clock divisor value, w
     \end{center}
     \label{tab:gpio_reg}
 \end{table}
-
 \newpage
-\subsection{Cancellation}
 
+\subsection{Reference Signal Phase Increment}
+Provides the FPGA with the DDS phase increment used to generate the \SI{50}{\MHz} phase reference signal.
+\begin{table}[ht]
+    \caption{Synthesizer reference signal phase increment register.}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+            \hline
+            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+            \hline
+            \multicolumn{16}{|c|}{Phase Increment [31:16]}\\
+            \hline  
+            
+            \addlinespace[0.5cm]
+            
+            \hline 
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+            \hline
+            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+            \hline
+            \multicolumn{16}{|c|}{Phase Increment [15:0]}\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tab:ref_phase_inc}
+\end{table}
+\newpage
+
+\subsection{Cancellation Signal Phase Increment}
+Provides the FPGA with the DDS phase increment used to generate the IF cancellation signal.
 \begin{table}[ht]
     \caption{Cancellation signal phase increment register.}
     \begin{center}
@@ -195,7 +195,98 @@ The GPIO register is currently haphazard and contains the clock divisor value, w
     \label{tab:canc_phase_inc}
 \end{table}
 
+\subsection{Cancellation Signal Phase Offset}
+Provides the FPGA with the DDS phase offset used to adjust the phase of the cancellation signal.
+\begin{table}[ht]
+    \caption{Cancellation signal phase offset register.}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+            \hline
+            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+            \hline
+            \multicolumn{16}{|c|}{Phase Offset [31:16]}\\
+            \hline  
+            
+            \addlinespace[0.5cm]
+            
+            \hline 
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+            \hline
+            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+            \hline
+            \multicolumn{16}{|c|}{Phase Offset [15:0]}\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tab:canc_phase_off}
+\end{table}
 \newpage
+
+\subsection{Profile Integrator Configuration}
+Specify the number of samples to integrate over and the number of pulses to integrate. Number of samples is currently limited to \SI{13}{\bit}s. This can be increased to \SI{15}{\bit}s if the FIFO depth is increased in the FPGA design. 
+\begin{table}[ht]
+    \caption{Cancellation signal phase offset register.}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+            \hline
+            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+            \hline
+            \multicolumn{16}{|c|}{Number of Pulses [31:16]}\\
+            \hline  
+            
+            \addlinespace[0.5cm]
+            
+            \hline 
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+            \hline
+            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+            \hline
+            \multicolumn{3}{|c|}{Reserved} & \multicolumn{13}{c|}{Number of Samples [12:0]}\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tab:prof_int_config}
+\end{table}
+
+\subsection{Profile Integrator Index}
+Specify the start and end index of the integrated profile. \textbf{Note that sample indexing begins at one}.
+\begin{table}[ht]
+    \caption{Profile integrator index register.}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B3} & \multicolumn{8}{c|}{B2}\\
+            \hline
+            31 & 30 & 29 & 28 & 27 & 26 & 25 & 24 & 23 & 22 & 21 & 20 & 19 & 18 & 17 & 16 \\
+            \hline
+            \multicolumn{16}{|c|}{End Index [31:16]}\\
+            \hline  
+            
+            \addlinespace[0.5cm]
+            
+            \hline 
+            \rowcolor{Gray}
+            \multicolumn{8}{|c|}{B1} & \multicolumn{8}{c|}{B0}\\
+            \hline
+            15 & 14 & 13 & 12 & 11 & 10 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+            \hline
+            \multicolumn{16}{|c|}{Start Index [15:0]}\\
+            \hline
+        \end{tabular}
+    \end{center}
+    \label{tab:prof_index_config}
+\end{table}
+\newpage
+
 \section{Digital Receiver Design}
 Design of the digital receiver begins with the selection of a suitable analogue bandpass filter. The SBP-10.7+ bandpass filter (BPF), procured from Mini-Circuits, features a \SI{3}{\dB} bandwidth of \SI{3.8}{MHz} and lower-side cut-off frequency, $ f_{\SI{3}{\dB}} $, of \SI{8.5}{\dB} as illustrated in Figure~\ref{fig:band_pass_response}. The SBP-10.7+ serves a dual role in suppressing feed-through and implementing sensitivity frequency-control. 
 \begin{figure}[h!]

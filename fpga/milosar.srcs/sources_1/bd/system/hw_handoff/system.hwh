@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Mar 20 10:06:01 2018" VIVADOVERSION="2016.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Mar 20 14:20:54 2018" VIVADOVERSION="2016.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -849,9 +849,9 @@
             <CONNECTION INSTANCE="signal_generator_dac_signal_combiner" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="s_axis_aresetn"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="s_axis_aresetn"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="aresetn"/>
@@ -4553,9 +4553,9 @@
             <CONNECTION INSTANCE="receive_chain_anti_aliasing_anti_aliasing_filter" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="aclk"/>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="s_axis_aclk"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="aclk"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="s_axis_aclk"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="aclk"/>

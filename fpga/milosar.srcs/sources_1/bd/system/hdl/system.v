@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Tue Mar 20 10:05:59 2018
+//Date        : Tue Mar 20 14:20:52 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system.bd
 //Design      : system
@@ -3389,10 +3389,10 @@ module profile_integration_imp_19GSJMO
   wire [3:0]Conn2_WSTRB;
   wire Conn2_WVALID;
   wire Net1;
-  wire [15:0]S_AXIS_1_TDATA;
-  wire S_AXIS_1_TVALID;
   wire [0:0]aresetn_1;
   wire [0:0]aresetn_2;
+  wire [15:0]channel_a_1_TDATA;
+  wire channel_a_1_TVALID;
   wire [31:0]channel_a_integrator_M_AXIS_TDATA;
   wire channel_a_integrator_M_AXIS_TREADY;
   wire channel_a_integrator_M_AXIS_TVALID;
@@ -3425,14 +3425,14 @@ module profile_integration_imp_19GSJMO
   assign Conn2_WSTRB = integration_wstrb[3:0];
   assign Conn2_WVALID = integration_wvalid;
   assign Net1 = aclk;
-  assign S_AXIS_1_TDATA = channel_a_tdata[15:0];
-  assign S_AXIS_1_TVALID = channel_a_tvalid;
   assign aresetn_1 = enable[0];
   assign aresetn_2 = aresetn[0];
   assign ch_a_out_tdata[31:0] = channel_a_integrator_M_AXIS_TDATA;
   assign ch_a_out_tvalid = channel_a_integrator_M_AXIS_TVALID;
   assign ch_b_out_tdata[31:0] = channel_b_integrator_M_AXIS_TDATA;
   assign ch_b_out_tvalid = channel_b_integrator_M_AXIS_TVALID;
+  assign channel_a_1_TDATA = channel_a_tdata[15:0];
+  assign channel_a_1_TVALID = channel_a_tvalid;
   assign channel_a_integrator_M_AXIS_TREADY = ch_a_out_tready;
   assign channel_b_1_TDATA = channel_b_tdata[15:0];
   assign channel_b_1_TVALID = channel_b_tvalid;
@@ -3457,8 +3457,8 @@ module profile_integration_imp_19GSJMO
        (.M_AXIS_tdata(channel_a_integrator_M_AXIS_TDATA),
         .M_AXIS_tready(channel_a_integrator_M_AXIS_TREADY),
         .M_AXIS_tvalid(channel_a_integrator_M_AXIS_TVALID),
-        .S_AXIS_A_tdata(S_AXIS_1_TDATA),
-        .S_AXIS_A_tvalid(S_AXIS_1_TVALID),
+        .S_AXIS_A_tdata(channel_a_1_TDATA),
+        .S_AXIS_A_tvalid(channel_a_1_TVALID),
         .aclk(Net1),
         .enable(aresetn_1),
         .end_index(config_settings_stop_index),

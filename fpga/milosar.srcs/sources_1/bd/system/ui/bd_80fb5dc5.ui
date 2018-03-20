@@ -15,18 +15,18 @@ preplace inst channel_a_integrator -pg 1 -lvl 2 -y 320 -defaultsOSRD
 preplace inst config_settings -pg 1 -lvl 1 -y 360 -defaultsOSRD
 preplace netloc Conn1 1 0 1 NJ
 preplace netloc Conn2 1 0 1 NJ
+preplace netloc channel_a_1 1 0 2 NJ 260 NJ
 preplace netloc channel_b_1 1 0 2 NJ 50 NJ
 preplace netloc channel_a_integrator_M_AXIS 1 2 1 NJ
-preplace netloc config_settings_int_factor 1 1 1 340
+preplace netloc config_settings_int_factor 1 1 1 330
 preplace netloc config_settings_n_samples 1 1 1 290
 preplace netloc channel_b_integrator_M_AXIS 1 2 1 NJ
 preplace netloc config_settings_stop_index 1 1 1 280
-preplace netloc S_AXIS_1 1 0 2 NJ 250 NJ
-preplace netloc aresetn_1 1 0 2 NJ 170 310
+preplace netloc aresetn_1 1 0 2 NJ 170 300
 preplace netloc aresetn_2 1 0 1 NJ
-preplace netloc Net1 1 0 2 20 270 320
-preplace netloc config_settings_start_index 1 1 1 330
-levelinfo -pg 1 0 150 460 600 -top 0 -bot 440
+preplace netloc Net1 1 0 2 20 270 310
+preplace netloc config_settings_start_index 1 1 1 320
+levelinfo -pg 1 0 150 450 590 -top 0 -bot 440
 ",
 }
 0

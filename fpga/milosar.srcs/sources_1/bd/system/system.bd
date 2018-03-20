@@ -1736,7 +1736,7 @@
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>
-      <spirit:hierConnection spirit:interfaceRef="channel_a/S_AXIS_1">
+      <spirit:hierConnection spirit:interfaceRef="channel_a/channel_a_1">
         <spirit:activeInterface spirit:busRef="S_AXIS_A" spirit:componentRef="channel_a_integrator"/>
       </spirit:hierConnection>
       <spirit:hierConnection spirit:interfaceRef="ch_a_out/channel_a_integrator_M_AXIS">
@@ -2131,6 +2131,15 @@
         </spirit:configurableElementValues>
       </spirit:componentInstance>
       <spirit:componentInstance>
+        <spirit:instanceName>axis_dwidth_converter_a</spirit:instanceName>
+        <spirit:componentRef spirit:library="ip" spirit:name="axis_dwidth_converter" spirit:vendor="xilinx.com" spirit:version="1.1"/>
+        <spirit:configurableElementValues>
+          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_axis_dwidth_converter_0_0</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="S_TDATA_NUM_BYTES">2</spirit:configurableElementValue>
+          <spirit:configurableElementValue spirit:referenceId="M_TDATA_NUM_BYTES">4</spirit:configurableElementValue>
+        </spirit:configurableElementValues>
+      </spirit:componentInstance>
+      <spirit:componentInstance>
         <spirit:instanceName>pulse_int_a</spirit:instanceName>
         <spirit:componentRef spirit:library="module_ref" spirit:name="pulse_int" spirit:vendor="user.org" spirit:version="1.0"/>
         <spirit:configurableElementValues>
@@ -2139,15 +2148,6 @@
           <spirit:configurableElementValue spirit:referenceId="bd:referenceName">pulse_int</spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="bd:subInstancePath"></spirit:configurableElementValue>
           <spirit:configurableElementValue spirit:referenceId="bd:referenceType">hdl</spirit:configurableElementValue>
-        </spirit:configurableElementValues>
-      </spirit:componentInstance>
-      <spirit:componentInstance>
-        <spirit:instanceName>axis_dwidth_converter_a</spirit:instanceName>
-        <spirit:componentRef spirit:library="ip" spirit:name="axis_dwidth_converter" spirit:vendor="xilinx.com" spirit:version="1.1"/>
-        <spirit:configurableElementValues>
-          <spirit:configurableElementValue spirit:referenceId="bd:xciName">system_axis_dwidth_converter_0_0</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="S_TDATA_NUM_BYTES">2</spirit:configurableElementValue>
-          <spirit:configurableElementValue spirit:referenceId="M_TDATA_NUM_BYTES">4</spirit:configurableElementValue>
         </spirit:configurableElementValues>
       </spirit:componentInstance>
     </spirit:componentInstances>
@@ -2186,16 +2186,16 @@
       <spirit:adHocConnection>
         <spirit:name>aresetn_1</spirit:name>
         <spirit:externalPortReference spirit:portRef="enable"/>
-        <spirit:internalPortReference spirit:componentRef="pulse_int_a" spirit:portRef="aresetn"/>
         <spirit:internalPortReference spirit:componentRef="axis_data_fifo_a" spirit:portRef="s_axis_aresetn"/>
         <spirit:internalPortReference spirit:componentRef="axis_dwidth_converter_a" spirit:portRef="aresetn"/>
+        <spirit:internalPortReference spirit:componentRef="pulse_int_a" spirit:portRef="aresetn"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>Net1</spirit:name>
         <spirit:externalPortReference spirit:portRef="aclk"/>
-        <spirit:internalPortReference spirit:componentRef="pulse_int_a" spirit:portRef="aclk"/>
         <spirit:internalPortReference spirit:componentRef="axis_data_fifo_a" spirit:portRef="s_axis_aclk"/>
         <spirit:internalPortReference spirit:componentRef="axis_dwidth_converter_a" spirit:portRef="aclk"/>
+        <spirit:internalPortReference spirit:componentRef="pulse_int_a" spirit:portRef="aclk"/>
       </spirit:adHocConnection>
       <spirit:adHocConnection>
         <spirit:name>config_settings_int_factor</spirit:name>

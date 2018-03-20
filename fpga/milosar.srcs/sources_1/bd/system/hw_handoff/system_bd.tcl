@@ -482,11 +482,11 @@ preplace inst pulse_int_a -pg 1 -lvl 2 -y 290 -defaultsOSRD
 preplace inst axis_dwidth_converter_a -pg 1 -lvl 3 -y 100 -defaultsOSRD
 preplace inst axis_data_fifo_a -pg 1 -lvl 1 -y 520 -defaultsOSRD
 preplace netloc Conn1 1 3 1 N
-preplace netloc pulse_int_0_m_axi_wdata_fifo 1 0 3 50 400 NJ 440 840
-preplace netloc pulse_int_0_s_axis_tready_fifo 1 1 2 NJ 500 860
-preplace netloc axis_data_fifo_0_m_axis_tdata 1 1 1 430
+preplace netloc pulse_int_0_m_axi_wdata_fifo 1 0 3 50 410 NJ 450 840
+preplace netloc pulse_int_0_s_axis_tready_fifo 1 1 2 NJ 500 850
+preplace netloc axis_data_fifo_0_m_axis_tdata 1 1 1 440
 preplace netloc axis_data_fifo_0_s_axis_tready 1 0 2 40 310 NJ
-preplace netloc pulse_int_0_m_axi_wvalid_fifo 1 0 3 60 410 NJ 450 830
+preplace netloc pulse_int_0_m_axi_wvalid_fifo 1 0 3 60 400 NJ 440 830
 preplace netloc axis_dwidth_converter_0_s_axis_tready 1 1 2 450 90 NJ
 preplace netloc pulse_int_0_m_axi_wvalid 1 2 1 840
 preplace netloc config_settings_n_samples 1 0 2 NJ 350 NJ
@@ -494,11 +494,11 @@ preplace netloc config_settings_int_factor 1 0 2 NJ 330 NJ
 preplace netloc config_settings_stop_index 1 0 2 NJ 390 NJ
 preplace netloc S_AXIS_1 1 0 2 NJ 190 NJ
 preplace netloc pulse_int_0_m_axi_wdata 1 2 1 850
-preplace netloc aresetn_1 1 0 3 30 230 430 140 NJ
-preplace netloc Net1 1 0 3 20 210 420 120 NJ
-preplace netloc axis_data_fifo_0_m_axis_tvalid 1 1 1 440
+preplace netloc aresetn_1 1 0 3 30 260 440 140 NJ
+preplace netloc Net1 1 0 3 20 240 420 130 NJ
+preplace netloc axis_data_fifo_0_m_axis_tvalid 1 1 1 450
 preplace netloc config_settings_start_index 1 0 2 NJ 370 NJ
-levelinfo -pg 1 0 240 640 990 1140 -top 0 -bot 630
+levelinfo -pg 1 0 240 640 980 1130 -top 0 -bot 630
 ",
 }
 
@@ -565,7 +565,7 @@ proc create_hier_cell_profile_integration { parentCell nameHier } {
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins index] [get_bd_intf_pins config_settings/index]
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins integration] [get_bd_intf_pins config_settings/integration]
-  connect_bd_intf_net -intf_net S_AXIS_1 [get_bd_intf_pins channel_a] [get_bd_intf_pins channel_a_integrator/S_AXIS_A]
+  connect_bd_intf_net -intf_net channel_a_1 [get_bd_intf_pins channel_a] [get_bd_intf_pins channel_a_integrator/S_AXIS_A]
   connect_bd_intf_net -intf_net channel_a_integrator_M_AXIS [get_bd_intf_pins ch_a_out] [get_bd_intf_pins channel_a_integrator/M_AXIS]
   connect_bd_intf_net -intf_net channel_b_1 [get_bd_intf_pins channel_b] [get_bd_intf_pins channel_b_integrator/S_AXIS_B]
   connect_bd_intf_net -intf_net channel_b_integrator_M_AXIS [get_bd_intf_pins ch_b_out] [get_bd_intf_pins channel_b_integrator/M_AXIS]
@@ -597,18 +597,18 @@ preplace inst channel_a_integrator -pg 1 -lvl 2 -y 320 -defaultsOSRD
 preplace inst config_settings -pg 1 -lvl 1 -y 360 -defaultsOSRD
 preplace netloc Conn1 1 0 1 NJ
 preplace netloc Conn2 1 0 1 NJ
+preplace netloc channel_a_1 1 0 2 NJ 260 NJ
 preplace netloc channel_b_1 1 0 2 NJ 50 NJ
 preplace netloc channel_a_integrator_M_AXIS 1 2 1 NJ
-preplace netloc config_settings_int_factor 1 1 1 340
+preplace netloc config_settings_int_factor 1 1 1 330
 preplace netloc config_settings_n_samples 1 1 1 290
 preplace netloc channel_b_integrator_M_AXIS 1 2 1 NJ
 preplace netloc config_settings_stop_index 1 1 1 280
-preplace netloc S_AXIS_1 1 0 2 NJ 250 NJ
-preplace netloc aresetn_1 1 0 2 NJ 170 310
+preplace netloc aresetn_1 1 0 2 NJ 170 300
 preplace netloc aresetn_2 1 0 1 NJ
-preplace netloc Net1 1 0 2 20 270 320
-preplace netloc config_settings_start_index 1 1 1 330
-levelinfo -pg 1 0 150 460 600 -top 0 -bot 440
+preplace netloc Net1 1 0 2 20 270 310
+preplace netloc config_settings_start_index 1 1 1 320
+levelinfo -pg 1 0 150 450 590 -top 0 -bot 440
 ",
 }
 

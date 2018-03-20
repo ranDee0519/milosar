@@ -70,11 +70,12 @@ int main(int argc, char **argv)
 	set_reg(phase, get_phase_offset(DDS_PHASE_OFFSET));
 	
 	//set chunck start and stop index
-	uint32_t chunk_index = (0 << 0) + (1023 << 16);
+	//note that indexing starts from 1!
+	uint32_t chunk_index = (1 << 0) + (6250 << 16);
 	set_reg(indx, chunk_index);
 	
 	//set number of samples in chunk and integration factor
-	uint32_t integration = (6250 << 0) + (1 << 16);
+	uint32_t integration = (6250 << 0) + (2 << 16);
 	set_reg(integ, integration);
 	
 	//get user input for final experiment settings

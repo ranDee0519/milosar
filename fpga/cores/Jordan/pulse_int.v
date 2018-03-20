@@ -130,7 +130,7 @@ module pulse_int #( parameter integer AXIS_DATA_WIDTH = 32 )
   end
 
   assign m_axi_wdata        = s_axis_tdata_fifo;
-  assign m_axi_wvalid       = s_axis_tvalid & out_en; // & (sample_index >= start_index) & (sample_index <= end_index);
+  assign m_axi_wvalid       = s_axis_tvalid & out_en & (sample_index >= start_index) & (sample_index <= end_index);
   
   assign m_axi_wdata_fifo   = data;
   assign m_axi_wvalid_fifo  = s_axis_tvalid & wr_en;
