@@ -2,9 +2,9 @@
 <Root MajorVersion="0" MinorVersion="33">
   <CompositeFile CompositeFileTopName="system" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1521035887"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1521035887"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1521035887"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1521533164"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1521533164"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1521533164"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/system_ps_0_0/system_ps_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system/ps_0"/>
@@ -23,7 +23,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_cfg_0_0/system_cfg_0_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/config_settings/index_config"/>
+        <Instance HierarchyPath="receive_chain/profile_integration/config_settings/index_config"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -118,15 +118,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_xlslice_0_0/system_xlslice_0_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/config_settings/xlslice_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_axis_dwidth_converter_0_1/system_axis_dwidth_converter_0_1.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/axis_dwidth_converter_1"/>
+        <Instance HierarchyPath="receive_chain/profile_integration/config_settings/xlslice_0"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -342,15 +334,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_axis_data_fifo_0_0/system_axis_data_fifo_0_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/profile_integration/axis_data_fifo_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_axis_constant_0_2/system_axis_constant_0_2.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/axis_constant_0"/>
+        <Instance HierarchyPath="receive_chain/profile_integration/channel_a_integrator/axis_data_fifo_a"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -358,7 +342,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_pulse_int_0_0/system_pulse_int_0_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/profile_integration/pulse_int_0"/>
+        <Instance HierarchyPath="receive_chain/profile_integration/channel_a_integrator/pulse_int_a"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -366,15 +350,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_axis_dwidth_converter_0_0/system_axis_dwidth_converter_0_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/profile_integration/axis_dwidth_converter_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_c_counter_binary_0_0_1/system_c_counter_binary_0_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/c_counter_binary_0"/>
+        <Instance HierarchyPath="receive_chain/profile_integration/channel_a_integrator/axis_dwidth_converter_a"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -382,7 +358,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_xlslice_1_0/system_xlslice_1_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/config_settings/xlslice_1"/>
+        <Instance HierarchyPath="receive_chain/profile_integration/config_settings/xlslice_1"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -390,7 +366,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_axi_cfg_register_0_4/system_axi_cfg_register_0_4.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/config_settings/int_config"/>
+        <Instance HierarchyPath="receive_chain/profile_integration/config_settings/int_config"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -398,7 +374,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_xlslice_2_1/system_xlslice_2_1.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/config_settings/xlslice_2"/>
+        <Instance HierarchyPath="receive_chain/profile_integration/config_settings/xlslice_2"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -406,7 +382,31 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_xlslice_3_0/system_xlslice_3_0.xci" Type="IP">
-        <Instance HierarchyPath="receive_chain/config_settings/xlslice_3"/>
+        <Instance HierarchyPath="receive_chain/profile_integration/config_settings/xlslice_3"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_axis_dwidth_converter_0_1/system_axis_dwidth_converter_0_1.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/channel_b_integrator/axis_dwidth_converter_b"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_axis_data_fifo_0_1/system_axis_data_fifo_0_1.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/channel_b_integrator/axis_data_fifo_b"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_pulse_int_0_1/system_pulse_int_0_1.xci" Type="IP">
+        <Instance HierarchyPath="receive_chain/profile_integration/channel_b_integrator/pulse_int_b"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

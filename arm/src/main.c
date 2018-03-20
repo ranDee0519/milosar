@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <sys/resource.h>
+#include <sys/time.h>
 #include <fcntl.h>
 #include <stdlib.h>
 
@@ -73,7 +74,7 @@ int main(int argc, char **argv)
 	set_reg(indx, chunk_index);
 	
 	//set number of samples in chunk and integration factor
-	uint32_t integration = (1024 << 0) + (1 << 16);
+	uint32_t integration = (6250 << 0) + (1 << 16);
 	set_reg(integ, integration);
 	
 	//get user input for final experiment settings
@@ -204,7 +205,7 @@ void* record(void *arg)
 	FILE *f = fopen(path, "w");
 	limit = S2MB;
 
-	int nbuffs = 1;
+	int nbuffs = 5;
 	
 	void* buf;
 	
@@ -213,6 +214,9 @@ void* record(void *arg)
 		fprintf(stderr, "no memory for temp buffer\n");
 		exit(EXIT_FAILURE);
 	}
+	
+	struct timeval start_time;
+	gettimeofday(&start_time, NULL);
 
 	for (int i = 0; i < nbuffs; ) 
 	{
@@ -231,16 +235,26 @@ void* record(void *arg)
 		} 
     }
     
+    struct timeval end_time;
+	gettimeofday(&end_time, NULL);
+	
+	#ifdef VERBOSE
+	printf("---> Channel %s Recording Time: %.02f s\n", channel->letter, elapsed_us(start_time, end_time)/1e6);
+	#endif
+    
     //write data from cpu ram to sd card
     fwrite(buf, 1, nbuffs*S2MB, f);
+    
+    struct timeval move_time;
+	gettimeofday(&move_time, NULL);
 
     fclose(f);
 	free(path);
 	free(buf);
 
-    #ifdef VERBOSE
-    printf("---> Finished Channel %s \n", channel->letter);
-    #endif
+	#ifdef VERBOSE
+	printf("---> Channel %s Transfer Time: %.02f s\n", channel->letter, elapsed_us(end_time, move_time)/1e6);
+	#endif
 
     return 0;
 }

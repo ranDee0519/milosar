@@ -2,69 +2,68 @@
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
 preplace port DDR -pg 1 -y 90 -defaultsOSRD
-preplace port Vp_Vn -pg 1 -y 140 -defaultsOSRD
+preplace port Vp_Vn -pg 1 -y 100 -defaultsOSRD
 preplace port Vaux0 -pg 1 -y 20 -defaultsOSRD
 preplace port adc_csn_o -pg 1 -y 260 -defaultsOSRD
 preplace port Vaux1 -pg 1 -y 40 -defaultsOSRD
-preplace port adc_clk_p_i -pg 1 -y 100 -defaultsOSRD
+preplace port adc_clk_p_i -pg 1 -y 300 -defaultsOSRD
 preplace port dac_rst_o -pg 1 -y 360 -defaultsOSRD
 preplace port dac_clk_o -pg 1 -y 340 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -y 110 -defaultsOSRD
 preplace port dac_sel_o -pg 1 -y 380 -defaultsOSRD
 preplace port dac_wrt_o -pg 1 -y 400 -defaultsOSRD
 preplace port Vaux8 -pg 1 -y 60 -defaultsOSRD
-preplace port adc_clk_n_i -pg 1 -y 120 -defaultsOSRD
+preplace port adc_clk_n_i -pg 1 -y 320 -defaultsOSRD
 preplace port Vaux9 -pg 1 -y 80 -defaultsOSRD
 preplace portBus daisy_n_i -pg 1 -y 540 -defaultsOSRD
-preplace portBus adc_dat_b_i -pg 1 -y 190 -defaultsOSRD
+preplace portBus adc_dat_b_i -pg 1 -y 240 -defaultsOSRD
 preplace portBus exp_p_tri_io -pg 1 -y 190 -defaultsOSRD
 preplace portBus exp_n_tri_io -pg 1 -y 170 -defaultsOSRD
 preplace portBus daisy_p_o -pg 1 -y 520 -defaultsOSRD
 preplace portBus led_o -pg 1 -y 20 -defaultsOSRD
 preplace portBus daisy_n_o -pg 1 -y 540 -defaultsOSRD
-preplace portBus adc_dat_a_i -pg 1 -y 170 -defaultsOSRD
+preplace portBus adc_dat_a_i -pg 1 -y 220 -defaultsOSRD
 preplace portBus dac_dat_o -pg 1 -y 420 -defaultsOSRD
 preplace portBus daisy_p_i -pg 1 -y 520 -defaultsOSRD
 preplace inst daisy_chain -pg 1 -lvl 4 -y 530 -defaultsOSRD
-preplace inst processing_system -pg 1 -lvl 3 -y 180 -defaultsOSRD
-preplace inst clocking_system -pg 1 -lvl 1 -y 110 -defaultsOSRD
+preplace inst processing_system -pg 1 -lvl 3 -y 190 -defaultsOSRD
+preplace inst clocking_system -pg 1 -lvl 1 -y 310 -defaultsOSRD
 preplace inst gpio_interface -pg 1 -lvl 4 -y 190 -defaultsOSRD
 preplace inst signal_generator -pg 1 -lvl 4 -y 380 -defaultsOSRD
-preplace inst receive_chain -pg 1 -lvl 2 -y 160 -defaultsOSRD
-preplace netloc S_AXI_1 1 1 3 240 -10 NJ -10 920
-preplace netloc S_AXI2_1 1 3 1 880
-preplace netloc S_AXI_2 1 3 1 870
+preplace inst receive_chain -pg 1 -lvl 2 -y 200 -defaultsOSRD
+preplace netloc S_AXI_1 1 1 3 250 10 NJ 10 810
+preplace netloc S_AXI2_1 1 3 1 830
+preplace netloc S_AXI_2 1 3 1 840
 preplace netloc axis_red_pitaya_dac_0_dac_rst 1 4 1 NJ
 preplace netloc axis_red_pitaya_dac_0_dac_sel 1 4 1 NJ
-preplace netloc channel_b_M_AXI 1 2 1 550
+preplace netloc channel_b_M_AXI 1 2 1 N
 preplace netloc axis_red_pitaya_dac_0_dac_wrt 1 4 1 NJ
-preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 10 NJ 10 NJ
-preplace netloc receive_chain_adc_clk 1 2 1 N
+preplace netloc axis_red_pitaya_adc_0_adc_csn 1 2 3 NJ 350 NJ 260 NJ
 preplace netloc adc_clk_n_i_1 1 0 1 NJ
 preplace netloc daisy_p_i_1 1 0 4 NJ 520 NJ 520 NJ 520 NJ
-preplace netloc adc_dat_a_i_1 1 0 2 NJ 170 NJ
-preplace netloc processing_system_M07_AXI 1 1 3 250 330 NJ 330 860
-preplace netloc processing_system_M03_AXI 1 3 1 920
+preplace netloc adc_dat_a_i_1 1 0 2 NJ 220 NJ
+preplace netloc processing_system_M07_AXI 1 1 3 240 20 NJ 20 790
+preplace netloc processing_system_M03_AXI 1 3 1 810
 preplace netloc util_ds_buf_2_OBUF_DS_N 1 4 1 NJ
-preplace netloc ps_0_axi_periph_M00_AXI 1 1 3 250 20 NJ 20 870
-preplace netloc xlconstant_0_dout 1 1 3 260 350 NJ 350 870
+preplace netloc ps_0_axi_periph_M00_AXI 1 1 3 270 30 NJ 30 780
+preplace netloc xlconstant_0_dout 1 1 3 250 380 NJ 380 860
 preplace netloc clk_wiz_0_clk_out1 1 1 1 240
 preplace netloc util_ds_buf_2_OBUF_DS_P 1 4 1 NJ
-preplace netloc ps_0_DDR 1 3 2 NJ 80 NJ
-preplace netloc ps_axi_periph_M01_AXI 1 1 3 270 0 NJ 0 900
+preplace netloc ps_0_DDR 1 3 2 NJ 90 NJ
+preplace netloc ps_axi_periph_M01_AXI 1 1 3 260 340 NJ 340 780
 preplace netloc Net1 1 4 1 NJ
 preplace netloc Net 1 4 1 NJ
-preplace netloc adc_dat_b_i_1 1 0 2 NJ 190 NJ
-preplace netloc ps_0_FIXED_IO 1 3 2 NJ 100 NJ
-preplace netloc processing_system_M05_AXI 1 3 1 890
+preplace netloc adc_dat_b_i_1 1 0 2 NJ 240 NJ
+preplace netloc ps_0_FIXED_IO 1 3 2 NJ 110 NJ
+preplace netloc processing_system_M05_AXI 1 3 1 840
 preplace netloc axis_red_pitaya_dac_0_dac_clk 1 4 1 NJ
-preplace netloc axis_ram_writer_0_M_AXI 1 2 1 560
-preplace netloc enable_1 1 1 4 270 360 NJ 360 910 260 1230
+preplace netloc axis_ram_writer_0_M_AXI 1 2 1 N
+preplace netloc enable_1 1 1 4 270 370 NJ 370 820 270 1140
 preplace netloc axis_red_pitaya_dac_0_dac_dat 1 4 1 NJ
 preplace netloc adc_clk_p_i_1 1 0 1 NJ
-preplace netloc clk_sync_clk_out1 1 2 2 530 340 900
+preplace netloc clk_sync_clk_out1 1 2 2 520 360 850
 preplace netloc daisy_n_i_1 1 0 4 NJ 540 NJ 540 NJ 540 NJ
-levelinfo -pg 1 0 130 410 730 1090 1270 -top -20 -bot 590
+levelinfo -pg 1 0 130 390 650 1000 1160 -top 0 -bot 590
 ",
 }
 {

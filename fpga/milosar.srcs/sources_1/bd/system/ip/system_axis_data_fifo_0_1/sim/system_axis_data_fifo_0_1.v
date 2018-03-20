@@ -47,33 +47,85 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: pavel-demin:user:axis_constant:1.0
-// IP Revision: 1
+// IP VLNV: xilinx.com:ip:axis_data_fifo:1.1
+// IP Revision: 10
 
 `timescale 1ns/1ps
 
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_axis_constant_0_2 (
-  aclk,
-  cfg_data,
+module system_axis_data_fifo_0_1 (
+  s_axis_aresetn,
+  s_axis_aclk,
+  s_axis_tvalid,
+  s_axis_tready,
+  s_axis_tdata,
+  m_axis_tvalid,
+  m_axis_tready,
   m_axis_tdata,
-  m_axis_tvalid
+  axis_data_count,
+  axis_wr_data_count,
+  axis_rd_data_count
 );
 
-(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 aclk CLK" *)
-input wire aclk;
-input wire [15 : 0] cfg_data;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TDATA" *)
-output wire [15 : 0] m_axis_tdata;
+(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 S_RSTIF RST" *)
+input wire s_axis_aresetn;
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 S_CLKIF CLK" *)
+input wire s_axis_aclk;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TVALID" *)
+input wire s_axis_tvalid;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TREADY" *)
+output wire s_axis_tready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TDATA" *)
+input wire [15 : 0] s_axis_tdata;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TVALID" *)
 output wire m_axis_tvalid;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TREADY" *)
+input wire m_axis_tready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TDATA" *)
+output wire [15 : 0] m_axis_tdata;
+output wire [31 : 0] axis_data_count;
+output wire [31 : 0] axis_wr_data_count;
+output wire [31 : 0] axis_rd_data_count;
 
-  axis_constant #(
-    .AXIS_TDATA_WIDTH(16)
+  axis_data_fifo_v1_1_10_axis_data_fifo #(
+    .C_FAMILY("zynq"),
+    .C_AXIS_TDATA_WIDTH(16),
+    .C_AXIS_TID_WIDTH(1),
+    .C_AXIS_TDEST_WIDTH(1),
+    .C_AXIS_TUSER_WIDTH(1),
+    .C_AXIS_SIGNAL_SET('B00000000000000000000000000000011),
+    .C_FIFO_DEPTH(8192),
+    .C_FIFO_MODE(1),
+    .C_IS_ACLK_ASYNC(0),
+    .C_SYNCHRONIZER_STAGE(2),
+    .C_ACLKEN_CONV_MODE(0)
   ) inst (
-    .aclk(aclk),
-    .cfg_data(cfg_data),
+    .s_axis_aresetn(s_axis_aresetn),
+    .m_axis_aresetn(1'H0),
+    .s_axis_aclk(s_axis_aclk),
+    .s_axis_aclken(1'H1),
+    .s_axis_tvalid(s_axis_tvalid),
+    .s_axis_tready(s_axis_tready),
+    .s_axis_tdata(s_axis_tdata),
+    .s_axis_tstrb(2'H3),
+    .s_axis_tkeep(2'H3),
+    .s_axis_tlast(1'H1),
+    .s_axis_tid(1'H0),
+    .s_axis_tdest(1'H0),
+    .s_axis_tuser(1'H0),
+    .m_axis_aclk(1'H0),
+    .m_axis_aclken(1'H1),
+    .m_axis_tvalid(m_axis_tvalid),
+    .m_axis_tready(m_axis_tready),
     .m_axis_tdata(m_axis_tdata),
-    .m_axis_tvalid(m_axis_tvalid)
+    .m_axis_tstrb(),
+    .m_axis_tkeep(),
+    .m_axis_tlast(),
+    .m_axis_tid(),
+    .m_axis_tdest(),
+    .m_axis_tuser(),
+    .axis_data_count(axis_data_count),
+    .axis_wr_data_count(axis_wr_data_count),
+    .axis_rd_data_count(axis_rd_data_count)
   );
 endmodule

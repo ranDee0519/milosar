@@ -51,10 +51,10 @@
 // IP Revision: 10
 
 (* X_CORE_INFO = "axis_data_fifo_v1_1_10_axis_data_fifo,Vivado 2016.2" *)
-(* CHECK_LICENSE_TYPE = "system_axis_data_fifo_0_0,axis_data_fifo_v1_1_10_axis_data_fifo,{}" *)
-(* CORE_GENERATION_INFO = "system_axis_data_fifo_0_0,axis_data_fifo_v1_1_10_axis_data_fifo,{x_ipProduct=Vivado 2016.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=axis_data_fifo,x_ipVersion=1.1,x_ipCoreRevision=10,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_FAMILY=zynq,C_AXIS_TDATA_WIDTH=16,C_AXIS_TID_WIDTH=1,C_AXIS_TDEST_WIDTH=1,C_AXIS_TUSER_WIDTH=1,C_AXIS_SIGNAL_SET=0b00000000000000000000000000000011,C_FIFO_DEPTH=8192,C_FIFO_MODE=1,C_IS_ACLK_ASYNC=0,C_SYNCHRONIZER_STAGE=2,C_ACLKEN_CONV_MODE=0}" *)
+(* CHECK_LICENSE_TYPE = "system_axis_data_fifo_0_1,axis_data_fifo_v1_1_10_axis_data_fifo,{}" *)
+(* CORE_GENERATION_INFO = "system_axis_data_fifo_0_1,axis_data_fifo_v1_1_10_axis_data_fifo,{x_ipProduct=Vivado 2016.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=axis_data_fifo,x_ipVersion=1.1,x_ipCoreRevision=10,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_FAMILY=zynq,C_AXIS_TDATA_WIDTH=16,C_AXIS_TID_WIDTH=1,C_AXIS_TDEST_WIDTH=1,C_AXIS_TUSER_WIDTH=1,C_AXIS_SIGNAL_SET=0b00000000000000000000000000000011,C_FIFO_DEPTH=8192,C_FIFO_MODE=1,C_IS_ACLK_ASYNC=0,C_SYNCHRONIZER_STAGE=2,C_ACLKEN_CONV_MODE=0}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_axis_data_fifo_0_0 (
+module system_axis_data_fifo_0_1 (
   s_axis_aresetn,
   s_axis_aclk,
   s_axis_tvalid,

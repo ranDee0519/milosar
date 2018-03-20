@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Wed Mar 14 15:58:01 2018
+//Date        : Tue Mar 20 10:05:59 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system.bd
 //Design      : system
@@ -20,7 +20,7 @@ module anti_aliasing_imp_YAGIPJ
     S01_AXIS_tvalid,
     aclk,
     aresetn);
-  output M00_AXIS_tdata;
+  output [15:0]M00_AXIS_tdata;
   output M00_AXIS_tvalid;
   output [15:0]M01_AXIS_tdata;
   output M01_AXIS_tvalid;
@@ -47,7 +47,7 @@ module anti_aliasing_imp_YAGIPJ
   wire axis_combiner_0_M_AXIS_TVALID;
   wire clk_sync_clk_out1;
 
-  assign M00_AXIS_tdata = axis_broadcaster_0_M00_AXIS_TDATA[0];
+  assign M00_AXIS_tdata[15:0] = axis_broadcaster_0_M00_AXIS_TDATA;
   assign M00_AXIS_tvalid = axis_broadcaster_0_M00_AXIS_TVALID;
   assign M01_AXIS_tdata[15:0] = axis_broadcaster_0_M01_AXIS_TDATA;
   assign M01_AXIS_tvalid = axis_broadcaster_0_M01_AXIS_TVALID;
@@ -286,6 +286,100 @@ module channel_a_imp_JYKOO2
         .sts_data(ch_a_writer_sts_data));
 endmodule
 
+module channel_a_integrator_imp_1OCNZGV
+   (M_AXIS_tdata,
+    M_AXIS_tready,
+    M_AXIS_tvalid,
+    S_AXIS_A_tdata,
+    S_AXIS_A_tvalid,
+    aclk,
+    enable,
+    end_index,
+    n_pulses,
+    n_samples,
+    start_index);
+  output [31:0]M_AXIS_tdata;
+  input M_AXIS_tready;
+  output M_AXIS_tvalid;
+  input [15:0]S_AXIS_A_tdata;
+  input S_AXIS_A_tvalid;
+  input aclk;
+  input [0:0]enable;
+  input [15:0]end_index;
+  input [15:0]n_pulses;
+  input [15:0]n_samples;
+  input [15:0]start_index;
+
+  wire [31:0]Conn1_TDATA;
+  wire Conn1_TREADY;
+  wire Conn1_TVALID;
+  wire Net1;
+  wire [15:0]S_AXIS_1_TDATA;
+  wire S_AXIS_1_TVALID;
+  wire [0:0]aresetn_1;
+  wire [15:0]axis_data_fifo_0_m_axis_tdata;
+  wire axis_data_fifo_0_m_axis_tvalid;
+  wire axis_data_fifo_0_s_axis_tready;
+  wire axis_dwidth_converter_0_s_axis_tready;
+  wire [15:0]config_settings_int_factor;
+  wire [15:0]config_settings_n_samples;
+  wire [15:0]config_settings_start_index;
+  wire [15:0]config_settings_stop_index;
+  wire [15:0]pulse_int_0_m_axi_wdata;
+  wire [15:0]pulse_int_0_m_axi_wdata_fifo;
+  wire pulse_int_0_m_axi_wvalid;
+  wire pulse_int_0_m_axi_wvalid_fifo;
+  wire pulse_int_0_s_axis_tready_fifo;
+
+  assign Conn1_TREADY = M_AXIS_tready;
+  assign M_AXIS_tdata[31:0] = Conn1_TDATA;
+  assign M_AXIS_tvalid = Conn1_TVALID;
+  assign Net1 = aclk;
+  assign S_AXIS_1_TDATA = S_AXIS_A_tdata[15:0];
+  assign S_AXIS_1_TVALID = S_AXIS_A_tvalid;
+  assign aresetn_1 = enable[0];
+  assign config_settings_int_factor = n_pulses[15:0];
+  assign config_settings_n_samples = n_samples[15:0];
+  assign config_settings_start_index = start_index[15:0];
+  assign config_settings_stop_index = end_index[15:0];
+  system_axis_data_fifo_0_0 axis_data_fifo_a
+       (.m_axis_tdata(axis_data_fifo_0_m_axis_tdata),
+        .m_axis_tready(pulse_int_0_s_axis_tready_fifo),
+        .m_axis_tvalid(axis_data_fifo_0_m_axis_tvalid),
+        .s_axis_aclk(Net1),
+        .s_axis_aresetn(aresetn_1),
+        .s_axis_tdata(pulse_int_0_m_axi_wdata_fifo),
+        .s_axis_tready(axis_data_fifo_0_s_axis_tready),
+        .s_axis_tvalid(pulse_int_0_m_axi_wvalid_fifo));
+  system_axis_dwidth_converter_0_0 axis_dwidth_converter_a
+       (.aclk(Net1),
+        .aresetn(aresetn_1),
+        .m_axis_tdata(Conn1_TDATA),
+        .m_axis_tready(Conn1_TREADY),
+        .m_axis_tvalid(Conn1_TVALID),
+        .s_axis_tdata(pulse_int_0_m_axi_wdata),
+        .s_axis_tready(axis_dwidth_converter_0_s_axis_tready),
+        .s_axis_tvalid(pulse_int_0_m_axi_wvalid));
+  system_pulse_int_0_0 pulse_int_a
+       (.aclk(Net1),
+        .aresetn(aresetn_1),
+        .end_index(config_settings_stop_index),
+        .m_axi_wdata(pulse_int_0_m_axi_wdata),
+        .m_axi_wdata_fifo(pulse_int_0_m_axi_wdata_fifo),
+        .m_axi_wready(axis_dwidth_converter_0_s_axis_tready),
+        .m_axi_wready_fifo(axis_data_fifo_0_s_axis_tready),
+        .m_axi_wvalid(pulse_int_0_m_axi_wvalid),
+        .m_axi_wvalid_fifo(pulse_int_0_m_axi_wvalid_fifo),
+        .n_pulses(config_settings_int_factor),
+        .n_samples(config_settings_n_samples),
+        .s_axis_tdata(S_AXIS_1_TDATA),
+        .s_axis_tdata_fifo(axis_data_fifo_0_m_axis_tdata),
+        .s_axis_tready_fifo(pulse_int_0_s_axis_tready_fifo),
+        .s_axis_tvalid(S_AXIS_1_TVALID),
+        .s_axis_tvalid_fifo(axis_data_fifo_0_m_axis_tvalid),
+        .start_index(config_settings_start_index));
+endmodule
+
 module channel_b_imp_WRMB9B
    (M_AXI_awaddr,
     M_AXI_awburst,
@@ -491,13 +585,107 @@ module channel_b_imp_WRMB9B
         .sts_data(ch_a_writer_sts_data));
 endmodule
 
+module channel_b_integrator_imp_E5NGVH
+   (M_AXIS_tdata,
+    M_AXIS_tready,
+    M_AXIS_tvalid,
+    S_AXIS_B_tdata,
+    S_AXIS_B_tvalid,
+    aclk,
+    enable,
+    end_index,
+    n_pulses,
+    n_samples,
+    start_index);
+  output [31:0]M_AXIS_tdata;
+  input M_AXIS_tready;
+  output M_AXIS_tvalid;
+  input [15:0]S_AXIS_B_tdata;
+  input S_AXIS_B_tvalid;
+  input aclk;
+  input [0:0]enable;
+  input [15:0]end_index;
+  input [15:0]n_pulses;
+  input [15:0]n_samples;
+  input [15:0]start_index;
+
+  wire [31:0]Conn1_TDATA;
+  wire Conn1_TREADY;
+  wire Conn1_TVALID;
+  wire [0:0]Net;
+  wire Net1;
+  wire [15:0]S_AXIS_1_TDATA;
+  wire S_AXIS_1_TVALID;
+  wire [15:0]axis_data_fifo_b_m_axis_tdata;
+  wire axis_data_fifo_b_m_axis_tvalid;
+  wire axis_data_fifo_b_s_axis_tready;
+  wire axis_dwidth_converter_b_s_axis_tready;
+  wire [15:0]end_index_1;
+  wire [15:0]n_pulses_1;
+  wire [15:0]n_samples_1;
+  wire [15:0]pulse_int_0_m_axi_wdata;
+  wire pulse_int_0_m_axi_wvalid;
+  wire [15:0]pulse_int_b_m_axi_wdata_fifo;
+  wire pulse_int_b_m_axi_wvalid_fifo;
+  wire pulse_int_b_s_axis_tready_fifo;
+  wire [15:0]start_index_1;
+
+  assign Conn1_TREADY = M_AXIS_tready;
+  assign M_AXIS_tdata[31:0] = Conn1_TDATA;
+  assign M_AXIS_tvalid = Conn1_TVALID;
+  assign Net = enable[0];
+  assign Net1 = aclk;
+  assign S_AXIS_1_TDATA = S_AXIS_B_tdata[15:0];
+  assign S_AXIS_1_TVALID = S_AXIS_B_tvalid;
+  assign end_index_1 = end_index[15:0];
+  assign n_pulses_1 = n_pulses[15:0];
+  assign n_samples_1 = n_samples[15:0];
+  assign start_index_1 = start_index[15:0];
+  system_axis_data_fifo_0_1 axis_data_fifo_b
+       (.m_axis_tdata(axis_data_fifo_b_m_axis_tdata),
+        .m_axis_tready(pulse_int_b_s_axis_tready_fifo),
+        .m_axis_tvalid(axis_data_fifo_b_m_axis_tvalid),
+        .s_axis_aclk(Net1),
+        .s_axis_aresetn(Net),
+        .s_axis_tdata(pulse_int_b_m_axi_wdata_fifo),
+        .s_axis_tready(axis_data_fifo_b_s_axis_tready),
+        .s_axis_tvalid(pulse_int_b_m_axi_wvalid_fifo));
+  system_axis_dwidth_converter_0_1 axis_dwidth_converter_b
+       (.aclk(Net1),
+        .aresetn(Net),
+        .m_axis_tdata(Conn1_TDATA),
+        .m_axis_tready(Conn1_TREADY),
+        .m_axis_tvalid(Conn1_TVALID),
+        .s_axis_tdata(pulse_int_0_m_axi_wdata),
+        .s_axis_tready(axis_dwidth_converter_b_s_axis_tready),
+        .s_axis_tvalid(pulse_int_0_m_axi_wvalid));
+  system_pulse_int_0_1 pulse_int_b
+       (.aclk(Net1),
+        .aresetn(Net),
+        .end_index(end_index_1),
+        .m_axi_wdata(pulse_int_0_m_axi_wdata),
+        .m_axi_wdata_fifo(pulse_int_b_m_axi_wdata_fifo),
+        .m_axi_wready(axis_dwidth_converter_b_s_axis_tready),
+        .m_axi_wready_fifo(axis_data_fifo_b_s_axis_tready),
+        .m_axi_wvalid(pulse_int_0_m_axi_wvalid),
+        .m_axi_wvalid_fifo(pulse_int_b_m_axi_wvalid_fifo),
+        .n_pulses(n_pulses_1),
+        .n_samples(n_samples_1),
+        .s_axis_tdata(S_AXIS_1_TDATA),
+        .s_axis_tdata_fifo(axis_data_fifo_b_m_axis_tdata),
+        .s_axis_tready_fifo(pulse_int_b_s_axis_tready_fifo),
+        .s_axis_tvalid(S_AXIS_1_TVALID),
+        .s_axis_tvalid_fifo(axis_data_fifo_b_m_axis_tvalid),
+        .start_index(start_index_1));
+endmodule
+
 module clocking_system_imp_7QV4LN
    (IBUF_DS_N,
     IBUF_DS_P,
-    clk_out1);
+    clk_out);
   input [0:0]IBUF_DS_N;
   input [0:0]IBUF_DS_P;
-  output clk_out1;
+  output clk_out;
 
   wire [0:0]adc_clk_n_i_1;
   wire [0:0]adc_clk_p_i_1;
@@ -506,7 +694,7 @@ module clocking_system_imp_7QV4LN
 
   assign adc_clk_n_i_1 = IBUF_DS_N[0];
   assign adc_clk_p_i_1 = IBUF_DS_P[0];
-  assign clk_out1 = clk_wiz_0_clk_out1;
+  assign clk_out = clk_wiz_0_clk_out1;
   system_clk_wiz_0_1 clk_wiz_0
        (.clk_in1(util_ds_buf_0_IBUF_OUT),
         .clk_out1(clk_wiz_0_clk_out1));
@@ -516,7 +704,7 @@ module clocking_system_imp_7QV4LN
         .IBUF_OUT(util_ds_buf_0_IBUF_OUT));
 endmodule
 
-module config_settings_imp_18GRB1F
+module config_settings_imp_Y3LJ5T
    (aclk,
     aresetn,
     index_araddr,
@@ -3071,134 +3259,301 @@ module processing_system_imp_W26YM1
 endmodule
 
 module profile_integration_imp_19GSJMO
-   (S_AXIS_tdata,
-    S_AXIS_tvalid,
-    aclk,
+   (aclk,
     aresetn,
-    end_index,
-    m_axis_tdata,
-    m_axis_tready,
-    m_axis_tvalid,
-    n_pulses,
-    n_samples,
-    start_index);
-  input [15:0]S_AXIS_tdata;
-  input S_AXIS_tvalid;
+    ch_a_out_tdata,
+    ch_a_out_tready,
+    ch_a_out_tvalid,
+    ch_b_out_tdata,
+    ch_b_out_tready,
+    ch_b_out_tvalid,
+    channel_a_tdata,
+    channel_a_tvalid,
+    channel_b_tdata,
+    channel_b_tvalid,
+    enable,
+    index_araddr,
+    index_arready,
+    index_arvalid,
+    index_awaddr,
+    index_awready,
+    index_awvalid,
+    index_bready,
+    index_bresp,
+    index_bvalid,
+    index_rdata,
+    index_rready,
+    index_rresp,
+    index_rvalid,
+    index_wdata,
+    index_wready,
+    index_wstrb,
+    index_wvalid,
+    integration_araddr,
+    integration_arready,
+    integration_arvalid,
+    integration_awaddr,
+    integration_awready,
+    integration_awvalid,
+    integration_bready,
+    integration_bresp,
+    integration_bvalid,
+    integration_rdata,
+    integration_rready,
+    integration_rresp,
+    integration_rvalid,
+    integration_wdata,
+    integration_wready,
+    integration_wstrb,
+    integration_wvalid);
   input aclk;
   input [0:0]aresetn;
-  input [15:0]end_index;
-  output [31:0]m_axis_tdata;
-  input m_axis_tready;
-  output m_axis_tvalid;
-  input [15:0]n_pulses;
-  input [15:0]n_samples;
-  input [15:0]start_index;
+  output [31:0]ch_a_out_tdata;
+  input ch_a_out_tready;
+  output ch_a_out_tvalid;
+  output [31:0]ch_b_out_tdata;
+  input ch_b_out_tready;
+  output ch_b_out_tvalid;
+  input [15:0]channel_a_tdata;
+  input channel_a_tvalid;
+  input [15:0]channel_b_tdata;
+  input channel_b_tvalid;
+  input [0:0]enable;
+  input [31:0]index_araddr;
+  output index_arready;
+  input index_arvalid;
+  input [31:0]index_awaddr;
+  output index_awready;
+  input index_awvalid;
+  input index_bready;
+  output [1:0]index_bresp;
+  output index_bvalid;
+  output [31:0]index_rdata;
+  input index_rready;
+  output [1:0]index_rresp;
+  output index_rvalid;
+  input [31:0]index_wdata;
+  output index_wready;
+  input [3:0]index_wstrb;
+  input index_wvalid;
+  input [31:0]integration_araddr;
+  output integration_arready;
+  input integration_arvalid;
+  input [31:0]integration_awaddr;
+  output integration_awready;
+  input integration_awvalid;
+  input integration_bready;
+  output [1:0]integration_bresp;
+  output integration_bvalid;
+  output [31:0]integration_rdata;
+  input integration_rready;
+  output [1:0]integration_rresp;
+  output integration_rvalid;
+  input [31:0]integration_wdata;
+  output integration_wready;
+  input [3:0]integration_wstrb;
+  input integration_wvalid;
 
+  wire [31:0]Conn1_ARADDR;
+  wire Conn1_ARREADY;
+  wire Conn1_ARVALID;
+  wire [31:0]Conn1_AWADDR;
+  wire Conn1_AWREADY;
+  wire Conn1_AWVALID;
+  wire Conn1_BREADY;
+  wire [1:0]Conn1_BRESP;
+  wire Conn1_BVALID;
+  wire [31:0]Conn1_RDATA;
+  wire Conn1_RREADY;
+  wire [1:0]Conn1_RRESP;
+  wire Conn1_RVALID;
+  wire [31:0]Conn1_WDATA;
+  wire Conn1_WREADY;
+  wire [3:0]Conn1_WSTRB;
+  wire Conn1_WVALID;
+  wire [31:0]Conn2_ARADDR;
+  wire Conn2_ARREADY;
+  wire Conn2_ARVALID;
+  wire [31:0]Conn2_AWADDR;
+  wire Conn2_AWREADY;
+  wire Conn2_AWVALID;
+  wire Conn2_BREADY;
+  wire [1:0]Conn2_BRESP;
+  wire Conn2_BVALID;
+  wire [31:0]Conn2_RDATA;
+  wire Conn2_RREADY;
+  wire [1:0]Conn2_RRESP;
+  wire Conn2_RVALID;
+  wire [31:0]Conn2_WDATA;
+  wire Conn2_WREADY;
+  wire [3:0]Conn2_WSTRB;
+  wire Conn2_WVALID;
   wire Net1;
   wire [15:0]S_AXIS_1_TDATA;
   wire S_AXIS_1_TVALID;
   wire [0:0]aresetn_1;
-  wire [15:0]axis_data_fifo_0_m_axis_tdata;
-  wire axis_data_fifo_0_m_axis_tvalid;
-  wire axis_data_fifo_0_s_axis_tready;
-  wire [31:0]axis_dwidth_converter_0_M_AXIS_TDATA;
-  wire axis_dwidth_converter_0_M_AXIS_TREADY;
-  wire axis_dwidth_converter_0_M_AXIS_TVALID;
-  wire axis_dwidth_converter_0_s_axis_tready;
-  wire [15:0]end_index_1;
-  wire [15:0]n_pulses_1;
-  wire [15:0]n_samples_1;
-  wire [15:0]pulse_int_0_m_axi_wdata;
-  wire [15:0]pulse_int_0_m_axi_wdata_fifo;
-  wire pulse_int_0_m_axi_wvalid;
-  wire pulse_int_0_m_axi_wvalid_fifo;
-  wire pulse_int_0_s_axis_tready_fifo;
-  wire [15:0]start_index_1;
+  wire [0:0]aresetn_2;
+  wire [31:0]channel_a_integrator_M_AXIS_TDATA;
+  wire channel_a_integrator_M_AXIS_TREADY;
+  wire channel_a_integrator_M_AXIS_TVALID;
+  wire [15:0]channel_b_1_TDATA;
+  wire channel_b_1_TVALID;
+  wire [31:0]channel_b_integrator_M_AXIS_TDATA;
+  wire channel_b_integrator_M_AXIS_TREADY;
+  wire channel_b_integrator_M_AXIS_TVALID;
+  wire [15:0]config_settings_int_factor;
+  wire [15:0]config_settings_n_samples;
+  wire [15:0]config_settings_start_index;
+  wire [15:0]config_settings_stop_index;
 
+  assign Conn1_ARADDR = index_araddr[31:0];
+  assign Conn1_ARVALID = index_arvalid;
+  assign Conn1_AWADDR = index_awaddr[31:0];
+  assign Conn1_AWVALID = index_awvalid;
+  assign Conn1_BREADY = index_bready;
+  assign Conn1_RREADY = index_rready;
+  assign Conn1_WDATA = index_wdata[31:0];
+  assign Conn1_WSTRB = index_wstrb[3:0];
+  assign Conn1_WVALID = index_wvalid;
+  assign Conn2_ARADDR = integration_araddr[31:0];
+  assign Conn2_ARVALID = integration_arvalid;
+  assign Conn2_AWADDR = integration_awaddr[31:0];
+  assign Conn2_AWVALID = integration_awvalid;
+  assign Conn2_BREADY = integration_bready;
+  assign Conn2_RREADY = integration_rready;
+  assign Conn2_WDATA = integration_wdata[31:0];
+  assign Conn2_WSTRB = integration_wstrb[3:0];
+  assign Conn2_WVALID = integration_wvalid;
   assign Net1 = aclk;
-  assign S_AXIS_1_TDATA = S_AXIS_tdata[15:0];
-  assign S_AXIS_1_TVALID = S_AXIS_tvalid;
-  assign aresetn_1 = aresetn[0];
-  assign axis_dwidth_converter_0_M_AXIS_TREADY = m_axis_tready;
-  assign end_index_1 = end_index[15:0];
-  assign m_axis_tdata[31:0] = axis_dwidth_converter_0_M_AXIS_TDATA;
-  assign m_axis_tvalid = axis_dwidth_converter_0_M_AXIS_TVALID;
-  assign n_pulses_1 = n_pulses[15:0];
-  assign n_samples_1 = n_samples[15:0];
-  assign start_index_1 = start_index[15:0];
-  system_axis_data_fifo_0_0 axis_data_fifo_0
-       (.m_axis_tdata(axis_data_fifo_0_m_axis_tdata),
-        .m_axis_tready(pulse_int_0_s_axis_tready_fifo),
-        .m_axis_tvalid(axis_data_fifo_0_m_axis_tvalid),
-        .s_axis_aclk(Net1),
-        .s_axis_aresetn(aresetn_1),
-        .s_axis_tdata(pulse_int_0_m_axi_wdata_fifo),
-        .s_axis_tready(axis_data_fifo_0_s_axis_tready),
-        .s_axis_tvalid(pulse_int_0_m_axi_wvalid_fifo));
-  system_axis_dwidth_converter_0_0 axis_dwidth_converter_0
+  assign S_AXIS_1_TDATA = channel_a_tdata[15:0];
+  assign S_AXIS_1_TVALID = channel_a_tvalid;
+  assign aresetn_1 = enable[0];
+  assign aresetn_2 = aresetn[0];
+  assign ch_a_out_tdata[31:0] = channel_a_integrator_M_AXIS_TDATA;
+  assign ch_a_out_tvalid = channel_a_integrator_M_AXIS_TVALID;
+  assign ch_b_out_tdata[31:0] = channel_b_integrator_M_AXIS_TDATA;
+  assign ch_b_out_tvalid = channel_b_integrator_M_AXIS_TVALID;
+  assign channel_a_integrator_M_AXIS_TREADY = ch_a_out_tready;
+  assign channel_b_1_TDATA = channel_b_tdata[15:0];
+  assign channel_b_1_TVALID = channel_b_tvalid;
+  assign channel_b_integrator_M_AXIS_TREADY = ch_b_out_tready;
+  assign index_arready = Conn1_ARREADY;
+  assign index_awready = Conn1_AWREADY;
+  assign index_bresp[1:0] = Conn1_BRESP;
+  assign index_bvalid = Conn1_BVALID;
+  assign index_rdata[31:0] = Conn1_RDATA;
+  assign index_rresp[1:0] = Conn1_RRESP;
+  assign index_rvalid = Conn1_RVALID;
+  assign index_wready = Conn1_WREADY;
+  assign integration_arready = Conn2_ARREADY;
+  assign integration_awready = Conn2_AWREADY;
+  assign integration_bresp[1:0] = Conn2_BRESP;
+  assign integration_bvalid = Conn2_BVALID;
+  assign integration_rdata[31:0] = Conn2_RDATA;
+  assign integration_rresp[1:0] = Conn2_RRESP;
+  assign integration_rvalid = Conn2_RVALID;
+  assign integration_wready = Conn2_WREADY;
+  channel_a_integrator_imp_1OCNZGV channel_a_integrator
+       (.M_AXIS_tdata(channel_a_integrator_M_AXIS_TDATA),
+        .M_AXIS_tready(channel_a_integrator_M_AXIS_TREADY),
+        .M_AXIS_tvalid(channel_a_integrator_M_AXIS_TVALID),
+        .S_AXIS_A_tdata(S_AXIS_1_TDATA),
+        .S_AXIS_A_tvalid(S_AXIS_1_TVALID),
+        .aclk(Net1),
+        .enable(aresetn_1),
+        .end_index(config_settings_stop_index),
+        .n_pulses(config_settings_int_factor),
+        .n_samples(config_settings_n_samples),
+        .start_index(config_settings_start_index));
+  channel_b_integrator_imp_E5NGVH channel_b_integrator
+       (.M_AXIS_tdata(channel_b_integrator_M_AXIS_TDATA),
+        .M_AXIS_tready(channel_b_integrator_M_AXIS_TREADY),
+        .M_AXIS_tvalid(channel_b_integrator_M_AXIS_TVALID),
+        .S_AXIS_B_tdata(channel_b_1_TDATA),
+        .S_AXIS_B_tvalid(channel_b_1_TVALID),
+        .aclk(Net1),
+        .enable(aresetn_1),
+        .end_index(config_settings_stop_index),
+        .n_pulses(config_settings_int_factor),
+        .n_samples(config_settings_n_samples),
+        .start_index(config_settings_start_index));
+  config_settings_imp_Y3LJ5T config_settings
        (.aclk(Net1),
-        .aresetn(aresetn_1),
-        .m_axis_tdata(axis_dwidth_converter_0_M_AXIS_TDATA),
-        .m_axis_tready(axis_dwidth_converter_0_M_AXIS_TREADY),
-        .m_axis_tvalid(axis_dwidth_converter_0_M_AXIS_TVALID),
-        .s_axis_tdata(pulse_int_0_m_axi_wdata),
-        .s_axis_tready(axis_dwidth_converter_0_s_axis_tready),
-        .s_axis_tvalid(pulse_int_0_m_axi_wvalid));
-  system_pulse_int_0_0 pulse_int_0
-       (.aclk(Net1),
-        .aresetn(aresetn_1),
-        .end_index(end_index_1),
-        .m_axi_wdata(pulse_int_0_m_axi_wdata),
-        .m_axi_wdata_fifo(pulse_int_0_m_axi_wdata_fifo),
-        .m_axi_wready(axis_dwidth_converter_0_s_axis_tready),
-        .m_axi_wready_fifo(axis_data_fifo_0_s_axis_tready),
-        .m_axi_wvalid(pulse_int_0_m_axi_wvalid),
-        .m_axi_wvalid_fifo(pulse_int_0_m_axi_wvalid_fifo),
-        .n_pulses(n_pulses_1),
-        .n_samples(n_samples_1),
-        .s_axis_tdata(S_AXIS_1_TDATA),
-        .s_axis_tdata_fifo(axis_data_fifo_0_m_axis_tdata),
-        .s_axis_tready_fifo(pulse_int_0_s_axis_tready_fifo),
-        .s_axis_tvalid(S_AXIS_1_TVALID),
-        .s_axis_tvalid_fifo(axis_data_fifo_0_m_axis_tvalid),
-        .start_index(start_index_1));
+        .aresetn(aresetn_2),
+        .index_araddr(Conn1_ARADDR),
+        .index_arready(Conn1_ARREADY),
+        .index_arvalid(Conn1_ARVALID),
+        .index_awaddr(Conn1_AWADDR),
+        .index_awready(Conn1_AWREADY),
+        .index_awvalid(Conn1_AWVALID),
+        .index_bready(Conn1_BREADY),
+        .index_bresp(Conn1_BRESP),
+        .index_bvalid(Conn1_BVALID),
+        .index_rdata(Conn1_RDATA),
+        .index_rready(Conn1_RREADY),
+        .index_rresp(Conn1_RRESP),
+        .index_rvalid(Conn1_RVALID),
+        .index_wdata(Conn1_WDATA),
+        .index_wready(Conn1_WREADY),
+        .index_wstrb(Conn1_WSTRB),
+        .index_wvalid(Conn1_WVALID),
+        .int_factor(config_settings_int_factor),
+        .integration_araddr(Conn2_ARADDR),
+        .integration_arready(Conn2_ARREADY),
+        .integration_arvalid(Conn2_ARVALID),
+        .integration_awaddr(Conn2_AWADDR),
+        .integration_awready(Conn2_AWREADY),
+        .integration_awvalid(Conn2_AWVALID),
+        .integration_bready(Conn2_BREADY),
+        .integration_bresp(Conn2_BRESP),
+        .integration_bvalid(Conn2_BVALID),
+        .integration_rdata(Conn2_RDATA),
+        .integration_rready(Conn2_RREADY),
+        .integration_rresp(Conn2_RRESP),
+        .integration_rvalid(Conn2_RVALID),
+        .integration_wdata(Conn2_WDATA),
+        .integration_wready(Conn2_WREADY),
+        .integration_wstrb(Conn2_WSTRB),
+        .integration_wvalid(Conn2_WVALID),
+        .n_samples(config_settings_n_samples),
+        .start_index(config_settings_start_index),
+        .stop_index(config_settings_stop_index));
 endmodule
 
 module receive_chain_imp_N0MRX5
-   (M_AXI1_awaddr,
-    M_AXI1_awburst,
-    M_AXI1_awcache,
-    M_AXI1_awid,
-    M_AXI1_awlen,
-    M_AXI1_awready,
-    M_AXI1_awsize,
-    M_AXI1_awvalid,
-    M_AXI1_bready,
-    M_AXI1_bvalid,
-    M_AXI1_wdata,
-    M_AXI1_wid,
-    M_AXI1_wlast,
-    M_AXI1_wready,
-    M_AXI1_wstrb,
-    M_AXI1_wvalid,
-    M_AXI_awaddr,
-    M_AXI_awburst,
-    M_AXI_awcache,
-    M_AXI_awid,
-    M_AXI_awlen,
-    M_AXI_awready,
-    M_AXI_awsize,
-    M_AXI_awvalid,
-    M_AXI_bready,
-    M_AXI_bvalid,
-    M_AXI_wdata,
-    M_AXI_wid,
-    M_AXI_wlast,
-    M_AXI_wready,
-    M_AXI_wstrb,
-    M_AXI_wvalid,
+   (M_AXI_A_awaddr,
+    M_AXI_A_awburst,
+    M_AXI_A_awcache,
+    M_AXI_A_awid,
+    M_AXI_A_awlen,
+    M_AXI_A_awready,
+    M_AXI_A_awsize,
+    M_AXI_A_awvalid,
+    M_AXI_A_bready,
+    M_AXI_A_bvalid,
+    M_AXI_A_wdata,
+    M_AXI_A_wid,
+    M_AXI_A_wlast,
+    M_AXI_A_wready,
+    M_AXI_A_wstrb,
+    M_AXI_A_wvalid,
+    M_AXI_B_awaddr,
+    M_AXI_B_awburst,
+    M_AXI_B_awcache,
+    M_AXI_B_awid,
+    M_AXI_B_awlen,
+    M_AXI_B_awready,
+    M_AXI_B_awsize,
+    M_AXI_B_awvalid,
+    M_AXI_B_bready,
+    M_AXI_B_bvalid,
+    M_AXI_B_wdata,
+    M_AXI_B_wid,
+    M_AXI_B_wlast,
+    M_AXI_B_wready,
+    M_AXI_B_wstrb,
+    M_AXI_B_wvalid,
     aclk,
-    adc_clk,
     adc_csn,
     adc_dat_a,
     adc_dat_b,
@@ -3271,40 +3626,39 @@ module receive_chain_imp_N0MRX5
     int_config_wready,
     int_config_wstrb,
     int_config_wvalid);
-  output [31:0]M_AXI1_awaddr;
-  output [1:0]M_AXI1_awburst;
-  output [3:0]M_AXI1_awcache;
-  output [5:0]M_AXI1_awid;
-  output [3:0]M_AXI1_awlen;
-  input M_AXI1_awready;
-  output [2:0]M_AXI1_awsize;
-  output M_AXI1_awvalid;
-  output M_AXI1_bready;
-  input M_AXI1_bvalid;
-  output [31:0]M_AXI1_wdata;
-  output [5:0]M_AXI1_wid;
-  output M_AXI1_wlast;
-  input M_AXI1_wready;
-  output [3:0]M_AXI1_wstrb;
-  output M_AXI1_wvalid;
-  output [31:0]M_AXI_awaddr;
-  output [1:0]M_AXI_awburst;
-  output [3:0]M_AXI_awcache;
-  output [5:0]M_AXI_awid;
-  output [3:0]M_AXI_awlen;
-  input M_AXI_awready;
-  output [2:0]M_AXI_awsize;
-  output M_AXI_awvalid;
-  output M_AXI_bready;
-  input M_AXI_bvalid;
-  output [31:0]M_AXI_wdata;
-  output [5:0]M_AXI_wid;
-  output M_AXI_wlast;
-  input M_AXI_wready;
-  output [3:0]M_AXI_wstrb;
-  output M_AXI_wvalid;
+  output [31:0]M_AXI_A_awaddr;
+  output [1:0]M_AXI_A_awburst;
+  output [3:0]M_AXI_A_awcache;
+  output [5:0]M_AXI_A_awid;
+  output [3:0]M_AXI_A_awlen;
+  input M_AXI_A_awready;
+  output [2:0]M_AXI_A_awsize;
+  output M_AXI_A_awvalid;
+  output M_AXI_A_bready;
+  input M_AXI_A_bvalid;
+  output [31:0]M_AXI_A_wdata;
+  output [5:0]M_AXI_A_wid;
+  output M_AXI_A_wlast;
+  input M_AXI_A_wready;
+  output [3:0]M_AXI_A_wstrb;
+  output M_AXI_A_wvalid;
+  output [31:0]M_AXI_B_awaddr;
+  output [1:0]M_AXI_B_awburst;
+  output [3:0]M_AXI_B_awcache;
+  output [5:0]M_AXI_B_awid;
+  output [3:0]M_AXI_B_awlen;
+  input M_AXI_B_awready;
+  output [2:0]M_AXI_B_awsize;
+  output M_AXI_B_awvalid;
+  output M_AXI_B_bready;
+  input M_AXI_B_bvalid;
+  output [31:0]M_AXI_B_wdata;
+  output [5:0]M_AXI_B_wid;
+  output M_AXI_B_wlast;
+  input M_AXI_B_wready;
+  output [3:0]M_AXI_B_wstrb;
+  output M_AXI_B_wvalid;
   output aclk;
-  output adc_clk;
   output adc_csn;
   input [13:0]adc_dat_a;
   input [13:0]adc_dat_b;
@@ -3378,26 +3732,12 @@ module receive_chain_imp_N0MRX5
   input [3:0]int_config_wstrb;
   input int_config_wvalid;
 
-  wire [31:0]S_AXI1_1_ARADDR;
-  wire S_AXI1_1_ARREADY;
-  wire S_AXI1_1_ARVALID;
-  wire [31:0]S_AXI1_1_AWADDR;
-  wire S_AXI1_1_AWREADY;
-  wire S_AXI1_1_AWVALID;
-  wire S_AXI1_1_BREADY;
-  wire [1:0]S_AXI1_1_BRESP;
-  wire S_AXI1_1_BVALID;
-  wire [31:0]S_AXI1_1_RDATA;
-  wire S_AXI1_1_RREADY;
-  wire [1:0]S_AXI1_1_RRESP;
-  wire S_AXI1_1_RVALID;
-  wire [31:0]S_AXI1_1_WDATA;
-  wire S_AXI1_1_WREADY;
-  wire [3:0]S_AXI1_1_WSTRB;
-  wire S_AXI1_1_WVALID;
   wire [31:0]S_AXIS_1_TDATA;
   wire S_AXIS_1_TREADY;
   wire S_AXIS_1_TVALID;
+  wire [31:0]S_AXIS_2_TDATA;
+  wire S_AXIS_2_TREADY;
+  wire S_AXIS_2_TVALID;
   wire [31:0]S_AXI_1_ARADDR;
   wire S_AXI_1_ARREADY;
   wire S_AXI_1_ARVALID;
@@ -3420,14 +3760,11 @@ module receive_chain_imp_N0MRX5
   wire adc_streamer_m00_axis_TVALID;
   wire [15:0]adc_streamer_m01_axis_TDATA;
   wire adc_streamer_m01_axis_TVALID;
+  wire [15:0]anti_aliasing_M00_AXIS_TDATA;
+  wire anti_aliasing_M00_AXIS_TVALID;
   wire [15:0]anti_aliasing_M01_AXIS_TDATA;
   wire anti_aliasing_M01_AXIS_TVALID;
   wire [0:0]aresetn2_1;
-  wire [15:0]axis_constant_0_M_AXIS_TDATA;
-  wire axis_constant_0_M_AXIS_TVALID;
-  wire [31:0]axis_dwidth_converter_1_M_AXIS_TDATA;
-  wire axis_dwidth_converter_1_M_AXIS_TREADY;
-  wire axis_dwidth_converter_1_M_AXIS_TVALID;
   wire [31:0]axis_ram_writer_0_M_AXI_AWADDR;
   wire [1:0]axis_ram_writer_0_M_AXI_AWBURST;
   wire [3:0]axis_ram_writer_0_M_AXI_AWCACHE;
@@ -3445,7 +3782,6 @@ module receive_chain_imp_N0MRX5
   wire [3:0]axis_ram_writer_0_M_AXI_WSTRB;
   wire axis_ram_writer_0_M_AXI_WVALID;
   wire axis_red_pitaya_adc_0_adc_csn;
-  wire [9:0]c_counter_binary_0_Q;
   wire [31:0]channel_b_M_AXI_AWADDR;
   wire [1:0]channel_b_M_AXI_AWBURST;
   wire [3:0]channel_b_M_AXI_AWCACHE;
@@ -3464,28 +3800,41 @@ module receive_chain_imp_N0MRX5
   wire channel_b_M_AXI_WVALID;
   wire clk_sync_clk_out1;
   wire clk_wiz_0_clk_out1;
-  wire [15:0]config_settings_int_factor;
-  wire [15:0]config_settings_n_samples;
-  wire [15:0]config_settings_start_index;
-  wire [15:0]config_settings_stop_index;
   wire [0:0]enable_1;
-  wire [31:0]ps_0_axi_periph_M00_AXI_ARADDR;
-  wire ps_0_axi_periph_M00_AXI_ARREADY;
-  wire ps_0_axi_periph_M00_AXI_ARVALID;
-  wire [31:0]ps_0_axi_periph_M00_AXI_AWADDR;
-  wire ps_0_axi_periph_M00_AXI_AWREADY;
-  wire ps_0_axi_periph_M00_AXI_AWVALID;
-  wire ps_0_axi_periph_M00_AXI_BREADY;
-  wire [1:0]ps_0_axi_periph_M00_AXI_BRESP;
-  wire ps_0_axi_periph_M00_AXI_BVALID;
-  wire [31:0]ps_0_axi_periph_M00_AXI_RDATA;
-  wire ps_0_axi_periph_M00_AXI_RREADY;
-  wire [1:0]ps_0_axi_periph_M00_AXI_RRESP;
-  wire ps_0_axi_periph_M00_AXI_RVALID;
-  wire [31:0]ps_0_axi_periph_M00_AXI_WDATA;
-  wire ps_0_axi_periph_M00_AXI_WREADY;
-  wire [3:0]ps_0_axi_periph_M00_AXI_WSTRB;
-  wire ps_0_axi_periph_M00_AXI_WVALID;
+  wire [31:0]index_config_1_ARADDR;
+  wire index_config_1_ARREADY;
+  wire index_config_1_ARVALID;
+  wire [31:0]index_config_1_AWADDR;
+  wire index_config_1_AWREADY;
+  wire index_config_1_AWVALID;
+  wire index_config_1_BREADY;
+  wire [1:0]index_config_1_BRESP;
+  wire index_config_1_BVALID;
+  wire [31:0]index_config_1_RDATA;
+  wire index_config_1_RREADY;
+  wire [1:0]index_config_1_RRESP;
+  wire index_config_1_RVALID;
+  wire [31:0]index_config_1_WDATA;
+  wire index_config_1_WREADY;
+  wire [3:0]index_config_1_WSTRB;
+  wire index_config_1_WVALID;
+  wire [31:0]int_config_1_ARADDR;
+  wire int_config_1_ARREADY;
+  wire int_config_1_ARVALID;
+  wire [31:0]int_config_1_AWADDR;
+  wire int_config_1_AWREADY;
+  wire int_config_1_AWVALID;
+  wire int_config_1_BREADY;
+  wire [1:0]int_config_1_BRESP;
+  wire int_config_1_BVALID;
+  wire [31:0]int_config_1_RDATA;
+  wire int_config_1_RREADY;
+  wire [1:0]int_config_1_RRESP;
+  wire int_config_1_RVALID;
+  wire [31:0]int_config_1_WDATA;
+  wire int_config_1_WREADY;
+  wire [3:0]int_config_1_WSTRB;
+  wire int_config_1_WVALID;
   wire [31:0]ps_axi_periph_M01_AXI_ARADDR;
   wire ps_axi_periph_M01_AXI_ARREADY;
   wire ps_axi_periph_M01_AXI_ARVALID;
@@ -3503,41 +3852,32 @@ module receive_chain_imp_N0MRX5
   wire ps_axi_periph_M01_AXI_WREADY;
   wire ps_axi_periph_M01_AXI_WVALID;
 
-  assign M_AXI1_awaddr[31:0] = channel_b_M_AXI_AWADDR;
-  assign M_AXI1_awburst[1:0] = channel_b_M_AXI_AWBURST;
-  assign M_AXI1_awcache[3:0] = channel_b_M_AXI_AWCACHE;
-  assign M_AXI1_awid[5:0] = channel_b_M_AXI_AWID;
-  assign M_AXI1_awlen[3:0] = channel_b_M_AXI_AWLEN;
-  assign M_AXI1_awsize[2:0] = channel_b_M_AXI_AWSIZE;
-  assign M_AXI1_awvalid = channel_b_M_AXI_AWVALID;
-  assign M_AXI1_bready = channel_b_M_AXI_BREADY;
-  assign M_AXI1_wdata[31:0] = channel_b_M_AXI_WDATA;
-  assign M_AXI1_wid[5:0] = channel_b_M_AXI_WID;
-  assign M_AXI1_wlast = channel_b_M_AXI_WLAST;
-  assign M_AXI1_wstrb[3:0] = channel_b_M_AXI_WSTRB;
-  assign M_AXI1_wvalid = channel_b_M_AXI_WVALID;
-  assign M_AXI_awaddr[31:0] = axis_ram_writer_0_M_AXI_AWADDR;
-  assign M_AXI_awburst[1:0] = axis_ram_writer_0_M_AXI_AWBURST;
-  assign M_AXI_awcache[3:0] = axis_ram_writer_0_M_AXI_AWCACHE;
-  assign M_AXI_awid[5:0] = axis_ram_writer_0_M_AXI_AWID;
-  assign M_AXI_awlen[3:0] = axis_ram_writer_0_M_AXI_AWLEN;
-  assign M_AXI_awsize[2:0] = axis_ram_writer_0_M_AXI_AWSIZE;
-  assign M_AXI_awvalid = axis_ram_writer_0_M_AXI_AWVALID;
-  assign M_AXI_bready = axis_ram_writer_0_M_AXI_BREADY;
-  assign M_AXI_wdata[31:0] = axis_ram_writer_0_M_AXI_WDATA;
-  assign M_AXI_wid[5:0] = axis_ram_writer_0_M_AXI_WID;
-  assign M_AXI_wlast = axis_ram_writer_0_M_AXI_WLAST;
-  assign M_AXI_wstrb[3:0] = axis_ram_writer_0_M_AXI_WSTRB;
-  assign M_AXI_wvalid = axis_ram_writer_0_M_AXI_WVALID;
-  assign S_AXI1_1_ARADDR = int_config_araddr[31:0];
-  assign S_AXI1_1_ARVALID = int_config_arvalid;
-  assign S_AXI1_1_AWADDR = int_config_awaddr[31:0];
-  assign S_AXI1_1_AWVALID = int_config_awvalid;
-  assign S_AXI1_1_BREADY = int_config_bready;
-  assign S_AXI1_1_RREADY = int_config_rready;
-  assign S_AXI1_1_WDATA = int_config_wdata[31:0];
-  assign S_AXI1_1_WSTRB = int_config_wstrb[3:0];
-  assign S_AXI1_1_WVALID = int_config_wvalid;
+  assign M_AXI_A_awaddr[31:0] = axis_ram_writer_0_M_AXI_AWADDR;
+  assign M_AXI_A_awburst[1:0] = axis_ram_writer_0_M_AXI_AWBURST;
+  assign M_AXI_A_awcache[3:0] = axis_ram_writer_0_M_AXI_AWCACHE;
+  assign M_AXI_A_awid[5:0] = axis_ram_writer_0_M_AXI_AWID;
+  assign M_AXI_A_awlen[3:0] = axis_ram_writer_0_M_AXI_AWLEN;
+  assign M_AXI_A_awsize[2:0] = axis_ram_writer_0_M_AXI_AWSIZE;
+  assign M_AXI_A_awvalid = axis_ram_writer_0_M_AXI_AWVALID;
+  assign M_AXI_A_bready = axis_ram_writer_0_M_AXI_BREADY;
+  assign M_AXI_A_wdata[31:0] = axis_ram_writer_0_M_AXI_WDATA;
+  assign M_AXI_A_wid[5:0] = axis_ram_writer_0_M_AXI_WID;
+  assign M_AXI_A_wlast = axis_ram_writer_0_M_AXI_WLAST;
+  assign M_AXI_A_wstrb[3:0] = axis_ram_writer_0_M_AXI_WSTRB;
+  assign M_AXI_A_wvalid = axis_ram_writer_0_M_AXI_WVALID;
+  assign M_AXI_B_awaddr[31:0] = channel_b_M_AXI_AWADDR;
+  assign M_AXI_B_awburst[1:0] = channel_b_M_AXI_AWBURST;
+  assign M_AXI_B_awcache[3:0] = channel_b_M_AXI_AWCACHE;
+  assign M_AXI_B_awid[5:0] = channel_b_M_AXI_AWID;
+  assign M_AXI_B_awlen[3:0] = channel_b_M_AXI_AWLEN;
+  assign M_AXI_B_awsize[2:0] = channel_b_M_AXI_AWSIZE;
+  assign M_AXI_B_awvalid = channel_b_M_AXI_AWVALID;
+  assign M_AXI_B_bready = channel_b_M_AXI_BREADY;
+  assign M_AXI_B_wdata[31:0] = channel_b_M_AXI_WDATA;
+  assign M_AXI_B_wid[5:0] = channel_b_M_AXI_WID;
+  assign M_AXI_B_wlast = channel_b_M_AXI_WLAST;
+  assign M_AXI_B_wstrb[3:0] = channel_b_M_AXI_WSTRB;
+  assign M_AXI_B_wvalid = channel_b_M_AXI_WVALID;
   assign S_AXI_1_ARADDR = ch_b_status_araddr[31:0];
   assign S_AXI_1_ARVALID = ch_b_status_arvalid;
   assign S_AXI_1_AWADDR = ch_b_status_awaddr[31:0];
@@ -3547,14 +3887,13 @@ module receive_chain_imp_N0MRX5
   assign S_AXI_1_WDATA = ch_b_status_wdata[31:0];
   assign S_AXI_1_WVALID = ch_b_status_wvalid;
   assign aclk = clk_sync_clk_out1;
-  assign adc_clk = clk_sync_clk_out1;
   assign adc_csn = axis_red_pitaya_adc_0_adc_csn;
   assign adc_dat_a_i_1 = adc_dat_a[13:0];
   assign adc_dat_b_i_1 = adc_dat_b[13:0];
   assign aresetn2_1 = aresetn[0];
-  assign axis_ram_writer_0_M_AXI_AWREADY = M_AXI_awready;
-  assign axis_ram_writer_0_M_AXI_BVALID = M_AXI_bvalid;
-  assign axis_ram_writer_0_M_AXI_WREADY = M_AXI_wready;
+  assign axis_ram_writer_0_M_AXI_AWREADY = M_AXI_A_awready;
+  assign axis_ram_writer_0_M_AXI_BVALID = M_AXI_A_bvalid;
+  assign axis_ram_writer_0_M_AXI_WREADY = M_AXI_A_wready;
   assign ch_a_status_arready = ps_axi_periph_M01_AXI_ARREADY;
   assign ch_a_status_awready = ps_axi_periph_M01_AXI_AWREADY;
   assign ch_a_status_bresp[1:0] = ps_axi_periph_M01_AXI_BRESP;
@@ -3571,36 +3910,45 @@ module receive_chain_imp_N0MRX5
   assign ch_b_status_rresp[1:0] = S_AXI_1_RRESP;
   assign ch_b_status_rvalid = S_AXI_1_RVALID;
   assign ch_b_status_wready = S_AXI_1_WREADY;
-  assign channel_b_M_AXI_AWREADY = M_AXI1_awready;
-  assign channel_b_M_AXI_BVALID = M_AXI1_bvalid;
-  assign channel_b_M_AXI_WREADY = M_AXI1_wready;
+  assign channel_b_M_AXI_AWREADY = M_AXI_B_awready;
+  assign channel_b_M_AXI_BVALID = M_AXI_B_bvalid;
+  assign channel_b_M_AXI_WREADY = M_AXI_B_wready;
   assign clk_wiz_0_clk_out1 = int_clk;
   assign enable_1 = enable[0];
-  assign index_config_arready = ps_0_axi_periph_M00_AXI_ARREADY;
-  assign index_config_awready = ps_0_axi_periph_M00_AXI_AWREADY;
-  assign index_config_bresp[1:0] = ps_0_axi_periph_M00_AXI_BRESP;
-  assign index_config_bvalid = ps_0_axi_periph_M00_AXI_BVALID;
-  assign index_config_rdata[31:0] = ps_0_axi_periph_M00_AXI_RDATA;
-  assign index_config_rresp[1:0] = ps_0_axi_periph_M00_AXI_RRESP;
-  assign index_config_rvalid = ps_0_axi_periph_M00_AXI_RVALID;
-  assign index_config_wready = ps_0_axi_periph_M00_AXI_WREADY;
-  assign int_config_arready = S_AXI1_1_ARREADY;
-  assign int_config_awready = S_AXI1_1_AWREADY;
-  assign int_config_bresp[1:0] = S_AXI1_1_BRESP;
-  assign int_config_bvalid = S_AXI1_1_BVALID;
-  assign int_config_rdata[31:0] = S_AXI1_1_RDATA;
-  assign int_config_rresp[1:0] = S_AXI1_1_RRESP;
-  assign int_config_rvalid = S_AXI1_1_RVALID;
-  assign int_config_wready = S_AXI1_1_WREADY;
-  assign ps_0_axi_periph_M00_AXI_ARADDR = index_config_araddr[31:0];
-  assign ps_0_axi_periph_M00_AXI_ARVALID = index_config_arvalid;
-  assign ps_0_axi_periph_M00_AXI_AWADDR = index_config_awaddr[31:0];
-  assign ps_0_axi_periph_M00_AXI_AWVALID = index_config_awvalid;
-  assign ps_0_axi_periph_M00_AXI_BREADY = index_config_bready;
-  assign ps_0_axi_periph_M00_AXI_RREADY = index_config_rready;
-  assign ps_0_axi_periph_M00_AXI_WDATA = index_config_wdata[31:0];
-  assign ps_0_axi_periph_M00_AXI_WSTRB = index_config_wstrb[3:0];
-  assign ps_0_axi_periph_M00_AXI_WVALID = index_config_wvalid;
+  assign index_config_1_ARADDR = index_config_araddr[31:0];
+  assign index_config_1_ARVALID = index_config_arvalid;
+  assign index_config_1_AWADDR = index_config_awaddr[31:0];
+  assign index_config_1_AWVALID = index_config_awvalid;
+  assign index_config_1_BREADY = index_config_bready;
+  assign index_config_1_RREADY = index_config_rready;
+  assign index_config_1_WDATA = index_config_wdata[31:0];
+  assign index_config_1_WSTRB = index_config_wstrb[3:0];
+  assign index_config_1_WVALID = index_config_wvalid;
+  assign index_config_arready = index_config_1_ARREADY;
+  assign index_config_awready = index_config_1_AWREADY;
+  assign index_config_bresp[1:0] = index_config_1_BRESP;
+  assign index_config_bvalid = index_config_1_BVALID;
+  assign index_config_rdata[31:0] = index_config_1_RDATA;
+  assign index_config_rresp[1:0] = index_config_1_RRESP;
+  assign index_config_rvalid = index_config_1_RVALID;
+  assign index_config_wready = index_config_1_WREADY;
+  assign int_config_1_ARADDR = int_config_araddr[31:0];
+  assign int_config_1_ARVALID = int_config_arvalid;
+  assign int_config_1_AWADDR = int_config_awaddr[31:0];
+  assign int_config_1_AWVALID = int_config_awvalid;
+  assign int_config_1_BREADY = int_config_bready;
+  assign int_config_1_RREADY = int_config_rready;
+  assign int_config_1_WDATA = int_config_wdata[31:0];
+  assign int_config_1_WSTRB = int_config_wstrb[3:0];
+  assign int_config_1_WVALID = int_config_wvalid;
+  assign int_config_arready = int_config_1_ARREADY;
+  assign int_config_awready = int_config_1_AWREADY;
+  assign int_config_bresp[1:0] = int_config_1_BRESP;
+  assign int_config_bvalid = int_config_1_BVALID;
+  assign int_config_rdata[31:0] = int_config_1_RDATA;
+  assign int_config_rresp[1:0] = int_config_1_RRESP;
+  assign int_config_rvalid = int_config_1_RVALID;
+  assign int_config_wready = int_config_1_WREADY;
   assign ps_axi_periph_M01_AXI_ARADDR = ch_a_status_araddr[31:0];
   assign ps_axi_periph_M01_AXI_ARVALID = ch_a_status_arvalid;
   assign ps_axi_periph_M01_AXI_AWADDR = ch_a_status_awaddr[31:0];
@@ -3621,7 +3969,9 @@ module receive_chain_imp_N0MRX5
         .m01_axis_tdata(adc_streamer_m01_axis_TDATA),
         .m01_axis_tvalid(adc_streamer_m01_axis_TVALID));
   anti_aliasing_imp_YAGIPJ anti_aliasing
-       (.M01_AXIS_tdata(anti_aliasing_M01_AXIS_TDATA),
+       (.M00_AXIS_tdata(anti_aliasing_M00_AXIS_TDATA),
+        .M00_AXIS_tvalid(anti_aliasing_M00_AXIS_TVALID),
+        .M01_AXIS_tdata(anti_aliasing_M01_AXIS_TDATA),
         .M01_AXIS_tvalid(anti_aliasing_M01_AXIS_TVALID),
         .S00_AXIS_tdata(adc_streamer_m00_axis_TDATA),
         .S00_AXIS_tvalid(adc_streamer_m00_axis_TVALID),
@@ -3629,22 +3979,6 @@ module receive_chain_imp_N0MRX5
         .S01_AXIS_tvalid(adc_streamer_m01_axis_TVALID),
         .aclk(clk_sync_clk_out1),
         .aresetn(aresetn2_1));
-  system_axis_constant_0_2 axis_constant_0
-       (.aclk(clk_sync_clk_out1),
-        .cfg_data(c_counter_binary_0_Q),
-        .m_axis_tdata(axis_constant_0_M_AXIS_TDATA),
-        .m_axis_tvalid(axis_constant_0_M_AXIS_TVALID));
-  system_axis_dwidth_converter_0_1 axis_dwidth_converter_1
-       (.aclk(clk_sync_clk_out1),
-        .aresetn(enable_1),
-        .m_axis_tdata(axis_dwidth_converter_1_M_AXIS_TDATA),
-        .m_axis_tready(axis_dwidth_converter_1_M_AXIS_TREADY),
-        .m_axis_tvalid(axis_dwidth_converter_1_M_AXIS_TVALID),
-        .s_axis_tdata(anti_aliasing_M01_AXIS_TDATA),
-        .s_axis_tvalid(anti_aliasing_M01_AXIS_TVALID));
-  system_c_counter_binary_0_0 c_counter_binary_0
-       (.CLK(clk_sync_clk_out1),
-        .Q(c_counter_binary_0_Q));
   channel_a_imp_JYKOO2 channel_a
        (.M_AXI_awaddr(axis_ram_writer_0_M_AXI_AWADDR),
         .M_AXI_awburst(axis_ram_writer_0_M_AXI_AWBURST),
@@ -3701,9 +4035,9 @@ module receive_chain_imp_N0MRX5
         .M_AXI_wready(channel_b_M_AXI_WREADY),
         .M_AXI_wstrb(channel_b_M_AXI_WSTRB),
         .M_AXI_wvalid(channel_b_M_AXI_WVALID),
-        .S_AXIS_tdata(axis_dwidth_converter_1_M_AXIS_TDATA),
-        .S_AXIS_tready(axis_dwidth_converter_1_M_AXIS_TREADY),
-        .S_AXIS_tvalid(axis_dwidth_converter_1_M_AXIS_TVALID),
+        .S_AXIS_tdata(S_AXIS_2_TDATA),
+        .S_AXIS_tready(S_AXIS_2_TREADY),
+        .S_AXIS_tvalid(S_AXIS_2_TVALID),
         .aclk(clk_sync_clk_out1),
         .aresetn(aresetn2_1),
         .enable(enable_1),
@@ -3723,59 +4057,54 @@ module receive_chain_imp_N0MRX5
         .status_wdata(S_AXI_1_WDATA),
         .status_wready(S_AXI_1_WREADY),
         .status_wvalid(S_AXI_1_WVALID));
-  config_settings_imp_18GRB1F config_settings
+  profile_integration_imp_19GSJMO profile_integration
        (.aclk(clk_sync_clk_out1),
         .aresetn(aresetn2_1),
-        .index_araddr(ps_0_axi_periph_M00_AXI_ARADDR),
-        .index_arready(ps_0_axi_periph_M00_AXI_ARREADY),
-        .index_arvalid(ps_0_axi_periph_M00_AXI_ARVALID),
-        .index_awaddr(ps_0_axi_periph_M00_AXI_AWADDR),
-        .index_awready(ps_0_axi_periph_M00_AXI_AWREADY),
-        .index_awvalid(ps_0_axi_periph_M00_AXI_AWVALID),
-        .index_bready(ps_0_axi_periph_M00_AXI_BREADY),
-        .index_bresp(ps_0_axi_periph_M00_AXI_BRESP),
-        .index_bvalid(ps_0_axi_periph_M00_AXI_BVALID),
-        .index_rdata(ps_0_axi_periph_M00_AXI_RDATA),
-        .index_rready(ps_0_axi_periph_M00_AXI_RREADY),
-        .index_rresp(ps_0_axi_periph_M00_AXI_RRESP),
-        .index_rvalid(ps_0_axi_periph_M00_AXI_RVALID),
-        .index_wdata(ps_0_axi_periph_M00_AXI_WDATA),
-        .index_wready(ps_0_axi_periph_M00_AXI_WREADY),
-        .index_wstrb(ps_0_axi_periph_M00_AXI_WSTRB),
-        .index_wvalid(ps_0_axi_periph_M00_AXI_WVALID),
-        .int_factor(config_settings_int_factor),
-        .integration_araddr(S_AXI1_1_ARADDR),
-        .integration_arready(S_AXI1_1_ARREADY),
-        .integration_arvalid(S_AXI1_1_ARVALID),
-        .integration_awaddr(S_AXI1_1_AWADDR),
-        .integration_awready(S_AXI1_1_AWREADY),
-        .integration_awvalid(S_AXI1_1_AWVALID),
-        .integration_bready(S_AXI1_1_BREADY),
-        .integration_bresp(S_AXI1_1_BRESP),
-        .integration_bvalid(S_AXI1_1_BVALID),
-        .integration_rdata(S_AXI1_1_RDATA),
-        .integration_rready(S_AXI1_1_RREADY),
-        .integration_rresp(S_AXI1_1_RRESP),
-        .integration_rvalid(S_AXI1_1_RVALID),
-        .integration_wdata(S_AXI1_1_WDATA),
-        .integration_wready(S_AXI1_1_WREADY),
-        .integration_wstrb(S_AXI1_1_WSTRB),
-        .integration_wvalid(S_AXI1_1_WVALID),
-        .n_samples(config_settings_n_samples),
-        .start_index(config_settings_start_index),
-        .stop_index(config_settings_stop_index));
-  profile_integration_imp_19GSJMO profile_integration
-       (.S_AXIS_tdata(axis_constant_0_M_AXIS_TDATA),
-        .S_AXIS_tvalid(axis_constant_0_M_AXIS_TVALID),
-        .aclk(clk_sync_clk_out1),
-        .aresetn(enable_1),
-        .end_index(config_settings_stop_index),
-        .m_axis_tdata(S_AXIS_1_TDATA),
-        .m_axis_tready(S_AXIS_1_TREADY),
-        .m_axis_tvalid(S_AXIS_1_TVALID),
-        .n_pulses(config_settings_int_factor),
-        .n_samples(config_settings_n_samples),
-        .start_index(config_settings_start_index));
+        .ch_a_out_tdata(S_AXIS_1_TDATA),
+        .ch_a_out_tready(S_AXIS_1_TREADY),
+        .ch_a_out_tvalid(S_AXIS_1_TVALID),
+        .ch_b_out_tdata(S_AXIS_2_TDATA),
+        .ch_b_out_tready(S_AXIS_2_TREADY),
+        .ch_b_out_tvalid(S_AXIS_2_TVALID),
+        .channel_a_tdata(anti_aliasing_M00_AXIS_TDATA),
+        .channel_a_tvalid(anti_aliasing_M00_AXIS_TVALID),
+        .channel_b_tdata(anti_aliasing_M01_AXIS_TDATA),
+        .channel_b_tvalid(anti_aliasing_M01_AXIS_TVALID),
+        .enable(enable_1),
+        .index_araddr(index_config_1_ARADDR),
+        .index_arready(index_config_1_ARREADY),
+        .index_arvalid(index_config_1_ARVALID),
+        .index_awaddr(index_config_1_AWADDR),
+        .index_awready(index_config_1_AWREADY),
+        .index_awvalid(index_config_1_AWVALID),
+        .index_bready(index_config_1_BREADY),
+        .index_bresp(index_config_1_BRESP),
+        .index_bvalid(index_config_1_BVALID),
+        .index_rdata(index_config_1_RDATA),
+        .index_rready(index_config_1_RREADY),
+        .index_rresp(index_config_1_RRESP),
+        .index_rvalid(index_config_1_RVALID),
+        .index_wdata(index_config_1_WDATA),
+        .index_wready(index_config_1_WREADY),
+        .index_wstrb(index_config_1_WSTRB),
+        .index_wvalid(index_config_1_WVALID),
+        .integration_araddr(int_config_1_ARADDR),
+        .integration_arready(int_config_1_ARREADY),
+        .integration_arvalid(int_config_1_ARVALID),
+        .integration_awaddr(int_config_1_AWADDR),
+        .integration_awready(int_config_1_AWREADY),
+        .integration_awvalid(int_config_1_AWVALID),
+        .integration_bready(int_config_1_BREADY),
+        .integration_bresp(int_config_1_BRESP),
+        .integration_bvalid(int_config_1_BVALID),
+        .integration_rdata(int_config_1_RDATA),
+        .integration_rready(int_config_1_RREADY),
+        .integration_rresp(int_config_1_RRESP),
+        .integration_rvalid(int_config_1_RVALID),
+        .integration_wdata(int_config_1_WDATA),
+        .integration_wready(int_config_1_WREADY),
+        .integration_wstrb(int_config_1_WSTRB),
+        .integration_wvalid(int_config_1_WVALID));
 endmodule
 
 module s00_couplers_imp_12IK0DL
@@ -4460,7 +4789,7 @@ module signal_generator_imp_HADG47
         .s_axis_config_tvalid(axis_constant_0_M_AXIS_TVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=71,numReposBlks=50,numNonXlnxBlks=20,numHierBlks=21,maxHierDepth=1,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=4,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=73,numReposBlks=50,numNonXlnxBlks=20,numHierBlks=23,maxHierDepth=2,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=5,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=1,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (DDR_addr,
     DDR_ba,
@@ -4743,7 +5072,6 @@ module system
   wire [31:0]ps_axi_periph_M01_AXI_WDATA;
   wire ps_axi_periph_M01_AXI_WREADY;
   wire ps_axi_periph_M01_AXI_WVALID;
-  wire receive_chain_adc_clk;
   wire [1:0]util_ds_buf_2_OBUF_DS_N;
   wire [1:0]util_ds_buf_2_OBUF_DS_P;
   wire [0:0]xlconstant_0_dout;
@@ -4765,7 +5093,7 @@ module system
   clocking_system_imp_7QV4LN clocking_system
        (.IBUF_DS_N(adc_clk_n_i_1),
         .IBUF_DS_P(adc_clk_p_i_1),
-        .clk_out1(clk_wiz_0_clk_out1));
+        .clk_out(clk_wiz_0_clk_out1));
   daisy_chain_imp_1A80GWR daisy_chain
        (.IBUF_DS_N(daisy_n_i_1),
         .IBUF_DS_P(daisy_p_i_1),
@@ -4985,40 +5313,39 @@ module system
         .S_AXI_HP1_wvalid(channel_b_M_AXI_WVALID),
         .slowest_sync_clk(clk_sync_clk_out1));
   receive_chain_imp_N0MRX5 receive_chain
-       (.M_AXI1_awaddr(channel_b_M_AXI_AWADDR),
-        .M_AXI1_awburst(channel_b_M_AXI_AWBURST),
-        .M_AXI1_awcache(channel_b_M_AXI_AWCACHE),
-        .M_AXI1_awid(channel_b_M_AXI_AWID),
-        .M_AXI1_awlen(channel_b_M_AXI_AWLEN),
-        .M_AXI1_awready(channel_b_M_AXI_AWREADY),
-        .M_AXI1_awsize(channel_b_M_AXI_AWSIZE),
-        .M_AXI1_awvalid(channel_b_M_AXI_AWVALID),
-        .M_AXI1_bready(channel_b_M_AXI_BREADY),
-        .M_AXI1_bvalid(channel_b_M_AXI_BVALID),
-        .M_AXI1_wdata(channel_b_M_AXI_WDATA),
-        .M_AXI1_wid(channel_b_M_AXI_WID),
-        .M_AXI1_wlast(channel_b_M_AXI_WLAST),
-        .M_AXI1_wready(channel_b_M_AXI_WREADY),
-        .M_AXI1_wstrb(channel_b_M_AXI_WSTRB),
-        .M_AXI1_wvalid(channel_b_M_AXI_WVALID),
-        .M_AXI_awaddr(axis_ram_writer_0_M_AXI_AWADDR),
-        .M_AXI_awburst(axis_ram_writer_0_M_AXI_AWBURST),
-        .M_AXI_awcache(axis_ram_writer_0_M_AXI_AWCACHE),
-        .M_AXI_awid(axis_ram_writer_0_M_AXI_AWID),
-        .M_AXI_awlen(axis_ram_writer_0_M_AXI_AWLEN),
-        .M_AXI_awready(axis_ram_writer_0_M_AXI_AWREADY),
-        .M_AXI_awsize(axis_ram_writer_0_M_AXI_AWSIZE),
-        .M_AXI_awvalid(axis_ram_writer_0_M_AXI_AWVALID),
-        .M_AXI_bready(axis_ram_writer_0_M_AXI_BREADY),
-        .M_AXI_bvalid(axis_ram_writer_0_M_AXI_BVALID),
-        .M_AXI_wdata(axis_ram_writer_0_M_AXI_WDATA),
-        .M_AXI_wid(axis_ram_writer_0_M_AXI_WID),
-        .M_AXI_wlast(axis_ram_writer_0_M_AXI_WLAST),
-        .M_AXI_wready(axis_ram_writer_0_M_AXI_WREADY),
-        .M_AXI_wstrb(axis_ram_writer_0_M_AXI_WSTRB),
-        .M_AXI_wvalid(axis_ram_writer_0_M_AXI_WVALID),
+       (.M_AXI_A_awaddr(axis_ram_writer_0_M_AXI_AWADDR),
+        .M_AXI_A_awburst(axis_ram_writer_0_M_AXI_AWBURST),
+        .M_AXI_A_awcache(axis_ram_writer_0_M_AXI_AWCACHE),
+        .M_AXI_A_awid(axis_ram_writer_0_M_AXI_AWID),
+        .M_AXI_A_awlen(axis_ram_writer_0_M_AXI_AWLEN),
+        .M_AXI_A_awready(axis_ram_writer_0_M_AXI_AWREADY),
+        .M_AXI_A_awsize(axis_ram_writer_0_M_AXI_AWSIZE),
+        .M_AXI_A_awvalid(axis_ram_writer_0_M_AXI_AWVALID),
+        .M_AXI_A_bready(axis_ram_writer_0_M_AXI_BREADY),
+        .M_AXI_A_bvalid(axis_ram_writer_0_M_AXI_BVALID),
+        .M_AXI_A_wdata(axis_ram_writer_0_M_AXI_WDATA),
+        .M_AXI_A_wid(axis_ram_writer_0_M_AXI_WID),
+        .M_AXI_A_wlast(axis_ram_writer_0_M_AXI_WLAST),
+        .M_AXI_A_wready(axis_ram_writer_0_M_AXI_WREADY),
+        .M_AXI_A_wstrb(axis_ram_writer_0_M_AXI_WSTRB),
+        .M_AXI_A_wvalid(axis_ram_writer_0_M_AXI_WVALID),
+        .M_AXI_B_awaddr(channel_b_M_AXI_AWADDR),
+        .M_AXI_B_awburst(channel_b_M_AXI_AWBURST),
+        .M_AXI_B_awcache(channel_b_M_AXI_AWCACHE),
+        .M_AXI_B_awid(channel_b_M_AXI_AWID),
+        .M_AXI_B_awlen(channel_b_M_AXI_AWLEN),
+        .M_AXI_B_awready(channel_b_M_AXI_AWREADY),
+        .M_AXI_B_awsize(channel_b_M_AXI_AWSIZE),
+        .M_AXI_B_awvalid(channel_b_M_AXI_AWVALID),
+        .M_AXI_B_bready(channel_b_M_AXI_BREADY),
+        .M_AXI_B_bvalid(channel_b_M_AXI_BVALID),
+        .M_AXI_B_wdata(channel_b_M_AXI_WDATA),
+        .M_AXI_B_wid(channel_b_M_AXI_WID),
+        .M_AXI_B_wlast(channel_b_M_AXI_WLAST),
+        .M_AXI_B_wready(channel_b_M_AXI_WREADY),
+        .M_AXI_B_wstrb(channel_b_M_AXI_WSTRB),
+        .M_AXI_B_wvalid(channel_b_M_AXI_WVALID),
         .aclk(clk_sync_clk_out1),
-        .adc_clk(receive_chain_adc_clk),
         .adc_csn(axis_red_pitaya_adc_0_adc_csn),
         .adc_dat_a(adc_dat_a_i_1),
         .adc_dat_b(adc_dat_b_i_1),

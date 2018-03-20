@@ -41,6 +41,7 @@ FN          = 6039798;                  % fractional numerator
 N           = 94;                       % N counter
 F_pd        = 100e6;                    % phase detector frequency [Hz]
 
+INT         = 2;                        % presumming integration factor 
 CRF         = 2500;                     % chunk repetition frequency - provided by fpga
 CRI         = 1/CRF;                    % chunk repetition interval
 ns_chunk    = F_s*CRI;                  % number of samples recorded per PRI
@@ -70,13 +71,10 @@ visual.r_min     = 0;                   % min range [m]
 visual.r_max     = 1500;                 % max range [m]
 
 %% extract binary data
-dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/14_03_18_14_03_13/';
+dataset_directory = '/home/darryn/Dropbox/Datasets/Temp/15_03_18_08_26_31/';
 raw_data.a = extract_data(strcat(dataset_directory, 'A.bin'), 'int16'); 
 raw_data.b = extract_data(strcat(dataset_directory, 'B.bin'), 'int16');
 clear dataset_directory;
-
-plot(raw_data.a);
-stop;
 
 %% preprocess data
 preprocessed_data.a = raw_data.a(proc.n_pre_chnks*ns_chunk + 1 : length(raw_data.a));

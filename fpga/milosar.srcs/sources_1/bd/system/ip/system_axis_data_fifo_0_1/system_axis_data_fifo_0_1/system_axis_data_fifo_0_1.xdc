@@ -1,4 +1,10 @@
-# (c) Copyright 2012-2018 Xilinx, Inc. All rights reserved.
+ 
+ 
+ 
+ 
+ 
+################################################################################
+# (c) Copyright 2009 - 2013 Xilinx, Inc. All rights reserved.
 # 
 # This file contains confidential and proprietary information
 # of Xilinx, Inc. and is protected under U.S. and
@@ -43,15 +49,20 @@
 # 
 # THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
 # PART OF THIS FILE AT ALL TIMES.
-# 
-# DO NOT MODIFY THIS FILE.
-# #########################################################
+set fg_root {gen_fifo_generator.fifo_generator_inst}
 #
-# This XDC is used only in OOC mode for synthesis, implementation
-#
-# #########################################################
+################################################################################
+
+#  CONSTANT C_PRIM_DEPTH    : integer := get_fifo_sizes(c_family, C_PRIM_FIFO_TYPE, C_USE_ECC,0);
+#  CONSTANT C_NUM_PRIM_DEEP  : integer := divroundup(C_WR_DEPTH,C_PRIM_DEPTH);
+
+#------------------------------------------------------------------------------#
+#                             AXI FIFO Constraints                             #
+#------------------------------------------------------------------------------#
+# Set false path on the reset synchronizers
+  
+set_false_path -through [get_pins ${fg_root}/s_aresetn] -to [get_pins -hierarchical -filter {NAME =~ *rstblk*/*PRE}]  
+set_false_path -from [get_cells  -hierarchical -filter {NAME =~ *rstblk*/*rst_reg_reg[*]}]
 
 
-create_clock -period 8 -name aclk [get_ports aclk]
-
-
+################################################################################

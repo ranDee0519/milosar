@@ -1,0 +1,35 @@
+{
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port S_AXIS_B -pg 1 -y 190 -defaultsOSRD
+preplace port aclk -pg 1 -y 430 -defaultsOSRD
+preplace port M_AXIS -pg 1 -y 100 -defaultsOSRD
+preplace portBus enable -pg 1 -y 410 -defaultsOSRD
+preplace portBus n_samples -pg 1 -y 350 -defaultsOSRD
+preplace portBus start_index -pg 1 -y 370 -defaultsOSRD
+preplace portBus n_pulses -pg 1 -y 330 -defaultsOSRD
+preplace portBus end_index -pg 1 -y 390 -defaultsOSRD
+preplace inst pulse_int_b -pg 1 -lvl 2 -y 290 -defaultsOSRD
+preplace inst axis_dwidth_converter_b -pg 1 -lvl 3 -y 100 -defaultsOSRD
+preplace inst axis_data_fifo_b -pg 1 -lvl 1 -y 520 -defaultsOSRD
+preplace netloc Conn1 1 3 1 N
+preplace netloc start_index_1 1 0 2 NJ 370 NJ
+preplace netloc pulse_int_b_m_axi_wvalid_fifo 1 0 3 60 410 NJ 450 830
+preplace netloc axis_data_fifo_b_m_axis_tvalid 1 1 1 440
+preplace netloc end_index_1 1 0 2 NJ 390 NJ
+preplace netloc axis_data_fifo_b_s_axis_tready 1 0 2 40 310 NJ
+preplace netloc n_samples_1 1 0 2 NJ 350 NJ
+preplace netloc pulse_int_0_m_axi_wvalid 1 2 1 840
+preplace netloc pulse_int_b_s_axis_tready_fifo 1 1 2 NJ 500 860
+preplace netloc S_AXIS_1 1 0 2 NJ 190 NJ
+preplace netloc pulse_int_b_m_axi_wdata_fifo 1 0 3 50 400 NJ 440 840
+preplace netloc pulse_int_0_m_axi_wdata 1 2 1 850
+preplace netloc n_pulses_1 1 0 2 NJ 330 NJ
+preplace netloc Net 1 0 3 30 230 430 140 NJ
+preplace netloc Net1 1 0 3 20 210 420 120 NJ
+preplace netloc axis_dwidth_converter_b_s_axis_tready 1 1 2 450 90 NJ
+preplace netloc axis_data_fifo_b_m_axis_tdata 1 1 1 430
+levelinfo -pg 1 0 240 640 990 1140 -top 0 -bot 630
+",
+}
+0

@@ -47,33 +47,77 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: pavel-demin:user:axis_constant:1.0
+// IP VLNV: user.org:module_ref:pulse_int:1.0
 // IP Revision: 1
 
-(* X_CORE_INFO = "axis_constant,Vivado 2016.2" *)
-(* CHECK_LICENSE_TYPE = "system_axis_constant_0_2,axis_constant,{}" *)
+(* X_CORE_INFO = "pulse_int,Vivado 2016.2" *)
+(* CHECK_LICENSE_TYPE = "system_pulse_int_0_1,pulse_int,{}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_axis_constant_0_2 (
+module system_pulse_int_0_1 (
   aclk,
-  cfg_data,
-  m_axis_tdata,
-  m_axis_tvalid
+  aresetn,
+  s_axis_tready,
+  s_axis_tdata,
+  s_axis_tvalid,
+  m_axi_wready,
+  m_axi_wdata,
+  m_axi_wvalid,
+  s_axis_tready_fifo,
+  s_axis_tdata_fifo,
+  s_axis_tvalid_fifo,
+  m_axi_wdata_fifo,
+  m_axi_wvalid_fifo,
+  m_axi_wready_fifo,
+  n_pulses,
+  n_samples,
+  start_index,
+  end_index
 );
 
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 aclk CLK" *)
 input wire aclk;
-input wire [15 : 0] cfg_data;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TDATA" *)
-output wire [15 : 0] m_axis_tdata;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TVALID" *)
-output wire m_axis_tvalid;
+(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 aresetn RST" *)
+input wire aresetn;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis TREADY" *)
+output wire s_axis_tready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis TDATA" *)
+input wire [15 : 0] s_axis_tdata;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis TVALID" *)
+input wire s_axis_tvalid;
+input wire m_axi_wready;
+output wire [15 : 0] m_axi_wdata;
+output wire m_axi_wvalid;
+output wire s_axis_tready_fifo;
+input wire [15 : 0] s_axis_tdata_fifo;
+input wire s_axis_tvalid_fifo;
+output wire [15 : 0] m_axi_wdata_fifo;
+output wire m_axi_wvalid_fifo;
+input wire m_axi_wready_fifo;
+input wire [15 : 0] n_pulses;
+input wire [15 : 0] n_samples;
+input wire [15 : 0] start_index;
+input wire [15 : 0] end_index;
 
-  axis_constant #(
-    .AXIS_TDATA_WIDTH(16)
+  pulse_int #(
+    .AXIS_DATA_WIDTH(16)
   ) inst (
     .aclk(aclk),
-    .cfg_data(cfg_data),
-    .m_axis_tdata(m_axis_tdata),
-    .m_axis_tvalid(m_axis_tvalid)
+    .aresetn(aresetn),
+    .s_axis_tready(s_axis_tready),
+    .s_axis_tdata(s_axis_tdata),
+    .s_axis_tvalid(s_axis_tvalid),
+    .m_axi_wready(m_axi_wready),
+    .m_axi_wdata(m_axi_wdata),
+    .m_axi_wvalid(m_axi_wvalid),
+    .s_axis_tready_fifo(s_axis_tready_fifo),
+    .s_axis_tdata_fifo(s_axis_tdata_fifo),
+    .s_axis_tvalid_fifo(s_axis_tvalid_fifo),
+    .m_axi_wdata_fifo(m_axi_wdata_fifo),
+    .m_axi_wvalid_fifo(m_axi_wvalid_fifo),
+    .m_axi_wready_fifo(m_axi_wready_fifo),
+    .n_pulses(n_pulses),
+    .n_samples(n_samples),
+    .start_index(start_index),
+    .end_index(end_index)
   );
 endmodule

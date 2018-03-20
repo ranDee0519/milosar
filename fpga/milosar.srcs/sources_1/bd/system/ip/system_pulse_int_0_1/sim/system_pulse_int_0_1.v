@@ -47,71 +47,77 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: xilinx.com:ip:axis_dwidth_converter:1.1
-// IP Revision: 8
+// IP VLNV: user.org:module_ref:pulse_int:1.0
+// IP Revision: 1
 
-(* X_CORE_INFO = "axis_dwidth_converter_v1_1_8_axis_dwidth_converter,Vivado 2016.2" *)
-(* CHECK_LICENSE_TYPE = "system_axis_dwidth_converter_0_1,axis_dwidth_converter_v1_1_8_axis_dwidth_converter,{}" *)
-(* CORE_GENERATION_INFO = "system_axis_dwidth_converter_0_1,axis_dwidth_converter_v1_1_8_axis_dwidth_converter,{x_ipProduct=Vivado 2016.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=axis_dwidth_converter,x_ipVersion=1.1,x_ipCoreRevision=8,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_FAMILY=zynq,C_S_AXIS_TDATA_WIDTH=16,C_M_AXIS_TDATA_WIDTH=32,C_AXIS_TID_WIDTH=1,C_AXIS_TDEST_WIDTH=1,C_S_AXIS_TUSER_WIDTH=1,C_M_AXIS_TUSER_WIDTH=1,C_AXIS_SIGNAL_SET=0b00000000000000000000000000000011}" *)
+`timescale 1ns/1ps
+
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_axis_dwidth_converter_0_1 (
+module system_pulse_int_0_1 (
   aclk,
   aresetn,
-  s_axis_tvalid,
   s_axis_tready,
   s_axis_tdata,
-  m_axis_tvalid,
-  m_axis_tready,
-  m_axis_tdata
+  s_axis_tvalid,
+  m_axi_wready,
+  m_axi_wdata,
+  m_axi_wvalid,
+  s_axis_tready_fifo,
+  s_axis_tdata_fifo,
+  s_axis_tvalid_fifo,
+  m_axi_wdata_fifo,
+  m_axi_wvalid_fifo,
+  m_axi_wready_fifo,
+  n_pulses,
+  n_samples,
+  start_index,
+  end_index
 );
 
-(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLKIF CLK" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 aclk CLK" *)
 input wire aclk;
-(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 RSTIF RST" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 aresetn RST" *)
 input wire aresetn;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TVALID" *)
-input wire s_axis_tvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TREADY" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis TREADY" *)
 output wire s_axis_tready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 S_AXIS TDATA" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis TDATA" *)
 input wire [15 : 0] s_axis_tdata;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TVALID" *)
-output wire m_axis_tvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TREADY" *)
-input wire m_axis_tready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS TDATA" *)
-output wire [31 : 0] m_axis_tdata;
+(* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis TVALID" *)
+input wire s_axis_tvalid;
+input wire m_axi_wready;
+output wire [15 : 0] m_axi_wdata;
+output wire m_axi_wvalid;
+output wire s_axis_tready_fifo;
+input wire [15 : 0] s_axis_tdata_fifo;
+input wire s_axis_tvalid_fifo;
+output wire [15 : 0] m_axi_wdata_fifo;
+output wire m_axi_wvalid_fifo;
+input wire m_axi_wready_fifo;
+input wire [15 : 0] n_pulses;
+input wire [15 : 0] n_samples;
+input wire [15 : 0] start_index;
+input wire [15 : 0] end_index;
 
-  axis_dwidth_converter_v1_1_8_axis_dwidth_converter #(
-    .C_FAMILY("zynq"),
-    .C_S_AXIS_TDATA_WIDTH(16),
-    .C_M_AXIS_TDATA_WIDTH(32),
-    .C_AXIS_TID_WIDTH(1),
-    .C_AXIS_TDEST_WIDTH(1),
-    .C_S_AXIS_TUSER_WIDTH(1),
-    .C_M_AXIS_TUSER_WIDTH(1),
-    .C_AXIS_SIGNAL_SET('B00000000000000000000000000000011)
+  pulse_int #(
+    .AXIS_DATA_WIDTH(16)
   ) inst (
     .aclk(aclk),
     .aresetn(aresetn),
-    .aclken(1'H1),
-    .s_axis_tvalid(s_axis_tvalid),
     .s_axis_tready(s_axis_tready),
     .s_axis_tdata(s_axis_tdata),
-    .s_axis_tstrb(2'H3),
-    .s_axis_tkeep(2'H3),
-    .s_axis_tlast(1'H1),
-    .s_axis_tid(1'H0),
-    .s_axis_tdest(1'H0),
-    .s_axis_tuser(1'H0),
-    .m_axis_tvalid(m_axis_tvalid),
-    .m_axis_tready(m_axis_tready),
-    .m_axis_tdata(m_axis_tdata),
-    .m_axis_tstrb(),
-    .m_axis_tkeep(),
-    .m_axis_tlast(),
-    .m_axis_tid(),
-    .m_axis_tdest(),
-    .m_axis_tuser()
+    .s_axis_tvalid(s_axis_tvalid),
+    .m_axi_wready(m_axi_wready),
+    .m_axi_wdata(m_axi_wdata),
+    .m_axi_wvalid(m_axi_wvalid),
+    .s_axis_tready_fifo(s_axis_tready_fifo),
+    .s_axis_tdata_fifo(s_axis_tdata_fifo),
+    .s_axis_tvalid_fifo(s_axis_tvalid_fifo),
+    .m_axi_wdata_fifo(m_axi_wdata_fifo),
+    .m_axi_wvalid_fifo(m_axi_wvalid_fifo),
+    .m_axi_wready_fifo(m_axi_wready_fifo),
+    .n_pulses(n_pulses),
+    .n_samples(n_samples),
+    .start_index(start_index),
+    .end_index(end_index)
   );
 endmodule

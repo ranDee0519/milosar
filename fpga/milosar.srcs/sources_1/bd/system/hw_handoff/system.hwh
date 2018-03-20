@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Mar 14 15:58:03 2018" VIVADOVERSION="2016.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Mar 20 10:06:01 2018" VIVADOVERSION="2016.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -847,12 +847,14 @@
             <CONNECTION INSTANCE="signal_generator_reference_signal" PORT="aresetn"/>
             <CONNECTION INSTANCE="signal_generator_cancellation_signal" PORT="aresetn"/>
             <CONNECTION INSTANCE="signal_generator_dac_signal_combiner" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_axis_dwidth_converter_1" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="s_axis_aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="s_axis_aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="s_axis_aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="aresetn"/>
             <CONNECTION INSTANCE="gpio_interface_frequency_divider" PORT="enable"/>
           </CONNECTIONS>
         </PORT>
@@ -2927,8 +2929,8 @@
         <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40003000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40003FFF" INSTANCE="signal_generator_ref_phase_inc" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
         <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40004000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40004FFF" INSTANCE="signal_generator_canc_phase_inc" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
         <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40005000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40005FFF" INSTANCE="signal_generator_canc_phase_offset" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40006000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40006FFF" INSTANCE="receive_chain_config_settings_int_config" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
-        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40007000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40007FFF" INSTANCE="receive_chain_config_settings_index_config" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40006000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40006FFF" INSTANCE="receive_chain_profile_integration_config_settings_int_config" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x40007000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40007FFF" INSTANCE="receive_chain_profile_integration_config_settings_index_config" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="S_AXI"/>
       </MEMORYMAP>
       <PERIPHERALS>
         <PERIPHERAL INSTANCE="receive_chain_channel_a_sts_a_channel"/>
@@ -2937,8 +2939,8 @@
         <PERIPHERAL INSTANCE="signal_generator_ref_phase_inc"/>
         <PERIPHERAL INSTANCE="signal_generator_canc_phase_inc"/>
         <PERIPHERAL INSTANCE="signal_generator_canc_phase_offset"/>
-        <PERIPHERAL INSTANCE="receive_chain_config_settings_int_config"/>
-        <PERIPHERAL INSTANCE="receive_chain_config_settings_index_config"/>
+        <PERIPHERAL INSTANCE="receive_chain_profile_integration_config_settings_int_config"/>
+        <PERIPHERAL INSTANCE="receive_chain_profile_integration_config_settings_index_config"/>
       </PERIPHERALS>
     </MODULE>
     <MODULE FULLNAME="/processing_system/ps_axi_periph" HWVERSION="2.1" INSTANCE="processing_system_ps_axi_periph" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axi_interconnect" VLNV="xilinx.com:ip:axi_interconnect:2.1">
@@ -3354,6 +3356,16 @@
             <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="I" NAME="M07_ACLK" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="M07_ARESETN" RIGHT="0" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" NAME="S00_AXI_arvalid" SIGIS="undef" SIGNAME="processing_system_ps_0_M_AXI_GP0_ARVALID">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system_ps_0" PORT="M_AXI_GP0_ARVALID"/>
@@ -3546,87 +3558,87 @@
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_awaddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_awaddr"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_awaddr"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_awvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_awvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_awvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_awready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_awready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_awready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_wdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_wdata"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_wdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="3" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_wstrb">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_wstrb"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_wstrb"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_wvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_wvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_wvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_wready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_wready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_wready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="1" NAME="M00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_bresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_bresp"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_bresp"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_bvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_bvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_bvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_bready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_bready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_bready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_araddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_araddr"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_araddr"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_arvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_arvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_arvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_arready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_arready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_arready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_rdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_rdata"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_rdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="1" NAME="M00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_rresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_rresp"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_rresp"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_rvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_rvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_rvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_rready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="s_axi_rready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M01_AXI_awaddr">
@@ -4129,101 +4141,89 @@
             <CONNECTION INSTANCE="signal_generator_canc_phase_offset" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M07_ACLK" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="M07_ARESETN" RIGHT="0" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
-          </CONNECTIONS>
-        </PORT>
         <PORT DIR="O" LEFT="31" NAME="M07_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awaddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_awaddr"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_awaddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M07_AXI_awprot" SIGIS="undef"/>
         <PORT DIR="O" NAME="M07_AXI_awvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_awvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_awvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M07_AXI_awready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_awready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_awready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M07_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_wdata"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_wdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="3" NAME="M07_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wstrb">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_wstrb"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_wstrb"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M07_AXI_wvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_wvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_wvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M07_AXI_wready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_wready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_wready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_wready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="1" NAME="M07_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_bresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_bresp"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_bresp"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M07_AXI_bvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_bvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_bvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_bvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M07_AXI_bready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_bready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_bready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_bready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M07_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_araddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_araddr"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_araddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="M07_AXI_arprot" SIGIS="undef"/>
         <PORT DIR="O" NAME="M07_AXI_arvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_arvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_arvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_arvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M07_AXI_arready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_arready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_arready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_arready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="M07_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_rdata"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_rdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="1" NAME="M07_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rresp">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_rresp"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_rresp"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M07_AXI_rvalid" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_rvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_rvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="M07_AXI_rready" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_rready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="s_axi_rready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="s_axi_rready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -4418,7 +4418,6 @@
         <BUSINTERFACE BUSNAME="processing_system_ps_axi_periph_M07_AXI" DATAWIDTH="32" NAME="M07_AXI" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
           <PORTMAPS>
             <PORTMAP LOGICAL="AWADDR" PHYSICAL="M07_AXI_awaddr"/>
-            <PORTMAP LOGICAL="AWPROT" PHYSICAL="M07_AXI_awprot"/>
             <PORTMAP LOGICAL="AWVALID" PHYSICAL="M07_AXI_awvalid"/>
             <PORTMAP LOGICAL="AWREADY" PHYSICAL="M07_AXI_awready"/>
             <PORTMAP LOGICAL="WDATA" PHYSICAL="M07_AXI_wdata"/>
@@ -4429,7 +4428,6 @@
             <PORTMAP LOGICAL="BVALID" PHYSICAL="M07_AXI_bvalid"/>
             <PORTMAP LOGICAL="BREADY" PHYSICAL="M07_AXI_bready"/>
             <PORTMAP LOGICAL="ARADDR" PHYSICAL="M07_AXI_araddr"/>
-            <PORTMAP LOGICAL="ARPROT" PHYSICAL="M07_AXI_arprot"/>
             <PORTMAP LOGICAL="ARVALID" PHYSICAL="M07_AXI_arvalid"/>
             <PORTMAP LOGICAL="ARREADY" PHYSICAL="M07_AXI_arready"/>
             <PORTMAP LOGICAL="RDATA" PHYSICAL="M07_AXI_rdata"/>
@@ -4489,10 +4487,10 @@
             <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_sts_b_channel" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_channel_a_sts_a_channel" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="aresetn"/>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_broadcaster_0" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_combiner_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="aresetn"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="aresetn"/>
             <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="aresetn"/>
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="S00_ARESETN"/>
             <CONNECTION INSTANCE="processing_system_ps_axi_periph" PORT="M00_ARESETN"/>
@@ -4546,21 +4544,21 @@
             <CONNECTION INSTANCE="signal_generator_canc_phase_offset" PORT="aclk"/>
             <CONNECTION INSTANCE="gpio_interface_gpio_register" PORT="aclk"/>
             <CONNECTION INSTANCE="gpio_interface_frequency_divider" PORT="clk_in"/>
-            <CONNECTION INSTANCE="receive_chain_axis_dwidth_converter_1" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_b_sts_b_channel" PORT="aclk"/>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="aclk"/>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_channel_a_sts_a_channel" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_combiner_0" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_broadcaster_0" PORT="aclk"/>
             <CONNECTION INSTANCE="receive_chain_anti_aliasing_anti_aliasing_filter" PORT="aclk"/>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="s_axis_aclk"/>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" PORT="aclk"/>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="aclk"/>
-            <CONNECTION INSTANCE="receive_chain_axis_constant_0" PORT="aclk"/>
-            <CONNECTION INSTANCE="receive_chain_c_counter_binary_0" PORT="CLK"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="aclk"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="aclk"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="aclk"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="s_axis_aclk"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="aclk"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="s_axis_aclk"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="aclk"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="aclk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="processing_system_sys_reset_controller_peripheral_aresetn">
@@ -4952,12 +4950,18 @@
         </PORT>
         <PORT DIR="O" LEFT="1" NAME="m_axis_tvalid" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_anti_aliasing_axis_broadcaster_0_m_axis_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_axis_dwidth_converter_1" PORT="s_axis_tvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="s_axis_tvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_anti_aliasing_axis_broadcaster_0_m_axis_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_axis_dwidth_converter_1" PORT="s_axis_tdata"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="s_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -4980,7 +4984,7 @@
             <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="__NOC__" NAME="M00_AXIS" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="receive_chain_anti_aliasing_axis_broadcaster_0_M00_AXIS" NAME="M00_AXIS" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
@@ -5149,228 +5153,6 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE FULLNAME="/receive_chain/axis_constant_0" HWVERSION="1.0" INSTANCE="receive_chain_axis_constant_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_constant" VLNV="pavel-demin:user:axis_constant:1.0">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="AXIS_TDATA_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_axis_constant_0_2"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_c_counter_binary_0_Q">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_c_counter_binary_0" PORT="Q"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="15" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_axis_constant_0_m_axis_tdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="s_axis_tdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_axis_constant_0_m_axis_tvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="s_axis_tvalid"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="receive_chain_axis_constant_0_M_AXIS" NAME="M_AXIS" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="HAS_TREADY" VALUE="0"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
-          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-      </BUSINTERFACES>
-    </MODULE>
-    <MODULE FULLNAME="/receive_chain/axis_dwidth_converter_1" HWVERSION="1.1" INSTANCE="receive_chain_axis_dwidth_converter_1" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axis_dwidth_converter" VLNV="xilinx.com:ip:axis_dwidth_converter:1.1">
-      <DOCUMENTS>
-        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axis_infrastructure_ip_suite;v=v1_1;d=pg085-axi4stream-infrastructure.pdf"/>
-      </DOCUMENTS>
-      <PARAMETERS>
-        <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
-        <PARAMETER NAME="C_S_AXIS_TDATA_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="C_M_AXIS_TDATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_AXIS_TID_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_S_AXIS_TUSER_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_M_AXIS_TUSER_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000000000011"/>
-        <PARAMETER NAME="S_TDATA_NUM_BYTES" VALUE="2"/>
-        <PARAMETER NAME="M_TDATA_NUM_BYTES" VALUE="4"/>
-        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-        <PARAMETER NAME="TUSER_BITS_PER_BYTE" VALUE="0"/>
-        <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-        <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-        <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-        <PARAMETER NAME="HAS_ACLKEN" VALUE="0"/>
-        <PARAMETER NAME="HAS_MI_TKEEP" VALUE="0"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_axis_dwidth_converter_0_1"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="BUS"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_anti_aliasing_axis_broadcaster_0_m_axis_tvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_broadcaster_0" PORT="m_axis_tvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef"/>
-        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_anti_aliasing_axis_broadcaster_0_m_axis_tdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_broadcaster_0" PORT="m_axis_tdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_axis_dwidth_converter_1_m_axis_tvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="s_axis_tvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="m_axis_tready" SIGIS="undef" SIGNAME="receive_chain_axis_dwidth_converter_1_m_axis_tready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="s_axis_tready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_axis_dwidth_converter_1_m_axis_tdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="s_axis_tdata"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="receive_chain_anti_aliasing_axis_broadcaster_0_M01_AXIS" NAME="S_AXIS" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
-          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
-            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="receive_chain_axis_dwidth_converter_1_M_AXIS" NAME="M_AXIS" TYPE="MASTER" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
-          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
-            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-      </BUSINTERFACES>
-    </MODULE>
-    <MODULE FULLNAME="/receive_chain/c_counter_binary_0" HWVERSION="12.0" INSTANCE="receive_chain_c_counter_binary_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="c_counter_binary" VLNV="xilinx.com:ip:c_counter_binary:12.0">
-      <DOCUMENTS>
-        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=c_counter_binary;v=v12_0;d=pg121-c-counter-binary.pdf"/>
-      </DOCUMENTS>
-      <PARAMETERS>
-        <PARAMETER NAME="C_IMPLEMENTATION" VALUE="0"/>
-        <PARAMETER NAME="C_VERBOSITY" VALUE="0"/>
-        <PARAMETER NAME="C_XDEVICEFAMILY" VALUE="zynq"/>
-        <PARAMETER NAME="C_WIDTH" VALUE="10"/>
-        <PARAMETER NAME="C_HAS_CE" VALUE="0"/>
-        <PARAMETER NAME="C_HAS_SCLR" VALUE="0"/>
-        <PARAMETER NAME="C_RESTRICT_COUNT" VALUE="0"/>
-        <PARAMETER NAME="C_COUNT_TO" VALUE="1"/>
-        <PARAMETER NAME="C_COUNT_BY" VALUE="1"/>
-        <PARAMETER NAME="C_COUNT_MODE" VALUE="0"/>
-        <PARAMETER NAME="C_THRESH0_VALUE" VALUE="1"/>
-        <PARAMETER NAME="C_CE_OVERRIDES_SYNC" VALUE="0"/>
-        <PARAMETER NAME="C_HAS_THRESH0" VALUE="0"/>
-        <PARAMETER NAME="C_HAS_LOAD" VALUE="0"/>
-        <PARAMETER NAME="C_LOAD_LOW" VALUE="0"/>
-        <PARAMETER NAME="C_LATENCY" VALUE="1"/>
-        <PARAMETER NAME="C_FB_LATENCY" VALUE="0"/>
-        <PARAMETER NAME="C_AINIT_VAL" VALUE="0"/>
-        <PARAMETER NAME="C_SINIT_VAL" VALUE="0"/>
-        <PARAMETER NAME="C_SCLR_OVERRIDES_SSET" VALUE="1"/>
-        <PARAMETER NAME="C_HAS_SSET" VALUE="0"/>
-        <PARAMETER NAME="C_HAS_SINIT" VALUE="0"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_c_counter_binary_0_0"/>
-        <PARAMETER NAME="Implementation" VALUE="Fabric"/>
-        <PARAMETER NAME="Output_Width" VALUE="10"/>
-        <PARAMETER NAME="Increment_Value" VALUE="1"/>
-        <PARAMETER NAME="Restrict_Count" VALUE="false"/>
-        <PARAMETER NAME="Final_Count_Value" VALUE="1"/>
-        <PARAMETER NAME="Count_Mode" VALUE="UP"/>
-        <PARAMETER NAME="Sync_Threshold_Output" VALUE="false"/>
-        <PARAMETER NAME="Threshold_Value" VALUE="1"/>
-        <PARAMETER NAME="CE" VALUE="false"/>
-        <PARAMETER NAME="SCLR" VALUE="false"/>
-        <PARAMETER NAME="SSET" VALUE="false"/>
-        <PARAMETER NAME="SINIT" VALUE="false"/>
-        <PARAMETER NAME="SINIT_Value" VALUE="0"/>
-        <PARAMETER NAME="SyncCtrlPriority" VALUE="Reset_Overrides_Set"/>
-        <PARAMETER NAME="Sync_CE_Priority" VALUE="Sync_Overrides_CE"/>
-        <PARAMETER NAME="AINIT_Value" VALUE="0"/>
-        <PARAMETER NAME="Load" VALUE="false"/>
-        <PARAMETER NAME="Latency_Configuration" VALUE="Manual"/>
-        <PARAMETER NAME="Latency" VALUE="1"/>
-        <PARAMETER NAME="Fb_Latency_Configuration" VALUE="Manual"/>
-        <PARAMETER NAME="Fb_Latency" VALUE="0"/>
-        <PARAMETER NAME="Load_Sense" VALUE="Active_High"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="CLK" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="9" NAME="Q" RIGHT="0" SIGIS="data" SIGNAME="receive_chain_c_counter_binary_0_Q">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_axis_constant_0" PORT="cfg_data"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
-    </MODULE>
     <MODULE FULLNAME="/receive_chain/channel_a/ch_a_writer" HWVERSION="1.5.31" INSTANCE="receive_chain_channel_a_ch_a_writer" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_ram_writer" VLNV="tighe-barris:user:axis_ram_writer:1.5.31">
       <DOCUMENTS/>
       <PARAMETERS>
@@ -5485,17 +5267,17 @@
         </PORT>
         <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="receive_chain_channel_a_ch_a_writer_s_axis_tready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" PORT="m_axis_tready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="m_axis_tready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_channel_a_ch_a_writer_s_axis_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" PORT="m_axis_tdata"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="m_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_channel_a_ch_a_writer_s_axis_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" PORT="m_axis_tvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="m_axis_tvalid"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -5546,7 +5328,7 @@
             <PORTMAP LOGICAL="BREADY" PHYSICAL="m_axi_bready"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="receive_chain_profile_integration_axis_dwidth_converter_0_M_AXIS" NAME="S_AXIS" TYPE="SLAVE" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a_M_AXIS" NAME="S_AXIS" TYPE="SLAVE" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
@@ -5862,19 +5644,19 @@
             <CONNECTION INSTANCE="processing_system_ps_0" PORT="S_AXI_HP1_BREADY"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="receive_chain_axis_dwidth_converter_1_m_axis_tready">
+        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="receive_chain_channel_b_ch_b_writer_s_axis_tready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_axis_dwidth_converter_1" PORT="m_axis_tready"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="m_axis_tready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_axis_dwidth_converter_1_m_axis_tdata">
+        <PORT DIR="I" LEFT="31" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_channel_b_ch_b_writer_s_axis_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_axis_dwidth_converter_1" PORT="m_axis_tdata"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="m_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_axis_dwidth_converter_1_m_axis_tvalid">
+        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_channel_b_ch_b_writer_s_axis_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_axis_dwidth_converter_1" PORT="m_axis_tvalid"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="m_axis_tvalid"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -5925,7 +5707,7 @@
             <PORTMAP LOGICAL="BREADY" PHYSICAL="m_axi_bready"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="receive_chain_axis_dwidth_converter_1_M_AXIS" NAME="S_AXIS" TYPE="SLAVE" VLNV="xilinx.com:interface:axis:1.0">
+        <BUSINTERFACE BUSNAME="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b_M_AXIS" NAME="S_AXIS" TYPE="SLAVE" VLNV="xilinx.com:interface:axis:1.0">
           <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
@@ -6129,7 +5911,697 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE FULLNAME="/receive_chain/config_settings/index_config" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_index_config" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_cfg_register" VLNV="pavel-demin:user:axi_cfg_register:1.0">
+    <MODULE FULLNAME="/receive_chain/profile_integration/channel_a_integrator/axis_data_fifo_a" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_data_fifo" VLNV="xilinx.com:ip:axis_data_fifo:1.1">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axis_infrastructure_ip_suite;v=v1_1;d=pg085-axi4stream-infrastructure.pdf"/>
+      </DOCUMENTS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
+        <PARAMETER NAME="C_AXIS_TDATA_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="C_AXIS_TID_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_TUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000000000011"/>
+        <PARAMETER NAME="C_FIFO_DEPTH" VALUE="8192"/>
+        <PARAMETER NAME="C_FIFO_MODE" VALUE="1"/>
+        <PARAMETER NAME="C_IS_ACLK_ASYNC" VALUE="0"/>
+        <PARAMETER NAME="C_SYNCHRONIZER_STAGE" VALUE="2"/>
+        <PARAMETER NAME="C_ACLKEN_CONV_MODE" VALUE="0"/>
+        <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="FIFO_DEPTH" VALUE="8192"/>
+        <PARAMETER NAME="FIFO_MODE" VALUE="1"/>
+        <PARAMETER NAME="IS_ACLK_ASYNC" VALUE="0"/>
+        <PARAMETER NAME="ACLKEN_CONV_MODE" VALUE="0"/>
+        <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+        <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+        <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+        <PARAMETER NAME="SYNCHRONIZATION_STAGES" VALUE="2"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_axis_data_fifo_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="s_axis_aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="s_axis_aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_m_axi_wvalid_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="m_axi_wvalid_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="m_axi_wready_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_m_axi_wdata_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="m_axi_wdata_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="s_axis_tvalid_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_axis_tready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_s_axis_tready_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="s_axis_tready_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="15" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="s_axis_tdata_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="axis_data_count" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="31" NAME="axis_wr_data_count" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="31" NAME="axis_rd_data_count" RIGHT="0" SIGIS="undef"/>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="S_AXIS" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="M_AXIS" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE FULLNAME="/receive_chain/profile_integration/channel_a_integrator/axis_dwidth_converter_a" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axis_dwidth_converter" VLNV="xilinx.com:ip:axis_dwidth_converter:1.1">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axis_infrastructure_ip_suite;v=v1_1;d=pg085-axi4stream-infrastructure.pdf"/>
+      </DOCUMENTS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
+        <PARAMETER NAME="C_S_AXIS_TDATA_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="C_M_AXIS_TDATA_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="C_AXIS_TID_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_S_AXIS_TUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_M_AXIS_TUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000000000011"/>
+        <PARAMETER NAME="S_TDATA_NUM_BYTES" VALUE="2"/>
+        <PARAMETER NAME="M_TDATA_NUM_BYTES" VALUE="4"/>
+        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TUSER_BITS_PER_BYTE" VALUE="0"/>
+        <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+        <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+        <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+        <PARAMETER NAME="HAS_ACLKEN" VALUE="0"/>
+        <PARAMETER NAME="HAS_MI_TKEEP" VALUE="0"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_axis_dwidth_converter_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="BUS"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_m_axi_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="m_axi_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="m_axi_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_m_axi_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="m_axi_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_channel_a_ch_a_writer_s_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_axis_tready" SIGIS="undef" SIGNAME="receive_chain_channel_a_ch_a_writer_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="s_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_channel_a_ch_a_writer_s_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="S_AXIS" TYPE="SLAVE" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a_M_AXIS" NAME="M_AXIS" TYPE="MASTER" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE FULLNAME="/receive_chain/profile_integration/channel_a_integrator/pulse_int_a" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="pulse_int" VLNV="user.org:module_ref:pulse_int:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="AXIS_DATA_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_pulse_int_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef"/>
+        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_anti_aliasing_axis_broadcaster_0_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_broadcaster_0" PORT="m_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_anti_aliasing_axis_broadcaster_0_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_broadcaster_0" PORT="m_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_axi_wready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="s_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="15" NAME="m_axi_wdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_m_axi_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axi_wvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_m_axi_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_dwidth_converter_a" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axis_tready_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_s_axis_tready_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="m_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata_fifo" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="m_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tvalid_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="m_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="15" NAME="m_axi_wdata_fifo" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_m_axi_wdata_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axi_wvalid_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_pulse_int_a_m_axi_wvalid_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_axi_wready_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_axis_data_fifo_a" PORT="s_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="n_pulses" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_3_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_3" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="n_samples" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_2_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_2" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="start_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_0_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_0" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="end_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_1_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_1" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="receive_chain_anti_aliasing_axis_broadcaster_0_M00_AXIS" NAME="s_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE FULLNAME="/receive_chain/profile_integration/channel_b_integrator/axis_data_fifo_b" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_data_fifo" VLNV="xilinx.com:ip:axis_data_fifo:1.1">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axis_infrastructure_ip_suite;v=v1_1;d=pg085-axi4stream-infrastructure.pdf"/>
+      </DOCUMENTS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
+        <PARAMETER NAME="C_AXIS_TDATA_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="C_AXIS_TID_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_TUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000000000011"/>
+        <PARAMETER NAME="C_FIFO_DEPTH" VALUE="8192"/>
+        <PARAMETER NAME="C_FIFO_MODE" VALUE="1"/>
+        <PARAMETER NAME="C_IS_ACLK_ASYNC" VALUE="0"/>
+        <PARAMETER NAME="C_SYNCHRONIZER_STAGE" VALUE="2"/>
+        <PARAMETER NAME="C_ACLKEN_CONV_MODE" VALUE="0"/>
+        <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="FIFO_DEPTH" VALUE="8192"/>
+        <PARAMETER NAME="FIFO_MODE" VALUE="1"/>
+        <PARAMETER NAME="IS_ACLK_ASYNC" VALUE="0"/>
+        <PARAMETER NAME="ACLKEN_CONV_MODE" VALUE="0"/>
+        <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+        <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+        <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+        <PARAMETER NAME="SYNCHRONIZATION_STAGES" VALUE="2"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_axis_data_fifo_0_1"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="s_axis_aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="s_axis_aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_m_axi_wvalid_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="m_axi_wvalid_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="m_axi_wready_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_m_axi_wdata_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="m_axi_wdata_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="s_axis_tvalid_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_axis_tready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_s_axis_tready_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="s_axis_tready_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="15" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="s_axis_tdata_fifo"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="axis_data_count" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="31" NAME="axis_wr_data_count" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="31" NAME="axis_rd_data_count" RIGHT="0" SIGIS="undef"/>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="S_AXIS" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="M_AXIS" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE FULLNAME="/receive_chain/profile_integration/channel_b_integrator/axis_dwidth_converter_b" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axis_dwidth_converter" VLNV="xilinx.com:ip:axis_dwidth_converter:1.1">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axis_infrastructure_ip_suite;v=v1_1;d=pg085-axi4stream-infrastructure.pdf"/>
+      </DOCUMENTS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
+        <PARAMETER NAME="C_S_AXIS_TDATA_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="C_M_AXIS_TDATA_WIDTH" VALUE="32"/>
+        <PARAMETER NAME="C_AXIS_TID_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_S_AXIS_TUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_M_AXIS_TUSER_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000000000011"/>
+        <PARAMETER NAME="S_TDATA_NUM_BYTES" VALUE="2"/>
+        <PARAMETER NAME="M_TDATA_NUM_BYTES" VALUE="4"/>
+        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TUSER_BITS_PER_BYTE" VALUE="0"/>
+        <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+        <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+        <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+        <PARAMETER NAME="HAS_ACLKEN" VALUE="0"/>
+        <PARAMETER NAME="HAS_MI_TKEEP" VALUE="0"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_axis_dwidth_converter_0_1"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="BUS"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_m_axi_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="m_axi_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="m_axi_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_m_axi_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="m_axi_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_channel_b_ch_b_writer_s_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_axis_tready" SIGIS="undef" SIGNAME="receive_chain_channel_b_ch_b_writer_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="s_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_channel_b_ch_b_writer_s_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_channel_b_ch_b_writer" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="S_AXIS" TYPE="SLAVE" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b_M_AXIS" NAME="M_AXIS" TYPE="MASTER" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE FULLNAME="/receive_chain/profile_integration/channel_b_integrator/pulse_int_b" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="pulse_int" VLNV="user.org:module_ref:pulse_int:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="AXIS_DATA_WIDTH" VALUE="16"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_pulse_int_0_1"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef"/>
+        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_anti_aliasing_axis_broadcaster_0_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_broadcaster_0" PORT="m_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_anti_aliasing_axis_broadcaster_0_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_anti_aliasing_axis_broadcaster_0" PORT="m_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_axi_wready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="s_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="15" NAME="m_axi_wdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_m_axi_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axi_wvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_m_axi_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_axis_tready_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_s_axis_tready_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="m_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata_fifo" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="m_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_axis_tvalid_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="m_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="15" NAME="m_axi_wdata_fifo" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_m_axi_wdata_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m_axi_wvalid_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_pulse_int_b_m_axi_wvalid_fifo">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m_axi_wready_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="s_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="n_pulses" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_3_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_3" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="n_samples" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_2_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_2" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="start_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_0_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_0" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="15" NAME="end_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_1_Dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_1" PORT="Dout"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="receive_chain_anti_aliasing_axis_broadcaster_0_M01_AXIS" NAME="s_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.000"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE FULLNAME="/receive_chain/profile_integration/config_settings/index_config" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_config_settings_index_config" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_cfg_register" VLNV="pavel-demin:user:axi_cfg_register:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="s_axi" NAME="reg0" RANGE="4294967296" USAGE="register"/>
@@ -6154,10 +6626,10 @@
             <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_index_config_cfg_data">
+        <PORT DIR="O" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_index_config_cfg_data">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_0" PORT="Din"/>
-            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_1" PORT="Din"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_0" PORT="Din"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_1" PORT="Din"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M00_AXI_awaddr">
@@ -6296,7 +6768,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE FULLNAME="/receive_chain/config_settings/int_config" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_int_config" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_cfg_register" VLNV="pavel-demin:user:axi_cfg_register:1.0">
+    <MODULE FULLNAME="/receive_chain/profile_integration/config_settings/int_config" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_config_settings_int_config" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_cfg_register" VLNV="pavel-demin:user:axi_cfg_register:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="s_axi" NAME="reg0" RANGE="4294967296" USAGE="register"/>
@@ -6321,10 +6793,10 @@
             <CONNECTION INSTANCE="processing_system_sys_reset_controller" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_int_config_cfg_data">
+        <PORT DIR="O" LEFT="31" NAME="cfg_data" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_int_config_cfg_data">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_2" PORT="Din"/>
-            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_3" PORT="Din"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_2" PORT="Din"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_xlslice_3" PORT="Din"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="processing_system_ps_axi_periph_M07_AXI_awaddr">
@@ -6463,7 +6935,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE FULLNAME="/receive_chain/config_settings/xlslice_0" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_xlslice_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+    <MODULE FULLNAME="/receive_chain/profile_integration/config_settings/xlslice_0" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_config_settings_xlslice_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
@@ -6474,20 +6946,21 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_index_config_cfg_data">
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_index_config_cfg_data">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="cfg_data"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="cfg_data"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_0_Dout">
+        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_0_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="start_index"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="start_index"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="start_index"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE FULLNAME="/receive_chain/config_settings/xlslice_1" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_xlslice_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+    <MODULE FULLNAME="/receive_chain/profile_integration/config_settings/xlslice_1" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_config_settings_xlslice_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
@@ -6498,20 +6971,21 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_index_config_cfg_data">
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_index_config_cfg_data">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_index_config" PORT="cfg_data"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_index_config" PORT="cfg_data"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_1_Dout">
+        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_1_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="end_index"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="end_index"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="end_index"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE FULLNAME="/receive_chain/config_settings/xlslice_2" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_xlslice_2" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+    <MODULE FULLNAME="/receive_chain/profile_integration/config_settings/xlslice_2" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_config_settings_xlslice_2" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
@@ -6522,20 +6996,21 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_int_config_cfg_data">
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_int_config_cfg_data">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="cfg_data"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="cfg_data"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_2_Dout">
+        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_2_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="n_samples"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="n_samples"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="n_samples"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE FULLNAME="/receive_chain/config_settings/xlslice_3" HWVERSION="1.0" INSTANCE="receive_chain_config_settings_xlslice_3" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
+    <MODULE FULLNAME="/receive_chain/profile_integration/config_settings/xlslice_3" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_config_settings_xlslice_3" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlslice" VLNV="xilinx.com:ip:xlslice:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="DIN_WIDTH" VALUE="32"/>
@@ -6546,363 +7021,19 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_int_config_cfg_data">
+        <PORT DIR="I" LEFT="31" NAME="Din" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_int_config_cfg_data">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_int_config" PORT="cfg_data"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_config_settings_int_config" PORT="cfg_data"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_3_Dout">
+        <PORT DIR="O" LEFT="15" NAME="Dout" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_config_settings_xlslice_3_Dout">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="n_pulses"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_a_integrator_pulse_int_a" PORT="n_pulses"/>
+            <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="n_pulses"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
       <BUSINTERFACES/>
-    </MODULE>
-    <MODULE FULLNAME="/receive_chain/profile_integration/axis_data_fifo_0" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_data_fifo" VLNV="xilinx.com:ip:axis_data_fifo:1.1">
-      <DOCUMENTS>
-        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axis_infrastructure_ip_suite;v=v1_1;d=pg085-axi4stream-infrastructure.pdf"/>
-      </DOCUMENTS>
-      <PARAMETERS>
-        <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
-        <PARAMETER NAME="C_AXIS_TDATA_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="C_AXIS_TID_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_AXIS_TUSER_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000000000011"/>
-        <PARAMETER NAME="C_FIFO_DEPTH" VALUE="2048"/>
-        <PARAMETER NAME="C_FIFO_MODE" VALUE="1"/>
-        <PARAMETER NAME="C_IS_ACLK_ASYNC" VALUE="0"/>
-        <PARAMETER NAME="C_SYNCHRONIZER_STAGE" VALUE="2"/>
-        <PARAMETER NAME="C_ACLKEN_CONV_MODE" VALUE="0"/>
-        <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
-        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-        <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
-        <PARAMETER NAME="FIFO_DEPTH" VALUE="2048"/>
-        <PARAMETER NAME="FIFO_MODE" VALUE="1"/>
-        <PARAMETER NAME="IS_ACLK_ASYNC" VALUE="0"/>
-        <PARAMETER NAME="ACLKEN_CONV_MODE" VALUE="0"/>
-        <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-        <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-        <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-        <PARAMETER NAME="SYNCHRONIZATION_STAGES" VALUE="2"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_axis_data_fifo_0_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="I" NAME="s_axis_aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="s_axis_aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_m_axi_wvalid_fifo">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="m_axi_wvalid_fifo"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_axis_data_fifo_0_s_axis_tready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="m_axi_wready_fifo"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_m_axi_wdata_fifo">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="m_axi_wdata_fifo"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_axis_data_fifo_0_m_axis_tvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="s_axis_tvalid_fifo"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="m_axis_tready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_s_axis_tready_fifo">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="s_axis_tready_fifo"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="15" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_axis_data_fifo_0_m_axis_tdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="s_axis_tdata_fifo"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="axis_data_count" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="O" LEFT="31" NAME="axis_wr_data_count" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="O" LEFT="31" NAME="axis_rd_data_count" RIGHT="0" SIGIS="undef"/>
-      </PORTS>
-      <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="__NOC__" NAME="S_AXIS" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
-          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
-            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="__NOC__" NAME="M_AXIS" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
-          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
-            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-      </BUSINTERFACES>
-    </MODULE>
-    <MODULE FULLNAME="/receive_chain/profile_integration/axis_dwidth_converter_0" HWVERSION="1.1" INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axis_dwidth_converter" VLNV="xilinx.com:ip:axis_dwidth_converter:1.1">
-      <DOCUMENTS>
-        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axis_infrastructure_ip_suite;v=v1_1;d=pg085-axi4stream-infrastructure.pdf"/>
-      </DOCUMENTS>
-      <PARAMETERS>
-        <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
-        <PARAMETER NAME="C_S_AXIS_TDATA_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="C_M_AXIS_TDATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_AXIS_TID_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_AXIS_TDEST_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_S_AXIS_TUSER_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_M_AXIS_TUSER_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="C_AXIS_SIGNAL_SET" VALUE="0b00000000000000000000000000000011"/>
-        <PARAMETER NAME="S_TDATA_NUM_BYTES" VALUE="2"/>
-        <PARAMETER NAME="M_TDATA_NUM_BYTES" VALUE="4"/>
-        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-        <PARAMETER NAME="TUSER_BITS_PER_BYTE" VALUE="0"/>
-        <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-        <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-        <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-        <PARAMETER NAME="HAS_ACLKEN" VALUE="0"/>
-        <PARAMETER NAME="HAS_MI_TKEEP" VALUE="0"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_axis_dwidth_converter_0_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="BUS"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_m_axi_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="m_axi_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_axis_dwidth_converter_0_s_axis_tready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="m_axi_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_m_axi_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_pulse_int_0" PORT="m_axi_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="m_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_channel_a_ch_a_writer_s_axis_tvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="s_axis_tvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="m_axis_tready" SIGIS="undef" SIGNAME="receive_chain_channel_a_ch_a_writer_s_axis_tready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="s_axis_tready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_channel_a_ch_a_writer_s_axis_tdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_channel_a_ch_a_writer" PORT="s_axis_tdata"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="__NOC__" NAME="S_AXIS" TYPE="SLAVE" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
-          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
-            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="receive_chain_profile_integration_axis_dwidth_converter_0_M_AXIS" NAME="M_AXIS" TYPE="MASTER" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
-          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
-            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-      </BUSINTERFACES>
-    </MODULE>
-    <MODULE FULLNAME="/receive_chain/profile_integration/pulse_int_0" HWVERSION="1.0" INSTANCE="receive_chain_profile_integration_pulse_int_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="pulse_int" VLNV="user.org:module_ref:pulse_int:1.0">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="AXIS_DATA_WIDTH" VALUE="16"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_pulse_int_0_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT CLKFREQUENCY="125000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="receive_chain_adc_streamer_adc_clk">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_clk"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="gpio_interface_enable_Dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="s_axis_tready" SIGIS="undef"/>
-        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_axis_constant_0_m_axis_tdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_axis_constant_0" PORT="m_axis_tdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="s_axis_tvalid" SIGIS="undef" SIGNAME="receive_chain_axis_constant_0_m_axis_tvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_axis_constant_0" PORT="m_axis_tvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="m_axi_wready" SIGIS="undef" SIGNAME="receive_chain_profile_integration_axis_dwidth_converter_0_s_axis_tready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" PORT="s_axis_tready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="15" NAME="m_axi_wdata" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_m_axi_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" PORT="s_axis_tdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="m_axi_wvalid" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_m_axi_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_dwidth_converter_0" PORT="s_axis_tvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="s_axis_tready_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_s_axis_tready_fifo">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="m_axis_tready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="s_axis_tdata_fifo" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_axis_data_fifo_0_m_axis_tdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="m_axis_tdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="s_axis_tvalid_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_axis_data_fifo_0_m_axis_tvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="m_axis_tvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="15" NAME="m_axi_wdata_fifo" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_m_axi_wdata_fifo">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="s_axis_tdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="m_axi_wvalid_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_pulse_int_0_m_axi_wvalid_fifo">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="s_axis_tvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="m_axi_wready_fifo" SIGIS="undef" SIGNAME="receive_chain_profile_integration_axis_data_fifo_0_s_axis_tready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_profile_integration_axis_data_fifo_0" PORT="s_axis_tready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="n_pulses" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_3_Dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_3" PORT="Dout"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="n_samples" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_2_Dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_2" PORT="Dout"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="start_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_0_Dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_0" PORT="Dout"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="15" NAME="end_index" RIGHT="0" SIGIS="undef" SIGNAME="receive_chain_config_settings_xlslice_1_Dout">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="receive_chain_config_settings_xlslice_1" PORT="Dout"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="receive_chain_axis_constant_0_M_AXIS" NAME="s_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="2"/>
-          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
-          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
-          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
-          <PARAMETER NAME="HAS_TLAST" VALUE="0"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="125000000"/>
-          <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_axis_red_pitaya_adc_0_0_adc_clk"/>
-          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
-          <PORTMAPS>
-            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
-            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
-            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-      </BUSINTERFACES>
     </MODULE>
     <MODULE FULLNAME="/signal_generator/axis_red_pitaya_dac_0" HWVERSION="1.0" INSTANCE="signal_generator_axis_red_pitaya_dac_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_red_pitaya_dac" VLNV="pavel-demin:user:axis_red_pitaya_dac:1.0">
       <DOCUMENTS/>
