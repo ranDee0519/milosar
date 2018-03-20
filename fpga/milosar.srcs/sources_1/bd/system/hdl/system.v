@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Tue Mar 20 14:20:52 2018
+//Date        : Tue Mar 20 16:30:09 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system.bd
 //Design      : system
@@ -4866,7 +4866,7 @@ module system
   output [1:0]daisy_p_o;
   inout [7:0]exp_n_tri_io;
   inout [7:0]exp_p_tri_io;
-  output [7:0]led_o;
+  output [0:0]led_o;
 
   wire [7:0]Net;
   wire [7:0]Net1;
@@ -5090,6 +5090,7 @@ module system
   assign daisy_n_o[1:0] = util_ds_buf_2_OBUF_DS_N;
   assign daisy_p_i_1 = daisy_p_i[1:0];
   assign daisy_p_o[1:0] = util_ds_buf_2_OBUF_DS_P;
+  assign led_o[0] = enable_1;
   clocking_system_imp_7QV4LN clocking_system
        (.IBUF_DS_N(adc_clk_n_i_1),
         .IBUF_DS_P(adc_clk_p_i_1),

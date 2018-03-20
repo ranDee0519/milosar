@@ -115,7 +115,7 @@ int main(int argc, char **argv)
 	set_ramping(gpio, &tx_synth, &lo_synth, false);
 	
 	//lower the enable flag
-	//set_reg(gpio, LOW);
+	set_reg(gpio, LOW);
 	
 	if (config.is_debug)
 	{
@@ -263,7 +263,7 @@ void* record(void *arg)
 
 void help(void)
 {
-	printf(" -h: display this help screen\n");
+	printf(" -h: display help screen\n");
 	printf(" -d: enable debug mode\n");
 	printf(" -i: enable imu mode\n");
 	printf(" -l: name of local oscillator (lo) synth parameter file\n");

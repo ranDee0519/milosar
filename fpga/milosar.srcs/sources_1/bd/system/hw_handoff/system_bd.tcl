@@ -331,42 +331,6 @@ CONFIG.AXIS_DATA_WIDTH {16} \
   connect_bd_net -net pulse_int_b_s_axis_tready_fifo [get_bd_pins axis_data_fifo_b/m_axis_tready] [get_bd_pins pulse_int_b/s_axis_tready_fifo]
   connect_bd_net -net start_index_1 [get_bd_pins start_index] [get_bd_pins pulse_int_b/start_index]
 
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain/profile_integration/channel_b_integrator] -layout_string {
-   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
-#  -string -flagsOSRD
-preplace port S_AXIS_B -pg 1 -y 190 -defaultsOSRD
-preplace port aclk -pg 1 -y 430 -defaultsOSRD
-preplace port M_AXIS -pg 1 -y 100 -defaultsOSRD
-preplace portBus enable -pg 1 -y 410 -defaultsOSRD
-preplace portBus n_samples -pg 1 -y 350 -defaultsOSRD
-preplace portBus start_index -pg 1 -y 370 -defaultsOSRD
-preplace portBus n_pulses -pg 1 -y 330 -defaultsOSRD
-preplace portBus end_index -pg 1 -y 390 -defaultsOSRD
-preplace inst pulse_int_b -pg 1 -lvl 2 -y 290 -defaultsOSRD
-preplace inst axis_dwidth_converter_b -pg 1 -lvl 3 -y 100 -defaultsOSRD
-preplace inst axis_data_fifo_b -pg 1 -lvl 1 -y 520 -defaultsOSRD
-preplace netloc Conn1 1 3 1 N
-preplace netloc start_index_1 1 0 2 NJ 370 NJ
-preplace netloc pulse_int_b_m_axi_wvalid_fifo 1 0 3 60 410 NJ 450 830
-preplace netloc axis_data_fifo_b_m_axis_tvalid 1 1 1 440
-preplace netloc end_index_1 1 0 2 NJ 390 NJ
-preplace netloc axis_data_fifo_b_s_axis_tready 1 0 2 40 310 NJ
-preplace netloc n_samples_1 1 0 2 NJ 350 NJ
-preplace netloc pulse_int_0_m_axi_wvalid 1 2 1 840
-preplace netloc pulse_int_b_s_axis_tready_fifo 1 1 2 NJ 500 860
-preplace netloc S_AXIS_1 1 0 2 NJ 190 NJ
-preplace netloc pulse_int_b_m_axi_wdata_fifo 1 0 3 50 400 NJ 440 840
-preplace netloc pulse_int_0_m_axi_wdata 1 2 1 850
-preplace netloc n_pulses_1 1 0 2 NJ 330 NJ
-preplace netloc Net 1 0 3 30 230 430 140 NJ
-preplace netloc Net1 1 0 3 20 210 420 120 NJ
-preplace netloc axis_dwidth_converter_b_s_axis_tready 1 1 2 450 90 NJ
-preplace netloc axis_data_fifo_b_m_axis_tdata 1 1 1 430
-levelinfo -pg 1 0 240 640 990 1140 -top 0 -bot 630
-",
-}
-
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -466,42 +430,6 @@ CONFIG.AXIS_DATA_WIDTH {16} \
   connect_bd_net -net pulse_int_0_m_axi_wvalid_fifo [get_bd_pins axis_data_fifo_a/s_axis_tvalid] [get_bd_pins pulse_int_a/m_axi_wvalid_fifo]
   connect_bd_net -net pulse_int_0_s_axis_tready_fifo [get_bd_pins axis_data_fifo_a/m_axis_tready] [get_bd_pins pulse_int_a/s_axis_tready_fifo]
 
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain/profile_integration/channel_a_integrator] -layout_string {
-   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
-#  -string -flagsOSRD
-preplace port aclk -pg 1 -y 430 -defaultsOSRD
-preplace port M_AXIS -pg 1 -y 100 -defaultsOSRD
-preplace port S_AXIS_A -pg 1 -y 190 -defaultsOSRD
-preplace portBus enable -pg 1 -y 410 -defaultsOSRD
-preplace portBus start_index -pg 1 -y 370 -defaultsOSRD
-preplace portBus n_samples -pg 1 -y 350 -defaultsOSRD
-preplace portBus n_pulses -pg 1 -y 330 -defaultsOSRD
-preplace portBus end_index -pg 1 -y 390 -defaultsOSRD
-preplace inst pulse_int_a -pg 1 -lvl 2 -y 290 -defaultsOSRD
-preplace inst axis_dwidth_converter_a -pg 1 -lvl 3 -y 100 -defaultsOSRD
-preplace inst axis_data_fifo_a -pg 1 -lvl 1 -y 520 -defaultsOSRD
-preplace netloc Conn1 1 3 1 N
-preplace netloc pulse_int_0_m_axi_wdata_fifo 1 0 3 50 410 NJ 450 840
-preplace netloc pulse_int_0_s_axis_tready_fifo 1 1 2 NJ 500 850
-preplace netloc axis_data_fifo_0_m_axis_tdata 1 1 1 440
-preplace netloc axis_data_fifo_0_s_axis_tready 1 0 2 40 310 NJ
-preplace netloc pulse_int_0_m_axi_wvalid_fifo 1 0 3 60 400 NJ 440 830
-preplace netloc axis_dwidth_converter_0_s_axis_tready 1 1 2 450 90 NJ
-preplace netloc pulse_int_0_m_axi_wvalid 1 2 1 840
-preplace netloc config_settings_n_samples 1 0 2 NJ 350 NJ
-preplace netloc config_settings_int_factor 1 0 2 NJ 330 NJ
-preplace netloc config_settings_stop_index 1 0 2 NJ 390 NJ
-preplace netloc S_AXIS_1 1 0 2 NJ 190 NJ
-preplace netloc pulse_int_0_m_axi_wdata 1 2 1 850
-preplace netloc aresetn_1 1 0 3 30 260 440 140 NJ
-preplace netloc Net1 1 0 3 20 240 420 130 NJ
-preplace netloc axis_data_fifo_0_m_axis_tvalid 1 1 1 450
-preplace netloc config_settings_start_index 1 0 2 NJ 370 NJ
-levelinfo -pg 1 0 240 640 980 1130 -top 0 -bot 630
-",
-}
-
   # Restore current instance
   current_bd_instance $oldCurInst
 }
@@ -578,39 +506,6 @@ proc create_hier_cell_profile_integration { parentCell nameHier } {
   connect_bd_net -net config_settings_n_samples [get_bd_pins channel_a_integrator/n_samples] [get_bd_pins channel_b_integrator/n_samples] [get_bd_pins config_settings/n_samples]
   connect_bd_net -net config_settings_start_index [get_bd_pins channel_a_integrator/start_index] [get_bd_pins channel_b_integrator/start_index] [get_bd_pins config_settings/start_index]
   connect_bd_net -net config_settings_stop_index [get_bd_pins channel_a_integrator/end_index] [get_bd_pins channel_b_integrator/end_index] [get_bd_pins config_settings/stop_index]
-
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain/profile_integration] -layout_string {
-   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
-#  -string -flagsOSRD
-preplace port integration -pg 1 -y 350 -defaultsOSRD
-preplace port channel_a -pg 1 -y 260 -defaultsOSRD
-preplace port ch_b_out -pg 1 -y 110 -defaultsOSRD
-preplace port channel_b -pg 1 -y 50 -defaultsOSRD
-preplace port aclk -pg 1 -y 370 -defaultsOSRD
-preplace port index -pg 1 -y 330 -defaultsOSRD
-preplace port ch_a_out -pg 1 -y 320 -defaultsOSRD
-preplace portBus enable -pg 1 -y 170 -defaultsOSRD
-preplace portBus aresetn -pg 1 -y 390 -defaultsOSRD
-preplace inst channel_b_integrator -pg 1 -lvl 2 -y 110 -defaultsOSRD
-preplace inst channel_a_integrator -pg 1 -lvl 2 -y 320 -defaultsOSRD
-preplace inst config_settings -pg 1 -lvl 1 -y 360 -defaultsOSRD
-preplace netloc Conn1 1 0 1 NJ
-preplace netloc Conn2 1 0 1 NJ
-preplace netloc channel_a_1 1 0 2 NJ 260 NJ
-preplace netloc channel_b_1 1 0 2 NJ 50 NJ
-preplace netloc channel_a_integrator_M_AXIS 1 2 1 NJ
-preplace netloc config_settings_int_factor 1 1 1 330
-preplace netloc config_settings_n_samples 1 1 1 290
-preplace netloc channel_b_integrator_M_AXIS 1 2 1 NJ
-preplace netloc config_settings_stop_index 1 1 1 280
-preplace netloc aresetn_1 1 0 2 NJ 170 300
-preplace netloc aresetn_2 1 0 1 NJ
-preplace netloc Net1 1 0 2 20 270 310
-preplace netloc config_settings_start_index 1 1 1 320
-levelinfo -pg 1 0 150 450 590 -top 0 -bot 440
-",
-}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -1156,51 +1051,6 @@ CONFIG.AXIS_TDATA_WIDTH {16} \
   connect_bd_net -net clk_sync_clk_out1 [get_bd_pins aclk] [get_bd_pins adc_streamer/adc_clk] [get_bd_pins anti_aliasing/aclk] [get_bd_pins channel_a/aclk] [get_bd_pins channel_b/aclk] [get_bd_pins profile_integration/aclk]
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins int_clk] [get_bd_pins adc_streamer/int_clk]
   connect_bd_net -net enable_1 [get_bd_pins enable] [get_bd_pins channel_a/enable] [get_bd_pins channel_b/enable] [get_bd_pins profile_integration/enable]
-
-  # Perform GUI Layout
-  regenerate_bd_layout -hierarchy [get_bd_cells /receive_chain] -layout_string {
-   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
-#  -string -flagsOSRD
-preplace port index_config -pg 1 -y 340 -defaultsOSRD
-preplace port ch_a_status -pg 1 -y 160 -defaultsOSRD
-preplace port M_AXI_A -pg 1 -y 230 -defaultsOSRD
-preplace port M_AXI_B -pg 1 -y 400 -defaultsOSRD
-preplace port int_clk -pg 1 -y 250 -defaultsOSRD
-preplace port aclk -pg 1 -y 190 -defaultsOSRD
-preplace port int_config -pg 1 -y 360 -defaultsOSRD
-preplace port ch_b_status -pg 1 -y 110 -defaultsOSRD
-preplace port adc_csn -pg 1 -y 210 -defaultsOSRD
-preplace portBus enable -pg 1 -y 420 -defaultsOSRD
-preplace portBus adc_dat_a -pg 1 -y 270 -defaultsOSRD
-preplace portBus adc_dat_b -pg 1 -y 310 -defaultsOSRD
-preplace portBus aresetn -pg 1 -y 290 -defaultsOSRD
-preplace inst adc_streamer -pg 1 -lvl 1 -y 260 -defaultsOSRD
-preplace inst anti_aliasing -pg 1 -lvl 2 -y 260 -defaultsOSRD
-preplace inst channel_a -pg 1 -lvl 4 -y 230 -defaultsOSRD
-preplace inst profile_integration -pg 1 -lvl 3 -y 300 -defaultsOSRD
-preplace inst channel_b -pg 1 -lvl 4 -y 400 -defaultsOSRD
-preplace netloc S_AXI_1 1 0 4 NJ 110 NJ 110 NJ 110 NJ
-preplace netloc anti_aliasing_M01_AXIS 1 2 1 370
-preplace netloc channel_b_M_AXI 1 4 1 NJ
-preplace netloc axis_red_pitaya_adc_0_adc_csn 1 1 4 110 120 N 120 N 120 NJ
-preplace netloc adc_dat_a_i_1 1 0 1 NJ
-preplace netloc index_config_1 1 0 3 NJ 350 NJ 350 NJ
-preplace netloc adc_streamer_m00_axis 1 1 1 NJ
-preplace netloc anti_aliasing_M00_AXIS 1 2 1 370
-preplace netloc adc_streamer_m01_axis 1 1 1 NJ
-preplace netloc clk_wiz_0_clk_out1 1 0 1 NJ
-preplace netloc ps_axi_periph_M01_AXI 1 0 4 NJ 160 NJ 160 NJ 160 NJ
-preplace netloc S_AXIS_1 1 3 1 650
-preplace netloc S_AXIS_2 1 3 1 650
-preplace netloc adc_dat_b_i_1 1 0 1 NJ
-preplace netloc aresetn2_1 1 0 4 -140 340 120 370 380 170 640
-preplace netloc int_config_1 1 0 3 NJ 360 NJ 360 NJ
-preplace netloc axis_ram_writer_0_M_AXI 1 4 1 NJ
-preplace netloc enable_1 1 0 4 NJ 380 N 380 400 180 630
-preplace netloc clk_sync_clk_out1 1 1 4 130 340 350 150 660 130 880
-levelinfo -pg 1 -170 -10 240 520 780 920 -top 0 -bot 790
-",
-}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -2933,7 +2783,7 @@ proc create_root_design { parentCell } {
   set daisy_p_o [ create_bd_port -dir O -from 1 -to 0 daisy_p_o ]
   set exp_n_tri_io [ create_bd_port -dir IO -from 7 -to 0 exp_n_tri_io ]
   set exp_p_tri_io [ create_bd_port -dir IO -from 7 -to 0 exp_p_tri_io ]
-  set led_o [ create_bd_port -dir O -from 7 -to 0 led_o ]
+  set led_o [ create_bd_port -dir O -from 0 -to 0 led_o ]
 
   # Create instance: clocking_system
   create_hier_cell_clocking_system [current_bd_instance .] clocking_system
@@ -2984,7 +2834,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins clocking_system/clk_out] [get_bd_pins receive_chain/int_clk]
   connect_bd_net -net daisy_n_i_1 [get_bd_ports daisy_n_i] [get_bd_pins daisy_chain/IBUF_DS_N]
   connect_bd_net -net daisy_p_i_1 [get_bd_ports daisy_p_i] [get_bd_pins daisy_chain/IBUF_DS_P]
-  connect_bd_net -net enable_1 [get_bd_pins gpio_interface/enable] [get_bd_pins receive_chain/enable] [get_bd_pins signal_generator/enable]
+  connect_bd_net -net enable_1 [get_bd_ports led_o] [get_bd_pins gpio_interface/enable] [get_bd_pins receive_chain/enable] [get_bd_pins signal_generator/enable]
   connect_bd_net -net util_ds_buf_2_OBUF_DS_N [get_bd_ports daisy_n_o] [get_bd_pins daisy_chain/OBUF_DS_N]
   connect_bd_net -net util_ds_buf_2_OBUF_DS_P [get_bd_ports daisy_p_o] [get_bd_pins daisy_chain/OBUF_DS_P]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins gpio_interface/aresetn] [get_bd_pins processing_system/ARESETN] [get_bd_pins receive_chain/aresetn] [get_bd_pins signal_generator/aresetn]

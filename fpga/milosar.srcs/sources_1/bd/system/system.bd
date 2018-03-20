@@ -171,7 +171,7 @@
           <spirit:wire>
             <spirit:direction>out</spirit:direction>
             <spirit:vector>
-              <spirit:left>7</spirit:left>
+              <spirit:left>0</spirit:left>
               <spirit:right>0</spirit:right>
             </spirit:vector>
           </spirit:wire>
@@ -500,6 +500,7 @@
         <spirit:internalPortReference spirit:componentRef="gpio_interface" spirit:portRef="enable"/>
         <spirit:internalPortReference spirit:componentRef="signal_generator" spirit:portRef="enable"/>
         <spirit:internalPortReference spirit:componentRef="receive_chain" spirit:portRef="enable"/>
+        <spirit:externalPortReference spirit:portRef="led_o"/>
       </spirit:adHocConnection>
     </spirit:adHocConnections>
     <spirit:hierConnections>

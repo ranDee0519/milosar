@@ -1,7 +1,7 @@
 //Copyright 1986-2016 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2016.2 (lin64) Build 1577090 Thu Jun  2 16:32:35 MDT 2016
-//Date        : Tue Mar 20 14:20:53 2018
+//Date        : Tue Mar 20 16:30:09 2018
 //Host        : ubuntu running 64-bit Ubuntu 17.10
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -85,7 +85,7 @@ module system_wrapper
   output [1:0]daisy_p_o;
   inout [7:0]exp_n_tri_io;
   inout [7:0]exp_p_tri_io;
-  output [7:0]led_o;
+  output [0:0]led_o;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -124,7 +124,7 @@ module system_wrapper
   wire [1:0]daisy_p_o;
   wire [7:0]exp_n_tri_io;
   wire [7:0]exp_p_tri_io;
-  wire [7:0]led_o;
+  wire [0:0]led_o;
 
   system system_i
        (.DDR_addr(DDR_addr),

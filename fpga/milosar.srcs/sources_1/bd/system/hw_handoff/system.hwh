@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Mar 20 14:20:54 2018" VIVADOVERSION="2016.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Mar 20 16:30:10 2018" VIVADOVERSION="2016.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z010" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
   <EXTERNALPORTS>
-    <PORT DIR="O" LEFT="7" NAME="led_o" RIGHT="0" SIGIS="undef"/>
+    <PORT DIR="O" LEFT="0" NAME="led_o" RIGHT="0" SIGIS="undef" SIGNAME="gpio_interface_enable_Dout">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="gpio_interface_enable" PORT="Dout"/>
+      </CONNECTIONS>
+    </PORT>
     <PORT DIR="I" LEFT="13" NAME="adc_dat_a_i" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_adc_dat_a_i">
       <CONNECTIONS>
         <CONNECTION INSTANCE="receive_chain_adc_streamer" PORT="adc_dat_a"/>
@@ -855,6 +859,7 @@
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_data_fifo_b" PORT="s_axis_aresetn"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_axis_dwidth_converter_b" PORT="aresetn"/>
             <CONNECTION INSTANCE="receive_chain_profile_integration_channel_b_integrator_pulse_int_b" PORT="aresetn"/>
+            <CONNECTION INSTANCE="External_Ports" PORT="led_o"/>
             <CONNECTION INSTANCE="gpio_interface_frequency_divider" PORT="enable"/>
           </CONNECTIONS>
         </PORT>
