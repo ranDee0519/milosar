@@ -53,12 +53,12 @@ int main(int argc, char **argv)
 	
 	ASSERT(init_mem(), "Failed to open /dev/mem.");
 	
-	ASSERT(create_map(SREG, MAP_SHARED, &integ, INT_BASE_ADDR), "Failed to allocate map for CFG register.");
-	ASSERT(create_map(SREG, MAP_SHARED, &indx, INDX_BASE_ADDR), "Failed to allocate map for CFG register.");
-	ASSERT(create_map(SREG, MAP_SHARED, &ref, GEN_BASE_ADDR), "Failed to allocate map for GEN register.");	
-	ASSERT(create_map(SREG, MAP_SHARED, &gpio, GPIO_BASE_ADDR), "Failed to allocate map for GPIO register.");	
-	ASSERT(create_map(SREG, MAP_SHARED, &canc, CANC_BASE_ADDR), "Failed to allocate map for CANC register.");
-	ASSERT(create_map(SREG, MAP_SHARED, &phase, PHSE_BASE_ADDR), "Failed to allocate map for CANC register.");
+	ASSERT(create_map(SREG, MAP_SHARED, &integ, INT_BASE_ADDR), 	"Failed to allocate map for CFG register.");
+	ASSERT(create_map(SREG, MAP_SHARED, &indx, 	INDX_BASE_ADDR), 	"Failed to allocate map for CFG register.");
+	ASSERT(create_map(SREG, MAP_SHARED, &ref, 	GEN_BASE_ADDR), 	"Failed to allocate map for GEN register.");	
+	ASSERT(create_map(SREG, MAP_SHARED, &gpio, 	GPIO_BASE_ADDR), 	"Failed to allocate map for GPIO register.");	
+	ASSERT(create_map(SREG, MAP_SHARED, &canc, 	CANC_BASE_ADDR), 	"Failed to allocate map for CANC register.");
+	ASSERT(create_map(SREG, MAP_SHARED, &phase, PHSE_BASE_ADDR), 	"Failed to allocate map for CANC register.");
 	
 	//set dds phase increment for synthesizer reference
 	set_reg(ref, get_phase_increment(PHASE_DETECTOR_FREQ/2));
